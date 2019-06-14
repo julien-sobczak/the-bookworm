@@ -3,9 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material/react-button": "^0.13.0",
+    "@material/react-card": "^0.13.0",
+    "@material/react-icon-button": "^0.13.0",
+    "@material/react-list": "^0.13.2",
+    "@material/react-material-icon": "^0.13.0",
+    "@material/react-menu": "^0.13.2",
+    "@material/react-radio": "^0.13.0",
+    "@material/react-select": "^0.13.2",
+    "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "styled-components": "^4.3.1",
+    "typeface-arizonia": "0.0.72",
+    "typeface-roboto": "0.0.54",
+    "typeface-roboto-condensed": "0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,0 +1,187 @@
+
+:root {
+    --game-eye-span-step: .5in;
+}
+
+.VisionSpanDrill {
+    text-align: center;
+}
+
+.GameControls {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    text-align: right;
+}
+.GameControls ul {
+    list-style-type: none;
+}
+.GameControls li {
+    display: inline-block;
+}
+
+
+/* An input without the border */
+.input {
+    border: none;
+    color: white;
+}
+.input:focus{
+    outline: none;
+}
+
+.input-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    margin-left: -5px;
+    margin-top: -5px;
+    font-size: 1.5em;
+    background-color: black;
+    color: white;
+    z-index: 10;
+    text-transform: uppercase;
+}
+
+.Cell {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 5px;
+}
+.Cell.valid {
+    color: green;
+}
+.Cell.highlighted {
+    background-color: green;
+    color: white;
+}
+
+.Line.Span1  .Cell:first-child  { margin-left: calc(-1  * var(--game-eye-span-step)); }
+.Line.Span1  .Cell:last-child   { margin-left: calc(+1  * var(--game-eye-span-step)); }
+.Line.Span2  .Cell:first-child  { margin-left: calc(-2  * var(--game-eye-span-step)); }
+.Line.Span2  .Cell:last-child   { margin-left: calc(+2  * var(--game-eye-span-step)); }
+.Line.Span3  .Cell:first-child  { margin-left: calc(-3  * var(--game-eye-span-step)); }
+.Line.Span3  .Cell:last-child   { margin-left: calc(+3  * var(--game-eye-span-step)); }
+.Line.Span4  .Cell:first-child  { margin-left: calc(-4  * var(--game-eye-span-step)); }
+.Line.Span4  .Cell:last-child   { margin-left: calc(+4  * var(--game-eye-span-step)); }
+.Line.Span5  .Cell:first-child  { margin-left: calc(-5  * var(--game-eye-span-step)); }
+.Line.Span5  .Cell:last-child   { margin-left: calc(+5  * var(--game-eye-span-step)); }
+.Line.Span6  .Cell:first-child  { margin-left: calc(-6  * var(--game-eye-span-step)); }
+.Line.Span6  .Cell:last-child   { margin-left: calc(+6  * var(--game-eye-span-step)); }
+.Line.Span7  .Cell:first-child  { margin-left: calc(-7  * var(--game-eye-span-step)); }
+.Line.Span7  .Cell:last-child   { margin-left: calc(+7  * var(--game-eye-span-step)); }
+.Line.Span8  .Cell:first-child  { margin-left: calc(-8  * var(--game-eye-span-step)); }
+.Line.Span8  .Cell:last-child   { margin-left: calc(+8  * var(--game-eye-span-step)); }
+.Line.Span9  .Cell:first-child  { margin-left: calc(-9  * var(--game-eye-span-step)); }
+.Line.Span9  .Cell:last-child   { margin-left: calc(+9  * var(--game-eye-span-step)); }
+.Line.Span10 .Cell:first-child  { margin-left: calc(-10 * var(--game-eye-span-step)); }
+.Line.Span10 .Cell:last-child   { margin-left: calc(+10 * var(--game-eye-span-step)); }
+.Line.Span11 .Cell:first-child  { margin-left: calc(-11 * var(--game-eye-span-step)); }
+.Line.Span11 .Cell:last-child   { margin-left: calc(+11 * var(--game-eye-span-step)); }
+.Line.Span12 .Cell:first-child  { margin-left: calc(-12 * var(--game-eye-span-step)); }
+.Line.Span12 .Cell:last-child   { margin-left: calc(+12 * var(--game-eye-span-step)); }
+.Line.Span13 .Cell:first-child  { margin-left: calc(-13 * var(--game-eye-span-step)); }
+.Line.Span13 .Cell:last-child   { margin-left: calc(+13 * var(--game-eye-span-step)); }
+.Line.Span14 .Cell:first-child  { margin-left: calc(-14 * var(--game-eye-span-step)); }
+.Line.Span14 .Cell:last-child   { margin-left: calc(+14 * var(--game-eye-span-step)); }
+.Line.Span15 .Cell:first-child  { margin-left: calc(-15 * var(--game-eye-span-step)); }
+.Line.Span15 .Cell:last-child   { margin-left: calc(+15 * var(--game-eye-span-step)); }
+.Line.Span16 .Cell:first-child  { margin-left: calc(-16 * var(--game-eye-span-step)); }
+.Line.Span16 .Cell:last-child   { margin-left: calc(+16 * var(--game-eye-span-step)); }
+.Line.Span17 .Cell:first-child  { margin-left: calc(-17 * var(--game-eye-span-step)); }
+.Line.Span17 .Cell:last-child   { margin-left: calc(+17 * var(--game-eye-span-step)); }
+.Line.Span18 .Cell:first-child  { margin-left: calc(-18 * var(--game-eye-span-step)); }
+.Line.Span18 .Cell:last-child   { margin-left: calc(+18 * var(--game-eye-span-step)); }
+.Line.Span19 .Cell:first-child  { margin-left: calc(-19 * var(--game-eye-span-step)); }
+.Line.Span19 .Cell:last-child   { margin-left: calc(+19 * var(--game-eye-span-step)); }
+.Line.Span20 .Cell:first-child  { margin-left: calc(-20 * var(--game-eye-span-step)); }
+.Line.Span20 .Cell:last-child   { margin-left: calc(+20 * var(--game-eye-span-step)); }
+.Line.Span21 .Cell:first-child  { margin-left: calc(-21 * var(--game-eye-span-step)); }
+.Line.Span21 .Cell:last-child   { margin-left: calc(+21 * var(--game-eye-span-step)); }
+.Line.Span22 .Cell:first-child  { margin-left: calc(-22 * var(--game-eye-span-step)); }
+.Line.Span22 .Cell:last-child   { margin-left: calc(+22 * var(--game-eye-span-step)); }
+.Line.Span23 .Cell:first-child  { margin-left: calc(-23 * var(--game-eye-span-step)); }
+.Line.Span23 .Cell:last-child   { margin-left: calc(+23 * var(--game-eye-span-step)); }
+.Line.Span24 .Cell:first-child  { margin-left: calc(-24 * var(--game-eye-span-step)); }
+.Line.Span24 .Cell:last-child   { margin-left: calc(+24 * var(--game-eye-span-step)); }
+.Line.Span25 .Cell:first-child  { margin-left: calc(-25 * var(--game-eye-span-step)); }
+.Line.Span25 .Cell:last-child   { margin-left: calc(+25 * var(--game-eye-span-step)); }
+
+
+
+.Catalog .Demo {
+    width: 100%;
+    height: 200px;
+    font-size: 15px;
+    background: white;
+}
+
+.Demo .Annotations .LeftMarker  { position: absolute; top: 50%; left: 50%; margin-left: calc(-2  * var(--game-eye-span-step) + 7px); /* Span2 */ margin-top: 7px; }
+.Demo .Annotations .RightMarker { position: absolute; top: 50%; left: 50%; margin-left: calc(+2  * var(--game-eye-span-step) + 7px); /* Span2 */ margin-top: 7px; }
+
+.Demo .PreviousStep, .Demo .NextStep {
+    position: absolute;
+    top: 40px;
+    color: black;
+}
+.Demo .PreviousStep {
+    right: 80px;
+}
+.Demo .NextStep {
+    right: 20px;
+}
+
+.Demo .Instruction {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Roboto Condensed';
+    font-weight: bold;
+    font-size: 16px;
+    background-color: var(--mdc-theme-background);
+    color: white;
+    z-index: 1;
+}
+.Demo .Instruction::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 45%;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    background-color: var(--mdc-theme-background);
+    z-index: -1;
+}
+.Demo .Instruction[position="left"]::before  { left: 10%; }
+.Demo .Instruction[position="right"]::before { left: 85%; }
+
+
+.Demo .EyeMarker {
+    background: red;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% + 5px);
+    left: calc(50% + 1px);
+    animation: EyeBlinking 4s infinite;
+}
+
+@keyframes EyeBlinking {
+    from { transform: scale(0.0); opacity: 0.6;}
+    50% { transform: scale(2.0); opacity: 0.1;}
+    to   { transform: scale(0.0); opacity: 0.6}
+}
+
+.Preview .Demo .Instruction {
+    background-color: black;
+}
+.Preview .Demo .Instruction::before {
+    background-color: black;
+}
