@@ -1,33 +1,234 @@
-.App {
-  text-align: center;
+:root {
+  --main-bg-color: rgb(38, 47, 61);
+  --main-border-radius: 4px; /* Match MDC */
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0px;
+}
+#root, #content {
+  height: 100%;
+}
+
+a:visited {
+  color: inherit;
+}
+
+/*
+ * Menu
+ */
+
+/* Inspiration: https://console.firebase.google.com/project/typio-59500/overview */
+nav.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+nav.menu a {
+  /* Box */
+  padding: 20px;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+  color: gray;
+  /* Text */
+  text-decoration: none;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 12px;
+}
+nav.menu a.active, nav.menu a:hover {
+  color: rgba(255, 255, 255, .7);
+}
+/* See https://htmlcolorcodes.com/assets/images/color-picker/html-color-codes-color-wheel-analogous-thumb-43afde7d.png for color wheel */
+/* #FF5733 - #FF8D19 - #FFC200 - #EDDC52 - #ADD45B - #57C785 - #00BAAD - #2A7B9B - #3C3D6B - #511749 - #900B3F - #C70038 */
+nav.menu a:nth-child(1).active, nav.menu a:hover:nth-child(1) { background-color: #FF5733; }
+nav.menu a:nth-child(2).active, nav.menu a:hover:nth-child(2) { background-color: #FFC200; }
+nav.menu a:nth-child(3).active, nav.menu a:hover:nth-child(3) { background-color: #ADD45B; }
+nav.menu a:nth-child(4).active, nav.menu a:hover:nth-child(4) { background-color: #00BAAD; }
+nav.menu a:nth-child(5).active, nav.menu a:hover:nth-child(5) { background-color: #2A7B9B; }
+nav.menu a:nth-child(6).active, nav.menu a:hover:nth-child(6) { background-color: #3C3D6B; }
+nav.menu a:nth-child(7).active, nav.menu a:hover:nth-child(7) { background-color: #900B3F; }
+
+nav.menu i {
+  margin-bottom: 10px;
+  border: 2px solid gray;
+  border-radius: 50%;
+  padding: 5px;
+}
+nav.menu a.active i, nav.menu a:hover i {
+  border-color: rgba(255, 255, 255, .7);
+}
+
+section#content {
+  margin-left: 80px;
+}
+
+h2 {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 1;
+  font-size: 120px;
+  opacity: 0.5;
+  color: white;
+  font-family: 'Arizonia', cursive;
+  transform: rotate(-10deg);
+  margin: 0;
+}
+
+section.page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 20px;
+
+  /* Check this page for available variables: https://github.com/material-components/material-components-web/tree/master/packages/mdc-theme */
+  --mdc-theme-primary: white;
+  --mdc-theme-on-primary: var(--mdc-theme-background);
+  background-color: var(--mdc-theme-background);
+}
+section.page.home        { --mdc-theme-background: #FF5733;  }
+section.page.vision-span { --mdc-theme-background: #FFC200; }
+section.page.chunking    { --mdc-theme-background: #ADD45B; }
+section.page.practice    { --mdc-theme-background: #00BAAD; }
+section.page.about       { --mdc-theme-background: #2A7B9B; }
+section.page.tdf         { --mdc-theme-background: #3C3D6B; }
+section.page.tdf         { --mdc-theme-background: #900B3F; }
+
+.Drill {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: white;
+  padding: 20px;
+}
+
+h3 {
+  margin: 0;
+}
+
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+button {
+  background: none;
+  border: none;
+}
+button:focus {
+  outline: none;
+}
+
+.wizard {
+  text-align: center
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  font-size: 2em;
+  font-family: 'Roboto Condensed';
+  font-weight: bold;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Preview {
+  background: rgba(0,0,0,0.2);
+  color: white;
+  border-radius: var(--main-border-radius);
+  box-shadow: inset 0px 3px 1px -2px rgba(0, 0, 0, 0.2), inset 0px 2px 2px 0px rgba(0, 0, 0, 0.14), inset 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  min-height: 300px;
+  position: relative;
+}
+.Preview::after {
+  content: "Preview";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 10px;
+  border-top-right-radius: var(--main-border-radius);
+  background: black;
+  color: white;
+  font-family: 'Roboto Condensed' !important;
+  font-size: 14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.Catalog {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Material Design theme customization */
+
+.mdc-select:not(.mdc-select--disabled).mdc-select--focused .mdc-floating-label {
+  color: var(--mdc-theme-background);
+}
+
+.mdc-card {
+  min-width: 300px;
+  max-width: 400px;
+  margin: 20px;
+  --mdc-theme-primary: var(--mdc-theme-background);
+  --mdc-theme-on-primary: white;
+}
+
+.mdc-card h1 {
+  padding: 20px;
+  font-family: 'Roboto Condensed';
+  font-weight: bold;
+}
+
+.mdc-card a {
+  text-decoration: none;
+}
+
+/*
+ * BUG. The ripple effect blocks when the user clicks on a <Button> inside a <Card>.
+ * We use a new class `NoRipple` to disable the attribute `opacity` as a workaround...
+ * No better way to disable the ripple effect in React implementation: https://github.com/material-components/material-components-web-react/issues/248
+ */
+.mdc-card__primary-action.mdc-ripple-upgraded.NoRipple {
+  --mdc-ripple-fg-opacity: 0;
+}
+.mdc-card__primary-action.NoRipple:not(.mdc-ripple-upgraded):focus::before, .mdc-card__primary-action.NoRipple.mdc-ripple-upgraded--background-focused::before {
+  opacity: 0 !important;
 }

@@ -1,0 +1,106 @@
+.Control {
+    display: inline-block;
+    width: 250px;
+    position: relative;
+    margin: 20px;
+}
+
+.FontSelect, .FontStyle {
+    width: 250px;
+}
+
+.mdc-select__selected-text {
+    height: 70px;
+}
+
+.SourceCodePro.DrillArea,
+.SourceCodePro.Preview,
+.SourceCodePro.mdc-list-item,
+.SourceCodePro .mdc-select__selected-text {
+    font-family: 'Source Code Pro', monospace !important;
+}
+.Roboto.DrillArea,
+.Roboto.Preview,
+.Roboto.mdc-list-item,
+.Roboto .mdc-select__selected-text {
+    font-family: 'Roboto', sans-serif !important;
+}
+.Slabo.DrillArea,
+.Slabo.Preview,
+.Slabo.mdc-list-item,
+.Slabo .mdc-select__selected-text {
+    font-family: 'Slabo 27px', serif !important;
+}
+.Sacramento.DrillArea,
+.Sacramento.Preview,
+.Sacramento.mdc-list-item,
+.Sacramento .mdc-select__selected-text {
+    font-family: 'Sacramento', cursive !important;
+}
+.FredokaOne.DrillArea,
+.FredokaOne.Preview,
+.FredokaOne.mdc-list-item,
+.FredokaOne .mdc-select__selected-text {
+    font-family: 'Fredoka One', cursive !important;
+}
+
+
+.Normal.DrillArea,
+.Normal.Preview,
+.Normal.mdc-list-item,
+.Normal .mdc-select__selected-text {
+    font-style: normal;
+    font-weight: normal;
+}
+.Bold.DrillArea,
+.Bold.Preview,
+.Bold.mdc-list-item,
+.Bold .mdc-select__selected-text {
+    font-style: normal;
+    font-weight: bold;
+}
+.Italic.DrillArea,
+.Italic.Preview,
+.Italic.mdc-list-item,
+.Italic .mdc-select__selected-text {
+    font-style: italic;
+    font-weight: normal;
+}
+.BoldItalic.DrillArea,
+.BoldItalic.Preview,
+.BoldItalic.mdc-list-item,
+.BoldItalic .mdc-select__selected-text {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.Size10pt.DrillArea,
+.Size10pt.Preview,
+.Size10pt.mdc-list-item,
+.Size10pt .mdc-select__selected-text {
+    font-size: 10pt;
+}
+.Size12pt.DrillArea,
+.Size12pt.Preview,
+.Size12pt.mdc-list-item,
+.Size12pt .mdc-select__selected-text {
+    font-size: 12pt;
+}
+.Size14pt.DrillArea,
+.Size14pt.Preview,
+.Size14pt.mdc-list-item,
+.Size14pt .mdc-select__selected-text {
+    font-size: 14pt;
+}
+.Size16pt.DrillArea,
+.Size16pt.Preview,
+.Size16pt.mdc-list-item,
+.Size16pt .mdc-select__selected-text {
+    font-size: 16pt;
+}
+.Size18pt.DrillArea,
+.Size18pt.Preview,
+.Size18pt.mdc-list-item,
+.Size18pt .mdc-select__selected-text {
+    font-size: 18pt;
+}

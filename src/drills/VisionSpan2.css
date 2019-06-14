@@ -1,0 +1,126 @@
+
+:root {
+    --drill-vision-span-step: .25in;
+}
+
+.VisionSpanDrill {
+    text-align: center;
+}
+
+.GameControls {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    text-align: right;
+    z-index: 100;
+}
+.GameControls ul {
+    list-style-type: none;
+}
+.GameControls li {
+    display: inline-block;
+}
+
+.OutOfScreen {
+    position: fixed;
+    left: -100%;
+    top: -100%;
+}
+
+/* An input without the border */
+.input {
+    border: none;
+    color: white;
+}
+.input:focus{
+    outline: none;
+}
+
+.input-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    margin-left: -5px;
+    margin-top: -5px;
+    font-size: 1.5em;
+    background-color: black;
+    color: white;
+    z-index: 10;
+    text-transform: uppercase;
+}
+
+.Drill {
+
+}
+.DrillArea {
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    right: 2em;
+    bottom: 2em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Serie {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.Line {
+    line-height: 1.5em;
+}
+
+.Cell {
+    display: inline-block;
+    width: 0.25in;
+}
+.Cell.valid {
+    color: green;
+}
+.Cell.highlighted {
+    background-color: green;
+    color: white;
+}
+
+
+.SpanLeft0in     { margin-left:  0in;     }
+.SpanRight0in    { margin-right: 0in;     }
+.SpanLeft0_25in  { margin-left:  0.125in; }
+.SpanRight0_25in { margin-right: 0.125in; }
+.SpanLeft0_5in   { margin-left:  0.25in;  }
+.SpanRight0_5in  { margin-right: 0.25in;  }
+.SpanLeft0_75in  { margin-left:  0.375in; }
+.SpanRight0_75in { margin-right: 0.375in; }
+.SpanLeft1in     { margin-left:  0.5in;   }
+.SpanRight1in    { margin-right: 0.5in;   }
+.SpanLeft1_25in  { margin-left:  0.625in; }
+.SpanRight1_25in { margin-right: 0.625in; }
+.SpanLeft1_5in   { margin-left:  0.75in;  }
+.SpanRight1_5in  { margin-right: 0.75in;  }
+.SpanLeft1_75in  { margin-left:  0.875in; }
+.SpanRight1_75in { margin-right: 0.875in; }
+.SpanLeft2in     { margin-left:  1in;     }
+.SpanRight2in    { margin-right: 1in;     }
+.SpanLeft2_25in  { margin-left:  1.125in; }
+.SpanRight2_25in { margin-right: 1.125in; }
+.SpanLeft2_5in   { margin-left:  1.25in;  }
+.SpanRight2_5in  { margin-right: 1.25in;  }
+.SpanLeft2_75in  { margin-left:  1.375in; }
+.SpanRight2_75in { margin-right: 1.375in; }
+.SpanLeft3in     { margin-left:  1.5in;   }
+.SpanRight3in    { margin-right: 1.5in;   }
+.SpanLeft3_25in  { margin-left:  1.625in; }
+.SpanRight3_25in { margin-right: 1.625in; }
+.SpanLeft3_5in   { margin-left:  1.75in;  }
+.SpanRight3_5in  { margin-right: 1.75in;  }
+.SpanLeft3_75in  { margin-left:  1.875in; }
+.SpanRight3_75in { margin-right: 1.875in; }
+.SpanLeft4in     { margin-left:  2in;     }
+.SpanRight4in    { margin-right: 2in;     }
+
+
+
