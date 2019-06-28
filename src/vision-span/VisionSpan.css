@@ -7,18 +7,22 @@
     text-align: center;
 }
 
-.GameControls {
+.DrillControls {
     position: absolute;
     right: 20px;
-    bottom: 20px;
+    top: 20px;
     text-align: right;
     z-index: 100;
 }
-.GameControls ul {
+.DrillControls ul {
     list-style-type: none;
 }
-.GameControls li {
+.DrillControls li {
     display: inline-block;
+}
+
+button {
+    cursor: pointer;
 }
 
 .OutOfScreen {
@@ -77,6 +81,7 @@
 .Cell {
     display: inline-block;
     width: 0.25in;
+    text-align: center;
 }
 .Cell.valid {
     color: green;

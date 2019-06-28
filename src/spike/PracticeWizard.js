@@ -29,7 +29,6 @@ class PracticeWizard extends React.Component {
     }
 
     toggleDemo() {
-        console.log('playing', this.state.playing)
         this.setState(state => ({
             ...state,
             playing: !this.state.playing
@@ -151,7 +150,6 @@ PracticeWizard.propTypes = {
 
 PracticeWizard.defaultProps = {
     demo: React.createElement('div'),
-    onGo: () => { console.log("Go!"); },
 };
 
 export default PracticeWizard;

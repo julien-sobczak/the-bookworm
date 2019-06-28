@@ -3,7 +3,7 @@ import React from 'react';
 import Button from "@material/react-button";
 import PropTypes from 'prop-types';
 
-class VisionSpanDemo extends React.Component {
+class Demo extends React.Component {
 
     STEPS = [
         {
@@ -54,7 +54,7 @@ class VisionSpanDemo extends React.Component {
     render() {
         return (
 
-            <section className="GameArea Demo">
+            <section className="DrillArea Demo">
 
                 <div className="Annotations">
                     {this.props.controls && this.state.step > 0 && <Button className="PreviousStep" icon={<i className="material-icons">chevron_left</i>} onClick={this.previousStep}></Button>}
@@ -116,19 +116,18 @@ class VisionSpanDemo extends React.Component {
 
 }
 
-VisionSpanDemo.propTypes = {
+Demo.propTypes = {
     type: PropTypes.string,
     span: PropTypes.string,
     autoplay: PropTypes.bool,
     controls: PropTypes.bool,
 };
 
-
-VisionSpanDemo.defaultProps = {
+Demo.defaultProps = {
     type: "custom",
     span: "Span2",
     autoplay: false,
     controls: true,
 };
 
-export default VisionSpanDemo;
+export default Demo;

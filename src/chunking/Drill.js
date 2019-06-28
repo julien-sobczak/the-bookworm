@@ -20,7 +20,7 @@ class BookParser {
     }
 }
 
-class ChunkingDrill extends React.Component {
+class Drill extends React.Component {
 
     constructor(props) {
         super(props);
@@ -57,7 +57,7 @@ class ChunkingDrill extends React.Component {
 
                 <Link to="/chunking/" className="closeBtn"><i className="material-icons">close</i></Link>
 
-                <section className="GameControls">
+                <section className="DrillControls">
                     <ul>
                         <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
                         <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
@@ -65,7 +65,7 @@ class ChunkingDrill extends React.Component {
                 </section>
 
                 {this.state.currentChunk &&
-                    <section className="GameArea">
+                    <section className="DrillArea">
                         {this.state.previousChunk}
                         {this.state.currentChunk}
                         {this.state.nextChunk}
@@ -150,8 +150,8 @@ class ChunkingDrill extends React.Component {
 
 }
 
-ChunkingDrill.defaultProps = {
+Drill.defaultProps = {
     wpm: 100,
 };
 
-export default ChunkingDrill;
+export default Drill;
