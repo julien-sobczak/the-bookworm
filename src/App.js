@@ -1,26 +1,19 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
-import PracticeWizard from './drills/PracticeWizard'
+import PracticeWizard from './spike/PracticeWizard'
 
-import VisionSpanDrill from './drills/VisionSpanDrill'
-import VisionSpanDrill2 from './drills/VisionSpanDrill2'
-import VisionSpanDemo from './drills/VisionSpanDemo'
+import VisionSpanDrill from './vision-span/Drill'
+import VisionSpanCatalog from './vision-span/Catalog'
 
-import ChunkingDrill from './chunks/ChunkingDrill'
+import ChunkingDrill from './chunking/Drill'
 
-import Card, {
-  CardPrimaryContent,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
-} from "@material/react-card";
-import Button from "@material/react-button";
 
 import 'normalize.css'
 import './Reset.css';
 import './App.css';
 import '@material/react-card/dist/card.css';
+
 
 function IndexPage() {
   return (
@@ -30,77 +23,27 @@ function IndexPage() {
   );
 }
 
-class VisionSpanCatalog extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      autoplayDemoCustom: false,
-    }
-
-    this.customDrillDemo = React.createRef();
-
-    this.toggleDemoCustom = this.toggleDemoCustom.bind(this);
+function VisionSpanSelector({ match }) {
+  const drills = {
+    'drill-letter-easy': <VisionSpanDrill multiple={false} columns={3} fontFamily="Roboto" fontSize="12pt" spans={["1in"]} />,
+    'drill-letter-intermediate': <VisionSpanDrill multiple={true} lines={2} columns={5} fontFamily="SourceCodePro" fontSize="18pt" fontStyle="bold italic" spans={["1in", "0.5in"]} autoLevel={true} />
   }
+  // Other examples:
+  //   <VisionSpanDrill multiple={false} columns="3" fontFamily="Roboto" fontSize="12pt" spans={["2in"]} />
+  //   <VisionSpanDrill multiple={true} lines="1" columns="5" fontFamily="Roboto" fontSize="18pt" spans={["1in", "0.5in"]} />
 
-  toggleDemoCustom() {
-    this.setState(state => ({
-      ...state,
-      autoplayDemoCustom: !state.autoplayDemoCustom,
-    }))
-  }
-
-  render() {
-    const match = this.props.match;
+  if (match.params.drill in drills) {
+    return drills[match.params.drill];
+  } else {
     return (
-      <div className="Catalog">
-
-        <Card>
-          <CardPrimaryContent className="NoRipple">
-            <h1>Custom Drill</h1>
-            <VisionSpanDemo ref={this.customDrillDemo} controls autoplay={this.state.autoplayDemoCustom} />
-          </CardPrimaryContent>
-
-          <CardActions>
-            <CardActionButtons>
-              <Link to={`${match.url}/drill-letter-easy`}>
-                <Button raised icon={<i className="material-icons">play_arrow</i>}>Try!</Button>
-              </Link>
-              <Button icon={<i className="material-icons">{this.state.autoplayDemoCustom ? 'pause_arrow' : 'play_arrow'}</i>} onClick={this.toggleDemoCustom}>Demo</Button>
-            </CardActionButtons>
-
-            <CardActionIcons>
-              <i className="material-icons">history</i>
-            </CardActionIcons>
-          </CardActions>
-        </Card>
-
-        <Card>
-          <CardPrimaryContent className="NoRipple">
-            <h1>Drill Letter Easy</h1>
-          </CardPrimaryContent>
-
-          <CardActions>
-            <CardActionButtons>
-              <Link to={`${match.url}/drill-letter-intermediate`}>
-                <Button raised>Try!</Button>
-              </Link>
-            </CardActionButtons>
-
-            <CardActionIcons>
-              <i className="material-icons">history</i>
-            </CardActionIcons>
-          </CardActions>
-        </Card>
-
-      </div>
+      <section className="drill">
+        <h3>Drill Letter Intermediate</h3>
+      </section>
     );
   }
 }
 
-function VisionSpanPage({match}) {
-
+function VisionSpanPage({ match }) {
   return (
     <section className="page vision-span">
       <h2>Vision Span</h2>
@@ -113,7 +56,6 @@ function VisionSpanPage({match}) {
 }
 
 function ChunkingPage() {
-  // TODO use the same logic as for VisionSpanDrills
   return (
     <section className="page chunking">
       <h2>Chunking</h2>
@@ -140,25 +82,7 @@ function AboutPage() {
   );
 }
 
-function VisionSpanSelector({ match }) {
-  if (match.params.drill === 'drill-letter-easy') {
-    return (
-      <VisionSpanDrill type="letter" span="1in" />
-    );
-  } else if (match.params.drill === 'drill-letter-intermediate') {
-    return (
-      // <VisionSpanDrill2 multiple={false} columns="3" fontFamily="Roboto" fontSize="12pt" spans={["2in"]} />
-      //<VisionSpanDrill2 multiple={true} lines="1" columns="5" fontFamily="Roboto" fontSize="18pt" spans={["1in", "0.5in"]} />
-      <VisionSpanDrill2 multiple={true} lines="2" columns="5" fontFamily="SourceCodePro" fontSize="18pt" fontStyle="bold italic" spans={["1in", "0.5in"]} autoLevel={true} />
-    );
-  } else {
-    return (
-      <section className="drill">
-        <h3>Drill Letter Intermediate</h3>
-      </section>
-    );
-  }
-}
+
 
 function AppRouter() {
   return (
