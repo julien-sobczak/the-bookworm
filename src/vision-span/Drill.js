@@ -154,7 +154,7 @@ class Drill extends React.Component {
     render() {
         return (
             <div>
-                <div className="Drill VisionSpanDrill">
+                <div className="Drill VisionSpanDrill" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
 
                     <section className="DrillControls">
                         <ul>
@@ -167,7 +167,7 @@ class Drill extends React.Component {
 
                     <section className="DrillArea"
                              ref={this.drillArea}
-                             style={{fontSize: this.props.fontSize}}
+                             style={{fontSize: this.state.fontSize}}
                     >
                     {/* Important to fix the font size to determine the number of available lines */}
 

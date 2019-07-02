@@ -254,12 +254,18 @@ h3 {
   right: 20px;
   bottom: 20px;
 }
+.SettingsCloseButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 .Settings {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   background: white;
+  color: black;
   border-top: 2px solid black;
 }
 .Settings > div {
@@ -289,6 +295,7 @@ h3 {
   width: 150px;
   text-align: right;
   padding-right: 20px;
+  vertical-align: middle;
 }
 .Settings table td {
   display: flex;
@@ -299,10 +306,10 @@ h3 {
 .Settings::before {
   content: '';
   position: absolute;
-  height: 50px;
+  height: 25px;
   width: 100%;
-  margin-top: -51px;
+  margin-top: -26px;
   left: 0;
   right: 0;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 80%);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
 }

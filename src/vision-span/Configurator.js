@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ChromePicker } from 'react-color'; // https://casesandberg.github.io/react-color/#examples
+import styled from 'styled-components';
 
 /**
  * Component used to adjust drill settings.
@@ -22,8 +24,8 @@ class Configurator extends React.Component {
         fontFamily: 'Roboto',
         fontSize: '12pt',
         fontStyle: 'normal',
-        backgroundColor: 'white',
-        color: 'black',
+        backgroundColor: '#000',
+        color: '#FFF',
     };
 
     constructor(props) {
@@ -31,6 +33,9 @@ class Configurator extends React.Component {
 
         this.state = {
             expanded: false,
+            displayColorPicker: false,
+            displayBackgroundPicker: false,
+
             fontFamily: props.fontFamily,
             fontSize: props.fontSize,
             fontStyle: props.fontStyle,
@@ -38,68 +43,152 @@ class Configurator extends React.Component {
             color: props.color,
         };
 
-        this.handleExpand = this.handleExpand.bind(this);
         this.handleFontFamilyClick = this.handleFontFamilyClick.bind(this);
         this.handleFontStyleClick = this.handleFontStyleClick.bind(this);
         this.handleFontSizeClick = this.handleFontSizeClick.bind(this);
+        this.handleColorChange = this.handleColorChange.bind(this);
+        this.handleBackgroundColorChange = this.handleBackgroundColorChange.bind(this);
     }
 
-    /** Called when the user successfully finish one drill. */
+
+    // See https://casesandberg.github.io/react-color/#examples
+
+    handleColorClick = () => {
+        this.setState(state => ({
+            ...state,
+            displayColorPicker: !state.displayColorPicker,
+        }))
+    };
+
+    handleColorClose = () => {
+        this.setState(state => ({
+            ...state,
+            displayColorPicker: false,
+        }))
+    };
+
+    handleBackgroundColorClick = () => {
+        this.setState(state => ({
+            ...state,
+            displayBackgroundColorPicker: !state.displayBackgroundColorPicker,
+        }))
+    };
+
+    handleBackgroundColorClose = () => {
+        this.setState(state => ({
+            ...state,
+            displayBackgroundColorPicker: false,
+        }))
+    };
+
+
+
+
+
+    /** Called when the user expand/unexpand the setting panel. */
     handleExpand = (event) => {
-        this.setState(state =>  ({
+        this.setState(state => ({
             ...state,
             expanded: !state.expanded,
         }))
     }
 
+
     handleFontFamilyClick = (event) => {
         const newFontFamily = event.target.dataset.value;
         if (this.state.fontFamily === newFontFamily) return;
-        this.setState(state =>  ({
-            ...state,
+        const newState = {
+            ...this.state,
             fontFamily: newFontFamily,
-        }))
-        this.notifyChange();
+        }
+        this.setState(newState);
+        this.props.onChange(newState)
     }
 
     handleFontStyleClick = (event) => {
         const newFontStyle = event.target.dataset.value;
         if (this.state.fontStyle === newFontStyle) return;
-        this.setState(state =>  ({
-            ...state,
+        const newState = {
+            ...this.state,
             fontStyle: newFontStyle,
-        }))
-        this.notifyChange();
+        }
+        this.setState(newState);
+        this.props.onChange(newState)
     }
 
     handleFontSizeClick = (event) => {
         const newFontSize = event.target.dataset.value;
         if (this.state.fontSize === newFontSize) return;
-        this.setState(state =>  ({
-            ...state,
+        const newState = {
+            ...this.state,
             fontSize: newFontSize,
-        }))
-        this.notifyChange();
+        }
+        this.setState(newState);
+        this.props.onChange(newState)
     }
 
-    notifyChange() {
-        this.props.onChange({
-            fontFamily: this.state.fontFamily,
-            fontSize: this.state.fontSize,
-            fontStyle: this.state.fontStyle,
-            backgroundColor: this.state.backgroundColor,
-            color: this.state.color,
-        })
-    }
+    handleColorChange = (color) => {
+        const newState = {
+            ...this.state,
+            color: color.hex,
+        }
+        this.setState(newState);
+        this.props.onChange(newState)
+    };
+
+    handleBackgroundColorChange = (color) => {
+        const newState = {
+            ...this.state,
+            backgroundColor: color.hex,
+        }
+        this.setState(newState);
+        this.props.onChange(newState)
+    };
+
 
     render() {
+
+        const Color = styled.div`
+            width: 36px;
+            height: 24px;
+            border-radius: 2px;
+            background: ${this.state.color};
+        `
+        const BackgroundColor = styled.div`
+            width: 36px;
+            height: 24px;
+            border-radius: 2px;
+            background: ${this.state.backgroundColor};
+        `
+        const Swatch = styled.div`
+            padding: 5px;
+            background: '#fff';
+            border-radius: 1px;
+            box-shadow: 0 0 0 1px black;
+            display: inline-block;
+            cursor: pointer;
+        `
+        const Popover = styled.div`
+            position: absolute;
+            z-index: 2;
+            bottom: 0;
+            left: 0;
+        `
+        const Cover = styled.div`
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+        `
+
         return (
             <div className="Configurator">
                 {!this.state.expanded && <button className="SettingsButton" onClick={this.handleExpand}><i className="material-icons">style</i></button>}
 
                 {this.state.expanded &&
                     <div className="Settings">
-                        <button className="SettingsButton" onClick={this.handleExpand}><i className="material-icons">close</i></button>
+                        <button className="SettingsCloseButton" onClick={this.handleExpand}><i className="material-icons">close</i></button>
                         <div className="Content">
                             <table className="Setting">
                                 <tbody>
@@ -130,6 +219,36 @@ class Configurator extends React.Component {
                                             <span onClick={this.handleFontSizeClick} className={"Option Size14pt " + (this.state.fontSize === '14pt' ? 'selected' : '')} data-value="14pt">14 pt</span>
                                             <span onClick={this.handleFontSizeClick} className={"Option Size16pt " + (this.state.fontSize === '16pt' ? 'selected' : '')} data-value="16pt">16 pt</span>
                                             <span onClick={this.handleFontSizeClick} className={"Option Size18pt " + (this.state.fontSize === '18pt' ? 'selected' : '')} data-value="18pt">18 pt</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Text Color:</th>
+                                        <td>
+                                            <div style={{'position': 'relative'}}>
+                                                <Swatch onClick={ this.handleColorClick }>
+                                                    <Color />
+                                                </Swatch>
+                                                { this.state.displayColorPicker ?
+                                                    <Popover>
+                                                        <Cover onClick={ this.handleColorClose }/>
+                                                        <ChromePicker color={ this.state.color } onChange={ this.handleColorChange } />
+                                                    </Popover> : null }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Background:</th>
+                                        <td>
+                                            <div style={{'position': 'relative'}}>
+                                                <Swatch onClick={ this.handleBackgroundColorClick }>
+                                                    <BackgroundColor />
+                                                </Swatch>
+                                                { this.state.displayBackgroundColorPicker ?
+                                                    <Popover>
+                                                        <Cover onClick={ this.handleBackgroundColorClose }/>
+                                                        <ChromePicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
+                                                    </Popover> : null }
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
