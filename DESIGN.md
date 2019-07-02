@@ -9,7 +9,7 @@
 
 
 
-<VisionSpanDrill lines="1|N" columns="3|5|7|9" element="letter|word" fontFamily="Roboto" fontSize="12pt" span="2in" />
+<VisionSpanDrill multiple={true|false} columns="3|5|7|9" element="letter|word" fontFamily="Roboto" fontSize="12pt" spans={["2in"]} />
 
 => Horizontal Vision Span Exercices
 
