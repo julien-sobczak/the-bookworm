@@ -115,7 +115,7 @@ class Configurator extends React.Component {
     handleColorChange = (color) => {
         const newState = {
             ...this.state,
-            color: color.hex,
+            color: color,
         }
         this.setState(newState);
         this.props.onChange(newState)
@@ -124,7 +124,7 @@ class Configurator extends React.Component {
     handleBackgroundColorChange = (color) => {
         const newState = {
             ...this.state,
-            backgroundColor: color.hex,
+            backgroundColor: color,
         }
         this.setState(newState);
         this.props.onChange(newState)
