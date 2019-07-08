@@ -287,6 +287,12 @@ h3 {
 .Option.selected {
   border: 1px solid black;
 }
+.SubOption {
+  display: inline-block;
+  margin: 5px;
+  margin-left: 20px;
+  padding: 5px;
+}
 
 .Settings table td {
   margin: 0.25em 0;
