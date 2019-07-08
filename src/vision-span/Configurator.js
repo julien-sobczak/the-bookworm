@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ChromePicker } from 'react-color'; // https://casesandberg.github.io/react-color/#examples
-import styled from 'styled-components';
 import ColorPicker from '../toolbox/ColorPicker';
 
 /**
@@ -16,6 +14,7 @@ class Configurator extends React.Component {
         fontFamily: PropTypes.string,
         fontSize: PropTypes.string,
         fontStyle: PropTypes.string,
+        theme: PropTypes.string,
         backgroundColor: PropTypes.string,
         color: PropTypes.string,
     };
@@ -25,8 +24,9 @@ class Configurator extends React.Component {
         fontFamily: 'Roboto',
         fontSize: '12pt',
         fontStyle: 'normal',
-        backgroundColor: '#000',
-        color: '#FFF',
+        theme: 'Light',
+        backgroundColor: Configurator.THEME_LIGHT_TEXT_COLOR,
+        color: Configurator.THEME_LIGHT_BACKGROUND_COLOR,
     };
 
     constructor(props) {
@@ -38,6 +38,7 @@ class Configurator extends React.Component {
             fontFamily: props.fontFamily,
             fontSize: props.fontSize,
             fontStyle: props.fontStyle,
+            theme: props.theme,
             backgroundColor: props.backgroundColor,
             color: props.color,
         };
@@ -45,6 +46,7 @@ class Configurator extends React.Component {
         this.handleFontFamilyClick = this.handleFontFamilyClick.bind(this);
         this.handleFontStyleClick = this.handleFontStyleClick.bind(this);
         this.handleFontSizeClick = this.handleFontSizeClick.bind(this);
+        this.handleThemeClick = this.handleThemeClick.bind(this);
         this.handleColorChange = this.handleColorChange.bind(this);
         this.handleBackgroundColorChange = this.handleBackgroundColorChange.bind(this);
     }
@@ -87,6 +89,24 @@ class Configurator extends React.Component {
         const newState = {
             ...this.state,
             fontSize: newFontSize,
+        }
+        this.setState(newState);
+        this.props.onChange(newState)
+    }
+
+    handleThemeClick = (event) => {
+        const newTheme = event.target.dataset.value;
+        if (this.state.theme === newTheme) return;
+        const newState = {
+            ...this.state,
+            theme: newTheme,
+        }
+        if (newTheme === 'Light') {
+            newState.color = Configurator.THEME_LIGHT_TEXT_COLOR;
+            newState.backgroundColor = Configurator.THEME_LIGHT_BACKGROUND_COLOR;
+        } else if (newTheme === 'Dark') {
+            newState.color = Configurator.THEME_DARK_TEXT_COLOR;
+            newState.backgroundColor = Configurator.THEME_DARK_BACKGROUND_COLOR;
         }
         this.setState(newState);
         this.props.onChange(newState)
@@ -153,15 +173,17 @@ class Configurator extends React.Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Text Color:</th>
+                                        <th>Theme:</th>
                                         <td>
-                                            <ColorPicker color={ this.state.color } onChange={ this.handleColorChange } />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Background:</th>
-                                        <td>
-                                            <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
+                                            <span onClick={this.handleThemeClick} className={"Option Light "  + (this.state.theme === 'Light'  ? 'selected' : '')} data-value="Light">Light</span>
+                                            <span onClick={this.handleThemeClick} className={"Option Dark "   + (this.state.theme === 'Dark'   ? 'selected' : '')} data-value="Dark">Dark</span>
+                                            <span onClick={this.handleThemeClick} className={"Option Custom " + (this.state.theme === 'Custom' ? 'selected' : '')} data-value="Custom">Custom</span>
+                                            { this.state.theme === 'Custom' &&
+                                              <span style={{display: 'flex'}}>
+                                                <span className="SubOption">Text:</span>       <ColorPicker color={ this.state.color }           onChange={ this.handleColorChange } />
+                                                <span className="SubOption">Background:</span> <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
+                                              </span>
+                                            }
                                         </td>
                                     </tr>
                                 </tbody>
@@ -174,5 +196,10 @@ class Configurator extends React.Component {
     }
 
 }
+
+Configurator.THEME_LIGHT_TEXT_COLOR = '#000000';
+Configurator.THEME_LIGHT_BACKGROUND_COLOR = '#FFFFFF';
+Configurator.THEME_DARK_TEXT_COLOR = Configurator.THEME_LIGHT_BACKGROUND_COLOR;
+Configurator.THEME_DARK_BACKGROUND_COLOR = Configurator.THEME_LIGHT_TEXT_COLOR;
 
 export default Configurator;
