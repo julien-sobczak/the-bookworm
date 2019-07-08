@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ChromePicker } from 'react-color'; // https://casesandberg.github.io/react-color/#examples
 import styled from 'styled-components';
+import ColorPicker from '../toolbox/ColorPicker';
 
 /**
  * Component used to adjust drill settings.
@@ -33,8 +34,6 @@ class Configurator extends React.Component {
 
         this.state = {
             expanded: false,
-            displayColorPicker: false,
-            displayBackgroundPicker: false,
 
             fontFamily: props.fontFamily,
             fontSize: props.fontSize,
@@ -49,40 +48,6 @@ class Configurator extends React.Component {
         this.handleColorChange = this.handleColorChange.bind(this);
         this.handleBackgroundColorChange = this.handleBackgroundColorChange.bind(this);
     }
-
-
-    // See https://casesandberg.github.io/react-color/#examples
-
-    handleColorClick = () => {
-        this.setState(state => ({
-            ...state,
-            displayColorPicker: !state.displayColorPicker,
-        }))
-    };
-
-    handleColorClose = () => {
-        this.setState(state => ({
-            ...state,
-            displayColorPicker: false,
-        }))
-    };
-
-    handleBackgroundColorClick = () => {
-        this.setState(state => ({
-            ...state,
-            displayBackgroundColorPicker: !state.displayBackgroundColorPicker,
-        }))
-    };
-
-    handleBackgroundColorClose = () => {
-        this.setState(state => ({
-            ...state,
-            displayBackgroundColorPicker: false,
-        }))
-    };
-
-
-
 
 
     /** Called when the user expand/unexpand the setting panel. */
@@ -148,40 +113,6 @@ class Configurator extends React.Component {
 
     render() {
 
-        const Color = styled.div`
-            width: 36px;
-            height: 24px;
-            border-radius: 2px;
-            background: ${this.state.color};
-        `
-        const BackgroundColor = styled.div`
-            width: 36px;
-            height: 24px;
-            border-radius: 2px;
-            background: ${this.state.backgroundColor};
-        `
-        const Swatch = styled.div`
-            padding: 5px;
-            background: '#fff';
-            border-radius: 1px;
-            box-shadow: 0 0 0 1px black;
-            display: inline-block;
-            cursor: pointer;
-        `
-        const Popover = styled.div`
-            position: absolute;
-            z-index: 2;
-            bottom: 0;
-            left: 0;
-        `
-        const Cover = styled.div`
-            position: fixed;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
-        `
-
         return (
             <div className="Configurator">
                 {!this.state.expanded && <button className="SettingsButton" onClick={this.handleExpand}><i className="material-icons">style</i></button>}
@@ -224,31 +155,13 @@ class Configurator extends React.Component {
                                     <tr>
                                         <th>Text Color:</th>
                                         <td>
-                                            <div style={{'position': 'relative'}}>
-                                                <Swatch onClick={ this.handleColorClick }>
-                                                    <Color />
-                                                </Swatch>
-                                                { this.state.displayColorPicker ?
-                                                    <Popover>
-                                                        <Cover onClick={ this.handleColorClose }/>
-                                                        <ChromePicker color={ this.state.color } onChange={ this.handleColorChange } />
-                                                    </Popover> : null }
-                                            </div>
+                                            <ColorPicker color={ this.state.color } onChange={ this.handleColorChange } />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Background:</th>
                                         <td>
-                                            <div style={{'position': 'relative'}}>
-                                                <Swatch onClick={ this.handleBackgroundColorClick }>
-                                                    <BackgroundColor />
-                                                </Swatch>
-                                                { this.state.displayBackgroundColorPicker ?
-                                                    <Popover>
-                                                        <Cover onClick={ this.handleBackgroundColorClose }/>
-                                                        <ChromePicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
-                                                    </Popover> : null }
-                                            </div>
+                                            <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
                                         </td>
                                     </tr>
                                 </tbody>
