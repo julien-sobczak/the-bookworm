@@ -86,7 +86,7 @@ section#content {
   margin-left: 80px;
 }
 
-h2 {
+section.page > h2 {
   position: fixed;
   bottom: 0px;
   right: 0px;

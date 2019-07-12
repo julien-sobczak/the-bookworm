@@ -16,23 +16,28 @@
 {/* TYRS Drill A */}
 <VisionSpanDrill lines="N" columns="3" element="letter" spans={["1.25in"]} />
 {/* L S K */}
+=> DONE
 
 {/* TYRS Drill B */}
 {/* Call the letters in this order: center, immediate left, immediate right, far left, far right. */}
 <VisionSpanDrill lines="N" columns="double" element="letter" spans={["1.25in","0"]} />
 {/* L CSB K */}
+=> DONE
 
 {/* TYRS Drill C */}
 <VisionSpanDrill lines="N" columns="5" element="letter" spans={["0.75in","0.75in"]} /> => 2 in at the edges
 {/* T J M G E */}
+=> DONE
 
 {/* TYRS Drill D */}
 <VisionSpanDrill lines="N" columns="7" element="letter" spans={["0.75in","0.75in","0in"]} /> => 2.25 in at the edges
 {/* V U SBN E L */}
+=> DONE
 
 {/* TYRS Drill E */}
 <VisionSpanDrill lines="N" column="9" element="letter" spans={["0.75in","0.75in","0.75in","0in"]} /> => 3.25 in => typical column width of most paperbacks
 {/* H F D BAC E G I */}
+=> DONE
 
 => Vertical Vision Span Exercices
 
@@ -41,18 +46,21 @@
 <VisionSpanDrill lines="N" rowsPerLine="2" column="3" element="letter" spans={["1in"]} /> => 1 in
 {/* R Z M */}
 {/* G A T */}
+=> DONE
 
 {/* TYRS Drill G */}
 <VisionSpanDrill lines="N" rowsPerLine="3" column="7" element="letter" spans={["0.5in","0.5in","0in]} /> => 1.75 in
 {/* A R NQT B D */}
 {/* C K AKP N R */}
 {/* M D YRL X A */}
+=> DONE
 
 {/* TYRS Drill H */}
 <VisionSpanDrill lines="N" rowsPerLine="3" column="5" element="letter" spans={["0.75in","0.75in"]} /> => 2 in
 {/* R M Z P N */}
 {/* S K T B N */}
 {/* A J M W N */}
+=> DONE
 
 {/* TYRS Drill I */}
 <VisionSpanDrill lines="N" rowsPerLine="5" column="7" element="letter" spans={["0.75in","0.75in","0in"]} /> => 2.25 in
@@ -61,12 +69,14 @@
 {/* W P FHB S O */}
 {/* A L FCB G E */}
 {/* X B WYO P F */}
+=> DONE
 
 {/* TYRS Drill J */}
 <VisionSpanDrill lines="N" rowsPerLine="3" column="7" element="letter" spans={["0.75in","0.75in","0.75in"]} /> => 3.25 in (seems to be 4.25 in paper...)
 {/* C S P URL N B N */}
 {/* M D R TYH B M S */}
 {/* L S K DTB X J W */}
+=> DONE
 
 
 => Pacing and block reading
@@ -79,6 +89,8 @@
 {/* D B A C E */}
 {/* K T L Y C */}
 {/* C V I J F */}
+=> DONE
+
 
 {/* TYRS Drill L */}
 {/* Focus in the center column, move the eyes down one line at a time as you cover the entire passage. */}
@@ -224,7 +236,7 @@ To generate english word => https://github.com/kylestetz/Sentencer
 
 Minimize Visual Regressions => Option switch "Auto Visual Regression Blocker"
 Minimize Visual Progressions => Option switch "Auto Visual Progression Blocker"
-Minimize Visual Distractions => Option swtich "Enable Visual Distractions"
+Minimize Visual Distractions => Option switch "Enable Visual Distractions"
 
 
 =========================
@@ -308,3 +320,87 @@ Desktop:
 * https://www.spreeder.com (read from copied text, URL, library, epub, Docx), Options (font, size, color, dark/light mode, chunk size, alignment)
 * http://www.zapreader.com
 
+
+
+{
+  title: "Treasure Island",
+  text: [
+    { type: "title",     content: "Ceci est un premier paragraphe." },
+    { type: "paragraph", content: "Ceci est un premier paragraphe." },
+    { type: "paragraph", content: "Ceci est un premier paragraphe." },
+  ]
+}
+
+
+<ChunkDrill
+    wpm="150"                         # WPM
+    chunkWidth="2in"                  # How large is a chunk?
+    chunkAccuracy="0.9"               # Width can go as far as ${chunkWidth} - ${chunkWidth} * 0.9 = 0.2 => Chunk width can be stretched till 2.2in if necessary
+    readingMode="chunk|paper"         # Show page
+    speedControls="true|false"        # Display buttons to increase/reduce the WPM
+    chunkStyle="color|underline|highlight" # How to display the chunk?
+
+    # chunk mode options:
+    linePerChunk="1|2|3"              # How many lines in one chunk?
+    showPreviousChunk="true|false"    # Display the previous chunk
+    showNextChunk="true|false"        # Display the next chunk
+    PrevNextChunksPosition="vertical|horizontal" # Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
+
+    # page mode options:
+    paperSize="extended|A4|A5|A6|pocket|digest|paperback|hardcover"
+                                      # Where:
+                                      # - extented: as large as screen tolerate
+                                      # See https://www.papersizes.org/a-paper-sizes.htm
+                                      # - A4: 210 × 297 mm or 8.27 × 11.69 in
+                                      # - A5: 148 x 210 mm or 5.8 x 8.3 in
+                                      # - A6: 105 x 148 mm or 4.1 x 5.8 in
+                                      # See http://www.indesignskills.com/tutorials/standard-book-sizes/
+                                      # - pocket: 4.25 in x 6.87 in (Best for: Low-cost paperback fiction)
+                                      # - digest: 5.5 in x 8.5 in (Best for: Paperback fiction and non-fiction)
+                                      # - paperback, aka "US Trade": 6 in x 9 in (Best for: Paperback fiction)
+                                      # - hardcover: Ranges from 6 in x 9 in to 8.5 in x 11 in (Best for: Premium fiction and non-fiction)
+    disableVisualRegression="true|false"  # Hide/Show the text in front of the current chunk
+    disableVisualProgression="true|false" # Hide/Show the text behind the current chunk
+    disableVisualProblemStyle="transparent|fade|blur" # How the hidden text controlled by `disableVisualRegression` and `disableVisualProgression` should be displayed
+    enableVisualDistractions="true|false" # Generate random visual distractions on screen during reading
+    pacer="none|bar|hand"             # Display a pacer
+
+/>
+
+
+
+// Separate content selection/parsing from content displaying
+
+<Library>       # What you want to read? (create directory /library)
+                # => Add a button "Resume reading (XXX)"
+  <Bookshelf>   # Select your language, a book, a position inside the book (allow the user to navigate inside the book, add link on every paragraph/etc for the user to select the entry)
+                # ... (allow user the change the paper size, the font style, etc)
+                # Choose a reading duration (allow no limit)
+                # Support quick options such as "Read chapter X" "Read until the end of the chapter" "Read for 10 minutes"
+                # ... Running chunk processor (using the graphic options used above)
+                # Start!!
+    <BookViewer>
+  <Clipboard>
+    <RawViewer>
+  <Internet>
+    <HTMLViewer>
+  <Uploader>
+
+<BookContentSelector> # Use <BookViewer> but let the user selects the content to speed read
+<RawContentSelector>  # Use <RawViewer> but let the user selects the content to speed read
+<HTMLSelector>        # Use <HTMLViewer> but let the user selects the content to speed read
+=> Or an attribute selectable={true|false} on <BookViewer selectable={true} /> => probably easier to implement
+=> and an attribute onSelected with the content of type `BookSelection`, `TextSelection`, `HTMLSelection`.
+
+<ChunkReader selection={bookSelection}>
+<PageReader selection={bookSelection}>
+
+
+
+// Book parser
+
+Run regex \n\n\n\n\n to extract the TOC
+Keep title, lineStart, lineEnd for each part
+Convert each part into JavaScript HTML format ([{tag: "p|h2", content:"..."},...])
+
+Note: All viewers may use internally the same viewer using as input the syntax just above.

@@ -6,20 +6,32 @@
 .VisionSpanDrill {
     text-align: center;
 }
-
+.DrillControls,
+.PageControls {
+    position: fixed;
+    z-index: 999;
+}
 .DrillControls {
-    position: absolute;
     right: 20px;
     top: 20px;
     text-align: right;
-    z-index: 100;
 }
-.DrillControls ul {
+.PageControls {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+.DrillControls ul,
+.PageControls ul {
     list-style-type: none;
 }
-.DrillControls li {
+.DrillControls li,
+.PageControls li {
     display: inline-block;
 }
+
 
 button {
     cursor: pointer;
@@ -126,6 +138,29 @@ button {
 .SpanRight3_75in { margin-right: 1.875in; }
 .SpanLeft4in     { margin-left:  2in;     }
 .SpanRight4in    { margin-right: 2in;     }
+
+.Width0in     { width: 0in;    }
+.Width0_25in  { width: 0.25in; }
+.Width0_5in   { width: 0.5in;  }
+.Width0_75in  { width: 0.75in; }
+.Width1in     { width: 1in;    }
+.Width1_25in  { width: 1.25in; }
+.Width1_5in   { width: 1.5in;  }
+.Width1_75in  { width: 1.75in; }
+.Width2in     { width: 2in;    }
+.Width2_25in  { width: 2.25in; }
+.Width2_5in   { width: 2.5in;  }
+.Width2_75in  { width: 2.75in; }
+.Width3in     { width: 3in;    }
+.Width3_25in  { width: 3.25in; }
+.Width3_5in   { width: 3.5in;  }
+.Width3_75in  { width: 3.75in; }
+.Width4in     { width: 4in;    }
+.Width3in     { width: 4.25in; }
+.Width4_25in  { width: 4.25in; }
+.Width4_5in   { width: 4.5in;  }
+.Width4_75in  { width: 4.75in; }
+.Width5in     { width: 5in;    }
 
 
 
