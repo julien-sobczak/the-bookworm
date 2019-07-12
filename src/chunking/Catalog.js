@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-import Engine from './Engine'
 import Viewer from './Viewer'
 
 import Card, {
@@ -39,18 +38,19 @@ function Entry({ name, match, slug, children }) {
 
 function Catalog({match}) {
 
-    const [drillCustom] = useState(new Engine(1, 5));
-    const [drillEasy] = useState(new Engine(15, 3));
-
     return (
         <div className="Catalog">
 
-            <Entry name="Custom Drill" slug="drill-letter-easy" match={match}>
-                <Viewer drill={drillCustom} spans={["0.5in", "0.25in", "0.25in", "0.5in"]} />
+            <Entry name="Page Reader" slug="drill-page" match={match}>
+                <Viewer />
             </Entry>
 
-            <Entry name="Drill Letter Easy" slug="drill-letter-intermediate" match={match}>
-                <Viewer drill={drillEasy} spans={["1in", "1in"]} />
+            <Entry name="Chunk Reader" slug="drill-chunk" match={match}>
+                <Viewer />
+            </Entry>
+
+            <Entry name="Pager" slug="pager" match={match}>
+                <Viewer />
             </Entry>
 
         </div>
