@@ -53,6 +53,10 @@ function Catalog({match}) {
                 <Viewer />
             </Entry>
 
+            <Entry name="Book Viewer" slug="book-viewer" match={match}>
+                <Viewer />
+            </Entry>
+
         </div>
     );
 }

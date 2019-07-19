@@ -85,7 +85,7 @@ class Pager extends React.Component {
     render() {
         const tokenizer = new Tokenizer();
         return (
-            <div className="Drill Pager">
+            <div className="FullScreen Pager">
                 <div className={"Ruler " + this.cssChunkSize()} ref={this.rulerElement}></div>
                 <div className={"Paper " + this.cssPaperSize()}>
                     <div className="PaperContent" ref={this.paperElement}>
@@ -186,13 +186,14 @@ class Pager extends React.Component {
                 return lines;
             }
 
-            const tokenElements = [...blockElement.childNodes];
+            let tokenElements = [...blockElement.childNodes];
 
             // The relative position of the end of the line
             const offsetBottom = blockElement.offsetTop + blockElement.offsetHeight;
 
             // Compare this position to the fictious current page bottom
-            if (offsetBottom < pageOffsetTop + paperHeight) {
+            let pageBottom = pageOffsetTop + paperHeight - 20; // Add a few pixels to be safe
+            if (offsetBottom < pageBottom) {
                 // The line is completely printed on the current page
                 // Easy. Just add it.
                 const lineHTML = getLineHTML(tokenElements);
@@ -200,33 +201,65 @@ class Pager extends React.Component {
 
                 pageBlocks.push({ tag: tagName, content: lineHTML, lines: linesTokens });
             } else {
-                // The line is spread among two different pages.
+                // The line is spread among two or more different pages.
                 // We need to split it.
 
-                const idxPageBreak = tokenElements.filter(e => e.offsetTop > pageOffsetTop + paperHeight)[0];
-                const currentLineElements = tokenElements.slice(0, idxPageBreak);
-                const currentLineHTML = getLineHTML(currentLineElements);
-                const currentLinesTokens = getTokensPerLine(currentLineElements);
-                const nextLineElements = tokenElements.slice(idxPageBreak);
-                const nextLineHTML = getLineHTML(nextLineElements);
-                const nextLinesTokens = getTokensPerLine(nextLineElements);
+                let newPageOffsetTop = -1;
+                let splitNumber = 0;
+                let continueSplit = true;
 
-                // Add the first half-line to the current page.
-                pageBlocks.push({ tag: tagName, content: currentLineHTML, lines: currentLinesTokens });
+                do {
+                    // Search the first word to go to the next page
+                    let idxPageBreak = -1;
+                    for (let i = 0; i < tokenElements.length; i++) {
+                        const e = tokenElements[i];
+                        if (e.offsetTop + e.offsetHeight > pageBottom) {
+                            idxPageBreak = i;
+                            newPageOffsetTop = e.offsetTop;
+                            break;
+                        }
+                    }
 
-                // Add the page
-                pages.push({
-                    number: pageNumber++,
-                    blocks: pageBlocks,
-                })
+                    const currentPageElements = (idxPageBreak === -1) ? tokenElements : tokenElements.slice(0, idxPageBreak);
+                    const currentPageHTML = getLineHTML(currentPageElements);
+                    const currentPageLines = getTokensPerLine(currentPageElements);
 
-                pageOffsetTop = blockElement.offsetTop;
-                pageBlocks = [];
-                if (nextLineHTML !== '') {
-                    pageBlocks.push({ tag: tagName, continuation: true, content: nextLineHTML, lines: nextLinesTokens })
-                }
+                    // Add the first half-line to the current page.
+                    pageBlocks.push({ tag: tagName, continuation: (splitNumber > 0), content: currentPageHTML, lines: currentPageLines });
+
+                    if (idxPageBreak === -1) {
+                        // We add all words on the current page. We are ready to move on the next page.
+                        continueSplit = false;
+                    } else {
+                        // We reach the bottom of the page and there is still content to process
+                        tokenElements = tokenElements.slice(idxPageBreak);
+
+                        // Add the page
+                        pages.push({
+                            number: pageNumber++,
+                            blocks: pageBlocks,
+                        });
+                        pageBlocks = [];
+
+                        // Reset counter for next page
+                        idxPageBreak = -1;
+                        splitNumber++;
+
+                        // Adjust the new page position
+                        pageOffsetTop = newPageOffsetTop - 10; // Start the new page at the first word on this page - a few pixels to be safe
+                        pageBottom = pageOffsetTop + paperHeight - 20; // Add a few pixels to be safe
+                    }
+                } while (continueSplit);
             }
         });
+
+        // Don't forget the last page
+        if (pageBlocks.length > 0) {
+            pages.push({
+                number: pageNumber++,
+                blocks: pageBlocks,
+            });
+        }
 
         pages.forEach(function(page) {
             page.blocks.forEach(function(block) {

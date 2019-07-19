@@ -37,7 +37,7 @@
     margin-top: var(--line-height);
     margin-bottom: var(--line-height);
 }
-.Paper p.continuation {
+.Paper p.Continuation {
     text-indent: 0;
 }
 
@@ -98,10 +98,24 @@
     padding: 1in;
 }
 
+
 .Ruler {
     opacity: 0;
 }
 
 .Pager {
     opacity: 0;
+    z-index: 0;
+}
+
+.Chunk.Selected {
+    background-color: yellow;
+}
+
+.ButtonClose {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    color: black !important;
 }

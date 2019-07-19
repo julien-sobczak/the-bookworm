@@ -63,13 +63,13 @@ class DrillChunk extends React.Component {
         }
         let i = 0;
         return (
-            <div className="Drill ChunkingDrill" style={styles}>
+            <div className="FullScreen ChunkingDrill" style={styles}>
 
                 <section className="DrillControls">
                     <ul>
                         {this.props.speedControls && <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>}
                         {this.props.speedControls && <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>}
-                        <li><Link to="/chunking/" className="closeBtn"><i className="material-icons">close</i></Link></li>
+                        <li><Link to="/chunking/" className="ButtonClose"><i className="material-icons">close</i></Link></li>
                     </ul>
                 </section>
 
