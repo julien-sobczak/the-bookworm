@@ -154,14 +154,14 @@ class Drill extends React.Component {
     render() {
         return (
             <div>
-                <div className="Drill VisionSpanDrill" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
+                <div className="FullScreen VisionSpanDrill" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
 
                     <section className="DrillControls">
                         <ul>
                             <li><button onClick={this.resume}><i className="material-icons">pause</i></button></li>
                             {this.props.spanControls && <li><button onClick={this.increaseSpan}><i className="material-icons">chevron_left</i></button></li>}
                             {this.props.spanControls && <li><button onClick={this.reduceSpan}><i className="material-icons">chevron_right</i></button></li>}
-                            <li><Link to="/vision-span/" className="closeBtn"><i className="material-icons">close</i></Link></li>
+                            <li><Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link></li>
                         </ul>
                     </section>
 

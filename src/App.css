@@ -15,9 +15,6 @@ html, body {
   height: 100%;
   margin: 0px;
 }
-#root, #content {
-  height: 100%;
-}
 
 a:visited {
   color: inherit;
@@ -118,7 +115,7 @@ section.page.about       { --mdc-theme-background: #2A7B9B; }
 section.page.tdf         { --mdc-theme-background: #3C3D6B; }
 section.page.tdf         { --mdc-theme-background: #900B3F; }
 
-.Drill {
+.FullScreen {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -189,6 +186,7 @@ h3 {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Material Design theme customization */

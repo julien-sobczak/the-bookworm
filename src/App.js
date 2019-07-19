@@ -11,6 +11,7 @@ import ChunkingDrillChunk from './chunking/DrillChunk'
 import ChunkingDrillPage from './chunking/DrillPage'
 import ChunkingPager from './chunking/Pager'
 
+import BookViewer from './library/BookViewer'
 
 import 'normalize.css'
 import './Reset.css';
@@ -101,7 +102,8 @@ function ChunkingSelector({ match }) {
   const drills = {
     'drill-page': <ChunkingDrillPage content={content} />,
     'drill-chunk': <ChunkingDrillChunk content={content} />,
-    'pager': <ChunkingPager content={content} />
+    'pager': <ChunkingPager content={content} />,
+    'book-viewer': <BookViewer content={content} />,
   }
 
   if (match.params.drill in drills) {
