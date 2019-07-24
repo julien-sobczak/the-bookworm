@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import Pager from './Pager';
+import Paper from '../toolbox/Paper';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
@@ -130,7 +131,12 @@ class DrillPage extends React.Component {
         // A chunk with 75 characters takes six seconds to read.
         // and so on.
 
-        return (chunk.length * 60 * 1000) / (wpm * characersPerWord);
+        // The minimum pause time of the eye is estimated to be about 200 msec.
+        // The second component involves stimulus processing, estimated to require a minimum of 50 to 100 msec.
+        // https://www.ncbi.nlm.nih.gov/pubmed/7406068
+        const minimumEyeFixationDuration = 275;
+        const theoricalChunkReadingDuration = (chunk.length * 60 * 1000) / (wpm * characersPerWord);
+        return Math.max(minimumEyeFixationDuration, theoricalChunkReadingDuration);
     }
 
     start() {
@@ -174,13 +180,6 @@ class DrillPage extends React.Component {
     reduceWpm() {
     }
 
-    cssPaperSize() {
-        const capitalize = (s) => {
-            if (typeof s !== 'string') return ''
-            return s.charAt(0).toUpperCase() + s.slice(1)
-        }
-        return 'Paper' + capitalize(this.props.paperSize)
-    }
 
     render() {
         return (
@@ -188,7 +187,13 @@ class DrillPage extends React.Component {
 
                 <Link to="/chunking/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
-                <Pager content={this.props.content} onDone={this.onPagerDone} />
+                <Pager content={this.props.content} onDone={this.onPagerDone} debug={true}
+                       fontFamily={this.props.fontFamily}
+                       fontSize={this.props.fontSize}
+                       fontStyle={this.props.fontStyle}
+                       backgroundColor={this.props.backgroundColor}
+                       color={this.props.color}
+                />
 
                 <section className="DrillControls">
                     <ul>
@@ -206,20 +211,23 @@ class DrillPage extends React.Component {
                     </div>}
 
                     {this.state.started && this.state.pageNumber > 0 &&
-                        <div className={"Paper " + this.cssPaperSize()}>
-                            <div className="PaperContent" ref={this.paperElement}>
-                                {this.state.pages[this.state.pageNumber - 1].blocks.map((block, iBlock) => React.createElement(
-                                    block.tag,
-                                    {key: iBlock, className: (block.continuation ? 'Continuation' : '')},
-                                    block.chunks.map((chunk, iChunk) => {
-                                        const selected = iBlock === this.state.blockPosition && iChunk === this.state.chunkPosition;
-                                        return <span className={(chunk.trim() !== '' ? 'Chunk' : 'Space') + (selected ? ' Selected' : '')}
-                                                    key={iChunk}
-                                                    dangerouslySetInnerHTML={{__html: chunk}} />
-                                    })
-                                ))}
-                            </div>
-                        </div>
+                        <Paper paperSize={this.props.paperSize}
+                               fontFamily={this.props.fontFamily}
+                               fontSize={this.props.fontSize}
+                               fontStyle={this.props.fontStyle}
+                               backgroundColor={this.props.backgroundColor}
+                               color={this.props.color}>
+                            {this.state.pages[this.state.pageNumber - 1].blocks.map((block, iBlock) => React.createElement(
+                                block.tag,
+                                {key: iBlock, className: (block.continuation ? 'Continuation' : '')},
+                                block.chunks.map((chunk, iChunk) => {
+                                    const selected = iBlock === this.state.blockPosition && iChunk === this.state.chunkPosition;
+                                    return <span className={(chunk.trim() !== '' ? 'Chunk' : 'Space') + (selected ? ' Selected' : '')}
+                                                key={iChunk}
+                                                dangerouslySetInnerHTML={{__html: chunk}} />
+                                })
+                            ))}
+                        </Paper>
                     }
                 </section>
             </div>
@@ -229,23 +237,25 @@ class DrillPage extends React.Component {
 }
 
 DrillPage.propTypes = {
+    ...Paper.propTypes,
+
     wpm: PropTypes.number,
     pageTurningDuration: PropTypes.number, // ms
-
-    // See DESIGN.md
-    paperSize: PropTypes.string,
     chunkWidth: PropTypes.string,
     chunkAccuracy: PropTypes.number,
 }
 
 DrillPage.defaultProps = {
+    ...Paper.defaultProps,
+
     wpm: 500,
     pageTurningDuration: 500,
 
-    // See DESIGN.md
-    paperSize: 'A5',
     chunkWidth: '2in',
     chunkAccuracy: 0.9,
+
+    // TODO Remove
+    fontSize: '16pt',
 };
 
 export default DrillPage;

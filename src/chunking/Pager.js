@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
+import Paper from '../toolbox/Paper';
+
+
 /**
  * Split a text into pages.
  *
@@ -74,30 +77,26 @@ class Pager extends React.Component {
         return 'Width' + this.props.chunkWidth.replace('.', '_');
     }
 
-    cssPaperSize() {
-        const capitalize = (s) => {
-            if (typeof s !== 'string') return ''
-            return s.charAt(0).toUpperCase() + s.slice(1)
-        }
-        return 'Paper' + capitalize(this.props.paperSize)
-    }
-
     render() {
         const tokenizer = new Tokenizer();
         return (
             <div className="FullScreen Pager">
                 <div className={"Ruler " + this.cssChunkSize()} ref={this.rulerElement}></div>
-                <div className={"Paper " + this.cssPaperSize()}>
-                    <div className="PaperContent" ref={this.paperElement}>
-                        {this.props.content.text.slice(this.state.position).map((block, index) => React.createElement(
-                            block.tag,
-                            {key: index},
-                            tokenizer.tokenize(block.content).map((token, iToken) => {
-                                return <span className={token.type} key={iToken} dangerouslySetInnerHTML={{__html: token.token}}></span>
-                            })
-                        ))}
-                    </div>
-                </div>
+                <Paper ref={this.paperElement}
+                       paperSize={this.props.paperSize}
+                       fontFamily={this.props.fontFamily}
+                       fontSize={this.props.fontSize}
+                       fontStyle={this.props.fontStyle}
+                       backgroundColor={this.props.backgroundColor}
+                       color={this.props.color}>
+                    {this.props.content.text.slice(this.state.position).map((block, index) => React.createElement(
+                        block.tag,
+                        {key: index},
+                        tokenizer.tokenize(block.content).map((token, iToken) => {
+                            return <span className={token.type} key={iToken} dangerouslySetInnerHTML={{__html: token.token}}></span>
+                        })
+                    ))}
+                </Paper>
             </div>
         );
     }
@@ -129,8 +128,10 @@ class Pager extends React.Component {
         const [paperWidth, paperHeight] = this.paperDimensions();
         const [rulerWidth, rulerWidthMax] = this.rulerWidths();
 
-        console.log(`Paper measures ${paperHeight} x ${paperWidth}`);
-        console.log(`Chunk measures ${this.props.chunkWidth} = ${rulerWidth}px (tolerance: ${rulerWidthMax}px)`);
+        if (this.props.debug) {
+            console.log(`Paper measures ${paperHeight} x ${paperWidth}`);
+            console.log(`Chunk measures ${this.props.chunkWidth} = ${rulerWidth}px (tolerance: ${rulerWidthMax}px)`);
+        }
 
         let pageOffsetTop = 0;
 
@@ -139,7 +140,8 @@ class Pager extends React.Component {
         let pageBlocks = [];
 
         let paperElement = this.paperElement.current;
-        let blocksElements = [...paperElement.childNodes];
+        let blocksElements = [...paperElement.firstElementChild.childNodes];
+
         blocksElements.forEach(function(blockElement) {
 
             const tagName = blockElement.tagName.toLowerCase();
@@ -247,7 +249,7 @@ class Pager extends React.Component {
 
                         // Adjust the new page position
                         pageOffsetTop = newPageOffsetTop - 10; // Start the new page at the first word on this page - a few pixels to be safe
-                        pageBottom = pageOffsetTop + paperHeight - 20; // Add a few pixels to be safe
+                        pageBottom = pageOffsetTop + paperHeight - 30; // Add a few pixels to be safe
                     }
                 } while (continueSplit);
             }
@@ -350,18 +352,22 @@ class Pager extends React.Component {
 }
 
 Pager.propTypes = {
+    ...Paper.propTypes,
+
+    debug: PropTypes.bool,
+
     content: PropTypes.object,
     onDone: PropTypes.func,
 
-    // See DESIGN.md
-    paperSize: PropTypes.string,
     chunkWidth: PropTypes.string,
     chunkAccuracy: PropTypes.number,
 }
 
 Pager.defaultProps = {
-    // See DESIGN.md
-    paperSize: 'A5',
+    ...Paper.defaultProps,
+
+    debug: true,
+
     chunkWidth: '2in',
     chunkAccuracy: 0.9,
 };

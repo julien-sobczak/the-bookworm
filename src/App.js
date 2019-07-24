@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
-import PracticeWizard from './spike/PracticeWizard'
-
 import VisionSpanDrill from './vision-span/Drill'
 import VisionSpanCatalog from './vision-span/Catalog'
 
@@ -117,8 +115,6 @@ function PracticePage() {
   return (
     <section className="page practice">
       <h2>Practice</h2>
-
-      <PracticeWizard/>
     </section>
   );
 }

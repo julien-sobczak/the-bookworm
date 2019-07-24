@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Styled from '../toolbox/Styled';
+
 /**
  * Only responsible to display a DrillLogic.
  */
 class Viewer extends React.Component {
 
     static defaultProps = {
-        fontFamily: 'Rosboto',
-        fontSize: '12pt',
-        fontStyle: 'normal',
-        backgroundColor: 'white',
-        color: 'black',
+        ...Styled.defaultProps,
     };
 
     static propTypes = {
@@ -22,21 +20,6 @@ class Viewer extends React.Component {
 
     // Only these span values are supported (by proceed by 0.25 increment as encountered in the book Triple Your Reading Speed by Wade E. Cutler)
     SPANS = ['0in', '0.25in', '0.5in', '0.75in', '1in', '1.25in', '1.5in', '1.75in', '2in', '2.25in', '2.5in', '2.75in', '3in', '3.25in', '3.5in', '3.75in', '4in'];
-
-    /** Evaluate the CSS classes from the styling options. */
-    cssStyle() {
-        const capitalize = (s) => {
-            if (typeof s !== 'string') return ''
-            return s.charAt(0).toUpperCase() + s.slice(1)
-        }
-
-        const fontFamilyClass = capitalize(this.props.fontFamily);
-        const fontSizeClass = 'Size' + this.props.fontSize;
-        const fontStyleClass = this.props.fontStyle.split(' ').map(capitalize).join('');
-        // TODO add `backgroundColor` and `color`
-
-        return `${fontFamilyClass} ${fontSizeClass} ${fontStyleClass}`
-    }
 
     /** Evaluate the CSS classes from the drill options. */
     cssSpan(index) {
@@ -53,8 +36,7 @@ class Viewer extends React.Component {
 
     render() {
         return (
-            <div className={'VisionSpanViewer ' + this.cssStyle()}>
-
+            <Styled className="VisionSpanViewer" fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} backgroundColor={this.props.backgroundColor} color={this.props.color}>
                 {this.props.drill && this.props.drill.series.map((serie, index) => {
                     return (
                         <div className="Serie" key={index}>
@@ -70,7 +52,7 @@ class Viewer extends React.Component {
                         </div>
                     )
                 })}
-            </div>
+            </Styled>
         );
     }
 }

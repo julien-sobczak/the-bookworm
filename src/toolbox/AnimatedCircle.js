@@ -101,7 +101,7 @@ class AnimatedCircle extends React.Component {
 
 }
 
-Paper.defaultProps = {
+AnimatedCircle.defaultProps = {
     className: '',
     color: 'green',
     diameter: '30px',
@@ -109,4 +109,4 @@ Paper.defaultProps = {
     animationDuration: 1000,
 };
 
-export default Paper;
+export default AnimatedCircle;

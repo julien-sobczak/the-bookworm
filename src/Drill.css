@@ -119,3 +119,86 @@
     z-index: 1000;
     color: black !important;
 }
+
+
+
+
+
+/* TODO check to keep only the first declaration */
+.SourceCodePro,
+.DrillArea .SourceCodePro,
+.Settings .SourceCodePro {
+    font-family: 'Source Code Pro', monospace !important;
+}
+.Roboto,
+.DrillArea .Roboto,
+.Settings .Roboto {
+    font-family: 'Roboto', sans-serif !important;
+}
+.Slabo,
+.DrillArea .Slabo,
+.Settings .Slabo {
+    font-family: 'Slabo 27px', serif !important;
+}
+.Sacramento,
+.DrillArea .Sacramento,
+.Settings .Sacramento {
+    font-family: 'Sacramento', cursive !important;
+}
+.FredokaOne,
+.DrillArea .FredokaOne,
+.Settings .FredokaOne {
+    font-family: 'Fredoka One', cursive !important;
+}
+
+.Normal,
+.DrillArea .Normal,
+.Settings .Normal {
+    font-style: normal;
+    font-weight: normal;
+}
+.Bold,
+.DrillArea .Bold,
+.Settings .Bold {
+    font-style: normal;
+    font-weight: bold;
+}
+.Italic,
+.DrillArea .Italic,
+.Settings .Italic {
+    font-style: italic;
+    font-weight: normal;
+}
+.BoldItalic,
+.DrillArea .BoldItalic,
+.Settings .BoldItalic {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.Size10pt,
+.DrillArea .Size10pt,
+.Settings .Size10pt {
+    font-size: 10pt;
+}
+.Size12pt,
+.DrillArea .Size12pt,
+.Settings .Size12pt {
+    font-size: 12pt;
+}
+.Size14pt,
+.DrillArea .Size14pt,
+.Settings .Size14pt {
+    font-size: 14pt;
+}
+.Size16pt,
+.DrillArea .Size16pt,
+.Settings .Size16pt {
+    font-size: 16pt;
+}
+.Size18pt,
+.DrillArea .Size18pt,
+.Settings .Size18pt {
+    font-size: 18pt;
+}
+

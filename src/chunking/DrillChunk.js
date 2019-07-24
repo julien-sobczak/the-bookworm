@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Pager from './Pager'
+import { capitalize } from "../toolbox/Fn";
 
 class BookParser {
 
@@ -48,10 +49,6 @@ class DrillChunk extends React.Component {
     }
 
     cssPaperSize() {
-        const capitalize = (s) => {
-            if (typeof s !== 'string') return ''
-            return s.charAt(0).toUpperCase() + s.slice(1)
-        }
         return 'Paper' + capitalize(this.props.paperSize)
     }
 
@@ -73,7 +70,13 @@ class DrillChunk extends React.Component {
                     </ul>
                 </section>
 
-                <Pager content={this.state.content} onDone={this.onPagerDone} />
+                <Pager content={this.state.content} onDone={this.onPagerDone}
+                       fontFamily={this.props.fontFamily}
+                       fontSize={this.props.fontSize}
+                       fontStyle={this.props.fontStyle}
+                       backgroundColor={this.props.backgroundColor}
+                       color={this.props.color}
+                />
 
                 {this.state.readingMode === 'chunk' && this.state.currentChunk &&
                     <section className="DrillArea">

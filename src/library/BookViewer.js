@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Pager from '../chunking/Pager';
+import Paper from "../toolbox/Paper";
+import { capitalize } from "../toolbox/Fn";
 
 class BookViewer extends React.Component {
 
@@ -19,7 +21,7 @@ class BookViewer extends React.Component {
     }
 
     onPagerDone(pages) {
-        console.log(pages);
+        console.log('Received', pages);
         this.setState(state => ({
             ...state,
             pages: pages,
@@ -46,10 +48,6 @@ class BookViewer extends React.Component {
     }
 
     cssPaperSize() {
-        const capitalize = (s) => {
-            if (typeof s !== 'string') return ''
-            return s.charAt(0).toUpperCase() + s.slice(1)
-        }
         return 'Paper' + capitalize(this.props.paperSize)
     }
 
@@ -59,7 +57,13 @@ class BookViewer extends React.Component {
 
                 <Link to="/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
-                <Pager content={this.props.content} onDone={this.onPagerDone} />
+                <Pager content={this.props.content} onDone={this.onPagerDone}
+                       fontFamily={this.props.fontFamily}
+                       fontSize={this.props.fontSize}
+                       fontStyle={this.props.fontStyle}
+                       backgroundColor={this.props.backgroundColor}
+                       color={this.props.color}
+                />
 
                 <section className="PageControls">
                     <ul>
@@ -69,19 +73,25 @@ class BookViewer extends React.Component {
                 </section>
 
                 <section className="DrillArea">
-                    {this.state.pageNumber > 0 && <div className={"Paper " + this.cssPaperSize()}>
-                        <div className="PaperContent" ref={this.paperElement}>
+                    {this.state.pageNumber > 0 &&
+                        <Paper ref={this.paperElement}
+                                paperSize={this.props.paperSize}
+                                fontFamily={this.props.fontFamily}
+                                fontSize={this.props.fontSize}
+                                fontStyle={this.props.fontStyle}
+                                backgroundColor={this.props.backgroundColor}
+                                color={this.props.color}>
                             {this.state.pages[this.state.pageNumber - 1].blocks.map((block, index) => React.createElement(
                                 block.tag,
                                 {key: index, className: (block.continuation ? 'Continuation' : '')},
                                 block.chunks.map((chunk, iChunk) => {
                                     return <span className={(chunk.trim() !== '' ? 'Chunk' : 'Space')}
-                                                  key={iChunk}
-                                                  dangerouslySetInnerHTML={{__html: chunk}} />
+                                                key={iChunk}
+                                                dangerouslySetInnerHTML={{__html: chunk}} />
                                 })
                             ))}
-                        </div>
-                    </div>}
+                        </Paper>
+                    }
                 </section>
             </div>
         );
@@ -90,17 +100,17 @@ class BookViewer extends React.Component {
 }
 
 BookViewer.propTypes = {
+    ...Paper.propTypes,
+
     content: PropTypes.object,
 
-    // See DESIGN.md
-    paperSize: PropTypes.string,
     chunkWidth: PropTypes.string,
     chunkAccuracy: PropTypes.number,
 }
 
 BookViewer.defaultProps = {
-    // See DESIGN.md
-    paperSize: 'A5',
+    ...Paper.defaultProps,
+
     chunkWidth: '2in',
     chunkAccuracy: 0.9,
 };
