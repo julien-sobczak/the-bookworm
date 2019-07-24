@@ -46,11 +46,11 @@ function Catalog({match}) {
         <div className="Catalog">
 
             <Entry name="Custom Drill" slug="drill-letter-easy" match={match}>
-                <Viewer drill={drillCustom} spans={["0.5in", "0.25in", "0.25in", "0.5in"]} />
+                <Viewer drill={drillCustom} spans={["0.5in", "0.25in", "0.25in", "0.5in"]} color="white" backgroundColor="black" />
             </Entry>
 
             <Entry name="Drill Letter Easy" slug="drill-letter-intermediate" match={match}>
-                <Viewer drill={drillEasy} spans={["1in", "1in"]} />
+                <Viewer drill={drillEasy} spans={["1in", "1in"]} color="white" backgroundColor="black" />
             </Entry>
 
         </div>
