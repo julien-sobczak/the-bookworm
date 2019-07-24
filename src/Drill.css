@@ -202,3 +202,28 @@
     font-size: 18pt;
 }
 
+
+/* ChunkingDrillChunk */
+
+.ChunkingDrillChunk {
+    --chunk-neighbor-margin: .25em;
+}
+
+.ChunkingDrillChunk .Chunks {
+    text-align: center;
+}
+
+.ChunkingDrillChunk .Chunk {
+    display: inline-block;
+    padding: 10px;
+}
+
+.ChunkingDrillChunk.NeighborPositionVertical .Chunk {
+    margin-top: var(--chunk-neighbor-margin);
+    margin-bottom: var(--chunk-neighbor-margin);
+}
+.ChunkingDrillChunk.NeighborPositionHorizontal .Chunk {
+    display: inline-block;
+    margin-left: var(--chunk-neighbor-margin);
+    margin-bottom: var(--chunk-neighbor-margin);
+}

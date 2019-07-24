@@ -175,9 +175,17 @@ class DrillPage extends React.Component {
     }
 
     increaseWpm() {
+        this.setState(state => ({
+            ...state,
+            wpm: state.wpm + 20,
+        }));
     }
 
     reduceWpm() {
+        this.setState(state => ({
+            ...state,
+            wpm: state.wpm - 20,
+        }));
     }
 
 
@@ -185,9 +193,7 @@ class DrillPage extends React.Component {
         return (
             <div className="FullScreen ChunkingDrillPage">
 
-                <Link to="/chunking/" className="ButtonClose"><i className="material-icons">close</i></Link>
-
-                <Pager content={this.props.content} onDone={this.onPagerDone} debug={true}
+                <Pager content={this.props.content} onDone={this.onPagerDone}
                        fontFamily={this.props.fontFamily}
                        fontSize={this.props.fontSize}
                        fontStyle={this.props.fontStyle}
@@ -199,6 +205,7 @@ class DrillPage extends React.Component {
                     <ul>
                         <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
                         <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
+                        <li><Link to="/chunking/"><i className="material-icons">close</i></Link></li>
                     </ul>
                 </section>
 
@@ -237,7 +244,7 @@ class DrillPage extends React.Component {
 }
 
 DrillPage.propTypes = {
-    ...Paper.propTypes,
+    ...Pager.propTypes,
 
     wpm: PropTypes.number,
     pageTurningDuration: PropTypes.number, // ms
@@ -246,13 +253,10 @@ DrillPage.propTypes = {
 }
 
 DrillPage.defaultProps = {
-    ...Paper.defaultProps,
+    ...Pager.defaultProps,
 
     wpm: 500,
     pageTurningDuration: 500,
-
-    chunkWidth: '2in',
-    chunkAccuracy: 0.9,
 
     // TODO Remove
     fontSize: '16pt',

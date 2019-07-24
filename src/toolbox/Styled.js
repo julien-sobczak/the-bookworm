@@ -5,6 +5,7 @@ import { capitalize } from "../toolbox/Fn";
 class Styled extends React.Component {
 
     css() {
+
         const defaultClassName = this.props.className ? this.props.className + ' ': '';
         const fontFamilyClass = capitalize(this.props.fontFamily);
         const fontSizeClass = 'Size' + this.props.fontSize;
@@ -15,7 +16,9 @@ class Styled extends React.Component {
 
     render() {
         return (
-            <div className={this.css()} style={{backgroundColor: this.props.backgroundColor, color: this.props.color}}>
+            <div {...this.props.id && { 'id' : this.props.id }}
+                className={this.css()}
+                style={{backgroundColor: this.props.backgroundColor, color: this.props.color}}>
                 {this.props.children}
             </div>
         );

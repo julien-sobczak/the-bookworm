@@ -366,7 +366,7 @@ Pager.propTypes = {
 Pager.defaultProps = {
     ...Paper.defaultProps,
 
-    debug: true,
+    debug: false,
 
     chunkWidth: '2in',
     chunkAccuracy: 0.9,
