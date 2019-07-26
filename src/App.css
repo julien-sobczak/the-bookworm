@@ -319,3 +319,415 @@ h3 {
   right: 0;
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
+
+
+
+
+
+
+
+
+
+
+
+:root {
+  --drill-vision-span-step: .25in;
+}
+
+.VisionSpanDrill {
+  text-align: center;
+}
+.DrillControls,
+.PageControls {
+  position: fixed;
+  z-index: 999;
+}
+.DrillControls {
+  right: 20px;
+  top: 20px;
+  text-align: right;
+}
+.PageControls {
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  text-align: center;
+}
+
+.DrillControls ul,
+.PageControls ul {
+  list-style-type: none;
+}
+.DrillControls li,
+.PageControls li {
+  display: inline-block;
+}
+
+
+button {
+  cursor: pointer;
+}
+
+.OutOfScreen {
+  position: fixed;
+  left: -100%;
+  top: -100%;
+}
+
+/* An input without the border */
+.input {
+  border: none;
+  color: white;
+}
+.input:focus{
+  outline: none;
+}
+
+.input-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  margin-left: -5px;
+  margin-top: -5px;
+  font-size: 1.5em;
+  background-color: black;
+  color: white;
+  z-index: 10;
+  text-transform: uppercase;
+}
+
+.Drill {
+
+}
+.DrillArea {
+  position: fixed;
+  top: 2em;
+  left: 2em;
+  right: 2em;
+  bottom: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Serie {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.Line {
+  line-height: 1.5em;
+}
+
+.Cell {
+  display: inline-block;
+  width: 0.25in;
+  text-align: center;
+}
+.Cell.valid {
+  color: green;
+}
+.Cell.highlighted {
+  background-color: green;
+  color: white;
+}
+
+
+.SpanLeft0in     { margin-left:  0in;     }
+.SpanRight0in    { margin-right: 0in;     }
+.SpanLeft0_25in  { margin-left:  0.125in; }
+.SpanRight0_25in { margin-right: 0.125in; }
+.SpanLeft0_5in   { margin-left:  0.25in;  }
+.SpanRight0_5in  { margin-right: 0.25in;  }
+.SpanLeft0_75in  { margin-left:  0.375in; }
+.SpanRight0_75in { margin-right: 0.375in; }
+.SpanLeft1in     { margin-left:  0.5in;   }
+.SpanRight1in    { margin-right: 0.5in;   }
+.SpanLeft1_25in  { margin-left:  0.625in; }
+.SpanRight1_25in { margin-right: 0.625in; }
+.SpanLeft1_5in   { margin-left:  0.75in;  }
+.SpanRight1_5in  { margin-right: 0.75in;  }
+.SpanLeft1_75in  { margin-left:  0.875in; }
+.SpanRight1_75in { margin-right: 0.875in; }
+.SpanLeft2in     { margin-left:  1in;     }
+.SpanRight2in    { margin-right: 1in;     }
+.SpanLeft2_25in  { margin-left:  1.125in; }
+.SpanRight2_25in { margin-right: 1.125in; }
+.SpanLeft2_5in   { margin-left:  1.25in;  }
+.SpanRight2_5in  { margin-right: 1.25in;  }
+.SpanLeft2_75in  { margin-left:  1.375in; }
+.SpanRight2_75in { margin-right: 1.375in; }
+.SpanLeft3in     { margin-left:  1.5in;   }
+.SpanRight3in    { margin-right: 1.5in;   }
+.SpanLeft3_25in  { margin-left:  1.625in; }
+.SpanRight3_25in { margin-right: 1.625in; }
+.SpanLeft3_5in   { margin-left:  1.75in;  }
+.SpanRight3_5in  { margin-right: 1.75in;  }
+.SpanLeft3_75in  { margin-left:  1.875in; }
+.SpanRight3_75in { margin-right: 1.875in; }
+.SpanLeft4in     { margin-left:  2in;     }
+.SpanRight4in    { margin-right: 2in;     }
+
+.Width0in     { width: 0in;    }
+.Width0_25in  { width: 0.25in; }
+.Width0_5in   { width: 0.5in;  }
+.Width0_75in  { width: 0.75in; }
+.Width1in     { width: 1in;    }
+.Width1_25in  { width: 1.25in; }
+.Width1_5in   { width: 1.5in;  }
+.Width1_75in  { width: 1.75in; }
+.Width2in     { width: 2in;    }
+.Width2_25in  { width: 2.25in; }
+.Width2_5in   { width: 2.5in;  }
+.Width2_75in  { width: 2.75in; }
+.Width3in     { width: 3in;    }
+.Width3_25in  { width: 3.25in; }
+.Width3_5in   { width: 3.5in;  }
+.Width3_75in  { width: 3.75in; }
+.Width4in     { width: 4in;    }
+.Width3in     { width: 4.25in; }
+.Width4_25in  { width: 4.25in; }
+.Width4_5in   { width: 4.5in;  }
+.Width4_75in  { width: 4.75in; }
+.Width5in     { width: 5in;    }
+
+
+
+
+
+
+.Paper {
+  --line-height: 1.5em;
+
+  position: relative;
+  margin: auto;
+
+  /* this to solve "the content will not be cut when the window is smaller than the content": */
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+
+  line-height: var(--line-height);
+}
+
+.PaperContent {
+  position: absolute;
+
+  /* To determine book margins: https://en.wikibooks.org/wiki/Basic_Book_Design/Margins */
+  --standard-book-margin: 0.5in;
+  top: var(--standard-book-margin);
+  left: var(--standard-book-margin);
+  right: var(--standard-book-margin);
+  bottom: var(--standard-book-margin);
+  /* Important: Adjust margins, font size, and columns to produce 65-70 characters per line (including spaces). */
+
+  text-align: justify;
+
+  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+/* https://www.thebookdesigner.com/2012/04/paragraphing-style/ */
+.Paper p {
+  text-indent: 1.5em;
+  line-height: 1.5em;
+  margin-top: var(--line-height);
+  margin-bottom: var(--line-height);
+}
+.Paper p.Continuation {
+  text-indent: 0;
+}
+.Paper p.Continued {
+  text-align-last: justify;
+}
+
+.Paper h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+.Paper h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.Paper h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+}
+
+.Paper i {
+  font-style: italic;
+}
+
+
+.PaperExtended {
+  top: 2em;
+  right: 2em;
+  bottom: 2em;
+  left: 2em;
+}
+
+/* See https://www.papersizes.org/a-paper-sizes.htm */
+.PaperA4 {
+  width: 210mm;
+  height: 297mm;
+}
+.PaperA5 {
+  width: 148mm;
+  height: 210mm;
+}
+.PaperA6 {
+  width: 105mm;
+  height: 148mm;
+}
+/* See http://www.indesignskills.com/tutorials/standard-book-sizes/ */
+.PaperPocket {
+  width: 4.25in;
+  height: 6.87in;
+}
+.PaperDigest {
+  width: 5.5in;
+  height: 8.5in;
+}
+.PaperPaperback {
+  width: 6in;
+  height: 9in;
+}
+.PaperHardcover {
+  width: 7.5in;
+  height: 10.5in;
+  padding: 1in;
+}
+
+
+.Ruler {
+  opacity: 0;
+}
+
+.Pager {
+  opacity: 0;
+  z-index: 0;
+}
+
+.Chunk.Selected {
+  background-color: yellow;
+}
+
+.ButtonClose {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  color: black !important;
+}
+
+
+
+
+
+/* TODO check to keep only the first declaration */
+.SourceCodePro,
+.DrillArea .SourceCodePro,
+.Settings .SourceCodePro {
+  font-family: 'Source Code Pro', monospace !important;
+}
+.Roboto,
+.DrillArea .Roboto,
+.Settings .Roboto {
+  font-family: 'Roboto', sans-serif !important;
+}
+.Slabo,
+.DrillArea .Slabo,
+.Settings .Slabo {
+  font-family: 'Slabo 27px', serif !important;
+}
+.Sacramento,
+.DrillArea .Sacramento,
+.Settings .Sacramento {
+  font-family: 'Sacramento', cursive !important;
+}
+.FredokaOne,
+.DrillArea .FredokaOne,
+.Settings .FredokaOne {
+  font-family: 'Fredoka One', cursive !important;
+}
+
+.Normal,
+.DrillArea .Normal,
+.Settings .Normal {
+  font-style: normal;
+  font-weight: normal;
+}
+.Bold,
+.DrillArea .Bold,
+.Settings .Bold {
+  font-style: normal;
+  font-weight: bold;
+}
+.Italic,
+.DrillArea .Italic,
+.Settings .Italic {
+  font-style: italic;
+  font-weight: normal;
+}
+.BoldItalic,
+.DrillArea .BoldItalic,
+.Settings .BoldItalic {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.Size10pt,
+.DrillArea .Size10pt,
+.Settings .Size10pt {
+  font-size: 10pt;
+}
+.Size12pt,
+.DrillArea .Size12pt,
+.Settings .Size12pt {
+  font-size: 12pt;
+}
+.Size14pt,
+.DrillArea .Size14pt,
+.Settings .Size14pt {
+  font-size: 14pt;
+}
+.Size16pt,
+.DrillArea .Size16pt,
+.Settings .Size16pt {
+  font-size: 16pt;
+}
+.Size18pt,
+.DrillArea .Size18pt,
+.Settings .Size18pt {
+  font-size: 18pt;
+}
+
+
+/* ChunkingDrillChunk */
+
+.ChunkingDrillChunk {
+  --chunk-neighbor-margin: .25em;
+}
+
+.ChunkingDrillChunk .Chunks {
+  text-align: center;
+}
+
+.ChunkingDrillChunk .Chunk {
+  display: inline-block;
+  padding: 10px;
+}
+
+.ChunkingDrillChunk.NeighborPositionVertical .Chunk {
+  margin-top: var(--chunk-neighbor-margin);
+  margin-bottom: var(--chunk-neighbor-margin);
+}
+.ChunkingDrillChunk.NeighborPositionHorizontal .Chunk {
+  display: inline-block;
+  margin-left: var(--chunk-neighbor-margin);
+  margin-bottom: var(--chunk-neighbor-margin);
+}
+

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import Chunker from './Chunker'
-import DrillPage from './DrillPage'; // FIXME remove dependency
 import Styled from '../toolbox/Styled';
+import { chunkDuration } from '../toolbox/WPM';
+import { capitalize } from '../toolbox/Fn';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
-import { capitalize } from '../toolbox/Fn';
 
 class DrillChunk extends React.Component {
 
@@ -39,6 +39,8 @@ class DrillChunk extends React.Component {
     }
 
     advanceChunk() {
+        if (this.state.chunks.length === 0) return;
+
         const drillEndingDuration = 1000;
         const chunkPosition = this.state.chunkPosition;
         const chunks = this.state.chunks;
@@ -65,7 +67,7 @@ class DrillChunk extends React.Component {
                 currentChunk: currentChunk,
                 nextChunk: nextChunk,
             }));
-            return DrillPage.chunkDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
+            return chunkDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
         }
     }
 
@@ -144,9 +146,7 @@ class DrillChunk extends React.Component {
             <div className={"FullScreen ChunkingDrillChunk " + classNames.join(' ')} style={styles}>
 
                 <Chunker content={this.props.content} onDone={this.onChunkerDone}
-                       fontFamily={this.props.fontFamily}
-                       fontSize={this.props.fontSize}
-                       fontStyle={this.props.fontStyle}
+                       {...this.props}
                 />
 
                 <section className="DrillControls">
@@ -172,17 +172,17 @@ class DrillChunk extends React.Component {
                             {this.props.showPreviousChunk && previousChunkEmpty &&
                                 <span className="Chunk PreviousChunk Opaque">&nbsp;</span>}
                             {this.state.previousChunk && !previousChunkEmpty &&
-                                <span className="Chunk PreviousChunk">{this.state.previousChunk.text}</span>}
+                                <span className="Chunk PreviousChunk" dangerouslySetInnerHTML={{__html: this.state.previousChunk.text}}></span>}
                             {this.props.neighborChunksPosition === 'vertical' && <br/>}
 
                             {this.state.currentChunk &&
-                                <span className="Chunk CurrentChunk Selected">{this.state.currentChunk.text}</span>}
+                                <span className="Chunk CurrentChunk Selected" dangerouslySetInnerHTML={{__html: this.state.currentChunk.text}}></span>}
 
                             {this.props.neighborChunksPosition === 'vertical' && <br/>}
                             {this.props.showNextChunk && nextChunkEmpty &&
                                 <span className="Chunk NextChunk Opaque">&nbsp;</span>}
                             {this.props.showNextChunk && !nextChunkEmpty &&
-                                <span className="Chunk NextChunk">{this.state.nextChunk.text}</span>}
+                                <span className="Chunk NextChunk" dangerouslySetInnerHTML={{__html: this.state.nextChunk.text}}></span>}
                         </Styled>
                     }
 
@@ -190,18 +190,6 @@ class DrillChunk extends React.Component {
 
             </div>
         );
-    }
-
-    // FIXME remove
-    generateChunks() {
-        // We ignore the book layout (line height, margin, title size, letter cap, etc) when speed reading in chunk mode.
-        const BREAK = "__BREAK__";
-        return [
-            "Chapter 3", BREAK,
-            "TOM presented himself", "before Aunt Polly,", "who was sitting", "by an open window", "in a pleasant rearward apartment,", "which was bedroom,", "breakfast-room, dining-room,", "and library, combined.", "The balmy summer air,", "the restful quiet,", "the odor of the flowers,", "and the drowsing murmur", "of the bees had", "had their effect,", "and she was nodding over", "her knitting--for", "she had no company", "but the cat, and it was", "asleep in her lap.", "He said: “Mayn't I go", "and play now, aunt?”", BREAK,
-            "“What, a'ready? How", "much have you done?”", BREAK,
-            // ...
-        ]
     }
 
 }
@@ -213,8 +201,7 @@ DrillChunk.propTypes = {
     wpm: PropTypes.number,
     // Displays controls to vary the span between columns
     speedControls: PropTypes.bool,
-    // Adjust level according the number of errors
-    autoLevel: PropTypes.bool,
+
     // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
     neighborChunksPosition: PropTypes.string,
     // Display the previous chunk
@@ -226,16 +213,14 @@ DrillChunk.propTypes = {
 DrillChunk.defaultProps = {
     ...Chunker.defaultProps,
 
-    wpm: 1000,
+    wpm: 2000,
     speedControls: true,
-    autoLevel: true,
 
     // Chunk options
     neighborChunksPosition: 'vertical',
     showPreviousChunk: false,
     showNextChunk: true,
 
-    // FIXME remove
     fontSize: '16pt',
 };
 

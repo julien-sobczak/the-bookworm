@@ -4,6 +4,8 @@ import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import Pager from './Pager';
 import Paper from '../toolbox/Paper';
+import { chunkDuration } from '../toolbox/WPM';
+import PageContent from '../toolbox/PageContent';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
@@ -30,6 +32,7 @@ class DrillPage extends React.Component {
     }
 
     onPagerDone(pages) {
+        console.log('Pages', pages);
         this.setState(state => ({
             ...state,
             pages: pages,
@@ -78,7 +81,7 @@ class DrillPage extends React.Component {
                             blockPosition: 0,
                             chunkPosition: 0,
                         }));
-                        return pageTurningDuration + DrillPage.chunkDuration(this.currentChunk(), this.state.wpm);
+                        return pageTurningDuration + chunkDuration(this.currentChunk(), this.state.wpm);
                     }
                 } else {
                     // Move to next block
@@ -103,7 +106,7 @@ class DrillPage extends React.Component {
         } while (retry);
         // eslint-enable no-loop-func
 
-        return DrillPage.chunkDuration(this.currentChunk(), this.state.wpm);
+        return chunkDuration(this.currentChunk(), this.state.wpm);
     }
 
     currentChunk() {
@@ -115,30 +118,6 @@ class DrillPage extends React.Component {
         return chunks[this.state.chunkPosition];
     }
 
-    /**
-     * Return how many milliseconds the user is allowed to read this chunk.
-     * @param {string} chunk
-     * @returns {number} The number of ms to wait before the next chunk
-     */
-    static chunkDuration(chunk, wpm) {
-        if (!chunk) return 0;
-
-        const characersPerWord = 5; // https://en.wikipedia.org/wiki/Words_per_minute
-
-        // How to calculate the duration?
-        // 150 words per minute = 150 * 5 characters per minute = 750 characters per minute
-        // A chunk with 750 characters takes one minute to read.
-        // A chunk with 75 characters takes six seconds to read.
-        // and so on.
-
-        // The minimum pause time of the eye is estimated to be about 200 msec.
-        // The second component involves stimulus processing, estimated to require a minimum of 50 to 100 msec.
-        // https://www.ncbi.nlm.nih.gov/pubmed/7406068
-        const minimumEyeFixationDuration = 275;
-        const theoricalChunkReadingDuration = (chunk.length * 60 * 1000) / (wpm * characersPerWord);
-        return Math.max(minimumEyeFixationDuration, theoricalChunkReadingDuration);
-    }
-
     start() {
         this.setState(state => ({
             ...state,
@@ -147,7 +126,7 @@ class DrillPage extends React.Component {
 
         this.clear();
 
-        let delay = DrillPage.chunkDuration(this.currentChunk(), this.state.wpm);
+        let delay = chunkDuration(this.currentChunk(), this.state.wpm);
         let start = new Date().getTime()
         this.handle = undefined;
         let loop = () => {
@@ -194,12 +173,7 @@ class DrillPage extends React.Component {
             <div className="FullScreen ChunkingDrillPage">
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
-                       fontFamily={this.props.fontFamily}
-                       fontSize={this.props.fontSize}
-                       fontStyle={this.props.fontStyle}
-                       backgroundColor={this.props.backgroundColor}
-                       color={this.props.color}
-                />
+                       {...this.props} />
 
                 <section className="DrillControls">
                     <ul>
@@ -218,22 +192,10 @@ class DrillPage extends React.Component {
                     </div>}
 
                     {this.state.started && this.state.pageNumber > 0 &&
-                        <Paper paperSize={this.props.paperSize}
-                               fontFamily={this.props.fontFamily}
-                               fontSize={this.props.fontSize}
-                               fontStyle={this.props.fontStyle}
-                               backgroundColor={this.props.backgroundColor}
-                               color={this.props.color}>
-                            {this.state.pages[this.state.pageNumber - 1].blocks.map((block, iBlock) => React.createElement(
-                                block.tag,
-                                {key: iBlock, className: (block.continuation ? 'Continuation' : '')},
-                                block.chunks.map((chunk, iChunk) => {
-                                    const selected = iBlock === this.state.blockPosition && iChunk === this.state.chunkPosition;
-                                    return <span className={(chunk.trim() !== '' ? 'Chunk' : 'Space') + (selected ? ' Selected' : '')}
-                                                key={iChunk}
-                                                dangerouslySetInnerHTML={{__html: chunk}} />
-                                })
-                            ))}
+                        <Paper {...this.props}>
+                            <PageContent page={this.state.pages[this.state.pageNumber - 1]}
+                                         blockPosition={this.state.blockPosition}
+                                         chunkPosition={this.state.chunkPosition} />
                         </Paper>
                     }
                 </section>
@@ -248,14 +210,12 @@ DrillPage.propTypes = {
 
     wpm: PropTypes.number,
     pageTurningDuration: PropTypes.number, // ms
-    chunkWidth: PropTypes.string,
-    chunkAccuracy: PropTypes.number,
 }
 
 DrillPage.defaultProps = {
     ...Pager.defaultProps,
 
-    wpm: 500,
+    wpm: 1000,
     pageTurningDuration: 500,
 
     // TODO Remove

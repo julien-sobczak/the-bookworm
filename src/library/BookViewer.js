@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Pager from '../chunking/Pager';
 import Paper from "../toolbox/Paper";
+import PageContent from "../toolbox/PageContent";
 import { capitalize } from "../toolbox/Fn";
 
 class BookViewer extends React.Component {
@@ -58,12 +59,7 @@ class BookViewer extends React.Component {
                 <Link to="/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
-                       fontFamily={this.props.fontFamily}
-                       fontSize={this.props.fontSize}
-                       fontStyle={this.props.fontStyle}
-                       backgroundColor={this.props.backgroundColor}
-                       color={this.props.color}
-                />
+                       {...this.props} />
 
                 <section className="PageControls">
                     <ul>
@@ -74,22 +70,8 @@ class BookViewer extends React.Component {
 
                 <section className="DrillArea">
                     {this.state.pageNumber > 0 &&
-                        <Paper ref={this.paperElement}
-                                paperSize={this.props.paperSize}
-                                fontFamily={this.props.fontFamily}
-                                fontSize={this.props.fontSize}
-                                fontStyle={this.props.fontStyle}
-                                backgroundColor={this.props.backgroundColor}
-                                color={this.props.color}>
-                            {this.state.pages[this.state.pageNumber - 1].blocks.map((block, index) => React.createElement(
-                                block.tag,
-                                {key: index, className: (block.continuation ? 'Continuation' : '')},
-                                block.chunks.map((chunk, iChunk) => {
-                                    return <span className={(chunk.trim() !== '' ? 'Chunk' : 'Space')}
-                                                key={iChunk}
-                                                dangerouslySetInnerHTML={{__html: chunk}} />
-                                })
-                            ))}
+                        <Paper {...this.props}>
+                            <PageContent page={this.state.pages[this.state.pageNumber - 1]} />
                         </Paper>
                     }
                 </section>
