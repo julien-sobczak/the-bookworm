@@ -6,8 +6,6 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 import Configurator from './Configurator';
 
-import './VisionSpan.css';
-
 /**
  * Principal component to create the various Vision Span drills.
  */

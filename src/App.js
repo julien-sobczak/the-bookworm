@@ -14,7 +14,6 @@ import BookViewer from './library/BookViewer'
 import 'normalize.css'
 import './Reset.css';
 import './App.css';
-import './Drill.css';
 import '@material/react-card/dist/card.css';
 
 
@@ -98,8 +97,11 @@ function ChunkingSelector({ match }) {
     ]
   };
   const drills = {
-    'drill-page': <ChunkingDrillPage content={content} />,
-    'drill-chunk': <ChunkingDrillChunk content={content} />,
+    // 'drill-page': <ChunkingDrillPage content={content} chunkMode="stops" chunkStops={3} />,
+    // 'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" />,
+    'drill-page': <ChunkingDrillPage content={content} chunkMode="words" chunkWords={2} />,
+    'drill-chunk': <ChunkingDrillChunk content={content} chunkMode="words" />,
+    // 'drill-chunk': <ChunkingDrillChunk content={content} chunkMode="width" chunkWidth="2in" />,
     'pager': <ChunkingPager content={content} />,
     'book-viewer': <BookViewer content={content} />,
   }
