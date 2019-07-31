@@ -10,8 +10,26 @@ class PageContent extends React.Component {
                     block.tag,
                     {key: indexBlock, className: (block.continuation ? 'Continuation' : (block.continued ? 'Continued' : 'Entire')) },
                     block.chunks.map((chunk, indexChunk) => {
-                        const selected = indexBlock === this.props.blockPosition && indexChunk === this.props.chunkPosition;
-                        return <span className={(chunk.trim() !== '' ? 'Chunk' : 'Space') + (selected ? ' Selected' : '')}
+
+                        const classNames = [];
+                        if (indexBlock === this.props.blockPosition && indexChunk === this.props.chunkPosition) {
+                            classNames.push('Selected');
+                        }
+                        if (chunk.trim() !== '') {
+                            classNames.push('Chunk');
+                        } else {
+                            classNames.push('Space');
+                        }
+                        if (indexBlock < this.props.blockPosition ||
+                            (indexBlock === this.props.blockPosition && indexChunk < this.props.chunkPosition)) {
+                            classNames.push('Before');
+                        }
+                        if (indexBlock > this.props.blockPosition ||
+                            (indexBlock === this.props.blockPosition && indexChunk > this.props.chunkPosition)) {
+                            classNames.push('After');
+                        }
+
+                        return <span className={classNames.join(' ')}
                                     key={indexChunk}
                                     dangerouslySetInnerHTML={{__html: chunk}} />
                     })

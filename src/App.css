@@ -731,3 +731,14 @@ button {
   margin-bottom: var(--chunk-neighbor-margin);
 }
 
+/* Distractions */
+.ChunkingDrillPage {
+  --drill-fade-color: #eee;
+}
+.ChunkingDrillPage .DisableVisualRegression.DisableVisualProblemStyleTransparent .Chunk.Before { opacity: 0; }
+.ChunkingDrillPage .DisableVisualRegression.DisableVisualProblemStyleFade        .Chunk.Before { color: var(--drill-fade-color); background-color: var(--drill-fade-color); }
+.ChunkingDrillPage .DisableVisualRegression.DisableVisualProblemStyleBlur        .Chunk.Before { filter: blur(0.1em); opacity: 0.5; }
+
+.ChunkingDrillPage .DisableVisualProgression.DisableVisualProblemStyleTransparent .Chunk.After { opacity: 0; }
+.ChunkingDrillPage .DisableVisualProgression.DisableVisualProblemStyleFade        .Chunk.After { color: var(--drill-fade-color); background-color: var(--drill-fade-color); }
+.ChunkingDrillPage .DisableVisualProgression.DisableVisualProblemStyleBlur        .Chunk.After { filter: blur(0.1em); opacity: 0.5; }

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Pager from './Pager';
 import Paper from '../toolbox/Paper';
 import { chunkDuration } from '../toolbox/WPM';
+import { capitalize } from '../toolbox/Fn';
 import PageContent from '../toolbox/PageContent';
 
 import '@material/react-icon-button/dist/icon-button.css';
@@ -167,6 +168,18 @@ class DrillPage extends React.Component {
         }));
     }
 
+    getDrillClassNames() {
+        const classNames = [];
+        if (this.props.disableVisualRegression) {
+            classNames.push('DisableVisualRegression');
+        }
+        if (this.props.disableVisualProgression) {
+            classNames.push('DisableVisualProgression');
+        }
+        classNames.push('DisableVisualProblemStyle' + capitalize(this.props.disableVisualProblemStyle));
+        return classNames;
+    }
+
 
     render() {
         return (
@@ -184,7 +197,7 @@ class DrillPage extends React.Component {
                 </section>
 
 
-                <section className="DrillArea">
+                <section className={"DrillArea " + this.getDrillClassNames().join(' ')}>
                     {!this.state.started && <div className="Wizard">
                         <Button raised icon={<i className="material-icons">{this.state.playing ? 'pause_arrow' : 'play_arrow'}</i>} onClick={this.start}>
                             Read
@@ -210,6 +223,14 @@ DrillPage.propTypes = {
 
     wpm: PropTypes.number,
     pageTurningDuration: PropTypes.number, // ms
+
+    // Hide/Show the text in front of the current chunk
+    disableVisualRegression: PropTypes.bool,
+    // Hide/Show the text behind the current chunk
+    disableVisualProgression: PropTypes.bool,
+    // How the hidden text controlled by `disableVisualRegression`
+    // and `disableVisualProgression` should be displayed
+    disableVisualProblemStyle: PropTypes.string,
 }
 
 DrillPage.defaultProps = {
@@ -217,6 +238,10 @@ DrillPage.defaultProps = {
 
     wpm: 1000,
     pageTurningDuration: 500,
+
+    disableVisualRegression: false,
+    disableVisualProgression: false,
+    disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
 
     // TODO Remove
     fontSize: '16pt',
