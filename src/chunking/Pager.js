@@ -159,6 +159,7 @@ class LineStopsChunker {
         for (let i = 0; i < this.stops; i++) {
             separators[i] = columnWidth * (i+1);
         }
+        separators[this.stops - 1] = 10000; // Make sure last chunks on the line go to the last stops.
         // ex: separators = [200, 400, 600]; => first column stops at 200px, second column at 400px, etc.
 
         const chunks = [];
