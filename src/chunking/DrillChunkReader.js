@@ -10,7 +10,7 @@ import { capitalize } from '../toolbox/Fn';
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
 
-class DrillChunk extends React.Component {
+class DrillChunkReader extends React.Component {
 
     constructor(props) {
         super(props);
@@ -33,9 +33,55 @@ class DrillChunk extends React.Component {
         console.log('Chunks', chunks);
         this.setState(state => ({
             ...state,
-            chunks: chunks,
+            chunks: DrillChunkReader.groupChunks(chunks, this.props.linesPerChunk),
             chunkPosition: -1,
         }));
+    }
+
+    static groupChunks(chunks, linesPerChunk) {
+        if (linesPerChunk === 1) return chunks;
+
+        const groupedChunks = [];
+
+        let i = 0;
+        while (i < chunks.length) {
+            const subChunks = chunks.slice(i, Math.min(i+linesPerChunk, chunks.length));
+
+            const subChunksInCurrentBlock = [];
+            for (let j = 0; j < subChunks.length; j++) {
+                const chunk = subChunks[j];
+                subChunksInCurrentBlock.push(chunk)
+                if (chunk.endingChunk) {
+                    // Stop here
+                    break;
+                }
+            }
+
+            const allChunksInCurrentBlock = subChunks.length === subChunksInCurrentBlock.length;
+            if (!allChunksInCurrentBlock) {
+                // Case 1: End of paragraph before the number of lines
+                // Don't group chunk from different blocks
+                groupedChunks.push(...subChunksInCurrentBlock);
+                i += subChunksInCurrentBlock.length;
+            } else {
+                // Case 2: All chunks are in the same block
+                // Simply group them
+
+                const firstChunk = subChunks[0];
+                const lastChunk = subChunks[subChunks.length - 1];
+                const chunkText = subChunks.map(c => c.text).join('<br/>');
+
+                groupedChunks.push({
+                    text: chunkText,
+                    tag: firstChunk.tag,
+                    startingChunk: firstChunk.startingChunk,
+                    endingChunk: lastChunk.endingChunk,
+                })
+                i += subChunks.length;
+            }
+        }
+
+        return groupedChunks;
     }
 
     advanceChunk() {
@@ -143,7 +189,7 @@ class DrillChunk extends React.Component {
 
         let i = 0;
         return (
-            <div className={"FullScreen ChunkingDrillChunk " + classNames.join(' ')} style={styles}>
+            <div className={"FullScreen ChunkingDrillChunkReader " + classNames.join(' ')} style={styles}>
 
                 <Chunker content={this.props.content} onDone={this.onChunkerDone}
                        {...this.props}
@@ -194,7 +240,7 @@ class DrillChunk extends React.Component {
 
 }
 
-DrillChunk.propTypes = {
+DrillChunkReader.propTypes = {
     ...Chunker.propTypes,
 
     // WPM
@@ -202,6 +248,9 @@ DrillChunk.propTypes = {
     // Displays controls to vary the span between columns
     speedControls: PropTypes.bool,
 
+
+    // How many lines per chunk (in practice, pack several chunks into the same chunk)
+    linesPerChunk: PropTypes.number,
     // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
     neighborChunksPosition: PropTypes.string,
     // Display the previous chunk
@@ -210,13 +259,14 @@ DrillChunk.propTypes = {
     showNextChunk: PropTypes.bool,
 }
 
-DrillChunk.defaultProps = {
+DrillChunkReader.defaultProps = {
     ...Chunker.defaultProps,
 
     wpm: 2000,
     speedControls: true,
 
     // Chunk options
+    linesPerChunk: 1,
     neighborChunksPosition: 'vertical',
     showPreviousChunk: false,
     showNextChunk: true,
@@ -224,4 +274,4 @@ DrillChunk.defaultProps = {
     fontSize: '16pt',
 };
 
-export default DrillChunk;
+export default DrillChunkReader;

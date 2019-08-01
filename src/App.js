@@ -5,7 +5,7 @@ import VisionSpanDrill from './vision-span/Drill'
 import VisionSpanCatalog from './vision-span/Catalog'
 
 import ChunkingCatalog from './chunking/Catalog'
-import ChunkingDrillChunk from './chunking/DrillChunk'
+import ChunkingDrillChunkReader from './chunking/DrillChunkReader'
 import ChunkingDrillPage from './chunking/DrillPage'
 import ChunkingPager from './chunking/Pager'
 
@@ -97,13 +97,14 @@ function ChunkingSelector({ match }) {
     ]
   };
   const drills = {
-    // 'drill-page': <ChunkingDrillPage content={content} chunkMode="stops" chunkStops={3} />,
+    'drill-page': <ChunkingDrillPage content={content} chunkMode="stops" chunkStops={3} />,
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" />,
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="words" chunkWords={2} />,
-    'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" disableVisualRegression={true} disableVisualProgression={true} disableVisualProblemStyle="blur" />,
+    // 'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" disableVisualRegression={true} disableVisualProgression={true} disableVisualProblemStyle="blur" />,
 
-    'drill-chunk': <ChunkingDrillChunk content={content} chunkMode="words" />,
-    // 'drill-chunk': <ChunkingDrillChunk content={content} chunkMode="width" chunkWidth="2in" />,
+    // 'drill-chunk': <ChunkingDrillChunkReader content={content} chunkMode="words" />,
+    'drill-chunk': <ChunkingDrillChunkReader content={content} chunkMode="width" chunkWidth="2in" linesPerChunk={2} />,
+    // 'drill-chunk': <ChunkingDrillChunkReader content={content} chunkMode="width" chunkWidth="2in" />,
 
     'pager': <ChunkingPager content={content} />,
 

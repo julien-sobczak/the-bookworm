@@ -706,26 +706,26 @@ button {
 }
 
 
-/* ChunkingDrillChunk */
+/* ChunkingDrillChunkReader */
 
-.ChunkingDrillChunk {
+.ChunkingDrillChunkReader {
   --chunk-neighbor-margin: .25em;
 }
 
-.ChunkingDrillChunk .Chunks {
+.ChunkingDrillChunkReader .Chunks {
   text-align: center;
 }
 
-.ChunkingDrillChunk .Chunk {
+.ChunkingDrillChunkReader .Chunk {
   display: inline-block;
   padding: 10px;
 }
 
-.ChunkingDrillChunk.NeighborPositionVertical .Chunk {
+.ChunkingDrillChunkReader.NeighborPositionVertical .Chunk {
   margin-top: var(--chunk-neighbor-margin);
   margin-bottom: var(--chunk-neighbor-margin);
 }
-.ChunkingDrillChunk.NeighborPositionHorizontal .Chunk {
+.ChunkingDrillChunkReader.NeighborPositionHorizontal .Chunk {
   display: inline-block;
   margin-left: var(--chunk-neighbor-margin);
   margin-bottom: var(--chunk-neighbor-margin);
