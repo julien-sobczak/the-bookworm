@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
+import Measurer from '../toolbox/Measurer';
 import Styled from '../toolbox/Styled';
 
 /**
@@ -16,61 +16,15 @@ function getChunkHTML(tokens) {
 }
 
 /**
- * Measure the width of a given text.
- * This is not a React component to avoid rerender after each measurement.
- */
-class Measurer {
-
-    constructor({fontFamily, fontSize, fontStyle}) {
-        this.fontFamily = fontFamily;
-        this.fontSize = fontSize;
-        this.fontStyle = fontStyle;
-
-        // Manage an element outside this component to append text word by word to find chunks.
-        // This avoid having this component to re-render continuously.
-        const chunkElementId = 'chunker';
-        const chunkElement = React.createElement(
-            Styled,
-            {
-                id: chunkElementId,
-                fontFamily: this.fontFamily,
-                fontSize: this.fontSize,
-                fontStyle: this.fontStyle,
-            }
-        );
-        const chunkHTML = ReactDOMServer.renderToStaticMarkup(chunkElement);
-        document.getElementById('root-chunker').innerHTML = chunkHTML;
-        this.chunkElement = document.getElementById(chunkElementId);
-        this.chunkElement.style.display = "inline-block"; // We want to measure the width (display: block by default)
-    }
-
-    /**
-     * Measure the effective width of a given text.
-     * @param {string} text The text to measure
-     * @returns {number} The effective width in pixels
-     */
-    measure(text) {
-        this.chunkElement.innerHTML = text;
-        let element = this.chunkElement;
-        const computedStyle = getComputedStyle(element);
-
-        let width = element.offsetWidth;   // width with padding
-        width -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);  // width without padding
-
-        return width;
-    }
-}
-
-/**
  * Chunking implemention splitting a text into chunks having a maximum width.
  */
 class FixedWidthChunker {
 
-    constructor(tokenizer, measurer, width, widthMax) {
+    constructor(tokenizer, width, accuracy) {
+        const tolerance = (width - width * accuracy);
         this.tokenizer = tokenizer;
-        this.measurer = measurer;
         this.width = width;
-        this.widthMax = widthMax;
+        this.widthMax = Math.floor(width + tolerance);
     }
 
     chunkenize(text) {
@@ -85,8 +39,9 @@ class FixedWidthChunker {
                 let currentToken = tokens[indexCurrent].token;
                 currentChunk += currentToken;
 
-                const chunkWidth = this.measurer.measure(currentChunk);
+                const [chunkWidth,] = Measurer.measure(currentChunk);
                 if (chunkWidth > this.widthMax) {
+
                     const newChunk = getChunkHTML(tokens.slice(indexStart, indexCurrent));
                     indexStart = indexCurrent;
                     currentChunk = currentToken;
@@ -107,6 +62,108 @@ class FixedWidthChunker {
                 startingChunk: (indexStart === 0),
                 endingChunk: (indexCurrent === tokens.length),
             });
+
+        });
+
+        return chunks;
+    }
+
+}
+
+/**
+ * Chunking implemention splitting a text into chunks having a varied width.
+ */
+class VariedWidthChunker {
+
+    constructor(tokenizer, widthMin, widthMax, chunkTransition, chunkSteps=10, columns=1) {
+        this.tokenizer = tokenizer;
+        this.widthMin = widthMin;
+        this.widthMax = widthMax;
+        this.chunkTransition = chunkTransition;
+        this.steps = chunkSteps;
+        this.columns = columns;
+    }
+
+    widthSteps() {
+        const increment = (this.widthMax - this.widthMin) / this.steps;
+
+        const widthSteps = [];
+        let currentWidthStep = this.widthMin;
+        for (let i = 0; i < this.steps; i++) {
+            widthSteps.push(currentWidthStep);
+            currentWidthStep += increment;
+        }
+        widthSteps[widthSteps.length - 1] = this.widthMax;
+
+        return widthSteps;
+    }
+
+    chunkenize(text) {
+        const chunks = [];
+
+        const widthSteps = this.widthSteps();
+        let currentStep = 0;
+        let currentColumn = 0;
+
+        text.forEach((block) => {
+            const tokens = this.tokenizer.tokenize(block.content);
+            let indexCurrent = 0;
+            let indexStart = 0;
+            let currentChunk = "";
+
+            while (indexCurrent < tokens.length) {
+                let currentToken = tokens[indexCurrent].token;
+                currentChunk += currentToken;
+
+                const [chunkWidth,] = Measurer.measure(currentChunk);
+
+                if (chunkWidth > widthSteps[currentStep]) {
+                    const newChunk = getChunkHTML(tokens.slice(indexStart, indexCurrent));
+                    indexStart = indexCurrent;
+                    currentChunk = currentToken;
+
+                    const chunkEmpty = newChunk.trim() === '';
+                    if (!chunkEmpty) {
+                        chunks.push({
+                            text: newChunk,
+                            tag: block.tag,
+                            startingChunk: (indexStart === 0),
+                        });
+
+                        currentColumn++;
+
+                        if (currentColumn === this.columns) {
+                            currentColumn = 0;
+                            currentStep++;
+                            if (currentStep === this.steps) {
+                                currentStep = 0;
+                            }
+                        }
+                    }
+                }
+                indexCurrent++;
+            }
+
+            // Do not forget the last chunk
+            const lastChunk = getChunkHTML(tokens.slice(indexStart));
+            const chunkEmpty = lastChunk.trim() === '';
+            if (chunkEmpty) return;
+
+            chunks.push({
+                text: lastChunk,
+                tag: block.tag,
+                startingChunk: (indexStart === 0),
+                endingChunk: (indexCurrent === tokens.length),
+            });
+
+            currentColumn++;
+            if (currentColumn === this.columns) {
+                currentColumn = 0;
+                currentStep++;
+                if (currentStep === this.steps) {
+                    currentStep = 0;
+                }
+            }
 
         });
 
@@ -210,49 +267,33 @@ class Chunker extends React.Component {
             chunkPosition: 0,
         };
 
-        this.rulerElement = React.createRef();
         this.changed = true;
-    }
 
-    cssChunkSize() {
-        return 'Width' + this.props.chunkWidth.replace('.', '_');
+        this.onMeasurementsChange = this.onMeasurementsChange.bind(this);
     }
 
     render() {
         return (
-            <div className="FullScreen Pager">
-                <div className={"Ruler " + this.cssChunkSize()} ref={this.rulerElement}></div>
+            <div className="FullScreen Chunker">
+                <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
             </div>
         );
     }
 
-    rulerWidths() {
-        let rulerElement = this.rulerElement.current;
-        let rulerWidth = rulerElement.clientWidth; // Convert the chunk size from inches to pixels
-        let rulerWidthTolerance = (rulerWidth - rulerWidth * this.props.chunkAccuracy);
-        let rulerWidthMax = Math.floor(rulerWidth + rulerWidthTolerance);
-        return [rulerWidth, rulerWidthMax];
-    }
-
-    componentDidMount() {
+    onMeasurementsChange(measurements) {
         if (!this.changed) return;
 
-        const [rulerWidth, rulerWidthMax] = this.rulerWidths();
-
-        if (this.props.debug) {
-            console.log(`Chunk measures ${this.props.chunkWidth} = ${rulerWidth}px (tolerance: ${rulerWidthMax}px)`);
-        }
+        console.log('Measurer', measurements);
 
         const tokenizer = new Tokenizer();
-        const measurer = new Measurer({
-            fontFamily: this.props.fontFamily,
-            fontSize: this.props.fontSize,
-            fontStyle: this.props.fontStyle,
-        });
-
         let chunker = undefined;
         if (this.props.chunkMode === 'width') {
-            chunker = new FixedWidthChunker(tokenizer, measurer, rulerWidth, rulerWidthMax);
+            const widthInPixels = measurements[this.props.chunkWidth].width;
+            chunker = new FixedWidthChunker(tokenizer, widthInPixels, this.props.chunkAccuracy);
+        } else if (this.props.chunkMode === 'dynamic') {
+            const widthMinInPixels = measurements[this.props.chunkWidthMin].width;
+            const widthMaxInPixels = measurements[this.props.chunkWidthMax].width;
+            chunker = new VariedWidthChunker(tokenizer, widthMinInPixels, widthMaxInPixels, this.props.chunkTransition, this.props.chunkSteps, this.props.columns);
         } else if (this.props.chunkMode === 'words') {
             chunker = new WordsChunker(tokenizer, this.props.chunkWords);
         }
@@ -286,7 +327,7 @@ Chunker.propTypes = {
     onDone: PropTypes.func,
 
     // Calculate chunks based on a specific maximum width or split the line in one or more stops
-    // (Allowed values: 'width', 'words')
+    // (Allowed values: 'width', 'words', 'dynamic')
     chunkMode: PropTypes.string,
 
     // Options when chunkMode = "width"
@@ -295,6 +336,12 @@ Chunker.propTypes = {
 
     // Options when chunkMode = "words"
     chunkWords: PropTypes.number, // the number of words per chunk
+
+    // Options when chunkMode = "dynamic"
+    chunkWidthMin: PropTypes.string,
+    chunkWidthMax: PropTypes.string,
+    chunkTransition: PropTypes.string, // `step`, `wave`
+    chunkSteps: PropTypes.number,
 }
 
 Chunker.defaultProps = {
@@ -306,6 +353,11 @@ Chunker.defaultProps = {
     chunkWidth: '3in',
     chunkAccuracy: 0.9,
     chunkWords: 1,
+
+    chunkWidthMin: '0.25in',
+    chunkWidthMax: '4in',
+    chunkTransition: 'step',
+    chunkSteps: 10,
 };
 
 export default Chunker;

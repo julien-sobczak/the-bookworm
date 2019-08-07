@@ -606,7 +606,7 @@ button {
   opacity: 0;
 }
 
-.Pager {
+.Chunker, .Pager {
   opacity: 0;
   z-index: 0;
 }
@@ -742,3 +742,14 @@ button {
 .ChunkingDrillPage .DisableVisualProgression.DisableVisualProblemStyleTransparent .Chunk.After { opacity: 0; }
 .ChunkingDrillPage .DisableVisualProgression.DisableVisualProblemStyleFade        .Chunk.After { color: var(--drill-fade-color); background-color: var(--drill-fade-color); }
 .ChunkingDrillPage .DisableVisualProgression.DisableVisualProblemStyleBlur        .Chunk.After { filter: blur(0.1em); opacity: 0.5; }
+
+.ChunkingDrillChunkColumn .Columns {
+  display: grid;
+  /* https://css-tricks.com/snippets/css/complete-guide-grid/ */
+  text-align: center;
+  justify-content: center; /* center horizontally without spreading elements */
+  align-content: center; /* center vertically without spreading elements */
+}
+.ChunkingDrillChunkColumn .Chunk {
+  line-height: 1.5em;
+}

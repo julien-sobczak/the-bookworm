@@ -45,7 +45,11 @@ function Catalog({match}) {
                 <Viewer />
             </Entry>
 
-            <Entry name="Chunk Reader" slug="drill-chunk" match={match}>
+            <Entry name="Chunk Reader" slug="drill-chunk-reader" match={match}>
+                <Viewer />
+            </Entry>
+
+            <Entry name="Chunk Column" slug="drill-chunk-column" match={match}>
                 <Viewer />
             </Entry>
 
