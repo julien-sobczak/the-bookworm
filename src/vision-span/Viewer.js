@@ -20,6 +20,7 @@ class Viewer extends React.Component {
 
     // Only these span values are supported (by proceed by 0.25 increment as encountered in the book Triple Your Reading Speed by Wade E. Cutler)
     SPANS = ['0in', '0.25in', '0.5in', '0.75in', '1in', '1.25in', '1.5in', '1.75in', '2in', '2.25in', '2.5in', '2.75in', '3in', '3.25in', '3.5in', '3.75in', '4in'];
+    // TODO remove is unused
 
     /** Evaluate the CSS classes from the drill options. */
     cssSpan(index) {
