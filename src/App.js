@@ -1,7 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
-import VisionSpanDrill from './vision-span/Drill'
+import VisionSpanDrillHorizontal from './vision-span/DrillHorizontal'
+import VisionSpanDrillPyramid from './vision-span/DrillPyramid'
+import VisionSpanDrillCircle from './vision-span/DrillCircle'
+import VisionSpanDrillSchulte from './vision-span/DrillSchulte'
 import VisionSpanCatalog from './vision-span/Catalog'
 
 import ChunkingCatalog from './chunking/Catalog'
@@ -28,12 +31,15 @@ function IndexPage() {
 
 function VisionSpanSelector({ match }) {
   const drills = {
-    'drill-letter-easy': <VisionSpanDrill multiple={false} columns={3} fontFamily="Roboto" fontSize="12pt" spans={["1in"]} />,
-    'drill-letter-intermediate': <VisionSpanDrill multiple={true} lines={2} columns={5} fontFamily="SourceCodePro" fontSize="18pt" fontStyle="bold italic" spans={["1in", "0.5in"]} autoLevel={true} />
+    'drill-horizontal-letter-easy': <VisionSpanDrillHorizontal multiple={false} columns={3} fontFamily="Roboto" fontSize="12pt" spans={["1in"]} />,
+    'drill-horizontal-letter-intermediate': <VisionSpanDrillHorizontal multiple={true} lines={2} columns={5} fontFamily="SourceCodePro" fontSize="18pt" fontStyle="bold italic" spans={["1in", "0.5in"]} autoLevel={true} />,
+    'drill-pyramid': <VisionSpanDrillPyramid span="2in" lines={8} />,
+    'drill-circle': <VisionSpanDrillCircle span="2in" />,
+    'drill-schulte': <VisionSpanDrillSchulte size={5} span="0.5in" />,
   }
   // Other examples:
-  //   <VisionSpanDrill multiple={false} columns="3" fontFamily="Roboto" fontSize="12pt" spans={["2in"]} />
-  //   <VisionSpanDrill multiple={true} lines="1" columns="5" fontFamily="Roboto" fontSize="18pt" spans={["1in", "0.5in"]} />
+  //   <VisionSpanDrillHorizontal multiple={false} columns="3" fontFamily="Roboto" fontSize="12pt" spans={["2in"]} />
+  //   <VisionSpanDrillHorizontal multiple={true} lines="1" columns="5" fontFamily="Roboto" fontSize="18pt" spans={["1in", "0.5in"]} />
 
   if (match.params.drill in drills) {
     return drills[match.params.drill]

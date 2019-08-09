@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Chunker from './Chunker'
 import Styled from '../toolbox/Styled';
 import { chunkDuration } from '../toolbox/WPM';
+import * as helpers from '../toolbox/EngineHelpers';
 import Measurer from '../toolbox/Measurer';
 
 import '@material/react-icon-button/dist/icon-button.css';
@@ -194,8 +195,8 @@ class DrillChunkColumn extends React.Component {
             });
 
             const columnWidthOnScreen = (this.props.chunkMode === 'dynamic') ?
-                Measurer.nextSpan(this.props.chunkWidthMax) :
-                Measurer.nextSpan(this.props.columnWidth)
+                helpers.increaseSpan(this.props.chunkWidthMax) :
+                helpers.increaseSpan(this.props.columnWidth)
 
             columnsStyle = {
                 width: "100%",
