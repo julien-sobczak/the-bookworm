@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import Pager from './Pager';
 import Paper from '../toolbox/Paper';
 import { chunkDuration } from '../toolbox/WPM';
 import { capitalize } from '../toolbox/Fn';
 import PageContent from '../toolbox/PageContent';
+import MainButton from '../toolbox/MainButton';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
@@ -199,9 +199,7 @@ class DrillPage extends React.Component {
 
                 <section className={"DrillArea " + this.getDrillClassNames().join(' ')}>
                     {!this.state.started && <div className="Wizard">
-                        <Button raised icon={<i className="material-icons">{this.state.playing ? 'pause_arrow' : 'play_arrow'}</i>} onClick={this.start}>
-                            Read
-                        </Button>
+                        <MainButton text="Click Me" onClick={this.start} />
                     </div>}
 
                     {this.state.started && this.state.pageNumber > 0 &&

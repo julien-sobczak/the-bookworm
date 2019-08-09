@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import Chunker from './Chunker'
 import Styled from '../toolbox/Styled';
 import { chunkDuration } from '../toolbox/WPM';
 import { capitalize } from '../toolbox/Fn';
+import MainButton from '../toolbox/MainButton';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
@@ -207,9 +207,7 @@ class DrillChunkReader extends React.Component {
 
                     {!this.state.started &&
                         <div className="Wizard">
-                            <Button raised icon={<i className="material-icons">{this.state.playing ? 'pause_arrow' : 'play_arrow'}</i>} onClick={this.start}>
-                                Read
-                            </Button>
+                            <MainButton text="Click Me" onClick={this.start} />
                         </div>
                     }
 
