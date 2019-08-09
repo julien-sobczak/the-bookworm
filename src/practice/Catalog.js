@@ -43,18 +43,6 @@ function Catalog({match}) {
     return (
         <div className="Catalog">
 
-            <Entry name="Page Reader" slug="drill-page" match={match}>
-                <Viewer />
-            </Entry>
-
-            <Entry name="Chunk Reader" slug="drill-chunk-reader" match={match}>
-                <Viewer />
-            </Entry>
-
-            <Entry name="Chunk Column" slug="drill-chunk-column" match={match}>
-                <Viewer />
-            </Entry>
-
             <Entry name="Book Viewer" slug="book-viewer" match={match}>
                 <Viewer />
             </Entry>
