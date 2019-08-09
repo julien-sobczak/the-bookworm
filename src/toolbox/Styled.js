@@ -9,7 +9,8 @@ const Styled = React.forwardRef((props, ref) => {
         const fontFamilyClass = capitalize(props.fontFamily);
         const fontSizeClass = 'Size' + props.fontSize;
         const fontStyleClass = props.fontStyle.split(' ').map(capitalize).join('');
-        return `${defaultClassName}${fontFamilyClass} ${fontSizeClass} ${fontStyleClass}`
+        const chunkStyleClass = 'Chunk' + capitalize(props.chunkStyle);
+        return `${defaultClassName}${fontFamilyClass} ${fontSizeClass} ${fontStyleClass} ${chunkStyleClass}`
     };
 
     const styles = function() {
@@ -34,19 +35,27 @@ const Styled = React.forwardRef((props, ref) => {
 });
 
 Styled.propTypes = {
+    // Text options
     fontFamily: PropTypes.string,
     fontSize: PropTypes.string,
     fontStyle: PropTypes.string,
     backgroundColor: PropTypes.string,
     color: PropTypes.string,
+
+    // Chunk options
+    chunkStyle: PropTypes.string, // `color`, `highlight`, `underline`
 };
 
 Styled.defaultProps = {
+    // Text options
     fontFamily: 'Roboto',
     fontSize: '14pt',
     fontStyle: 'normal',
     backgroundColor: 'white',
     color: 'black',
+
+    // Chunk options
+    chunkStyle: "highlight",
 };
 
 export default Styled;

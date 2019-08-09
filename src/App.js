@@ -104,7 +104,7 @@ function ChunkingSelector({ match }) {
     ]
   };
   const drills = {
-    'drill-page': <ChunkingDrillPage content={content} chunkMode="stops" chunkStops={3} />,
+    'drill-page': <ChunkingDrillPage content={content} chunkMode="stops" chunkStops={3} chunkStyle="underline" />,
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" />,
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="words" chunkWords={2} />,
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" disableVisualRegression={true} disableVisualProgression={true} disableVisualProblemStyle="blur" />,
