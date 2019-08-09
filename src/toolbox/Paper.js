@@ -11,11 +11,7 @@ const Paper = React.forwardRef((props, ref) => {
     return (
         <div className={"Paper " + css}>
             <div className="PaperContent" ref={ref}>
-                <Styled fontFamily={props.fontFamily}
-                        fontSize={props.fontSize}
-                        fontStyle={props.fontStyle}
-                        backgroundColor={props.backgroundColor}
-                        color={props.color}>
+                <Styled {...props}>
                     {props.children}
                 </Styled>
             </div>

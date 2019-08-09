@@ -1,6 +1,9 @@
 :root {
   --main-bg-color: rgb(38, 47, 61);
   --main-border-radius: 4px; /* Match MDC */
+
+  --chunk-color-light: PaleTurquoise;
+  --chunk-color-dark: teal;
 }
 
 * {
@@ -636,9 +639,16 @@ td.Width5in     { width: 5in;    height: 5in;    }
   z-index: 0;
 }
 
-.Chunk.Selected {
-  background-color: yellow;
+.ChunkHighlight .Chunk.Selected {
+  background-color: var(--chunk-color-light);
 }
+.ChunkColor .Chunk.Selected {
+  color: var(--chunk-color-dark);
+}
+.ChunkUnderline .Chunk.Selected {
+  border-bottom: 0.4em solid var(--chunk-color-light);
+}
+
 
 .ButtonClose {
   position: fixed;
