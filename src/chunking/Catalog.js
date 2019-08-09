@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Viewer from './Viewer'
-
 import Card, {
     CardPrimaryContent,
     CardActions,
@@ -10,6 +8,10 @@ import Card, {
     CardActionIcons
 } from "@material/react-card";
 import Button from "@material/react-button";
+
+function Viewer(props) {
+    return <span>TOTO</span>
+}
 
 function Entry({ name, match, slug, children }) {
     return (

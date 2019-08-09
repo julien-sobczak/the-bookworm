@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import Styled from '../toolbox/Styled';
+import * as helpers from '../toolbox/EngineHelpers';
 
 class Measurer extends React.Component {
 
@@ -37,7 +38,7 @@ class Measurer extends React.Component {
     componentDidMount() {
         const measurements = {};
 
-        Measurer.SPANS.forEach(s => {
+        helpers.SPANS.forEach(s => {
             Measurer.element.style.width = s;
             let [width, height] = Measurer._measure();
             measurements[s] = {
@@ -79,17 +80,7 @@ class Measurer extends React.Component {
         return [width, height];
     }
 
-    static nextSpan(span) {
-        const index = Measurer.SPANS.indexOf(span);
-        const indexMax = Measurer.SPANS.length-1;
-        if (index === -1) return undefined;
-        return Measurer.SPANS[Math.min(index+1, indexMax)];
-    }
-
 }
-
-// Only these span values are supported (by proceed by 0.25 increment as encountered in the book Triple Your Reading Speed by Wade E. Cutler)
-Measurer.SPANS = ['0in', '0.25in', '0.5in', '0.75in', '1in', '1.25in', '1.5in', '1.75in', '2in', '2.25in', '2.5in', '2.75in', '3in', '3.25in', '3.5in', '3.75in', '4in'];
 
 
 Measurer.propTypes = {
