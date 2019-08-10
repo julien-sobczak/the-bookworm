@@ -1,67 +1,59 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Engine, Viewer } from './DrillHorizontal.js'
+import { Engine as EngineHorizontal, Viewer as ViewerHorizontal } from './DrillHorizontal.js'
+import { Engine as EngineCircle, Viewer as ViewerCircle } from './DrillCircle.js'
+import { Engine as EnginePyramid, Viewer as ViewerPyramid } from './DrillPyramid.js'
+import { Engine as EngineSchulte, Viewer as ViewerSchulte } from './DrillSchulte.js'
 
-import Card, {
-    CardPrimaryContent,
-    CardActions,
-    CardActionButtons,
-    CardActionIcons
-} from "@material/react-card";
-import Button from "@material/react-button";
+import MainButton from "../toolbox/MainButton.js";
 
-function Entry({ name, match, slug, children }) {
+function Entry({ name, slug, children }) {
     return (
-        <Card>
-            <CardPrimaryContent className="NoRipple">
-                <h1>{name}</h1>
-                <div className="Demo">
-                    {children}
-                </div>
-            </CardPrimaryContent>
-
-            <CardActions>
-                <CardActionButtons>
-                    <Link to={`${match.url}${slug}`}>
-                        <Button raised icon={<i className="material-icons">play_arrow</i>}>Try!</Button>
-                    </Link>
-                </CardActionButtons>
-
-                <CardActionIcons>
-                    <i className="material-icons">history</i>
-                </CardActionIcons>
-            </CardActions>
-        </Card>
+        <div className="Entry">
+            <div className="Preview">
+                {children}
+            </div>
+            <div className="Actions">
+                <Link to={slug}>
+                    <MainButton text={name} colorText="white" colorBackground="#111" />
+                </Link>
+            </div>
+        </div>
     );
 }
 
 function Catalog({match}) {
 
-    const [drillCustom] = useState(new Engine(1, 5));
-    const [drillEasy] = useState(new Engine(15, 3));
+    const [drillHorizontal] = useState(new EngineHorizontal(2, 5, 3));
+    const [drillCircle] = useState(new EngineCircle(15, 3));
+    const [drillPyramid] = useState(new EnginePyramid(8));
+    const [drillSchulte] = useState(new EngineSchulte(3));
+
+    const styles = {
+        color: "black",
+        backgroundColor: "transparent",
+        fontSize: "18pt",
+        fontStyle: "bold",
+    };
 
     return (
         <div className="Catalog">
 
-            <Entry name="Custom Drill" slug="drill-horizontal-letter-easy" match={match}>
-                <Viewer drill={drillCustom.getDrill()} spans={["0.5in", "0.25in", "0.25in", "0.5in"]} color="white" backgroundColor="black" />
+            <Entry name="Horizontal Vision" slug="drill-horizontal" match={match}>
+                <ViewerHorizontal drill={drillHorizontal.getDrill()} spans={["0.5in", "0.75in", "0.75in", "0.5in"]} {...styles} />
             </Entry>
 
-            <Entry name="Drill Letter Easy" slug="drill-horizontal-letter-intermediate" match={match}>
-                <Viewer drill={drillEasy.getDrill()} spans={["1in", "1in"]} color="white" backgroundColor="black" />
+            <Entry name="Circle" slug="drill-circle" match={match}>
+                <ViewerCircle drill={drillCircle.getDrill()} span={"1in"} {...styles} />
             </Entry>
 
-            <Entry name="Drill Pyramid" slug="drill-pyramid" match={match}>
-                <Viewer drill={drillEasy.getDrill()} spans={["1in", "1in"]} color="white" backgroundColor="black" />
+            <Entry name="Pyramid" slug="drill-pyramid" match={match}>
+                <ViewerPyramid drill={drillPyramid.getDrill()} span={"1in"} {...styles} />
             </Entry>
 
-            <Entry name="Drill Circle" slug="drill-circle" match={match}>
-                <Viewer drill={drillEasy.getDrill()} spans={["1in", "1in"]} color="white" backgroundColor="black" />
-            </Entry>
-
-            <Entry name="Drill Schulte" slug="drill-schulte" match={match}>
-                <Viewer drill={drillEasy.getDrill()} spans={["1in", "1in"]} color="white" backgroundColor="black" />
+            <Entry name="Schulte Table" slug="drill-schulte" match={match}>
+                <ViewerSchulte drill={drillSchulte.getDrill()} span={"1in"} {...styles} />
             </Entry>
 
         </div>

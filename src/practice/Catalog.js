@@ -1,40 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Card, {
-    CardPrimaryContent,
-    CardActions,
-    CardActionButtons,
-    CardActionIcons
-} from "@material/react-card";
-import Button from "@material/react-button";
+import MainButton from "../toolbox/MainButton.js";
 
-function Viewer(props) {
-    return <span>TOTO</span>
+function Entry({ name, slug, children }) {
+    return (
+        <div className="Entry">
+            <div className="Preview">
+                {children}
+            </div>
+            <div className="Actions">
+                <Link to={slug}>
+                    <MainButton text={name} colorText="white" colorBackground="#111" />
+                </Link>
+            </div>
+        </div>
+    );
 }
 
-function Entry({ name, match, slug, children }) {
+function ViewerBook(props) {
     return (
-        <Card>
-            <CardPrimaryContent className="NoRipple">
-                <h1>{name}</h1>
-                <div className="Demo">
-                    {children}
-                </div>
-            </CardPrimaryContent>
-
-            <CardActions>
-                <CardActionButtons>
-                    <Link to={`${match.url}${slug}`}>
-                        <Button raised icon={<i className="material-icons">play_arrow</i>}>Try!</Button>
-                    </Link>
-                </CardActionButtons>
-
-                <CardActionIcons>
-                    <i className="material-icons">history</i>
-                </CardActionIcons>
-            </CardActions>
-        </Card>
+        <div className="Viewer">
+            <div className="PageOutline">
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
+                <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+            </div>
+        </div>
     );
 }
 
@@ -44,7 +39,7 @@ function Catalog({match}) {
         <div className="Catalog">
 
             <Entry name="Book Viewer" slug="book-viewer" match={match}>
-                <Viewer />
+                <ViewerBook />
             </Entry>
 
         </div>

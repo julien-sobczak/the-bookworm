@@ -89,7 +89,7 @@ function Viewer(props) {
     const x = parseFloat(props.span) * Math.cos(angleRadian);
     const y = parseFloat(props.span) * Math.sin(angleRadian);
     return (
-        <Styled className="VisionSpanCircleViewer" {...props}>
+        <Styled className="Viewer VisionSpanCircleViewer" {...props}>
             {props.drill &&
                 <div style={{height: "100%"}}>
                     <span className={"Cell " + (props.drill.center.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `50%` }}>
@@ -334,4 +334,4 @@ DrillCircle.defaultProps = {
     autoLevel: false,
 };
 
-export default DrillCircle;
+export { DrillCircle as default, Viewer, Engine };

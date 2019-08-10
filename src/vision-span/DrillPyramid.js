@@ -126,14 +126,14 @@ function Viewer(props) {
 
     let startSpanIndex = 0;
     let endSpanIndex = helpers.SPANS.indexOf(props.span);
-    let linesPerSpan = Math.floor(props.lines / (endSpanIndex - startSpanIndex));
+    let linesPerSpan = Math.floor(props.drill.lines.length / (endSpanIndex - startSpanIndex));
 
     let currentSpanIndex = -1;
     let currentSpan = undefined;
     let countLinesInSpan = 0;
 
     return (
-        <Styled className="VisionSpanHorizontalViewer" {...props}>
+        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
             {props.drill && props.drill.lines.map((line, index) => {
                 if (!currentSpan || countLinesInSpan === linesPerSpan) {
                     currentSpanIndex++;
@@ -303,7 +303,6 @@ class DrillPyramid extends React.Component {
                         <Viewer
                                 drill={this.state.drill}
                                 span={this.state.span}
-                                lines={this.state.lines}
                                 fontFamily={this.state.fontFamily}
                                 fontSize={this.state.fontSize}
                                 fontStyle={this.state.fontStyle}
@@ -394,4 +393,4 @@ DrillPyramid.defaultProps = {
     autoLevel: false,
 };
 
-export default DrillPyramid;
+export { DrillPyramid as default, Viewer, Engine };
