@@ -4,10 +4,7 @@ import styled from 'styled-components';
 
 // We use https://www.styled-components.com/docs/basics to scope CSS declarations and animations!
 // Inspired by https://codepen.io/andreasstorm/pen/oqKbLq
-function MainButton({ text, onClick }) {
-
-    const colorText = '#111';
-    const colorBackground = 'var(--mdc-theme-background)';
+function MainButton({ text, colorText, colorBackground, onClick }) {
 
     // font-family: Avenir, sans-serif
     // https://fonts.google.com/?query=Avenir
@@ -63,11 +60,15 @@ function MainButton({ text, onClick }) {
 MainButton.propTypes = {
     text: PropTypes.string,
     onClick: PropTypes.func,
+    colorText: PropTypes.string,
+    colorBackground: PropTypes.string,
 };
 
 MainButton.defaultProps = {
     text: 'Click me',
-    onClick: undefined,
+    onClick: function() {},
+    colorText: '#111',
+    colorBackground: 'var(--mdc-theme-background)',
 };
 
 export default MainButton;

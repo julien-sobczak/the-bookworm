@@ -105,6 +105,10 @@ section.page {
   min-height: 100vh;
   position: relative;
   padding: 20px;
+  /* Center page content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   /* Check this page for available variables: https://github.com/material-components/material-components-web/tree/master/packages/mdc-theme */
   --mdc-theme-primary: white;
@@ -160,30 +164,6 @@ h3 {
   color: white;
 }
 
-.Preview {
-  background: rgba(0,0,0,0.2);
-  color: white;
-  border-radius: var(--main-border-radius);
-  box-shadow: inset 0px 3px 1px -2px rgba(0, 0, 0, 0.2), inset 0px 2px 2px 0px rgba(0, 0, 0, 0.14), inset 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  margin: 20px auto;
-  padding: 20px;
-  width: 80%;
-  min-height: 300px;
-  position: relative;
-}
-.Preview::after {
-  content: "Preview";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 4px 10px;
-  border-top-right-radius: var(--main-border-radius);
-  background: black;
-  color: white;
-  font-family: 'Roboto Condensed' !important;
-  font-size: 14px;
-}
-
 
 .Catalog {
   display: flex;
@@ -229,23 +209,64 @@ h3 {
 }
 
 
-.Demo {
-  background: black;
-  color: white;
-  width: 400px;
-  height: 150px;
+.Catalog {
+  display: flex;
+
+  --catalog-preview-width: 300px;
+  --catalog-preview-height: 200px;
+  --catalog-preview-scale-factor: 1;
+}
+
+#VisionSpan .Catalog {
+  /* We reduce viewer scale because we reuse the same viewer as used by the drills
+  to print the content full screen */
+  --catalog-preview-scale-factor: 0.5;
+}
+
+.Catalog .Entry {
+  width: var(--catalog-preview-width);
+  height: calc(var(--catalog-preview-height) + 100px);
+  position: relative;
+  margin: 2em;
+  pointer-events: none;
+}
+.Catalog .Entry:hover .Viewer {
+  opacity: 1;
+}
+.Catalog .Entry:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2em;
+}
+.Catalog .Preview {
+  position: absolute;
+  top: 0;
+  width: var(--catalog-preview-width);
+  height: var(--catalog-preview-height);
+  overflow: hidden;
+}
+.Catalog .Viewer {
+  width: calc(var(--catalog-preview-width) * (1 / var(--catalog-preview-scale-factor)));
+  height: calc(var(--catalog-preview-height) * (1 / var(--catalog-preview-scale-factor)));
+  transform: scale(var(--catalog-preview-scale-factor));
+  transform-origin: 0% 0%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  /* text-shadow: 1.5em 1.5em 0.3em rgba(0, 0, 0, 0.5); Shadow effect */
+  /* transform: scale(0.5, 0.3) skew(-30deg) rotate(30deg); Isometric */
+}
+.Catalog .Actions {
+  position: absolute;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-}
-
-.Demo .VisionSpanHorizontalViewer {
-  /*
-   * How to Create an Isometric Layout With CSS 3D Transforms
-   * https://webdesign.tutsplus.com/tutorials/create-an-isometric-layout-with-3d-transforms--cms-27134
-   */
-   transform: rotateX(40deg) rotateY(0deg) rotateZ(-25deg) scale(0.7);
+  pointer-events: auto;
 }
 
 /*
@@ -497,6 +518,10 @@ button {
 .Width5in     { width: 5in;    }
 
 /* Required for Schulte Table */
+table.SchulteTable,
+table.SchulteTable td {
+  border: 1px solid black;
+}
 table.SchulteTable td {
   text-align: center;
   display: table-cell;
@@ -801,4 +826,35 @@ td.Width5in     { width: 5in;    height: 5in;    }
   position: absolute;
   width: 1em;
   height: 1em;
+}
+
+
+
+
+/* Chunking Catalog */
+
+.PageOutline {
+  text-align: left;
+}
+.ColumnOutline {
+  display: inline-block;
+  text-align: center;
+  margin-right: 0.6em;
+  margin-left: 0.6em;
+}
+.ChunkOutline {
+  display: inline-block;
+  height: 1.5em;
+  border-radius: 50px;
+  margin: 0.2em;
+  background: rgba(255, 255, 255, 0.6);
+}
+.ChunkOutlineSelected {
+  background: black;
+}
+.WordOutline {
+  display: inline-block;
+  height: 0.6em;
+  margin: 0.2em;
+  background: rgba(200, 200, 200, 0.9);
 }

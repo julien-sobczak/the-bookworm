@@ -1,40 +1,65 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Card, {
-    CardPrimaryContent,
-    CardActions,
-    CardActionButtons,
-    CardActionIcons
-} from "@material/react-card";
-import Button from "@material/react-button";
+import MainButton from "../toolbox/MainButton.js";
 
-function Viewer(props) {
-    return <span>TOTO</span>
+function ViewerPage(props) {
+    return (
+        <div className="Viewer">
+            <div className="PageOutline">
+                <span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "4em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                <span className="ChunkOutline" style={{width: "2em"}}></span><span className="ChunkOutline ChunkOutlineSelected" style={{width: "5em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                <span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><span className="ChunkOutline" style={{width: "4em"}}></span><br/>
+                <span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+            </div>
+        </div>
+    );
 }
 
-function Entry({ name, match, slug, children }) {
+function ViewerChunk(props) {
     return (
-        <Card>
-            <CardPrimaryContent className="NoRipple">
-                <h1>{name}</h1>
-                <div className="Demo">
-                    {children}
+        <div className="Viewer">
+            <span className="ChunkOutline ChunkOutlineSelected" style={{width: "5em"}}></span>
+        </div>
+    );
+}
+
+function ViewerColumn(props) {
+    return (
+        <div className="Viewer">
+            <div>
+                <div className="ColumnOutline">
+                    <span className="ChunkOutline" style={{width: "3em"}}></span><br/>
+                    <span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                    <span className="ChunkOutline" style={{width: "4em"}}></span><br/>
                 </div>
-            </CardPrimaryContent>
+                <div className="ColumnOutline">
+                    <span className="ChunkOutline" style={{width: "3em"}}></span><br/>
+                    <span className="ChunkOutline ChunkOutlineSelected" style={{width: "4em"}}></span><br/>
+                    <span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                </div>
+                <div className="ColumnOutline">
+                    <span className="ChunkOutline" style={{width: "1em"}}></span><br/>
+                    <span className="ChunkOutline" style={{width: "4em"}}></span><br/>
+                    <span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                </div>
+            </div>
+        </div>
+    );
+}
 
-            <CardActions>
-                <CardActionButtons>
-                    <Link to={`${match.url}${slug}`}>
-                        <Button raised icon={<i className="material-icons">play_arrow</i>}>Try!</Button>
-                    </Link>
-                </CardActionButtons>
-
-                <CardActionIcons>
-                    <i className="material-icons">history</i>
-                </CardActionIcons>
-            </CardActions>
-        </Card>
+function Entry({ name, slug, children }) {
+    return (
+        <div className="Entry">
+            <div className="Preview">
+                {children}
+            </div>
+            <div className="Actions">
+                <Link to={slug}>
+                    <MainButton text={name} colorText="white" colorBackground="#111" />
+                </Link>
+            </div>
+        </div>
     );
 }
 
@@ -44,19 +69,15 @@ function Catalog({match}) {
         <div className="Catalog">
 
             <Entry name="Page Reader" slug="drill-page" match={match}>
-                <Viewer />
+                <ViewerPage />
             </Entry>
 
-            <Entry name="Chunk Reader" slug="drill-chunk-reader" match={match}>
-                <Viewer />
+            <Entry name="Chunk Reader" slug="drill-chunk" match={match}>
+                <ViewerChunk />
             </Entry>
 
-            <Entry name="Chunk Column" slug="drill-chunk-column" match={match}>
-                <Viewer />
-            </Entry>
-
-            <Entry name="Book Viewer" slug="book-viewer" match={match}>
-                <Viewer />
+            <Entry name="Column Reader" slug="drill-column" match={match}>
+                <ViewerColumn />
             </Entry>
 
         </div>

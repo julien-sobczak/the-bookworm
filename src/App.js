@@ -53,7 +53,7 @@ const content = {
 
 function IndexPage() {
   return (
-    <section className="page home">
+    <section id="Home" className="page home">
       <h2>Home</h2>
     </section>
   );
@@ -61,8 +61,7 @@ function IndexPage() {
 
 function VisionSpanSelector({ match }) {
   const drills = {
-    'drill-horizontal-letter-easy': <VisionSpanDrillHorizontal multiple={false} columns={3} fontFamily="Roboto" fontSize="12pt" spans={["1in"]} />,
-    'drill-horizontal-letter-intermediate': <VisionSpanDrillHorizontal multiple={true} lines={2} columns={5} fontFamily="SourceCodePro" fontSize="18pt" fontStyle="bold italic" spans={["1in", "0.5in"]} autoLevel={true} />,
+    'drill-horizontal': <VisionSpanDrillHorizontal multiple={false} columns={3} fontFamily="Roboto" fontSize="12pt" spans={["1in"]} />,
     'drill-pyramid': <VisionSpanDrillPyramid span="2in" lines={8} />,
     'drill-circle': <VisionSpanDrillCircle span="2in" />,
     'drill-schulte': <VisionSpanDrillSchulte size={5} span="0.5in" />,
@@ -80,7 +79,7 @@ function VisionSpanSelector({ match }) {
 
 function VisionSpanPage({ match }) {
   return (
-    <section className="page vision-span">
+    <section id="VisionSpan" className="page vision-span">
       <h2>Vision Span</h2>
 
       <Route path={`${match.path}`} exact component={VisionSpanCatalog} />
@@ -92,7 +91,7 @@ function VisionSpanPage({ match }) {
 
 function ChunkingPage({ match }) {
   return (
-    <section className="page chunking">
+    <section id="Chunking" className="page chunking">
       <h2>Chunking</h2>
 
       <Route path={`${match.path}`} exact component={ChunkingCatalog} />
@@ -109,14 +108,12 @@ function ChunkingSelector({ match }) {
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="words" chunkWords={2} />,
     // 'drill-page': <ChunkingDrillPage content={content} chunkMode="width" chunkWidth="2in" disableVisualRegression={true} disableVisualProgression={true} disableVisualProblemStyle="blur" />,
 
-    // 'drill-chunk-reader': <ChunkingDrillChunkReader content={content} chunkMode="words" />,
-    'drill-chunk-reader': <ChunkingDrillChunkReader content={content} chunkMode="width" chunkWidth="2in" linesPerChunk={2} />,
-    // 'drill-chunk-reader': <ChunkingDrillChunkReader content={content} chunkMode="width" chunkWidth="2in" />,
+    // 'drill-chunk': <ChunkingDrillChunkReader content={content} chunkMode="words" />,
+    'drill-chunk': <ChunkingDrillChunkReader content={content} chunkMode="width" chunkWidth="2in" linesPerChunk={2} />,
+    // 'drill-chunk': <ChunkingDrillChunkReader content={content} chunkMode="width" chunkWidth="2in" />,
 
-    // 'drill-chunk-column': <ChunkingDrillChunkColumn content={content} columns={3} linesMax={10} chunkMode="width" chunkWidth="2in" />,
-    'drill-chunk-column': <ChunkingDrillChunkColumn content={content} columns={2} linesMax={20} chunkMode="dynamic" chunkSteps={10} />,
-
-    'book-viewer': <BookViewer content={content} />,
+    // 'drill-column': <ChunkingDrillChunkColumn content={content} columns={3} linesMax={10} chunkMode="width" chunkWidth="2in" />,
+    'drill-column': <ChunkingDrillChunkColumn content={content} columns={2} linesMax={20} chunkMode="dynamic" chunkSteps={10} />,
   }
 
   if (match.params.drill in drills) {
@@ -128,7 +125,7 @@ function ChunkingSelector({ match }) {
 
 function PracticePage({ match }) {
   return (
-    <section className="page practice">
+    <section id="Practice" className="page practice">
       <h2>Practice</h2>
 
       <Route path={`${match.path}`} exact component={PracticeCatalog} />
@@ -152,7 +149,7 @@ function PracticeSelector({ match }) {
 
 function AboutPage() {
   return (
-    <section className="page about">
+    <section id="About" className="page about">
       <h2>About</h2>
     </section>
   );

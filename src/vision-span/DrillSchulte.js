@@ -140,7 +140,7 @@ function Viewer(props) {
     const cssCell = 'Width' + props.span.replace('.', '_');
 
     return (
-        <Styled className="VisionSpanHorizontalViewer" {...props}>
+        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
             <table className="SchulteTable">
                 <tbody>
                     {props.drill && props.drill.lines.map((line, index) => {
@@ -387,4 +387,4 @@ DrillSchulte.defaultProps = {
     autoLevel: false,
 };
 
-export default DrillSchulte;
+export { DrillSchulte as default, Viewer, Engine };
