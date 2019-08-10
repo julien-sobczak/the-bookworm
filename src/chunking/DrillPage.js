@@ -7,6 +7,7 @@ import { chunkDuration } from '../toolbox/WPM';
 import { capitalize } from '../toolbox/Fn';
 import PageContent from '../toolbox/PageContent';
 import MainButton from '../toolbox/MainButton';
+import BubblyButton from '../toolbox/BubblyButton';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
@@ -198,7 +199,7 @@ class DrillPage extends React.Component {
 
 
                 <section className={"DrillArea " + this.getDrillClassNames().join(' ')}>
-                    {!this.state.started && <div className="Wizard">
+                    {!this.state.started && !this.state.finished && <div className="Wizard">
                         <MainButton text="Click Me" onClick={this.start} />
                     </div>}
 
@@ -209,6 +210,10 @@ class DrillPage extends React.Component {
                                          chunkPosition={this.state.chunkPosition} />
                         </Paper>
                     }
+
+                    {this.state.finished && <div className="Congratulations">
+                        <BubblyButton text="Congratulations!" onClick={this.start} />
+                    </div>}
                 </section>
             </div>
         );

@@ -14,7 +14,6 @@ function MainButton({ text, onClick }) {
 
     const Button = styled.button `
         color: ${colorText};
-        color: ;
         position: relative;
         margin: auto;
         padding: 19px 22px;
