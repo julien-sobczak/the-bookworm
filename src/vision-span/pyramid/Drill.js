@@ -1,164 +1,11 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import Styled from '../toolbox/Styled';
-import * as helpers from '../toolbox/EngineHelpers';
-import Configurator from './Configurator';
+import Viewer from './Viewer'
+import Engine from './Engine'
+import * as helpers from '../../toolbox/EngineHelpers';
 
-class Engine {
-
-    /**
-     * Create a new drill.
-     *
-     * @param {number} lines the number of lines
-     * @param {function} onDrillFinished callback when a drill is finished
-     */
-    constructor(lines, onDrillFinished=undefined) {
-        this.lines = lines;
-        this.callbackDrillFinished = onDrillFinished;  
-        this.shuffle();
-    }
-
-    /**
-     * Shuffle generates a new drill content.
-     *
-     * The drill object has the following structure:
-     *
-     *    drill = {
-     *       lines: [
-     *           columns: [
-     *               {
-     *                   label: "A",
-     *                   valid: true,
-     *               },
-     *               {
-     *                   label: "A",
-     *                   valid: null,
-     *               },
-     *               {
-     *                   label: "A",
-     *                   valid: null,
-     *               },
-     *           ]
-     *       ]
-     *    }
-     */
-    shuffle() {
-        const drill = {
-            lines: [],
-        };
-
-        for (let i = 0; i < this.lines; i++) {
-            drill.lines.push({
-                columns: [
-                    {
-                        label: helpers.randomLetter(),
-                        valid: null,
-                    },
-                    {
-                        label: helpers.CHARACTERS[i % helpers.CHARACTERS.length], // Cycle over the alphabet for the middle column
-                        valid: null,
-                    },
-                    {
-                        label: helpers.randomLetter(),
-                        valid: null,
-                    },
-                ]
-            })
-        }
-        this.drill = drill;
-        this.currentLineIndex = 0;
-        this.errorCount = 0;
-    }
-
-    getDrill() {
-        return this.drill;
-    }
-
-    registerInput(input) {
-        let finished = true;
-        let error = true;
-        let matchFound = false; // We want to match only one character, even the same character appears twice on the line
-
-        const currentLine = this.drill.lines[this.currentLineIndex];
-        for (let i = 0; i < 3; i++) {
-            const element = currentLine.columns[i];
-            if (!element.valid && element.label === input.toUpperCase() && !matchFound) {
-                element.valid = true;
-                matchFound = true;
-                error = false;
-            } else if (element.valid !== true) { // Still (at least) a missing column
-                finished = false
-            }
-        }
-        if (error) {
-            this.errorCount++;
-        }
-        if (finished) {
-            if (this.currentLineIndex < this.drill.lines.length - 1) {
-                this.currentLineIndex++;
-            } else {
-                this.callbackDrillFinished && this.callbackDrillFinished({
-                    errorCount: this.errorCount,
-                })
-                this.shuffle();
-            }
-        }
-    }
-
-}
-
-function Viewer(props) {
-    // How it works?
-    // We start at span=0.25in
-    // We end at span=props.span (e.g. 2in)
-    // We have n lines
-    // We have a list of increment possible for the span (e.g., 0.25in, 0.5in, 0.75in, 1in, 1.25in, ...)
-    // We should increment progressively the span to reach the final span.
-
-    if (!props.drill) return <span></span>;
-
-    /** Evaluate the CSS classes from the drill options. */
-    const cssSpan = function(span) {
-        return "SpanLeft" + span.replace('.', '_') + ' SpanRight' + span.replace('.', '_');
-    }
-
-    let startSpanIndex = 0;
-    let endSpanIndex = helpers.SPANS.indexOf(props.span);
-    let linesPerSpan = Math.floor(props.drill.lines.length / (endSpanIndex - startSpanIndex));
-
-    let currentSpanIndex = -1;
-    let currentSpan = undefined;
-    let countLinesInSpan = 0;
-
-    return (
-        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
-            {props.drill && props.drill.lines.map((line, index) => {
-                if (!currentSpan || countLinesInSpan === linesPerSpan) {
-                    currentSpanIndex++;
-                    currentSpan = helpers.SPANS[currentSpanIndex];
-                    countLinesInSpan = 1;
-                } else {
-                    countLinesInSpan++;
-                }
-
-                return (
-                    <div className="Line" key={index}>
-                        {line.columns.map((col, index) => {
-                            return <span key={index} className={"Cell " + cssSpan(currentSpan) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>
-                        })}
-                    </div>
-                )
-            })}
-        </Styled>
-    );
-}
-
-/**
- * Principal component to create the various Vision Span drills.
- */
-class DrillPyramid extends React.Component {
+class Drill extends React.Component {
 
     constructor(props) {
         super(props);
@@ -203,8 +50,9 @@ class DrillPyramid extends React.Component {
         this.reduceSpan = this.reduceSpan.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleDrillFinished = this.handleDrillFinished.bind(this);
-        this.handleStyleChanged = this.handleStyleChanged.bind(this);
+
         this.resume = this.resume.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
     }
 
     /** Increment the span values by one-stop to make the drill more difficult. */
@@ -261,21 +109,8 @@ class DrillPyramid extends React.Component {
         }));
     }
 
-    /** Called when the user update the settings. */
-    handleStyleChanged = (event) => {
-        const newFontFamily = event.fontFamily;
-        const newFontSize = event.fontSize;
-        const newFontStyle = event.fontStyle;
-        const newBackgroundColor = event.backgroundColor;
-        const newColor = event.color;
-        this.setState(state => ({
-            ...state,
-            fontFamily: newFontFamily,
-            fontSize: newFontSize,
-            fontStyle: newFontStyle,
-            backgroundColor: newBackgroundColor,
-            color: newColor,
-        }));
+    stopDrill() {
+        this.props.onComplete(this.state.engine.getStats());
     }
 
     render() {
@@ -288,7 +123,7 @@ class DrillPyramid extends React.Component {
                             <li><button onClick={this.resume}><i className="material-icons">pause</i></button></li>
                             {this.props.spanControls && <li><button onClick={this.reduceSpan}><i className="material-icons">chevron_left</i></button></li>}
                             {this.props.spanControls && <li><button onClick={this.increaseSpan}><i className="material-icons">chevron_right</i></button></li>}
-                            <li><Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link></li>
+                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
                         </ul>
                     </section>
 
@@ -310,13 +145,6 @@ class DrillPyramid extends React.Component {
                                 color={this.state.color} />
 
                     </section>
-
-                    <Configurator
-                                fontFamily={this.state.fontFamily}
-                                fontSize={this.state.fontSize}
-                                fontStyle={this.state.fontStyle}
-                                backgroundColor={this.state.backgroundColor}
-                                color={this.state.color} onChange={this.handleStyleChanged}/>
 
                 </div>
             </div>
@@ -369,28 +197,31 @@ class DrillPyramid extends React.Component {
 
 }
 
-DrillPyramid.propTypes = {
+Drill.propTypes = {
     ...Viewer.propTypes,
 
     // How many lines
     lines: PropTypes.number,
-
     // Negative space between with the center column for the bottom values
     span: PropTypes.string,
     // Displays controls to vary the span between columns
     spanControls: PropTypes.bool,
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
+
+    // Callback when the user finishes the drill
+    onComplete: PropTypes.func,
 };
 
-DrillPyramid.defaultProps = {
+Drill.defaultProps = {
     ...Viewer.defaultProps,
 
+    span: "2in",
     lines: undefined,
-
-    // Drill options
     spanControls: false,
     autoLevel: false,
+
+    onComplete: function() {},
 };
 
-export { DrillPyramid as default, Viewer, Engine };
+export default Drill;

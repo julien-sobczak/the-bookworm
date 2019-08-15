@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Engine as EngineHorizontal, Viewer as ViewerHorizontal } from './DrillHorizontal.js'
-import { Engine as EngineCircle, Viewer as ViewerCircle } from './DrillCircle.js'
-import { Engine as EnginePyramid, Viewer as ViewerPyramid } from './DrillPyramid.js'
-import { Engine as EngineSchulte, Viewer as ViewerSchulte } from './DrillSchulte.js'
+import ViewerHorizontal from './horizontal/Viewer';
+import EngineHorizontal from './horizontal/Engine';
+import ViewerCircle from './circle/Viewer';
+import EngineCircle from './circle/Engine';
+import ViewerPyramid from './pyramid/Viewer';
+import EnginePyramid from './pyramid/Engine';
+import ViewerSchulte from './schulte/Viewer';
+import EngineSchulte from './schulte/Engine';
 
 import MainButton from "../toolbox/MainButton.js";
 
