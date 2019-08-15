@@ -1,167 +1,12 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import Styled from '../toolbox/Styled';
-import * as helpers from '../toolbox/EngineHelpers';
-import Configurator from './Configurator';
+import Engine from './Engine'
+import Viewer from './Viewer'
+import * as helpers from '../../toolbox/EngineHelpers';
 
-class Engine {
 
-    /**
-     * Create a new drill.
-     *
-     * @param {number} size the size of the table (number of lines/columns)
-     * @param {function} onDrillFinished callback when a drill is finished
-     */
-    constructor(size=3, onDrillFinished=undefined) {
-        this.size = size;
-        this.callbackDrillFinished = onDrillFinished;
-        this.shuffle();
-    }
-
-    /**
-     * Shuffle generates a new drill content.
-     *
-     * The drill object has the following structure:
-     *
-     *    drill = {
-     *        lines: [
-     *            columns: [
-     *                {
-     *                    label: "A",
-     *                    valid: true,
-     *                },
-     *                {
-     *                    label: "A",
-     *                    valid: null,
-     *                },
-     *                {
-     *                    label: "A",
-     *                    valid: null,
-     *                },
-     *            ]
-     *        ]
-     *    }
-     */
-    shuffle() {
-        const drill = { lines: [] };
-        for (let i = 0; i < this.size; i++) {
-            const line = { columns: [] };
-            for (let j = 0; j < this.size; j++) {
-                const column = {
-                    label: helpers.randomLetter(),
-                    valid: null,
-                }
-                line.columns.push(column);
-            }
-            drill.lines.push(line);
-        }
-        this.drill = drill;
-        this.currentCircle = 0;
-        this.errorCount = 0;
-    }
-
-    getDrill() {
-        return this.drill;
-    }
-
-    registerInput(input) {
-        let circleFinished = true;
-        let error = true;
-        let matchFound = false; // We want to match only one character, even the same character appears twice on the line
-
-        // Ex: (5-5 Schulte Table)
-        // A F G V J
-        // H G K U A
-        // A P Q K Q
-        // A J H E V
-        // N M L Z Q
-        // First iteration: Q (center)
-        // Second iteration: G K U K E H J P (inner perimeter)
-        // Third iteration: A F G V J A Q V Q Z L M N A A H (outer perimenter)
-
-        let squares = [];
-        const center = Math.floor(this.size / 2);
-        if (this.currentCircle === 0) {
-            // Only the center square
-            squares.push([center, center]);
-        } else {
-            // A perimeter
-            const xLeft = center - this.currentCircle;
-            const xRight = center + this.currentCircle;
-            const yTop = center - this.currentCircle;
-            const yBottom = center + this.currentCircle;
-            for (let i = xLeft; i <= xRight; i++) {
-                squares.push([i, yTop]);
-                squares.push([i, yBottom]);
-            }
-            for (let i = yTop + 1; i < yBottom; i++) {
-                squares.push([xLeft, i]);
-                squares.push([xRight, i]);
-            }
-        }
-
-        for (let i = 0; i < squares.length; i++) {
-            const [x, y] = squares[i];
-            const element = this.drill.lines[x].columns[y];
-            if (!element.valid && element.label === input.toUpperCase() && !matchFound) {
-                element.valid = true;
-                matchFound = true;
-                error = false;
-            } else if (element.valid !== true) { // Still (at least) a missing column
-                circleFinished = false
-            }
-        }
-
-        if (error) {
-            this.errorCount++;
-        }
-
-        if (circleFinished) {
-            const iterationCount = Math.floor(this.size / 2);
-            if (this.currentCircle < iterationCount) {
-                this.currentCircle++;
-            } else {
-                this.callbackDrillFinished && this.callbackDrillFinished({
-                    errorCount: this.errorCount,
-                })
-                this.shuffle();
-            }
-        }
-    }
-
-}
-
-function Viewer(props) {
-
-    if (!props.drill) return <span></span>;
-
-    const cssCell = 'Width' + props.span.replace('.', '_');
-
-    return (
-        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
-            <table className="SchulteTable">
-                <tbody>
-                    {props.drill && props.drill.lines.map((line, index) => {
-                        return (
-                            <tr className="Line" key={index}>
-                                {line.columns.map((col, index) => {
-                                    return <td key={index} className={"Cell " + cssCell + " " + (col.valid === true ? 'valid' : '')}>{col.label}</td>
-                                })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </Styled>
-    );
-}
-
-/**
- * Principal component to create the various Vision Span drills.
- */
-class DrillSchulte extends React.Component {
+class Drill extends React.Component {
 
     constructor(props) {
         super(props);
@@ -203,8 +48,9 @@ class DrillSchulte extends React.Component {
         this.reduceSpan = this.reduceSpan.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleDrillFinished = this.handleDrillFinished.bind(this);
-        this.handleStyleChanged = this.handleStyleChanged.bind(this);
+
         this.resume = this.resume.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
     }
 
     /** Increment the span values by one-stop to make the drill more difficult. */
@@ -261,21 +107,8 @@ class DrillSchulte extends React.Component {
         }));
     }
 
-    /** Called when the user update the settings. */
-    handleStyleChanged = (event) => {
-        const newFontFamily = event.fontFamily;
-        const newFontSize = event.fontSize;
-        const newFontStyle = event.fontStyle;
-        const newBackgroundColor = event.backgroundColor;
-        const newColor = event.color;
-        this.setState(state => ({
-            ...state,
-            fontFamily: newFontFamily,
-            fontSize: newFontSize,
-            fontStyle: newFontStyle,
-            backgroundColor: newBackgroundColor,
-            color: newColor,
-        }));
+    stopDrill() {
+        this.props.onComplete(this.state.engine.getStats());
     }
 
     render() {
@@ -288,7 +121,7 @@ class DrillSchulte extends React.Component {
                             <li><button onClick={this.resume}><i className="material-icons">pause</i></button></li>
                             {this.props.spanControls && <li><button onClick={this.reduceSpan}><i className="material-icons">chevron_left</i></button></li>}
                             {this.props.spanControls && <li><button onClick={this.increaseSpan}><i className="material-icons">chevron_right</i></button></li>}
-                            <li><Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link></li>
+                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
                         </ul>
                     </section>
 
@@ -311,13 +144,6 @@ class DrillSchulte extends React.Component {
                                 color={this.state.color} />
 
                     </section>
-
-                    <Configurator
-                                fontFamily={this.state.fontFamily}
-                                fontSize={this.state.fontSize}
-                                fontStyle={this.state.fontStyle}
-                                backgroundColor={this.state.backgroundColor}
-                                color={this.state.color} onChange={this.handleStyleChanged}/>
 
                 </div>
             </div>
@@ -365,26 +191,32 @@ class DrillSchulte extends React.Component {
 
 }
 
-DrillSchulte.propTypes = {
+Drill.propTypes = {
     ...Viewer.propTypes,
 
     // How many lines/columns in the table?
     size: PropTypes.number,
     // Cell size
-    span: PropTypes.string.isRequired,
+    span: PropTypes.string,
     // Displays controls to vary the span between columns
     spanControls: PropTypes.bool,
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
+
+    // Callback when the user finishes the drill
+    onComplete: PropTypes.func,
 };
 
-DrillSchulte.defaultProps = {
+Drill.defaultProps = {
     ...Viewer.defaultProps,
 
     // Drill options
+    span: "1in",
     size: 5,
     spanControls: true,
     autoLevel: false,
+
+    onComplete: function() {},
 };
 
-export { DrillSchulte as default, Viewer, Engine };
+export default Drill;

@@ -146,42 +146,42 @@ class Configurator extends React.Component {
                                     <tr>
                                         <th>Typeface:</th>
                                         <td>
-                                            <span onClick={this.handleFontFamilyClick} className={"Option Roboto " + (this.state.fontFamily === 'Roboto' ? 'selected' : '')} data-value="Roboto">Roboto</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"Option SourceCodePro " + (this.state.fontFamily === 'SourceCodePro' ? 'selected' : '')} data-value="SourceCodePro">Source Code Pro</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"Option Slabo " + (this.state.fontFamily === 'Slabo' ? 'selected' : '')} data-value="Slabo">Slabo</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"Option Sacramento " + (this.state.fontFamily === 'Sacramento' ? 'selected' : '')} data-value="Sacramento">Sacramento</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"Option FredokaOne " + (this.state.fontFamily === 'FredokaOne' ? 'selected' : '')} data-value="FredokaOne">Fredoka One</span>
+                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption Roboto " + (this.state.fontFamily === 'Roboto' ? 'selected' : '')} data-value="Roboto">Roboto</span>
+                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption SourceCodePro " + (this.state.fontFamily === 'SourceCodePro' ? 'selected' : '')} data-value="SourceCodePro">Source Code Pro</span>
+                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption Slabo " + (this.state.fontFamily === 'Slabo' ? 'selected' : '')} data-value="Slabo">Slabo</span>
+                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption Sacramento " + (this.state.fontFamily === 'Sacramento' ? 'selected' : '')} data-value="Sacramento">Sacramento</span>
+                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption FredokaOne " + (this.state.fontFamily === 'FredokaOne' ? 'selected' : '')} data-value="FredokaOne">Fredoka One</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Variant:</th>
                                         <td>
-                                            <span onClick={this.handleFontStyleClick} className={"Option Normal " + (this.state.fontStyle === 'normal' ? 'selected' : '')} data-value="normal">Normal</span>
-                                            <span onClick={this.handleFontStyleClick} className={"Option Italic " + (this.state.fontStyle === 'italic' ? 'selected' : '')} data-value="italic">Italic</span>
-                                            <span onClick={this.handleFontStyleClick} className={"Option Bold " + (this.state.fontStyle === 'bold' ? 'selected' : '')} data-value="bold">Bold</span>
-                                            <span onClick={this.handleFontStyleClick} className={"Option BoldItalic " + (this.state.fontStyle === 'bold italic' ? 'selected' : '')} data-value="bold italic">Bold Italic</span>
+                                            <span onClick={this.handleFontStyleClick} className={"GraphicOption Normal " + (this.state.fontStyle === 'normal' ? 'selected' : '')} data-value="normal">Normal</span>
+                                            <span onClick={this.handleFontStyleClick} className={"GraphicOption Italic " + (this.state.fontStyle === 'italic' ? 'selected' : '')} data-value="italic">Italic</span>
+                                            <span onClick={this.handleFontStyleClick} className={"GraphicOption Bold " + (this.state.fontStyle === 'bold' ? 'selected' : '')} data-value="bold">Bold</span>
+                                            <span onClick={this.handleFontStyleClick} className={"GraphicOption BoldItalic " + (this.state.fontStyle === 'bold italic' ? 'selected' : '')} data-value="bold italic">Bold Italic</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Size:</th>
                                         <td>
-                                            <span onClick={this.handleFontSizeClick} className={"Option Size10pt " + (this.state.fontSize === '10pt' ? 'selected' : '')} data-value="10pt">10 pt</span>
-                                            <span onClick={this.handleFontSizeClick} className={"Option Size12pt " + (this.state.fontSize === '12pt' ? 'selected' : '')} data-value="12pt">12 pt</span>
-                                            <span onClick={this.handleFontSizeClick} className={"Option Size14pt " + (this.state.fontSize === '14pt' ? 'selected' : '')} data-value="14pt">14 pt</span>
-                                            <span onClick={this.handleFontSizeClick} className={"Option Size16pt " + (this.state.fontSize === '16pt' ? 'selected' : '')} data-value="16pt">16 pt</span>
-                                            <span onClick={this.handleFontSizeClick} className={"Option Size18pt " + (this.state.fontSize === '18pt' ? 'selected' : '')} data-value="18pt">18 pt</span>
+                                            <span onClick={this.handleFontSizeClick} className={"GraphicOption Size10pt " + (this.state.fontSize === '10pt' ? 'selected' : '')} data-value="10pt">10 pt</span>
+                                            <span onClick={this.handleFontSizeClick} className={"GraphicOption Size12pt " + (this.state.fontSize === '12pt' ? 'selected' : '')} data-value="12pt">12 pt</span>
+                                            <span onClick={this.handleFontSizeClick} className={"GraphicOption Size14pt " + (this.state.fontSize === '14pt' ? 'selected' : '')} data-value="14pt">14 pt</span>
+                                            <span onClick={this.handleFontSizeClick} className={"GraphicOption Size16pt " + (this.state.fontSize === '16pt' ? 'selected' : '')} data-value="16pt">16 pt</span>
+                                            <span onClick={this.handleFontSizeClick} className={"GraphicOption Size18pt " + (this.state.fontSize === '18pt' ? 'selected' : '')} data-value="18pt">18 pt</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Theme:</th>
                                         <td>
-                                            <span onClick={this.handleThemeClick} className={"Option Light "  + (this.state.theme === 'Light'  ? 'selected' : '')} data-value="Light">Light</span>
-                                            <span onClick={this.handleThemeClick} className={"Option Dark "   + (this.state.theme === 'Dark'   ? 'selected' : '')} data-value="Dark">Dark</span>
-                                            <span onClick={this.handleThemeClick} className={"Option Custom " + (this.state.theme === 'Custom' ? 'selected' : '')} data-value="Custom">Custom</span>
+                                            <span onClick={this.handleThemeClick} className={"GraphicOption Light "  + (this.state.theme === 'Light'  ? 'selected' : '')} data-value="Light">Light</span>
+                                            <span onClick={this.handleThemeClick} className={"GraphicOption Dark "   + (this.state.theme === 'Dark'   ? 'selected' : '')} data-value="Dark">Dark</span>
+                                            <span onClick={this.handleThemeClick} className={"GraphicOption Custom " + (this.state.theme === 'Custom' ? 'selected' : '')} data-value="Custom">Custom</span>
                                             { this.state.theme === 'Custom' &&
                                               <span style={{display: 'flex'}}>
-                                                <span className="SubOption">Text:</span>       <ColorPicker color={ this.state.color }           onChange={ this.handleColorChange } />
-                                                <span className="SubOption">Background:</span> <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
+                                                <span className="SubGraphicOption">Text:</span>       <ColorPicker color={ this.state.color }           onChange={ this.handleColorChange } />
+                                                <span className="SubGraphicOption">Background:</span> <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
                                               </span>
                                             }
                                         </td>

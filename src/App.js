@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
-import VisionSpanDrillHorizontal from './vision-span/DrillHorizontal'
-import VisionSpanDrillPyramid from './vision-span/DrillPyramid'
-import VisionSpanDrillCircle from './vision-span/DrillCircle'
-import VisionSpanDrillSchulte from './vision-span/DrillSchulte'
+import GameHorizontal from './vision-span/horizontal/Game'
+import GamePyramid from './vision-span/pyramid/Game'
+import GameCircle from './vision-span/circle/Game'
+import GameSchulte from './vision-span/schulte/Game'
 import VisionSpanCatalog from './vision-span/Catalog'
 
 import ChunkingCatalog from './chunking/Catalog'
@@ -18,7 +18,6 @@ import BookViewer from './library/BookViewer'
 import 'normalize.css'
 import './Reset.css';
 import './App.css';
-import '@material/react-card/dist/card.css';
 
 const content = {
   title: "The Adventures of Tom Sawyer",
@@ -61,14 +60,11 @@ function IndexPage() {
 
 function VisionSpanSelector({ match }) {
   const drills = {
-    'drill-horizontal': <VisionSpanDrillHorizontal multiple={false} columns={3} fontFamily="Roboto" fontSize="12pt" spans={["1in"]} />,
-    'drill-pyramid': <VisionSpanDrillPyramid span="2in" lines={8} />,
-    'drill-circle': <VisionSpanDrillCircle span="2in" />,
-    'drill-schulte': <VisionSpanDrillSchulte size={5} span="0.5in" />,
+    'drill-horizontal': <GameHorizontal />,
+    'drill-pyramid': <GamePyramid />,
+    'drill-circle': <GameCircle />,
+    'drill-schulte': <GameSchulte />,
   }
-  // Other examples:
-  //   <VisionSpanDrillHorizontal multiple={false} columns="3" fontFamily="Roboto" fontSize="12pt" spans={["2in"]} />
-  //   <VisionSpanDrillHorizontal multiple={true} lines="1" columns="5" fontFamily="Roboto" fontSize="18pt" spans={["1in", "0.5in"]} />
 
   if (match.params.drill in drills) {
     return drills[match.params.drill]
