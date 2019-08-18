@@ -1,14 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer'
 import Pager from '../Pager';
 import { chunkDuration } from '../../toolbox/WPM';
-import MainButton from '../../toolbox/MainButton';
-
-import '@material/react-icon-button/dist/icon-button.css';
-import '@material/react-button/dist/button.css';
 
 class Drill extends React.Component {
 
@@ -19,8 +14,6 @@ class Drill extends React.Component {
             wpm: this.props.wpm,
             pages: undefined,
             pageNumber: 0,
-            started: false,
-            finished: false,
             blockPosition: 0,
             chunkPosition: 0,
         };
@@ -28,7 +21,6 @@ class Drill extends React.Component {
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
         this.onPagerDone = this.onPagerDone.bind(this);
-        this.start = this.start.bind(this);
     }
 
     onPagerDone(pages) {
@@ -38,6 +30,34 @@ class Drill extends React.Component {
             pages: pages,
             pageNumber: 1,
         }));
+    }
+
+    componentDidMount() {
+        this.start();
+    }
+
+    componentWillUnmount() {
+        this.clear();
+    }
+
+    start() {
+        this.clear();
+
+        const startingPause = 500;
+        let delay = startingPause + chunkDuration(this.currentChunk(), this.state.wpm);
+        let start = new Date().getTime()
+        this.handle = undefined;
+        let loop = () => {
+            if (!this.handle) return;
+            this.handle = window.requestAnimationFrame(loop);
+            const current = new Date().getTime()
+            const delta = current - start
+            if (delta >= delay) {
+              delay = this.advanceChunk();
+              start = new Date().getTime();
+            }
+        }
+        this.handle = window.requestAnimationFrame(loop);
     }
 
     advanceChunk() {
@@ -69,8 +89,6 @@ class Drill extends React.Component {
                             pageNumber: 1,
                             blockPosition: 0,
                             chunkPosition: 0,
-                            started: false,
-                            finished: true,
                         }));
                         const stats = {};
                         this.props.onComplete(stats);
@@ -120,34 +138,6 @@ class Drill extends React.Component {
         return chunks[this.state.chunkPosition];
     }
 
-    start() {
-        this.setState(state => ({
-            ...state,
-            started: true,
-        }));
-
-        this.clear();
-
-        let delay = chunkDuration(this.currentChunk(), this.state.wpm);
-        let start = new Date().getTime()
-        this.handle = undefined;
-        let loop = () => {
-            if (!this.handle) return;
-            this.handle = window.requestAnimationFrame(loop);
-            const current = new Date().getTime()
-            const delta = current - start
-            if (delta >= delay) {
-              delay = this.advanceChunk();
-              start = new Date().getTime();
-            }
-        }
-        this.handle = window.requestAnimationFrame(loop);
-    }
-
-    componentWillUnmount() {
-        this.clear();
-    }
-
     clear() {
         if (this.handle) {
             clearInterval(this.handle);
@@ -181,17 +171,11 @@ class Drill extends React.Component {
                     <ul>
                         <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
                         <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
-                        <li><Link to="/chunking/"><i className="material-icons">close</i></Link></li>
                     </ul>
                 </section>
 
-
                 <section className="DrillArea">
-                    {!this.state.started && !this.state.finished && <div className="Wizard">
-                        <MainButton text="Click Me" onClick={this.start} />
-                    </div>}
-
-                    {this.state.started && this.state.pageNumber > 0 &&
+                    {this.state.pageNumber > 0 &&
                         <Viewer {...this.props}
                             page={this.state.pages[this.state.pageNumber - 1]}
                             blockPosition={this.state.blockPosition}

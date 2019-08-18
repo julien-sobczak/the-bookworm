@@ -1,14 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
 import { chunkDuration } from '../../toolbox/WPM';
-import MainButton from '../../toolbox/MainButton';
-
-import '@material/react-icon-button/dist/icon-button.css';
-import '@material/react-button/dist/button.css';
 
 class Drill extends React.Component {
 
@@ -19,14 +14,11 @@ class Drill extends React.Component {
             wpm: this.props.wpm,
             chunks: undefined,
             chunkPosition: -1,
-            started: false,
-            finished: false,
         };
 
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
         this.onChunkerDone = this.onChunkerDone.bind(this);
-        this.start = this.start.bind(this);
     }
 
     onChunkerDone(chunks) {
@@ -36,6 +28,7 @@ class Drill extends React.Component {
             chunks: Drill.groupChunks(chunks, this.props.linesPerChunk),
             chunkPosition: -1,
         }));
+        this.initialized = true;
     }
 
     static groupChunks(chunks, linesPerChunk) {
@@ -96,8 +89,6 @@ class Drill extends React.Component {
             this.setState(state => ({
                 ...state,
                 chunkPosition: 0,
-                started: false,
-                finished: true,
             }));
 
             const stats = {};
@@ -130,15 +121,10 @@ class Drill extends React.Component {
     }
 
     start() {
-        this.setState(state => ({
-            ...state,
-            started: true,
-        }));
-
         this.clear();
 
-
-        let delay = this.advanceChunk();
+        const startingPause = 500;
+        let delay = startingPause + this.advanceChunk();
         let start = new Date().getTime()
         this.handle = undefined;
         let loop = () => {
@@ -152,10 +138,6 @@ class Drill extends React.Component {
             }
         }
         this.handle = window.requestAnimationFrame(loop);
-    }
-
-    componentWillUnmount() {
-        this.clear();
     }
 
     clear() {
@@ -192,19 +174,12 @@ class Drill extends React.Component {
                     <ul>
                         {this.props.speedControls && <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>}
                         {this.props.speedControls && <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>}
-                        <li><Link to="/chunking/"><i className="material-icons">close</i></Link></li>
                     </ul>
                 </section>
 
                 <section className="DrillArea">
 
-                    {!this.state.started &&
-                        <div className="Wizard">
-                            <MainButton text="Click Me" onClick={this.start} />
-                        </div>
-                    }
-
-                    {this.state.started && this.state.currentChunk &&
+                    {this.state.currentChunk &&
                         <Viewer {...this.props}
                                 previousChunk={this.state.previousChunk}
                                 currentChunk={this.state.currentChunk}
@@ -215,6 +190,17 @@ class Drill extends React.Component {
 
             </div>
         );
+    }
+
+    componentDidUpdate() {
+        if (this.initialized) {
+            this.start();
+            this.initialized = undefined;
+        }
+    }
+
+    componentWillUnmount() {
+        this.clear();
     }
 
 }
