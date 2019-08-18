@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+import Countdown from '../../toolbox/Countdown';
 import Drill from './Drill';
 import Wizard from './Wizard';
 import Stats from './Stats';
@@ -22,8 +23,7 @@ class Game extends React.Component {
             chunkStyle: props.chunkStyle,
 
             // State management
-            started: false,
-            finished: false,
+            state: 'init',
 
             // Copy styling settings as state to update during a drill session
             fontFamily: props.fontFamily,
@@ -34,6 +34,7 @@ class Game extends React.Component {
         };
 
         this.handleWizardValidation = this.handleWizardValidation.bind(this);
+        this.handleCountdownCompletion = this.handleCountdownCompletion.bind(this);
         this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
     }
 
@@ -42,8 +43,15 @@ class Game extends React.Component {
         this.setState(state => ({
             ...state,
             ...options,
-            started: true,
-            finished: false,
+            state: 'ready',
+        }));
+    }
+
+    /** Called when the countdown is finished. */
+    handleCountdownCompletion = () => {
+        this.setState(state => ({
+            ...state,
+            state: 'started',
         }));
     }
 
@@ -52,8 +60,7 @@ class Game extends React.Component {
         this.setState(state => ({
             ...state,
             stats: stats,
-            started: false,
-            finished: true,
+            state: 'finished',
         }));
     }
 
@@ -63,10 +70,13 @@ class Game extends React.Component {
 
                 <Link to="/chunking/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
-                {!this.state.started && !this.state.finished &&
+                {this.state.state === 'init' &&
                     <Wizard onValidate={this.handleWizardValidation} />}
 
-                {this.state.started &&
+                {this.state.state === 'ready' &&
+                    <Countdown duration={3000} onTimesUp={this.handleCountdownCompletion} />}
+
+                {this.state.state === 'started' &&
                     <Drill
                         content={this.props.content}
 
@@ -96,7 +106,7 @@ class Game extends React.Component {
                         onComplete={this.handleDrillCompletion}
                     />}
 
-                {this.state.finished &&
+                {this.state.state === 'finished' &&
                     <Stats stats={this.state.stats} />}
             </div>
         );
