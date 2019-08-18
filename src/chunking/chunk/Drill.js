@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import Chunker from './Chunker'
-import Styled from '../toolbox/Styled';
-import { chunkDuration } from '../toolbox/WPM';
-import { capitalize } from '../toolbox/Fn';
-import MainButton from '../toolbox/MainButton';
+
+import Viewer from './Viewer';
+import Chunker from '../Chunker';
+import { chunkDuration } from '../../toolbox/WPM';
+import MainButton from '../../toolbox/MainButton';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
 
-class DrillChunkReader extends React.Component {
+class Drill extends React.Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +33,7 @@ class DrillChunkReader extends React.Component {
         console.log('Chunks', chunks);
         this.setState(state => ({
             ...state,
-            chunks: DrillChunkReader.groupChunks(chunks, this.props.linesPerChunk),
+            chunks: Drill.groupChunks(chunks, this.props.linesPerChunk),
             chunkPosition: -1,
         }));
     }
@@ -99,6 +99,9 @@ class DrillChunkReader extends React.Component {
                 started: false,
                 finished: true,
             }));
+
+            const stats = {};
+            this.props.onComplete(stats);
             return drillEndingDuration;
         } else {
             // Move to next chunk
@@ -177,19 +180,9 @@ class DrillChunkReader extends React.Component {
     }
 
     render() {
-        const styles = { // FIXME move in stylesheet
-            "display": "grid",
-            "height": "100vh",
-            "placeItems": "center center",
-        }
-        const classNames = ['NeighborPosition'+capitalize(this.props.neighborChunksPosition)];
-
-        const previousChunkEmpty = !this.state.previousChunk || this.state.currentChunk.startingChunk;
-        const nextChunkEmpty = !this.state.nextChunk || this.state.currentChunk.endingChunk;
-
         let i = 0;
         return (
-            <div className={"FullScreen ChunkingDrillChunkReader " + classNames.join(' ')} style={styles}>
+            <div className="FullScreen DrillChunk Centered">
 
                 <Chunker content={this.props.content} onDone={this.onChunkerDone}
                        {...this.props}
@@ -212,22 +205,10 @@ class DrillChunkReader extends React.Component {
                     }
 
                     {this.state.started && this.state.currentChunk &&
-                        <Styled {...this.props} className="Chunks">
-                            {this.props.showPreviousChunk && previousChunkEmpty &&
-                                <span className="Chunk PreviousChunk Opaque">&nbsp;</span>}
-                            {this.state.previousChunk && !previousChunkEmpty &&
-                                <span className="Chunk PreviousChunk" dangerouslySetInnerHTML={{__html: this.state.previousChunk.text}}></span>}
-                            {this.props.neighborChunksPosition === 'vertical' && <br/>}
-
-                            {this.state.currentChunk &&
-                                <span className="Chunk CurrentChunk Selected" dangerouslySetInnerHTML={{__html: this.state.currentChunk.text}}></span>}
-
-                            {this.props.neighborChunksPosition === 'vertical' && <br/>}
-                            {this.props.showNextChunk && nextChunkEmpty &&
-                                <span className="Chunk NextChunk Opaque">&nbsp;</span>}
-                            {this.props.showNextChunk && !nextChunkEmpty &&
-                                <span className="Chunk NextChunk" dangerouslySetInnerHTML={{__html: this.state.nextChunk.text}}></span>}
-                        </Styled>
+                        <Viewer {...this.props}
+                                previousChunk={this.state.previousChunk}
+                                currentChunk={this.state.currentChunk}
+                                nextChunk={this.state.nextChunk} />
                     }
 
                 </section>
@@ -238,38 +219,35 @@ class DrillChunkReader extends React.Component {
 
 }
 
-DrillChunkReader.propTypes = {
+Drill.propTypes = {
     ...Chunker.propTypes,
+    ...Viewer.propTypes,
+
+    // The content to read
+    content: PropTypes.object.isRequired,
 
     // WPM
     wpm: PropTypes.number,
     // Displays controls to vary the span between columns
     speedControls: PropTypes.bool,
 
-
     // How many lines per chunk (in practice, pack several chunks into the same chunk)
     linesPerChunk: PropTypes.number,
-    // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
-    neighborChunksPosition: PropTypes.string,
-    // Display the previous chunk
-    showPreviousChunk: PropTypes.bool,
-    // Display the next chunk
-    showNextChunk: PropTypes.bool,
+
+    // Callback when the user finishes the drill
+    onComplete: PropTypes.func,
 }
 
-DrillChunkReader.defaultProps = {
+Drill.defaultProps = {
     ...Chunker.defaultProps,
-
-    wpm: 2000,
-    speedControls: true,
+    ...Viewer.defaultProps,
 
     // Chunk options
+    wpm: 2000,
     linesPerChunk: 1,
-    neighborChunksPosition: 'vertical',
-    showPreviousChunk: false,
-    showNextChunk: true,
+    speedControls: true,
 
-    fontSize: '16pt',
+    onComplete: function() {},
 };
 
-export default DrillChunkReader;
+export default Drill;

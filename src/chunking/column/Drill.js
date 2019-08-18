@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import Chunker from './Chunker'
-import Styled from '../toolbox/Styled';
-import { chunkDuration } from '../toolbox/WPM';
-import * as helpers from '../toolbox/EngineHelpers';
-import Measurer from '../toolbox/Measurer';
-import MainButton from '../toolbox/MainButton';
+
+import Viewer from './Viewer';
+import Chunker from '../Chunker';
+import { chunkDuration } from '../../toolbox/WPM';
+import * as helpers from '../../toolbox/EngineHelpers';
+import Measurer from '../../toolbox/Measurer';
+import MainButton from '../../toolbox/MainButton';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
 
-class DrillChunkColumn extends React.Component {
+class Drill extends React.Component {
 
     constructor(props) {
         super(props);
@@ -48,7 +49,8 @@ class DrillChunkColumn extends React.Component {
         const chunkHeight = this.state.measurements[this.props.chunkWidth].height;
         const [, columnsHeight] = this.columnsDimensions();
 
-        const lines = Math.min(this.props.linesMax, Math.floor(columnsHeight / (1.5*chunkHeight)));
+        let linesMax = (this.props.linesMax) ? this.props.linesMax : 999;
+        const lines = Math.min(linesMax, Math.floor(columnsHeight / (1.5*chunkHeight)));
 
         const chunksOnScreenCount = Math.min(this.state.chunks.length, lines * this.props.columns);
         const chunksOnScreen = this.state.chunks.slice(0, chunksOnScreenCount);
@@ -88,8 +90,6 @@ class DrillChunkColumn extends React.Component {
         const chunkPositionOnScreen = this.state.chunkPositionOnScreen;
         const chunksOnScreenCount = this.state.chunksOnScreenCount;
 
-        if (this.state.chunksOnScreenCount)
-
         if (chunkPosition+1 === chunks.length) {
              // Finish
              this.setState(state => ({
@@ -98,6 +98,8 @@ class DrillChunkColumn extends React.Component {
                 started: false,
                 finished: true,
             }));
+            const stats = {};
+            this.props.onComplete(stats);
             return drillEndingDuration;
         }
         if (chunkPositionOnScreen + 1 === chunksOnScreenCount) {
@@ -177,36 +179,12 @@ class DrillChunkColumn extends React.Component {
     }
 
     render() {
-        const styles = { // FIXME move in stylesheet
-            "display": "grid",
-            "height": "100vh",
-            "placeItems": "center center",
-        }
-
-        const chunks = [];
-        let columnsStyle = {};
-        if (this.state.started) {
-            this.state.chunksOnScreen.forEach((c, index) => {
-                const additionalClasses = [];
-                if (index === this.state.chunkPositionOnScreen) {
-                    additionalClasses.push('Selected');
-                }
-                chunks.push(<div key={index}><span className={"Chunk " + additionalClasses.join(' ')} dangerouslySetInnerHTML={{__html: c.text}} /></div>);
-            });
-
-            const columnWidthOnScreen = (this.props.chunkMode === 'dynamic') ?
-                helpers.increaseSpan(this.props.chunkWidthMax) :
-                helpers.increaseSpan(this.props.columnWidth)
-
-            columnsStyle = {
-                width: "100%",
-                height: "100%",
-                gridTemplateColumns: (columnWidthOnScreen + ' ').repeat(this.props.columns),
-            };
-        }
+        const columnWidthOnScreen = (this.props.chunkMode === 'dynamic') ?
+            helpers.increaseSpan(this.props.chunkWidthMax) :
+            helpers.increaseSpan(this.props.columnWidth)
 
         return (
-            <div className={"FullScreen ChunkingDrillChunkColumn"} style={styles}>
+            <div className={"FullScreen DrillColumn Centered"}>
 
                 <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
 
@@ -231,9 +209,12 @@ class DrillChunkColumn extends React.Component {
                     }
 
                     {this.state.started &&
-                        <Styled {...this.props} className="Columns" style={columnsStyle}>
-                            {chunks}
-                        </Styled>}
+                        <Viewer {...this.props}
+                                chunks={this.state.chunksOnScreen}
+                                chunkPosition={this.state.chunkPositionOnScreen}
+                                columns={this.props.columns}
+                                columnWidth={columnWidthOnScreen} />
+                    }
 
                 </section>
 
@@ -243,8 +224,11 @@ class DrillChunkColumn extends React.Component {
 
 }
 
-DrillChunkColumn.propTypes = {
+Drill.propTypes = {
     ...Chunker.propTypes,
+
+    // The content to read
+    content: PropTypes.object.isRequired,
 
     // WPM
     wpm: PropTypes.number,
@@ -252,21 +236,21 @@ DrillChunkColumn.propTypes = {
     // Displays controls to vary the span between columns
     speedControls: PropTypes.bool,
 
-    // How many columns?
-    columns: PropTypes.number,
-    columnWidth: PropTypes.string,
-
     // How many lines?
     linesMax: PropTypes.number,
+
+    // Callback when the user finishes the drill
+    onComplete: PropTypes.func,
 }
 
-DrillChunkColumn.defaultProps = {
+Drill.defaultProps = {
     ...Chunker.defaultProps,
+
     wpm: 500,
     speedControls: true,
-    columns: 2,
-    columnWidth: "2.5in",
     linesMax: undefined,
+
+    onComplete: function() {},
 };
 
-export default DrillChunkColumn;
+export default Drill;

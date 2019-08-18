@@ -1,18 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import Pager from './Pager';
-import Paper from '../toolbox/Paper';
-import { chunkDuration } from '../toolbox/WPM';
-import { capitalize } from '../toolbox/Fn';
-import PageContent from '../toolbox/PageContent';
-import MainButton from '../toolbox/MainButton';
-import BubblyButton from '../toolbox/BubblyButton';
+
+import Viewer from './Viewer'
+import Pager from '../Pager';
+import { chunkDuration } from '../../toolbox/WPM';
+import MainButton from '../../toolbox/MainButton';
 
 import '@material/react-icon-button/dist/icon-button.css';
 import '@material/react-button/dist/button.css';
 
-class DrillPage extends React.Component {
+class Drill extends React.Component {
 
     constructor(props) {
         super(props);
@@ -74,6 +72,8 @@ class DrillPage extends React.Component {
                             started: false,
                             finished: true,
                         }));
+                        const stats = {};
+                        this.props.onComplete(stats);
                         return pageEndingDuration;
                     } else {
                         // Move to next page
@@ -169,18 +169,6 @@ class DrillPage extends React.Component {
         }));
     }
 
-    getDrillClassNames() {
-        const classNames = [];
-        if (this.props.disableVisualRegression) {
-            classNames.push('DisableVisualRegression');
-        }
-        if (this.props.disableVisualProgression) {
-            classNames.push('DisableVisualProgression');
-        }
-        classNames.push('DisableVisualProblemStyle' + capitalize(this.props.disableVisualProblemStyle));
-        return classNames;
-    }
-
 
     render() {
         return (
@@ -198,22 +186,21 @@ class DrillPage extends React.Component {
                 </section>
 
 
-                <section className={"DrillArea " + this.getDrillClassNames().join(' ')}>
+                <section className="DrillArea">
                     {!this.state.started && !this.state.finished && <div className="Wizard">
                         <MainButton text="Click Me" onClick={this.start} />
                     </div>}
 
                     {this.state.started && this.state.pageNumber > 0 &&
-                        <Paper {...this.props}>
-                            <PageContent page={this.state.pages[this.state.pageNumber - 1]}
-                                         blockPosition={this.state.blockPosition}
-                                         chunkPosition={this.state.chunkPosition} />
-                        </Paper>
+                        <Viewer {...this.props}
+                            page={this.state.pages[this.state.pageNumber - 1]}
+                            blockPosition={this.state.blockPosition}
+                            chunkPosition={this.state.chunkPosition}
+                            disableVisualRegression={this.props.disableVisualRegression}
+                            disableVisualProgression={this.props.disableVisualProgression}
+                            disableVisualProblemStyle={this.props.disableVisualProblemStyle}
+                             />
                     }
-
-                    {this.state.finished && <div className="Congratulations">
-                        <BubblyButton text="Congratulations!" onClick={this.start} />
-                    </div>}
                 </section>
             </div>
         );
@@ -221,33 +208,28 @@ class DrillPage extends React.Component {
 
 }
 
-DrillPage.propTypes = {
+Drill.propTypes = {
     ...Pager.propTypes,
+    ...Viewer.propTypes,
+
+    // The content to read
+    content: PropTypes.object.isRequired,
 
     wpm: PropTypes.number,
     pageTurningDuration: PropTypes.number, // ms
 
-    // Hide/Show the text in front of the current chunk
-    disableVisualRegression: PropTypes.bool,
-    // Hide/Show the text behind the current chunk
-    disableVisualProgression: PropTypes.bool,
-    // How the hidden text controlled by `disableVisualRegression`
-    // and `disableVisualProgression` should be displayed
-    disableVisualProblemStyle: PropTypes.string,
+    // Callback when the user finishes the drill
+    onComplete: PropTypes.func,
 }
 
-DrillPage.defaultProps = {
+Drill.defaultProps = {
     ...Pager.defaultProps,
+    ...Viewer.defaultProps,
 
-    wpm: 1000,
+    wpm: 4000,
     pageTurningDuration: 500,
 
-    disableVisualRegression: false,
-    disableVisualProgression: false,
-    disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
-
-    // TODO Remove
-    fontSize: '16pt',
+    onComplete: function() {},
 };
 
-export default DrillPage;
+export default Drill;
