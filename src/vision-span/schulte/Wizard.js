@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MainButton from '../../toolbox/MainButton';
-import Configurator from '../Configurator';
+import Configurator from '../../toolbox/Stylizer';
 import * as helpers from '../../toolbox/EngineHelpers';
 
 // Material Design UI forms
@@ -130,7 +130,7 @@ class Wizard extends React.Component {
     handleAutoLevelChange(event) {
         const newState = {
             ...this.state,
-            autoLevel: event.target.value === "true",
+            autoLevel: event.target.checked,
         }
         this.setState(newState);
     }

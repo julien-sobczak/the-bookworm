@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ColorPicker from '../toolbox/ColorPicker';
+import ColorPicker from './ColorPicker';
 
 /**
  * Component used to adjust drill settings.
  */
-class Configurator extends React.Component {
+class Stylizer extends React.Component {
 
     static propTypes = {
         enablePaperSize: PropTypes.bool,
@@ -25,8 +25,8 @@ class Configurator extends React.Component {
         fontSize: '12pt',
         fontStyle: 'normal',
         theme: 'Light',
-        backgroundColor: Configurator.THEME_LIGHT_TEXT_COLOR,
-        color: Configurator.THEME_LIGHT_BACKGROUND_COLOR,
+        backgroundColor: Stylizer.THEME_LIGHT_TEXT_COLOR,
+        color: Stylizer.THEME_LIGHT_BACKGROUND_COLOR,
     };
 
     constructor(props) {
@@ -102,11 +102,11 @@ class Configurator extends React.Component {
             theme: newTheme,
         }
         if (newTheme === 'Light') {
-            newState.color = Configurator.THEME_LIGHT_TEXT_COLOR;
-            newState.backgroundColor = Configurator.THEME_LIGHT_BACKGROUND_COLOR;
+            newState.color = Stylizer.THEME_LIGHT_TEXT_COLOR;
+            newState.backgroundColor = Stylizer.THEME_LIGHT_BACKGROUND_COLOR;
         } else if (newTheme === 'Dark') {
-            newState.color = Configurator.THEME_DARK_TEXT_COLOR;
-            newState.backgroundColor = Configurator.THEME_DARK_BACKGROUND_COLOR;
+            newState.color = Stylizer.THEME_DARK_TEXT_COLOR;
+            newState.backgroundColor = Stylizer.THEME_DARK_BACKGROUND_COLOR;
         }
         this.setState(newState);
         this.props.onChange(newState)
@@ -197,9 +197,9 @@ class Configurator extends React.Component {
 
 }
 
-Configurator.THEME_LIGHT_TEXT_COLOR = '#000000';
-Configurator.THEME_LIGHT_BACKGROUND_COLOR = '#FFFFFF';
-Configurator.THEME_DARK_TEXT_COLOR = Configurator.THEME_LIGHT_BACKGROUND_COLOR;
-Configurator.THEME_DARK_BACKGROUND_COLOR = Configurator.THEME_LIGHT_TEXT_COLOR;
+Stylizer.THEME_LIGHT_TEXT_COLOR = '#000000';
+Stylizer.THEME_LIGHT_BACKGROUND_COLOR = '#FFFFFF';
+Stylizer.THEME_DARK_TEXT_COLOR = Stylizer.THEME_LIGHT_BACKGROUND_COLOR;
+Stylizer.THEME_DARK_BACKGROUND_COLOR = Stylizer.THEME_LIGHT_TEXT_COLOR;
 
-export default Configurator;
+export default Stylizer;
