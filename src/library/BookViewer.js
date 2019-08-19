@@ -61,7 +61,7 @@ class BookViewer extends React.Component {
                 <Pager content={this.props.content} onDone={this.onPagerDone}
                        {...this.props} />
 
-                <section className="PageControls">
+                <section className="DrillControls">
                     <ul>
                         <li><button onClick={this.previousPage}><i className="material-icons">chevron_left</i></button></li>
                         <li><button onClick={this.nextPage}><i className="material-icons">chevron_right</i></button></li>

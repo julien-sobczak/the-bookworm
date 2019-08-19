@@ -11,7 +11,7 @@ function Viewer(props) {
     const x = parseFloat(props.span) * Math.cos(angleRadian);
     const y = parseFloat(props.span) * Math.sin(angleRadian);
     return (
-        <Styled className="Viewer VisionSpanCircleViewer" {...props}>
+        <Styled className="Viewer ViewerCircle" {...props}>
             {props.drill &&
                 <div style={{height: "100%"}}>
                     <span className={"Cell " + (props.drill.center.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `50%` }}>

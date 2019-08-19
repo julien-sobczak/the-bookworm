@@ -18,9 +18,9 @@ function Entry({ name, slug, children }) {
     );
 }
 
-function ViewerBook(props) {
+function DrawingBook(props) {
     return (
-        <div className="Viewer">
+        <div className="Drawing">
             <div className="PageOutline">
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
@@ -39,7 +39,7 @@ function Catalog({match}) {
         <div className="Catalog">
 
             <Entry name="Book Viewer" slug="book-viewer" match={match}>
-                <ViewerBook />
+                <DrawingBook />
             </Entry>
 
         </div>

@@ -110,7 +110,7 @@ class Drill extends React.Component {
     render() {
         return (
             <div>
-                <div className="FullScreen VisionSpanDrill" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
+                <div className="Drill FullScreen Centered" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
 
                     <section className="DrillControls">
                         <ul>

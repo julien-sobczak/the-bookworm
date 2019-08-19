@@ -1,0 +1,102 @@
+.Paper {
+    --line-height: 1.5em;
+
+    position: relative;
+    margin: auto;
+
+    /* this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+
+    line-height: var(--line-height);
+  }
+
+  .PaperContent {
+    position: absolute;
+
+    /* To determine book margins: https://en.wikibooks.org/wiki/Basic_Book_Design/Margins */
+    --standard-book-margin: 0.5in;
+    top: var(--standard-book-margin);
+    left: var(--standard-book-margin);
+    right: var(--standard-book-margin);
+    bottom: var(--standard-book-margin);
+    /* Important: Adjust margins, font size, and columns to produce 65-70 characters per line (including spaces). */
+
+    text-align: justify;
+
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+
+  /* https://www.thebookdesigner.com/2012/04/paragraphing-style/ */
+  .Paper p {
+    text-indent: 1.5em;
+    line-height: 1.5em;
+    margin-top: var(--line-height);
+    margin-bottom: var(--line-height);
+  }
+  .Paper p.Continuation {
+    text-indent: 0;
+  }
+  .Paper p.Continued {
+    text-align-last: justify;
+  }
+
+  .Paper h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .Paper h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .Paper h3 {
+    font-size: 1.17em;
+    font-weight: bold;
+  }
+
+  .Paper i {
+    font-style: italic;
+  }
+
+
+  .PaperExtended {
+    top: 2em;
+    right: 2em;
+    bottom: 2em;
+    left: 2em;
+  }
+
+  /* See https://www.papersizes.org/a-paper-sizes.htm */
+  .PaperA4 {
+    width: 210mm;
+    height: 297mm;
+  }
+  .PaperA5 {
+    width: 148mm;
+    height: 210mm;
+  }
+  .PaperA6 {
+    width: 105mm;
+    height: 148mm;
+  }
+  /* See http://www.indesignskills.com/tutorials/standard-book-sizes/ */
+  .PaperPocket {
+    width: 4.25in;
+    height: 6.87in;
+  }
+  .PaperDigest {
+    width: 5.5in;
+    height: 8.5in;
+  }
+  .PaperPaperback {
+    width: 6in;
+    height: 9in;
+  }
+  .PaperHardcover {
+    width: 7.5in;
+    height: 10.5in;
+    padding: 1in;
+  }

@@ -3,45 +3,45 @@ import { Link } from "react-router-dom";
 
 import MainButton from "../toolbox/MainButton.js";
 
-function ViewerPage(props) {
+function DrawingPage(props) {
     return (
-        <div className="Viewer">
+        <div className="Drawing Centered">
             <div className="PageOutline">
-                <span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "4em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><br/>
-                <span className="ChunkOutline" style={{width: "2em"}}></span><span className="ChunkOutline ChunkOutlineSelected" style={{width: "5em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><br/>
-                <span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><span className="ChunkOutline" style={{width: "4em"}}></span><br/>
-                <span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "3em"}}></span><span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                <span className="ElementOutline" style={{width: "3em"}}></span><span className="ElementOutline" style={{width: "4em"}}></span><span className="ElementOutline" style={{width: "2em"}}></span><br/>
+                <span className="ElementOutline" style={{width: "2em"}}></span><span className="ElementOutline ElementOutlineSelected" style={{width: "5em"}}></span><span className="ElementOutline" style={{width: "2em"}}></span><br/>
+                <span className="ElementOutline" style={{width: "3em"}}></span><span className="ElementOutline" style={{width: "2em"}}></span><span className="ElementOutline" style={{width: "4em"}}></span><br/>
+                <span className="ElementOutline" style={{width: "3em"}}></span><span className="ElementOutline" style={{width: "3em"}}></span><span className="ElementOutline" style={{width: "2em"}}></span><br/>
             </div>
         </div>
     );
 }
 
-function ViewerChunk(props) {
+function DrawingChunk(props) {
     return (
-        <div className="Viewer">
-            <span className="ChunkOutline ChunkOutlineSelected" style={{width: "5em"}}></span>
+        <div className="Drawing Centered">
+            <span className="ElementOutline ElementOutlineSelected" style={{width: "5em"}}></span>
         </div>
     );
 }
 
-function ViewerColumn(props) {
+function DrawingColumn(props) {
     return (
-        <div className="Viewer">
+        <div className="Drawing Centered">
             <div>
                 <div className="ColumnOutline">
-                    <span className="ChunkOutline" style={{width: "3em"}}></span><br/>
-                    <span className="ChunkOutline" style={{width: "2em"}}></span><br/>
-                    <span className="ChunkOutline" style={{width: "4em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "3em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "2em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "4em"}}></span><br/>
                 </div>
                 <div className="ColumnOutline">
-                    <span className="ChunkOutline" style={{width: "3em"}}></span><br/>
-                    <span className="ChunkOutline ChunkOutlineSelected" style={{width: "4em"}}></span><br/>
-                    <span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "3em"}}></span><br/>
+                    <span className="ElementOutline ElementOutlineSelected" style={{width: "4em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "2em"}}></span><br/>
                 </div>
                 <div className="ColumnOutline">
-                    <span className="ChunkOutline" style={{width: "1em"}}></span><br/>
-                    <span className="ChunkOutline" style={{width: "4em"}}></span><br/>
-                    <span className="ChunkOutline" style={{width: "2em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "1em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "4em"}}></span><br/>
+                    <span className="ElementOutline" style={{width: "2em"}}></span><br/>
                 </div>
             </div>
         </div>
@@ -69,15 +69,15 @@ function Catalog({match}) {
         <div className="Catalog">
 
             <Entry name="Page Reader" slug="drill-page" match={match}>
-                <ViewerPage />
+                <DrawingPage />
             </Entry>
 
             <Entry name="Chunk Reader" slug="drill-chunk" match={match}>
-                <ViewerChunk />
+                <DrawingChunk />
             </Entry>
 
             <Entry name="Column Reader" slug="drill-column" match={match}>
-                <ViewerColumn />
+                <DrawingColumn />
             </Entry>
 
         </div>
