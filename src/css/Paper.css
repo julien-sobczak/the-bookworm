@@ -30,6 +30,10 @@
     overflow-x: hidden;
   }
 
+  .Styled {
+    height: 100%;
+  }
+
   /* https://www.thebookdesigner.com/2012/04/paragraphing-style/ */
   .Paper p {
     text-indent: 1.5em;

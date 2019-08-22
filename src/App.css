@@ -19,7 +19,7 @@
 
 /* Common */
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -52,3 +52,4 @@ button:focus {
 @import 'css/Catalog.css';
 @import 'css/Drill.css';
 @import 'css/Stylizer.css';
+@import 'css/Library.css';

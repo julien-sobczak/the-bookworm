@@ -1,0 +1,288 @@
+{
+    "title": "The Adventures of Tom Sawyer",
+    "author": "Mark Twain",
+    "year": 1876,
+    "language": "English",
+    "toc": [
+        {
+            "title": "CHAPTER I",
+            "start": 487,
+            "end": 834,
+            "characters": 18889,
+            "paragraphs": 339,
+            "words": 3373
+        },
+        {
+            "title": "CHAPTER II",
+            "start": 841,
+            "end": 1056,
+            "characters": 10292,
+            "paragraphs": 51,
+            "words": 1845
+        },
+        {
+            "title": "CHAPTER III",
+            "start": 1063,
+            "end": 1275,
+            "characters": 12051,
+            "paragraphs": 32,
+            "words": 2247
+        },
+        {
+            "title": "CHAPTER IV",
+            "start": 1282,
+            "end": 1640,
+            "characters": 18753,
+            "paragraphs": 62,
+            "words": 3376
+        },
+        {
+            "title": "CHAPTER V",
+            "start": 1647,
+            "end": 1813,
+            "characters": 10386,
+            "paragraphs": 17,
+            "words": 1912
+        },
+        {
+            "title": "CHAPTER VI",
+            "start": 1820,
+            "end": 2323,
+            "characters": 18679,
+            "paragraphs": 162,
+            "words": 3491
+        },
+        {
+            "title": "CHAPTER VII",
+            "characters": 9836,
+            "start": 2330,
+            "end": 2586,
+            "paragraphs": 82,
+            "words": 1907
+        },
+        {
+            "title": "CHAPTER VIII",
+            "start": 2593,
+            "end": 2779,
+            "characters": 9580,
+            "paragraphs": 39,
+            "words": 1738
+        },
+        {
+            "title": "CHAPTER IX",
+            "start": 2786,
+            "end": 3054,
+            "characters": 11490,
+            "paragraphs": 73,
+            "words": 2128
+        },
+        {
+            "characters": 11040,
+            "end": 3330,
+            "paragraphs": 81,
+            "start": 3061,
+            "title": "CHAPTER X",
+            "words": 2033
+        },
+        {
+            "characters": 8121,
+            "end": 3508,
+            "paragraphs": 41,
+            "start": 3337,
+            "title": "CHAPTER XI",
+            "words": 1467
+        },
+        {
+            "characters": 9069,
+            "end": 3692,
+            "paragraphs": 36,
+            "start": 3515,
+            "title": "CHAPTER XII",
+            "words": 1676
+        },
+        {
+            "characters": 13318,
+            "end": 3981,
+            "paragraphs": 66,
+            "start": 3699,
+            "title": "CHAPTER XIII",
+            "words": 2447
+        },
+        {
+            "characters": 11395,
+            "end": 4192,
+            "paragraphs": 33,
+            "start": 3988,
+            "title": "CHAPTER XIV",
+            "words": 2066
+        },
+        {
+            "characters": 9008,
+            "end": 4360,
+            "paragraphs": 27,
+            "start": 4199,
+            "title": "CHAPTER XV",
+            "words": 1677
+        },
+        {
+            "characters": 17279,
+            "end": 4706,
+            "paragraphs": 69,
+            "start": 4367,
+            "title": "CHAPTER XVI",
+            "words": 3168
+        },
+        {
+            "characters": 6336,
+            "end": 4829,
+            "paragraphs": 23,
+            "start": 4713,
+            "title": "CHAPTER XVII",
+            "words": 1119
+        },
+        {
+            "characters": 15216,
+            "end": 5181,
+            "paragraphs": 91,
+            "start": 4836,
+            "title": "CHAPTER XVIII",
+            "words": 2880
+        },
+        {
+            "characters": 3869,
+            "end": 5289,
+            "paragraphs": 34,
+            "start": 5188,
+            "title": "CHAPTER XIX",
+            "words": 777
+        },
+        {
+            "characters": 9033,
+            "end": 5471,
+            "paragraphs": 36,
+            "start": 5296,
+            "title": "CHAPTER XX",
+            "words": 1674
+        },
+        {
+            "characters": 12411,
+            "end": 5690,
+            "paragraphs": 29,
+            "start": 5478,
+            "title": "CHAPTER XXI",
+            "words": 2155
+        },
+        {
+            "characters": 5518,
+            "end": 5797,
+            "paragraphs": 20,
+            "start": 5697,
+            "title": "CHAPTER XXII",
+            "words": 1005
+        },
+        {
+            "characters": 10664,
+            "end": 6065,
+            "paragraphs": 77,
+            "start": 5804,
+            "title": "CHAPTER XXIII",
+            "words": 1913
+        },
+        {
+            "characters": 2208,
+            "end": 6112,
+            "paragraphs": 11,
+            "start": 6072,
+            "title": "CHAPTER XXIV",
+            "words": 408
+        },
+        {
+            "characters": 10945,
+            "end": 6440,
+            "paragraphs": 113,
+            "start": 6119,
+            "title": "CHAPTER XXV",
+            "words": 2049
+        },
+        {
+            "characters": 14162,
+            "end": 6789,
+            "paragraphs": 98,
+            "start": 6447,
+            "title": "CHAPTER XVI",
+            "words": 2577
+        },
+        {
+            "characters": 4970,
+            "end": 6912,
+            "paragraphs": 35,
+            "start": 6796,
+            "title": "CHAPTER XXVII",
+            "words": 954
+        },
+        {
+            "characters": 5656,
+            "end": 7046,
+            "paragraphs": 36,
+            "start": 6919,
+            "title": "CHAPTER XXVIII",
+            "words": 1083
+        },
+        {
+            "characters": 13915,
+            "end": 7317,
+            "paragraphs": 50,
+            "start": 7053,
+            "title": "CHAPTER XXIX",
+            "words": 2541
+        },
+        {
+            "characters": 16294,
+            "end": 7676,
+            "paragraphs": 85,
+            "start": 7324,
+            "title": "CHAPTER XXX",
+            "words": 2998
+        },
+        {
+            "characters": 16056,
+            "end": 8016,
+            "paragraphs": 71,
+            "start": 7683,
+            "title": "CHAPTER XXXI",
+            "words": 2990
+        },
+        {
+            "characters": 5490,
+            "end": 8125,
+            "paragraphs": 21,
+            "start": 8023,
+            "title": "CHAPTER XXXII",
+            "words": 1020
+        },
+        {
+            "characters": 17725,
+            "end": 8542,
+            "paragraphs": 109,
+            "start": 8132,
+            "title": "CHAPTER XXXIII",
+            "words": 3315
+        },
+        {
+            "characters": 4664,
+            "end": 8658,
+            "paragraphs": 33,
+            "start": 8549,
+            "title": "CHAPTER XXXIV",
+            "words": 864
+        },
+        {
+            "characters": 9914,
+            "end": 8861,
+            "paragraphs": 39,
+            "start": 8665,
+            "title": "CHAPTER XXXV",
+            "words": 1880
+        }
+    ]
+}

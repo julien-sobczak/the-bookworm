@@ -155,6 +155,8 @@
    */
 
   .ViewerPage {
+    height: 100%;
+
     --drill-fade-color: #eee;
   }
   .ViewerPage.DisableVisualRegression.DisableVisualProblemStyleTransparent .Chunk.Before { opacity: 0; }
@@ -165,10 +167,10 @@
   .ViewerPage.DisableVisualProgression.DisableVisualProblemStyleFade        .Chunk.After { color: var(--drill-fade-color); background-color: var(--drill-fade-color); }
   .ViewerPage.DisableVisualProgression.DisableVisualProblemStyleBlur        .Chunk.After { filter: blur(0.1em); opacity: 0.5; }
 
-
   /* We have a small space to print the page in the wizard */
   .WizardPage .Paper {
     height: auto !important;
+    overflow: hidden;
   }
   .WizardPage .PaperContent {
     position: unset !important;
