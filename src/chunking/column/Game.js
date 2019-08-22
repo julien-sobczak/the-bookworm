@@ -5,6 +5,7 @@ import Countdown from '../../toolbox/Countdown';
 import Drill from './Drill';
 import Wizard from './Wizard';
 import Stats from './Stats';
+import Library from '../../library/Library';
 
 class Game extends React.Component {
 
@@ -12,6 +13,9 @@ class Game extends React.Component {
         super(props);
 
         this.state = {
+            // Copy default content
+            content: props.content,
+
             // Copy drill options
             wpm: props.wpm,
             speedControls: props.speedControls,
@@ -22,7 +26,7 @@ class Game extends React.Component {
             chunkStyle: props.chunkStyle,
 
             // State management
-            state: 'init',
+            state: 'library',
 
             // Copy styling settings as state to update during a drill session
             fontFamily: props.fontFamily,
@@ -32,9 +36,19 @@ class Game extends React.Component {
             color: props.color,
         };
 
+        this.handleLibrarySelection = this.handleLibrarySelection.bind(this);
         this.handleWizardValidation = this.handleWizardValidation.bind(this);
         this.handleCountdownCompletion = this.handleCountdownCompletion.bind(this);
         this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
+    }
+
+    /** Called when the user select a content in the library */
+    handleLibrarySelection = (selection) => {
+        this.setState(state => ({
+            ...state,
+            content: selection,
+            state: 'init',
+        }));
     }
 
     /** Called when the user validate the wizard. */
@@ -68,6 +82,9 @@ class Game extends React.Component {
             <div className="FullScreen ChunkingGame">
 
                 <Link to="/chunking/" className="ButtonClose"><i className="material-icons">close</i></Link>
+
+                {this.state.state === 'library' &&
+                    <Library redirect="/chunking/column" onSelect={this.handleLibrarySelection} />}
 
                 {this.state.state === 'init' &&
                     <Wizard onValidate={this.handleWizardValidation} />}

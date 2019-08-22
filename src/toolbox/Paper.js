@@ -4,6 +4,7 @@ import Styled from '../toolbox/Styled';
 import {capitalize} from '../toolbox/Fn'
 
 const Paper = React.forwardRef((props, ref) => {
+
     const defaultClassName = props.className ? props.className + ' ': '';
     const paperCss = capitalize(props.paperSize);
     const css = `${defaultClassName}Paper${paperCss}`;

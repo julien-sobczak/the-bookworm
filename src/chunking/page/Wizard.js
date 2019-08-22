@@ -259,6 +259,9 @@ class Wizard extends React.Component {
                         {predefinedDrills}
                     </div>
 
+                    {/* TODO */}
+                    {/* https://reactjs.org/docs/forms.html#handling-multiple-inputs */}
+
                     <div className="OptionGroup">
                         <div className="Option">
                             <label htmlFor="chunkMode">Chunk mode</label>

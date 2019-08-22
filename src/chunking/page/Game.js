@@ -5,13 +5,16 @@ import Countdown from '../../toolbox/Countdown';
 import Drill from './Drill';
 import Wizard from './Wizard';
 import Stats from './Stats';
-
+import Library from '../../library/Library';
 class Game extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
+            // Copy default content
+            content: props.content,
+
             // Copy drill options
             paperSize: props.paperSize,
             wpm: props.wpm,
@@ -23,7 +26,7 @@ class Game extends React.Component {
             chunkStyle: props.chunkStyle,
 
             // State management
-            state: 'init',
+            state: 'library',
 
             // Copy styling settings as state to update during a drill session
             fontFamily: props.fontFamily,
@@ -33,9 +36,19 @@ class Game extends React.Component {
             color: props.color,
         };
 
+        this.handleLibrarySelection = this.handleLibrarySelection.bind(this);
         this.handleWizardValidation = this.handleWizardValidation.bind(this);
         this.handleCountdownCompletion = this.handleCountdownCompletion.bind(this);
         this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
+    }
+
+    /** Called when the user select a content in the library */
+    handleLibrarySelection = (selection) => {
+        this.setState(state => ({
+            ...state,
+            content: selection,
+            state: 'init',
+        }));
     }
 
     /** Called when the user validate the wizard. */
@@ -70,6 +83,9 @@ class Game extends React.Component {
 
                 <Link to="/chunking/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
+                {this.state.state === 'library' &&
+                    <Library redirect="/chunking/page" onSelect={this.handleLibrarySelection} />}
+
                 {this.state.state === 'init' &&
                     <Wizard onValidate={this.handleWizardValidation} />}
 
@@ -78,7 +94,7 @@ class Game extends React.Component {
 
                 {this.state.state === 'started' &&
                     <Drill
-                        content={this.props.content}
+                        content={this.state.content}
 
                         wpm={this.state.wpm}
                         pageTurningDuration={this.state.pageTurningDuration}
