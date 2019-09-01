@@ -40,7 +40,7 @@ class BookPreview extends React.Component {
 
             // Block continuation?
             if (!currentBlock) {
-                currentBlock = { tag: "p", content: line };
+                currentBlock = { tag: "p", content: line, sourceLine: l, };
             } else {
                 currentBlock.content += ' ' + line;
             }
@@ -57,8 +57,10 @@ class BookPreview extends React.Component {
         const chapterIndex = event.target.dataset.index;
         const chapter = this.state.metadata.chapters[chapterIndex];
         const content = {
-            title: this.state.metadata.title,
-            author: this.state.metadata.author,
+            type: 'book',
+            title: this.props.entry.title,
+            author: this.props.entry.author,
+            slug: this.props.entry.slug,
             subtitle: chapter.title,
             text: [
                 { tag: "h2", content: chapter.title },
@@ -68,6 +70,8 @@ class BookPreview extends React.Component {
         content.text.push(...BookPreview.convertToHtml(lines));
         this.setState({
             chapterIndex: parseInt(chapterIndex),
+            lineStartIndex: content.text[0].sourceLine,
+            lineEndIndex: content.text[content.text.length - 1].sourceLine,
             content: content,
         });
     }
@@ -106,8 +110,8 @@ class BookPreview extends React.Component {
     }
 
     componentDidMount() {
-        const contentUrl = `https://open-library-books.firebaseapp.com/gutenberg/${this.props.slug}.txt`;
-        const metadataUrl = `https://open-library-books.firebaseapp.com/gutenberg/${this.props.slug}.json`;
+        const contentUrl = `https://open-library-books.firebaseapp.com/gutenberg/${this.props.entry.slug}.txt`;
+        const metadataUrl = `https://open-library-books.firebaseapp.com/gutenberg/${this.props.entry.slug}.json`;
         console.log(`Downloading ${contentUrl}...`);
         console.log(`Downloading ${metadataUrl}...`);
         fetch(contentUrl)
@@ -122,14 +126,13 @@ class BookPreview extends React.Component {
                 return response.json();
             })
             .then((metadata) => {
-                console.log(metadata);
                 this.setState({ metadata: metadata });
             });
     }
 }
 
 BookPreview.propTypes = {
-    slug: PropTypes.string,
+    entry: PropTypes.object,
     onSelect: PropTypes.func,
 };
 

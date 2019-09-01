@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Countdown from '../../toolbox/Countdown';
@@ -6,6 +7,13 @@ import Drill from './Drill';
 import Wizard from './Wizard';
 import Stats from './Stats';
 import Library from '../../library/Library';
+import { updateReading } from "../../store/actions";
+
+function mapDispatchToProps(dispatch) {
+    return {
+        updateReading: reading => dispatch(updateReading(reading))
+    };
+  }
 
 class Game extends React.Component {
 
@@ -69,11 +77,22 @@ class Game extends React.Component {
 
     /** Called when the user successfully finish the drill. */
     handleDrillCompletion = (stats) => {
+        if (this.content.type === 'book') {
+            this.props.updateReading({
+                slug: this.content.slug,
+                position: {
+                    chapter: this.content.chapterIndex,
+                    line: this.content.lineEndIndex + 1,
+                },
+            });
+        }
+
         this.setState(state => ({
             ...state,
             stats: stats,
             state: 'finished',
         }));
+
     }
 
     render() {
@@ -137,4 +156,4 @@ Game.defaultProps = {
     ...Drill.defaultProps,
 };
 
-export default Game;
+export default connect(null, mapDispatchToProps)(Game);
