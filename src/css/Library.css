@@ -123,15 +123,37 @@
 }
 
 
-.Library .Bookshelf {
+.Bookshelf {
     max-height: 50vh;
     overflow-y: scroll;
     padding: 2em;
 }
-.Library .Bookshelf li {
+
+/* Style the scrollbar present inside the screen */
+/* https://scotch.io/tutorials/customize-the-browsers-scrollbar-with-css */
+.Bookshelf::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: transparent;
+}
+.Bookshelf::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 50vh;
+    height: 2em;
+}
+
+.Bookshelf td {
     height: 2.5em;
     padding: 0.5em;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid white;
+}
+.Bookshelf .BookTitle button {
+    font-weight: 500;
+    color: black;
+
+}
+.Bookshelf .BookAuthor {
+    font-size: 0.8em;
+    color: white;
 }
 
 

@@ -31,6 +31,7 @@ class TextPreview extends React.Component {
         }
 
         return {
+            type: 'clipboard',
             text: blocks,
         };
     }
