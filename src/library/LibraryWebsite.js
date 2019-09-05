@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import WebsitePreview from './WebsitePreview';
+import PreviewWebsite from './PreviewWebsite';
 
 import MainButton from "../toolbox/MainButton";
 
@@ -11,7 +11,7 @@ function LibraryWebsite({ onSelect, onCancel }) {
 
     return (
         <div className="LibraryWebsite Centered">
-            {ready && <WebsitePreview url={url} onSelect={(selection) => onSelect(selection) } />}
+            {ready && <PreviewWebsite url={url} onSelect={(selection) => onSelect(selection) } />}
 
             {!ready &&
                 <>

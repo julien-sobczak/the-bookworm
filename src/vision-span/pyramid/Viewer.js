@@ -33,7 +33,7 @@ function Viewer(props) {
     let countLinesInSpan = 0;
 
     return (
-        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
+        <Styled className="Viewer" {...props}>
             {props.drill && props.drill.lines.map((line, index) => {
                 if (!currentSpan) {
                     // Fist line: start at 0in

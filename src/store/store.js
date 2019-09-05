@@ -2,6 +2,8 @@ import { createStore } from "redux";
 import rootReducer from "./reducers";
 
 const initialState = {
+    // TODO Convert to array
+    // add lastReading 
     readings: {
         "The-Adventures-of-Tom-Sawyer": {
             chapter: 0,

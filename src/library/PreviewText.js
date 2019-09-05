@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import ContentSelector from "./ContentSelector";
 
-class TextPreview extends React.Component {
+class PreviewText extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            content: TextPreview.convertText(props.text),
+            content: PreviewText.convertText(props.text),
         };
 
         this.handleValidation = this.handleValidation.bind(this);
@@ -42,7 +42,7 @@ class TextPreview extends React.Component {
 
     render() {
         return (
-            <div className="TextPreview FullScreen Centered">
+            <div className="PreviewContent PreviewText FullScreen Centered">
                 {this.state.content &&
                     <ContentSelector content={this.state.content} onSelect={this.handleValidation} />
                 }
@@ -52,13 +52,13 @@ class TextPreview extends React.Component {
 
 }
 
-TextPreview.propTypes = {
+PreviewText.propTypes = {
     text: PropTypes.string,
     onSelect: PropTypes.func,
 };
 
-TextPreview.defaultProps = {
+PreviewText.defaultProps = {
     onSelect: function() {},
 };
 
-export default TextPreview;
+export default PreviewText;

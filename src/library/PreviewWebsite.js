@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 //import ContentSelector from "./ContentSelector";
 import Loader from "../toolbox/Loader.js";
 
-class WebsitePreview extends React.Component {
+class PreviewWebsite extends React.Component {
 
     constructor(props) {
         super(props);
@@ -23,7 +23,7 @@ class WebsitePreview extends React.Component {
 
     render() {
         return (
-            <div className="Websitereview FullScreen Centered">
+            <div className="PreviewContent PreviewWebsite FullScreen Centered">
 
                 {!this.state.text && !this.state.metadata &&
                     <Loader />
@@ -35,9 +35,7 @@ class WebsitePreview extends React.Component {
 
                 {this.state.html &&
                     <div>
-
                         {this.state.html.subtring(0, 10)}
-
                     </div>
                 }
             </div>
@@ -66,13 +64,13 @@ class WebsitePreview extends React.Component {
     }
 }
 
-WebsitePreview.propTypes = {
+PreviewWebsite.propTypes = {
     url: PropTypes.string,
     onSelect: PropTypes.func,
 };
 
-WebsitePreview.defaultProps = {
+PreviewWebsite.defaultProps = {
     onSelect: function() {},
 };
 
-export default WebsitePreview;
+export default PreviewWebsite;

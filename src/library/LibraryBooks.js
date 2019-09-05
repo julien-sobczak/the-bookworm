@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import BookPreview from './BookPreview';
+import PreviewBook from './PreviewBook';
 
 import MainButton from "../toolbox/MainButton";
 import Loader from "../toolbox/Loader";
@@ -46,7 +46,7 @@ class LibraryBooks extends React.Component {
                 {!this.state.entry &&
                     <>
                         <h3>Choose a book</h3>
-                        {/* Add filters by language, by kind, search box */}
+                        {/* TODO Add filters by language, by kind, search box */}
                         <div className="Bookshelf">
                             <table>
                                 <tbody>
@@ -79,7 +79,7 @@ class LibraryBooks extends React.Component {
                 }
 
                 {this.state.entry &&
-                    <BookPreview entry={this.state.entry} onSelect={(selection) => this.props.onSelect(selection) } />
+                    <PreviewBook entry={this.state.entry} onSelect={(selection) => this.props.onSelect(selection) } />
                 }
 
             </div>
