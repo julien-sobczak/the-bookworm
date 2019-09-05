@@ -23,7 +23,7 @@ jobs:
       - uses: w9jds/firebase-action@master
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - run: firebase deploy --token $FIREBASE_TOKEN"
+      - run: firebase deploy --token "$FIREBASE_TOKEN"
         env:
           PROJECT_ID: "the-bookworm"
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
