@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - uses: w9jds/firebase-action@master
-     - run: firebase deploy
+     - run: firebase deploy --token $FIREBASE_TOKEN"
        env:
         PROJECT_ID: "the-bookworm"
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
