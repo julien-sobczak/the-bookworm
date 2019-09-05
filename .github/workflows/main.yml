@@ -6,25 +6,24 @@ on:
       - master
 
 jobs:
-     
- build:
+  build:
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@master
-     - uses: actions/setup-node@master
-       with:
-         node-version: 12.7 
-     - run: npm install
-     - run: npm run build
-             
- deploy:
-    needs:
-      build
-    runs-on: ubuntu-latest
-    steps:
-     - uses: w9jds/firebase-action@master
-     - run: firebase deploy --token $FIREBASE_TOKEN"
-       env:
-        PROJECT_ID: "the-bookworm"
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.7
+      - run: npm install
+      - run: npm run build
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: w9jds/firebase-action@master
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - run: firebase deploy --token $FIREBASE_TOKEN"
+        env:
+          PROJECT_ID: "the-bookworm"
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
