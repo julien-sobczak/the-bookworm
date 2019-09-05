@@ -15,11 +15,13 @@ jobs:
           node-version: 12.7
       - run: npm install
       - run: npm run build
+      - run: ls
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - run: ls
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         env:
