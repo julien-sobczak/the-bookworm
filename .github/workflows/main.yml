@@ -10,18 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
       - uses: actions/setup-node@master
         with:
           node-version: 12.7
       - run: npm install
       - run: npm run build
-      - run: ls
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: ls
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.7
+      - run: npm install
+      - run: npm run build
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         env:
