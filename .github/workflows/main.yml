@@ -25,6 +25,6 @@ jobs:
      - uses: w9jds/firebase-action@master
      - run: firebase deploy
        env:
-        PROJECT_ID = "the-bookworm"
+        PROJECT_ID: "the-bookworm"
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
