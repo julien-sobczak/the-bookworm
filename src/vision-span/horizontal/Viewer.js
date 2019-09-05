@@ -22,7 +22,7 @@ function Viewer(props) {
     }
 
     return (
-        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
+        <Styled className="Viewer" {...props}>
             {props.drill && props.drill.map((serie, index) => {
                 return (
                     <div className="Serie" key={index}>

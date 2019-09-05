@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { DEMO_CONTENT } from '../constants'
 import MainButton from "../toolbox/MainButton.js";
 
 class ContentSelector extends React.Component {
@@ -69,7 +70,9 @@ class ContentSelector extends React.Component {
                             attributes.className = 'ExpandBottom';
                         }
 
-                        return React.createElement(block.tag, attributes, block.content);
+                        attributes.dangerouslySetInnerHTML = {__html: block.content}
+
+                        return React.createElement(block.tag, attributes, null);
                     })}
                 </div>
                 <div className="ButtonValidate">
@@ -98,7 +101,7 @@ ContentSelector.propTypes = {
 };
 
 ContentSelector.defaultProps = {
-    content: undefined,
+    content: DEMO_CONTENT,
     selectAll: true,
     onSelect: function() {},
 };

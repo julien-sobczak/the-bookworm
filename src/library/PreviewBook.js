@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ContentSelector from "./ContentSelector";
 import Loader from "../toolbox/Loader.js";
 
-class BookPreview extends React.Component {
+class PreviewBook extends React.Component {
 
     constructor(props) {
         super(props);
@@ -67,7 +67,7 @@ class BookPreview extends React.Component {
             ]
         };
         const lines = this.state.text.split('\r\n').slice(chapter.start, chapter.end);
-        content.text.push(...BookPreview.convertToHtml(lines));
+        content.text.push(...PreviewBook.convertToHtml(lines));
         this.setState({
             chapterIndex: parseInt(chapterIndex),
             lineStartIndex: content.text[0].sourceLine,
@@ -82,7 +82,7 @@ class BookPreview extends React.Component {
 
     render() {
         return (
-            <div className="BookPreview FullScreen Centered">
+            <div className="PreviewContent PreviewBook FullScreen Centered">
 
                 {!this.state.text && !this.state.metadata &&
                     <Loader />
@@ -131,13 +131,13 @@ class BookPreview extends React.Component {
     }
 }
 
-BookPreview.propTypes = {
+PreviewBook.propTypes = {
     entry: PropTypes.object,
     onSelect: PropTypes.func,
 };
 
-BookPreview.defaultProps = {
+PreviewBook.defaultProps = {
     onSelect: function() {},
 };
 
-export default BookPreview;
+export default PreviewBook;

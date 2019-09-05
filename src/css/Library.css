@@ -37,16 +37,16 @@
 
 
 /*
- * BookPreview
+ * PreviewContent
  */
 
-.BookPreview, .TextPreview, .WebsitePreview {
+.PreviewContent {
     overflow: scroll;
 }
 
 /* Toc */
 
-.BookPreview .Toc {
+.Toc {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -54,7 +54,7 @@
     z-index: 2000;
     overflow: scroll;
 }
-.BookPreview .Toc li {
+.Toc li {
     position: relative; /* Used to position the :before and :arrow squares and form an arrow */
     max-width: 3in;
     height: 2em;
@@ -66,12 +66,12 @@
     color: black;
     cursor: pointer;
 }
-.BookPreview .Toc li.Selected {
+.Toc li.Selected {
     background-color: var(--theme-color);
     font-weight: 600;
 }
 /* Arrow style */
-.BookPreview .Toc li.Selected::before {
+.Toc li.Selected::before {
     content: '';
     position: absolute;
     height: 3em;
@@ -82,7 +82,7 @@
     background-color: white;
     transform: rotate(45deg);
 }
-.BookPreview .Toc li.Selected::after {
+.Toc li.Selected::after {
     content: '';
     position: absolute;
     height: 3em;
@@ -99,9 +99,7 @@
     margin: 3em 1.5em !important;
 }
 
-.BookPreview .ButtonValidate,
-.WebsitePreview .ButtonValidate,
-.TextPreview .ButtonValidate {
+.PreviewContent .ButtonValidate {
     position: fixed;
     left: 0%;
     right: 0;
@@ -109,9 +107,7 @@
     text-align: center;
     background: white;
 }
-.BookPreview .ButtonValidate::before,
-.WebsitePreview .ButtonValidate::before,
-.TextPreview .ButtonValidate::before {
+.PreviewContent .ButtonValidate::before {
     content: '';
     position: absolute;
     height: 2em;
@@ -119,7 +115,6 @@
     margin-top: -2em;
     left: 0;
     right: 0;
-
 }
 
 

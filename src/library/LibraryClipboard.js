@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import TextPreview from './TextPreview';
+import PreviewText from './PreviewText';
 
 import MainButton from "../toolbox/MainButton";
 
@@ -12,7 +12,7 @@ function LibraryClipboard({ onSelect, onCancel }) {
 
     return (
         <div className="LibraryClipboard Centered">
-            {ready && <TextPreview text={text} onSelect={(selection) => onSelect(selection) } />}
+            {ready && <PreviewText text={text} onSelect={(selection) => onSelect(selection) } />}
 
             {!ready &&
                 <>

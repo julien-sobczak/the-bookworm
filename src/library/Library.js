@@ -1,11 +1,18 @@
 import React from 'react';
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
 import LibraryBooks from './LibraryBooks';
 import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
+import LibraryUpload from './LibraryUpload';
 
 import MainButton from "../toolbox/MainButton";
+import ButtonUpload from "./ButtonUpload";
+
+const mapStateToProps = state => {
+    return { readings: state.readings };
+};
 
 class Library extends React.Component {
 
@@ -19,6 +26,7 @@ class Library extends React.Component {
         this.handleBookSelection = this.handleBookSelection.bind(this);
         this.handleWebsiteSelection = this.handleWebsiteSelection.bind(this);
         this.handleClipboardSelection = this.handleClipboardSelection.bind(this);
+        this.handleUploadSelection = this.handleUploadSelection.bind(this);
 
         this.handleCancel = this.handleCancel.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
@@ -45,6 +53,15 @@ class Library extends React.Component {
         }));
     }
 
+    handleUploadSelection(event) {
+        this.setState(state => ({
+            ...state,
+            category: "upload",
+            file: event.file,
+            filetype: event.filetype,
+        }));
+    }
+
     handleCancel(event) {
         this.setState(state => ({
             ...state,
@@ -64,7 +81,7 @@ class Library extends React.Component {
                     <div className="LibraryWelcome Centered">
                         <h3>What you want to read?</h3>
 
-                        {this.state.readings &&
+                        {this.props.readings &&
                             <div>
                                 <h4>Continue the reading</h4>
                                 <ul className="Readings">
@@ -84,9 +101,15 @@ class Library extends React.Component {
                                 <MainButton text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
                             </div>
                             */}
+
                             <div className="LibraryCategory">
                                 <MainButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
                             </div>
+
+                            <div className="LibraryCategory">
+                                <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleUploadSelection} />
+                            </div>
+
                         </section>
                     </div>
                 }
@@ -103,6 +126,10 @@ class Library extends React.Component {
                     <LibraryClipboard onSelect={this.handleSelection} onCancel={this.handleCancel} />
                 }
 
+                {this.state.category === "upload" &&
+                    <LibraryUpload file={this.state.file} filetype={this.state.filetype} onSelect={this.handleSelection} onCancel={this.handleCancel} />
+                }
+
             </div>
         );
     }
@@ -116,4 +143,4 @@ Library.defaultProps = {
     onSelect: function() {},
 };
 
-export default Library;
+export default connect(mapStateToProps)(Library);

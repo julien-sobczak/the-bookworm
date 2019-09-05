@@ -8,7 +8,7 @@ function Viewer(props) {
     const cssCell = 'Width' + props.span.replace('.', '_');
 
     return (
-        <Styled className="Viewer VisionSpanHorizontalViewer" {...props}>
+        <Styled className="Viewer" {...props}>
             <table className="SchulteTable">
                 <tbody>
                     {props.drill && props.drill.lines.map((line, index) => {
