@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Pager from '../chunking/Pager';
 import Paper from "../toolbox/Paper";
 import PageContent from "../toolbox/PageContent";
-import { capitalize } from "../toolbox/Fn";
+import { capitalize } from "../functions/string";
 
 class BookViewer extends React.Component {
 

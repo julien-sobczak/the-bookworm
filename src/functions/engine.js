@@ -1,24 +1,26 @@
 // Only these span values are supported (by proceed by 0.25 increment as encountered in the book Triple Your Reading Speed by Wade E. Cutler)
 export const SPANS = ['0in', '0.25in', '0.5in', '0.75in', '1in', '1.25in', '1.5in', '1.75in', '2in', '2.25in', '2.5in', '2.75in', '3in', '3.25in', '3.5in', '3.75in', '4in'];
+export const MIN_SPAN = SPANS[0];
+export const MAX_SPAN = SPANS[SPANS.length - 1];
 
 export function isMinSpan(span) {
     if (Array.isArray(span)) {
-        return span.includes(SPANS[0]);
+        return span.includes(MIN_SPAN);
     } else {
-        return SPANS.indexOf(span) === 0;
+        return span === MIN_SPAN;
     }
 }
 
 export function isMaxSpan(span) {
     if (Array.isArray(span)) {
-        return span.includes(SPANS[SPANS.length-1]);
+        return span.includes(MAX_SPAN);
     } else {
-        return SPANS.indexOf(span) === SPANS.length-1;
+        return span === MAX_SPAN;
     }
 }
 
 export function reduceSpan(span) {
-    if (isMinSpan(span)) return;
+    if (isMinSpan(span)) return span;
 
     if (Array.isArray(span)) {
         return span.map((s) => SPANS[SPANS.indexOf(s) - 1])
@@ -28,7 +30,7 @@ export function reduceSpan(span) {
 }
 
 export function increaseSpan(span) {
-    if (isMaxSpan(span)) return;
+    if (isMaxSpan(span)) return span;
 
     if (Array.isArray(span)) {
         return span.map((s) => SPANS[SPANS.indexOf(s) + 1])

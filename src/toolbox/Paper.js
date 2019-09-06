@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Styled from '../toolbox/Styled';
-import {capitalize} from '../toolbox/Fn'
+import {capitalize} from '../functions/string'
 
 const Paper = React.forwardRef((props, ref) => {
 

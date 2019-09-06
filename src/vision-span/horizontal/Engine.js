@@ -1,4 +1,4 @@
-import * as helpers from '../../toolbox/EngineHelpers';
+import * as helpers from '../../functions/engine';
 
 class Engine {
 
