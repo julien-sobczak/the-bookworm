@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
-import { chunkDuration } from '../../toolbox/WPM';
+import { chunkDuration } from '../../functions/wpm';
 
 class Drill extends React.Component {
 

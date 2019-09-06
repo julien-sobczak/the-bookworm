@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import MainButton from '../../toolbox/MainButton';
 import Configurator from '../../toolbox/Stylizer';
-import * as helpers from '../../toolbox/EngineHelpers';
+import * as helpers from '../../functions/engine';
 
 // Material Design UI forms
 import Switch from '@material/react-switch';

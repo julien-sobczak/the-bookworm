@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { capitalize } from '../../toolbox/Fn';
+import { capitalize } from '../../functions/string';
 import Paper from '../../toolbox/Paper';
 import PageContent from '../../toolbox/PageContent';
 import Styled from '../../toolbox/Styled';

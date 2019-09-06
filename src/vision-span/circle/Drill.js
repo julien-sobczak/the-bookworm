@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import Engine from './Engine';
-import * as helpers from '../../toolbox/EngineHelpers';
+import * as helpers from '../../functions/engine';
 
 class Drill extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { capitalize } from "../toolbox/Fn";
+import { capitalize } from "../functions/string";
 
 const Styled = React.forwardRef((props, ref) => {
 

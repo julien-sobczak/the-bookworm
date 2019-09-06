@@ -137,7 +137,6 @@ export const extractChapters = (files) => {
         for (let f = 0; f < files.length; f++) {
             const file = files[f];
             if (file.filename.endsWith(chapter.filename)) {
-                console.log(file.content)
                 const newChapter = {
                     title: chapter.title,
                     text: parseFile(file.content),

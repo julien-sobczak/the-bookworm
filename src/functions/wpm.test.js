@@ -1,4 +1,4 @@
-import { chunkDuration } from './WPM';
+import { chunkDuration } from './wpm';
 
 describe('chunkDuration()', () => {
 

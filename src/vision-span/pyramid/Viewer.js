@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from '../../toolbox/Styled';
-import * as helpers from '../../toolbox/EngineHelpers';
+import * as helpers from '../../functions/engine';
 
 function Viewer(props) {
     // How it works?
