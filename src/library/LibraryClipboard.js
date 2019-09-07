@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import PreviewText from './PreviewText';
 
-import MainButton from "../toolbox/MainButton";
+import Button from "../toolbox/Button";
 
 
 function LibraryClipboard({ onSelect, onCancel }) {
@@ -20,8 +20,8 @@ function LibraryClipboard({ onSelect, onCancel }) {
                     <textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)}>
                     </textarea>
                     <div className="Buttons">
-                        <MainButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
-                        <MainButton text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
+                        <Button text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
+                        <Button text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
                     </div>
                 </>
             }

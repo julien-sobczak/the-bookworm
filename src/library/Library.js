@@ -7,7 +7,7 @@ import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
 import LibraryUpload from './LibraryUpload';
 
-import MainButton from "../toolbox/MainButton";
+import Button from "../toolbox/Button";
 import ButtonUpload from "./ButtonUpload";
 
 const mapStateToProps = state => {
@@ -92,18 +92,18 @@ class Library extends React.Component {
 
                         <section className="LibraryCategories">
                             <div className="LibraryCategory">
-                                <MainButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
+                                <Button text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
                             </div>
 
                             {/*
                               * Disabled because it requires to find a real solution to execute CORS requests
                             <div className="LibraryCategory">
-                                <MainButton text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
+                                <Button text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
                             </div>
                             */}
 
                             <div className="LibraryCategory">
-                                <MainButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
+                                <Button text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
                             </div>
 
                             <div className="LibraryCategory">

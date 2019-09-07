@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import Loader from "../toolbox/Loader.js";
-import MainButton from "../toolbox/MainButton";
+import Button from "../toolbox/Button";
 
 import { readEpub } from './EpubReader';
 
@@ -23,7 +23,7 @@ const ButtonUpload = ({text, colorText, colorBackground, onClick}) => {
     return (
         <>
             <input type="file" ref={inputRef} onChange={handleFileSelected} style={{display: "none"}} accept="application/epub+zip" />
-            <MainButton text={text} colorText={colorText} colorBackground={colorBackground} onClick={() => inputRef.current.click()} />
+            <Button text={text} colorText={colorText} colorBackground={colorBackground} onClick={() => inputRef.current.click()} />
             {loading && <Loader />}
         </>
     );

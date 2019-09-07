@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import PreviewBook from './PreviewBook';
 
-import MainButton from "../toolbox/MainButton";
+import Button from "../toolbox/Button";
 import Loader from "../toolbox/Loader";
 
 const mapStateToProps = state => {
@@ -73,7 +73,7 @@ class LibraryBooks extends React.Component {
                             </table>
                         </div>
                         <div className="Buttons">
-                            <MainButton text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
+                            <Button text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
                         </div>
                     </>
                 }

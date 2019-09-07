@@ -3,7 +3,7 @@ import * as helpers from '../../functions/engine';
 class Engine {
 
     /**
-     * Create a new drill.
+     * Creates a new drill.
      *
      * @param {number} lines the number of lines
      * @param {function} onDrillFinished callback when a drill is finished
@@ -15,7 +15,7 @@ class Engine {
     }
 
     /**
-     * Shuffle generates a new drill content.
+     * Generates a new drill content.
      *
      * The drill object has the following structure:
      *
@@ -66,14 +66,29 @@ class Engine {
         this.errorCount = 0;
     }
 
+    /**
+     * Returns the current drill.
+     *
+     * @return {Object} The drill content
+     */
     getDrill() {
         return this.drill;
     }
 
+    /**
+     * Returns the statistics collected during the current session.
+     *
+     * @return {Object} The Game statistics
+     */
     getStats() {
         return {};
     }
 
+    /**
+     * Validates the user input.
+     *
+     * @param {string} input The character entered by the user
+     */
     registerInput(input) {
         let finished = true;
         let error = true;
