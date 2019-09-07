@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import PreviewWebsite from './PreviewWebsite';
 
-import MainButton from "../toolbox/MainButton";
+import Button from "../toolbox/Button";
 
 function LibraryWebsite({ onSelect, onCancel }) {
 
@@ -18,8 +18,8 @@ function LibraryWebsite({ onSelect, onCancel }) {
                     <h3>Copy your URL</h3>
                     <input type="text" name="url" onChange={(e) => setUrl(e.target.value)} />
                     <div className="Buttons">
-                        <MainButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
-                        <MainButton text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
+                        <Button text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
+                        <Button text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
                     </div>
                 </>
             }

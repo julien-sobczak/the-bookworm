@@ -18,6 +18,18 @@ jobs:
       - run: npm install
       - run: npm run build
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.7
+      - run: npm install
+      - run: npm test
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

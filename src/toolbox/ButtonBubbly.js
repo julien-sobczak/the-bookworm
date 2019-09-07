@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 
 // We use https://www.styled-components.com/docs/basics to scope CSS declarations and animations!
 // Inspired by https://codepen.io/nourabusoud/pen/ypZzMM
-function BubblyButton({ text, onClick }) {
+function ButtonBubbly({ text, onClick }) {
 
     const colorText = 'white';
     const colorBackground = 'var(--mdc-theme-background)';
@@ -101,14 +101,14 @@ function BubblyButton({ text, onClick }) {
     );
 }
 
-BubblyButton.propTypes = {
+ButtonBubbly.propTypes = {
     text: PropTypes.string,
     onClick: PropTypes.func,
 };
 
-BubblyButton.defaultProps = {
+ButtonBubbly.defaultProps = {
     text: 'Click me',
-    onClick: undefined,
+    onClick: function() {},
 };
 
-export default BubblyButton;
+export default ButtonBubbly;

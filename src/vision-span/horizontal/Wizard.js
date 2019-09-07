@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MainButton from '../../toolbox/MainButton';
+import Button from '../../toolbox/Button';
 import Configurator from '../../toolbox/Stylizer';
 import * as helpers from '../../functions/engine';
 
@@ -280,7 +280,7 @@ class Wizard extends React.Component {
 
                 </section>
 
-                <MainButton className="ButtonStart" text="Start" onClick={this.handleValidateClick} />
+                <Button className="ButtonStart" text="Start" onClick={this.handleValidateClick} />
 
                 <Configurator
                             fontFamily={this.state.fontFamily}

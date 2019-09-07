@@ -1,6 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const DEFAULT_PAGE = {
+    blocks: [
+        {
+            tag: "h2",
+            content: "Chapter 3",
+            chunks: ["Chapter 3"],
+        },
+        {
+            tag: "p",
+            content: "TOM presented himself before Aunt Polly,",
+            chunks: ["TOM presented himself", " ", "before Aunt Polly,"],
+            continued: true,
+            continuation: false,
+        },
+    ],
+};
+
 class PageContent extends React.Component {
 
     render() {
@@ -47,22 +64,7 @@ PageContent.propTypes = {
 }
 
 PageContent.defaultProps = {
-    page: {
-        blocks: [
-            {
-                tag: "h2",
-                content: "Chapter 3",
-                chunks: ["Chapter 3"],
-            },
-            {
-                tag: "p",
-                content: "TOM presented himself before Aunt Polly,",
-                chunks: ["TOM presented himself", " ", "before Aunt Polly,"],
-                continued: true,
-                continuation: false,
-            },
-        ],
-    },
+    page: DEFAULT_PAGE,
     blockPosition: null,
     chunkPosition: null,
 };

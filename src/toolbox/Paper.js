@@ -10,7 +10,7 @@ const Paper = React.forwardRef((props, ref) => {
     const css = `${defaultClassName}Paper${paperCss}`;
 
     return (
-        <div className={"Paper " + css}>
+        <div data-testid="paper" className={"Paper " + css}>
             <div className="PaperContent Centered" ref={ref}>
                 <Styled {...props}>
                     {props.children}
