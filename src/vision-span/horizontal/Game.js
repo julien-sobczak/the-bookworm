@@ -9,6 +9,7 @@ import Stats from './Stats';
 const mapStateToProps = state => {
     return {
         preferences: state.preferences,
+        history: state.history,
     };
 };
 
@@ -69,7 +70,9 @@ class Game extends React.Component {
                 <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
                 {!this.state.started && !this.state.finished &&
-                    <Wizard textSettings={this.props.preferences.text} onValidate={this.handleWizardValidation} />}
+                    <Wizard textSettings={this.props.preferences.text}
+                            history={this.props.history.drillHorizontal}
+                            onValidate={this.handleWizardValidation} />}
 
                 {this.state.started &&
                     <Drill

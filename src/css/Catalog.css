@@ -51,6 +51,35 @@
     pointer-events: auto;
 }
 
+/* PanelCorner Element */
+.Catalog .PanelCorner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5cm 1cm;
+    color: white;
+    font-size: 1.2em;
+}
+
+.Catalog .PanelCorner .ButtonBrowse {
+    position: absolute;
+    top: 0.3cm;
+    right: 1cm;
+}
+.Catalog .PanelCorner em {
+    font-style: italic;
+    font-weight: 600;
+}
+
+.Catalog .Readings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
 
 /* Drawing Elements */
 

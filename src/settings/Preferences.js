@@ -52,7 +52,7 @@ class Preferences extends React.Component {
 
     render() {
         return (
-            <div className="Preferences InnerContent Scrollbar">
+            <div className="Preferences InnerContent">
 
                 <TabBar
                     activeIndex={this.state.activeIndex}

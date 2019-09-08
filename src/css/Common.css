@@ -26,6 +26,51 @@
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 1000;
+    z-index: 900;
     color: black !important;
-  }
+}
+
+
+/* https://scotch.io/tutorials/customize-the-browsers-scrollbar-with-css */
+
+.Scrollbar {
+    overflow-y: scroll;
+}
+
+.Scrollbar::-webkit-scrollbar {
+    width: 0;
+    background-color: var(--theme-color);
+    width: 0.5em;
+}
+
+.Scrollbar::-webkit-scrollbar-thumb {
+    background-color: black;
+    height: 1cm;
+}
+
+
+table.Styled {
+    width: 80%;
+    margin: 2em auto;
+}
+table.Styled td, table.Styled th {
+    text-align: center;
+    padding: 1em;
+}
+table.Styled tr {
+    height: 2em;
+}
+table.Styled thead tr {
+    border-bottom: 0.3em solid black;
+}
+table.Styled tbody tr {
+    border-bottom: 0.2em solid rgba(0,0,0,0.5);
+}
+
+
+.Clickable {
+    cursor: pointer;
+}
+.Clickable * {
+    pointer-events: none;
+}
