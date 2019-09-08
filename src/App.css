@@ -12,7 +12,7 @@
   --theme-color-vision-span: #FFC200;
   --theme-color-chunking:    #ADD45B;
   --theme-color-practice:    #00BAAD;
-  --theme-color-settings:    #2A7B9B;
+  --theme-color-settings:    #49b9e6;
   --theme-color-about:       #3C3D6B;
   --theme-color-tdf:         #900B3F;
 }
@@ -51,5 +51,5 @@ button:focus {
 @import 'css/Paper.css';
 @import 'css/Catalog.css';
 @import 'css/Drill.css';
-@import 'css/Stylizer.css';
+@import 'css/Settings.css';
 @import 'css/Library.css';

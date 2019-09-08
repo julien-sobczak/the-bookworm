@@ -1,16 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
-import GameHorizontal from './vision-span/horizontal/Game'
-import GamePyramid from './vision-span/pyramid/Game'
-import GameCircle from './vision-span/circle/Game'
-import GameSchulte from './vision-span/schulte/Game'
+// import GameHorizontal from './vision-span/horizontal/Game'
+// import GamePyramid from './vision-span/pyramid/Game'
+// import GameCircle from './vision-span/circle/Game'
+// import GameSchulte from './vision-span/schulte/Game'
 import VisionSpanCatalog from './vision-span/Catalog'
+import GameHorizontal from './vision-span/horizontal2/Game'
+import GamePyramid from './vision-span/pyramid2/Game'
+import GameCircle from './vision-span/circle2/Game'
+import GameSchulte from './vision-span/schulte2/Game'
 
 import ChunkingCatalog from './chunking/Catalog'
-import GameChunk from './chunking/chunk/Game'
-import GameColumn from './chunking/column/Game'
-import GamePage from './chunking/page/Game'
+// import GameChunk from './chunking/chunk/Game'
+// import GameColumn from './chunking/column/Game'
+// import GamePage from './chunking/page/Game'
+import GameChunk from './chunking/chunk2/Game'
+import GameColumn from './chunking/column2/Game'
+import GamePage from './chunking/page2/Game'
 
 import PracticeCatalog from './practice/Catalog'
 import BookViewer from './library/BookViewer'

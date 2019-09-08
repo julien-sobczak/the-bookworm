@@ -21,13 +21,13 @@ const FormChunk = (props) => {
                     <th>Style:</th>
                     <td>
                         <span onClick={handleChunkStyleClick} className={"GraphicOption ChunkHighlight " + (chunkStyle === 'highlight' ? 'selected' : '')} data-value="highlight">
-                            <span>Highlight</span>
+                            <span style={{backgroundColor: "black"}}>Highlight</span>
                         </span>
                         <span onClick={handleChunkStyleClick} className={"GraphicOption ChunkColor "     + (chunkStyle === 'color' ? 'selected' : '')} data-value="color">
-                            <span>Color</span>
+                            <span style={{color: "white"}}>Color</span>
                         </span>
                         <span onClick={handleChunkStyleClick} className={"GraphicOption ChunkUnderline " + (chunkStyle === 'underline' ? 'selected' : '')} data-value="underline">
-                            <span>Underline</span>
+                            <span style={{borderColor: "white"}}>Underline</span>
                         </span>
                     </td>
                 </tr>

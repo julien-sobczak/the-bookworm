@@ -82,12 +82,23 @@ class Library extends React.Component {
                         <h3>What you want to read?</h3>
 
                         {this.props.readings &&
-                            <div>
+                            <>
                                 <h4>Continue the reading</h4>
-                                <ul className="Readings">
-                                    <li>The Adventures of Tom Sawyer, by Mark Twain (85%)</li>
-                                </ul>
-                            </div>
+                                <div className="Readings">
+                                    {this.props.readings.map((reading, index) => {
+                                        return (
+                                            <div key={index} className="Clickable" onClick={this.handleBookSelected}>
+                                                <span className="BookTitle">
+                                                    {reading.title}
+                                                </span>
+                                                <span className="BookAuthor">
+                                                    {reading.author}
+                                                </span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </>
                         }
 
                         <section className="LibraryCategories">

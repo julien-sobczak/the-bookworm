@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import PanelReading from "./PanelReading.js";
 import Button from "../toolbox/Button.js";
 
 function DrawingPage(props) {
@@ -67,6 +68,8 @@ function Catalog({match}) {
 
     return (
         <div className="Catalog">
+
+            <PanelReading />
 
             <Entry name="Page Reader" slug="drill-page" match={match}>
                 <DrawingPage />

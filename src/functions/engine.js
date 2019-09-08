@@ -29,6 +29,33 @@ export function reduceSpan(span) {
     }
 }
 
+export function globalSpan(spans) {
+    let total = 0;
+
+    // Add spaces between letters
+    for (let i = 0; i < spans.length; i++) {
+        total += SPANS.indexOf(spans[i]);
+    }
+
+    // Add spaces occcupied by letters
+    total += spans.length + 1; // We consider each letter measures 0.25in on screen (as declared in CSS)
+
+    const inches = parseInt(total / 4); // We reach one inch every 4 steps
+    const subinches = total % 4;
+    switch (subinches) {
+        case 0:
+            return `${inches}in`;
+        case 1:
+            return `${inches}.25in`;
+        case 2:
+            return `${inches}.5in`;
+        case 3:
+            return `${inches}.75in`;
+        default:
+            throw new Error('Should not happen');
+    }
+}
+
 export function increaseSpan(span) {
     if (isMaxSpan(span)) return span;
 

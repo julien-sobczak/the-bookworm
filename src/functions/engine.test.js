@@ -1,4 +1,4 @@
-import { MIN_SPAN, MAX_SPAN, isMinSpan, isMaxSpan, reduceSpan, increaseSpan, randomLetter, randomDigit } from './engine'
+import { MIN_SPAN, MAX_SPAN, isMinSpan, isMaxSpan, reduceSpan, increaseSpan, randomLetter, randomDigit, globalSpan } from './engine'
 
 describe('isMinSpan', () => {
 
@@ -76,4 +76,12 @@ describe('randomDigit', () => {
         expect(randomDigit()).toMatch(/[0-9]/);
     });
 
+});
+
+describe('globalSpan', () => {
+
+    it('calculates the total width between the left letter and the right letter', () => {
+        expect(globalSpan(["0.25in", "0.25in"])).toBe("1.25in"); // don't forget the 3 letters
+        expect(globalSpan(["0.5in", "0.5in"])).toBe("1.75in");
+    });
 });
