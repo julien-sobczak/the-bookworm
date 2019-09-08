@@ -22,7 +22,7 @@ function Viewer(props) {
     }
 
     return (
-        <Styled className="Viewer" {...props}>
+        <Styled className="Viewer Centered" {...props}>
             {props.drill && props.drill.map((serie, index) => {
                 return (
                     <div className="Serie" key={index}>

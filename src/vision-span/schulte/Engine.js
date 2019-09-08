@@ -10,7 +10,7 @@ class Engine {
      */
     constructor(size=3, onDrillFinished=undefined) {
         if (size < 3 || size % 2 === 0) {
-            throw { message: `Size ${size} is not supported. Only even sizes starting from 3 are supported: 3, 5, 7, ...` };
+            throw new Error(`Size ${size} is not supported. Only even sizes starting from 3 are supported: 3, 5, 7, ...`);
         }
         this.size = size;
         this.onDrillFinished = onDrillFinished;

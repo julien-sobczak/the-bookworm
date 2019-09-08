@@ -459,7 +459,7 @@ class Wizard extends React.Component {
 
                 </section>
 
-                <Button className="ButtonStart" text="Start" onClick={this.handleValidateClick} />
+                <Button className="ButtonForm" text="Start" onClick={this.handleValidateClick} />
 
                 <Stylizer
                     fontFamily={this.state.fontFamily}

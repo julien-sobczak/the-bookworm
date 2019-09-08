@@ -13,7 +13,7 @@ function mapDispatchToProps(dispatch) {
     return {
         updateReading: reading => dispatch(updateReading(reading))
     };
-  }
+}
 
 class Game extends React.Component {
 

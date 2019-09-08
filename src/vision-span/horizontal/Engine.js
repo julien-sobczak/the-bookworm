@@ -12,7 +12,7 @@ class Engine {
      */
     constructor(lines, columns, series=1, onDrillFinished=undefined) {
         if (columns < 3 || columns % 2 === 0) {
-            throw { message: `Drill with ${columns} columns is not supported. Only even sizes starting from 3 are supported: 3, 5, 7, ...` };
+            throw new Error(`Drill with ${columns} columns is not supported. Only even sizes starting from 3 are supported: 3, 5, 7, ...` );
         }
         this.lines = lines;
         this.columns = columns;

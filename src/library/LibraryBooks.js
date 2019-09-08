@@ -47,7 +47,7 @@ class LibraryBooks extends React.Component {
                     <>
                         <h3>Choose a book</h3>
                         {/* TODO Add filters by language, by kind, search box */}
-                        <div className="Bookshelf">
+                        <div className="Bookshelf Scrollbar">
                             <table>
                                 <tbody>
                                     {this.state.catalog.map((book, index) => {

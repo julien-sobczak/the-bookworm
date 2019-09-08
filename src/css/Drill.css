@@ -109,16 +109,20 @@
     z-index: 0;
   }
 
-  .ChunkHighlight .Chunk.Selected {
+  .ChunkHighlight .Chunk.Selected,
+  .GraphicOption.ChunkHighlight > span {
     background-color: var(--chunk-color-light);
     color: white;
   }
-  .ChunkColor .Chunk.Selected {
+  .ChunkColor .Chunk.Selected,
+  .GraphicOption.ChunkColor > span {
     color: var(--chunk-color-dark);
   }
-  .ChunkUnderline .Chunk.Selected {
+  .ChunkUnderline .Chunk.Selected,
+  .GraphicOption.ChunkUnderline > span {
     border-bottom: 0.4em solid var(--chunk-color-light);
   }
+
 
 
 
@@ -212,20 +216,15 @@
    */
 
   .Wizard {
-    text-align: center;
-    position: relative;
-    width: 100%;
-    height: 100%;
+    background-color: var(--theme-color);
 
     --mdc-theme-secondary: var(--mdc-theme-background); /* Used by Switch */
   }
-  .Wizard .ButtonStart {
-    position: absolute !important;
-    bottom: 0;
-  }
+
   .Wizard .Setting {
     margin-bottom: 2em;
   }
+
 
 
   /*

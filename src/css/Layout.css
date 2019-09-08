@@ -43,8 +43,8 @@ nav.menu {
   nav.menu a:nth-child(2).active, nav.menu a:hover:nth-child(2) { background-color: var(--theme-color-vision-span); }
   nav.menu a:nth-child(3).active, nav.menu a:hover:nth-child(3) { background-color: var(--theme-color-chunking); }
   nav.menu a:nth-child(4).active, nav.menu a:hover:nth-child(4) { background-color: var(--theme-color-practice); }
-  nav.menu a:nth-child(5).active, nav.menu a:hover:nth-child(5) { background-color: var(--theme-color-about); }
-  nav.menu a:nth-child(6).active, nav.menu a:hover:nth-child(6) { background-color: var(--theme-color-tdf); }
+  nav.menu a:nth-child(5).active, nav.menu a:hover:nth-child(5) { background-color: var(--theme-color-settings); }
+  nav.menu a:nth-child(6).active, nav.menu a:hover:nth-child(6) { background-color: var(--theme-color-about); }
   nav.menu a:nth-child(7).active, nav.menu a:hover:nth-child(7) { background-color: var(--theme-color-tdf); }
 
   nav.menu i {
@@ -95,8 +95,8 @@ nav.menu {
   section.page.vision-span { --theme-color: var(--theme-color-vision-span); --mdc-theme-background: var(--theme-color-vision-span);  }
   section.page.chunking    { --theme-color: var(--theme-color-chunking);    --mdc-theme-background: var(--theme-color-chunking);  }
   section.page.practice    { --theme-color: var(--theme-color-practice);    --mdc-theme-background: var(--theme-color-practice);  }
+  section.page.settings    { --theme-color: var(--theme-color-settings);    --mdc-theme-background: var(--theme-color-settings);  }
   section.page.about       { --theme-color: var(--theme-color-about);       --mdc-theme-background: var(--theme-color-about);  }
-  section.page.tdf         { --theme-color: var(--theme-color-tdf);         --mdc-theme-background: var(--theme-color-tdf);  }
   section.page.tdf         { --theme-color: var(--theme-color-tdf);         --mdc-theme-background: var(--theme-color-tdf);  }
 
   section.page h3 {
@@ -107,3 +107,111 @@ nav.menu {
     font-weight: bold;
     color: white;
   }
+
+  .InnerContent {
+    position: absolute;
+    top: 5em;
+    right: 5em;
+    left: 5em;
+    bottom: 5em;
+    background: white;
+  }
+
+  .TabContent {
+    padding: 2em;
+  }
+  .ButtonForm {
+    position: absolute !important;
+    bottom: 0;
+  }
+
+  .mdc-tab {
+    background: var(--mdc-theme-background);
+
+    --mdc-theme-secondary: white;
+  }
+  .mdc-tab.mdc-tab--active {
+    background: white;
+  }
+  .mdc-tab .mdc-tab-indicator > .mdc-tab-indicator__content--icon { color: white; }
+  .mdc-tab.mdc-tab--active .mdc-tab-indicator > .mdc-tab-indicator__content--icon { color: black; }
+
+  .mdc-tab-indicator__content {
+    opacity: 0.8;
+  }
+
+  /* DEBUG */
+  .mdc-tab-indicator > .mdc-tab-indicator__content--underline {
+    border-color: black;
+  }
+  .mdc-tab-indicator--active > .mdc-tab-indicator__content--underline {
+    border-color: black;
+  }
+
+
+/* https://scotch.io/tutorials/customize-the-browsers-scrollbar-with-css */
+.Scrollbar {
+    overflow-y: scroll;
+}
+.Scrollbar::-webkit-scrollbar {
+    width: 0;
+    background-color: var(--theme-color);
+    width: 0.5em;
+}
+.Scrollbar::-webkit-scrollbar-thumb {
+    background-color: black;
+    height: 1cm;
+}
+
+.Preferences section {
+  width: 80%;
+}
+.Preferences h4 {
+  color: black;
+  margin: 1em 0 0.5em;
+  font-size: 1.5em;
+  padding-bottom: 0.2em;
+  border-bottom: 0.3em solid var(--theme-color);
+}
+.Preferences p {
+  font-style: italic;
+  text-align: right;
+  margin: 0.5em 0 1em;
+}
+
+
+table.PredefinedDrills {
+  margin: 0 auto;
+}
+table.PredefinedDrills th, table.PredefinedDrills td {
+  height: 2em;
+  text-align: center;
+  margin: 1em 0;
+  padding: 1em;
+}
+table.PredefinedDrills th {
+  font-weight: 600;
+  font-size: 1.25em;
+  text-align: left;
+}
+table.PredefinedDrills .Tag {
+  background: var(--theme-color);
+  color: white;
+  font-weight: 400;
+  font-size: 0.75em;
+  margin: 0.25em;
+  padding: 0.25em 0.5em;
+  border-radius: 0.2em;
+}
+table.PredefinedDrills .Tag.Easy { background-color: green; }
+table.PredefinedDrills .Tag.Intermediate { background-color: darkgoldenrod; }
+table.PredefinedDrills .Tag.Advanced { background-color: darkorchid; }
+table.PredefinedDrills .Tag.Hard { background-color: darkred; }
+
+table.PredefinedDrills .mdc-button:not(:disabled) {
+  background-color: var(--theme-color);
+}
+
+.mdc-button__label {
+  pointer-events: none;
+}
