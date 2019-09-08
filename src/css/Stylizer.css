@@ -2,6 +2,8 @@
  * Settings panel
  */
 
+
+ /* TODO remove */
  .SettingsButton {
     position: fixed;
     right: 20px;
@@ -12,6 +14,7 @@
     top: 20px;
     right: 20px;
   }
+
   .Settings {
     position: fixed;
     bottom: 0;
@@ -20,47 +23,6 @@
     background: white;
     color: black;
     border-top: 1px solid black;
-  }
-  .Settings > div {
-    padding: 20px;
-    max-width: 800px;
-    min-height: 100px;
-    margin: 0 auto;
-  }
-  .Settings .GraphicOption {
-    display: inline-block;
-    height: 40px;
-    line-height: 35px;
-    vertical-align: baseline;
-    border-radius: 2px;
-    padding: 0 20px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .Settings .GraphicOption.selected {
-    border: 1px solid black;
-  }
-  .Settings .SubGraphicOption {
-    display: inline-block;
-    margin: 5px;
-    margin-left: 20px;
-    padding: 5px;
-  }
-
-  .Settings table td {
-    margin: 0.25em 0;
-  }
-  .Settings table th {
-    width: 150px;
-    text-align: right;
-    padding-right: 20px;
-    vertical-align: middle;
-  }
-  .Settings table td {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
   }
   .Settings::before {
     content: '';
@@ -71,4 +33,57 @@
     left: 0;
     right: 0;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
+  }
+
+  .Settings > div {
+    padding: 20px;
+    max-width: 800px;
+    min-height: 100px;
+    margin: 0 auto;
+  }
+/* END TODO */
+
+
+
+  .Setting .GraphicOption {
+    display: inline-block;
+    height: 40px;
+    line-height: 35px;
+    vertical-align: baseline;
+    border-radius: 2px;
+    padding: 0 20px;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0.2em;
+  }
+  .Setting .GraphicOption.selected {
+    border: 1px solid black;
+  }
+  .Setting .GraphicOption > span {
+    /* When using an inner span for styling, the span should not capture click events and let propage the event to the parent .GraphicOption */
+    pointer-events: none;
+  }
+  /* TODO remove */
+  .Setting .SubGraphicOption {
+    display: inline-block;
+    margin: 5px;
+    margin-left: 20px;
+    padding: 5px;
+  }
+
+  table.Setting td {
+    margin: 0.25em 0;
+  }
+  table.Setting th {
+    width: 150px;
+    text-align: right;
+    padding-right: 20px;
+    vertical-align: middle;
+    color: var(--theme-color);
+  }
+  table.Setting td {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
   }

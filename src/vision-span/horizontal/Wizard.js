@@ -2,69 +2,80 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../toolbox/Button';
-import Configurator from '../../toolbox/Stylizer';
-import * as helpers from '../../functions/engine';
+import { DEFAULT_TEXT_SETTINGS } from '../../toolbox/Styled';
 
-// Material Design UI forms
-import Switch from '@material/react-switch';
-import "@material/react-switch/dist/switch.css";
+import FormText from '../../settings/FormText';
+import FormDrill from './Form';
 
-import Drill from './Drill';
+import Drill, { DEFAULT_DRILL_SETTINGS } from './Drill';
 import Engine from './Engine';
 import Viewer from './Viewer';
+
+// Material Design UI forms
+import Tab from '@material/react-tab';
+import TabBar from '@material/react-tab-bar';
+import MaterialButton from '@material/react-button';
+import MaterialIcon from '@material/react-material-icon';
+
+import '@material/react-tab-bar/dist/tab-bar.css';
+import '@material/react-tab-scroller/dist/tab-scroller.css';
+import '@material/react-tab/dist/tab.css';
+import '@material/react-tab-indicator/dist/tab-indicator.css';
+import '@material/react-button/dist/button.css';
+
 
 class Wizard extends React.Component {
 
     PREDEFINED_DRILLS = [
         {
-            name: "A",
+            name: "Drill A",
             difficulty: 0,
-            options: { multiple: true, lines: 1, columns: 3, spans: ["1.25in", "1.25in"] },
+            settings: { multiple: true, lines: 1, columns: 3, spans: ["1.25in", "1.25in"] },
         },
         {
-            name: "B",
+            name: "Drill B",
             difficulty: 0,
-            options: { multiple: true, lines: 1, columns: 5, spans: ["1.25in", "0", "0", "1.25in"] },
+            settings: { multiple: true, lines: 1, columns: 5, spans: ["1.25in", "0", "0", "1.25in"] },
         },
         {
-            name: "C",
+            name: "Drill C",
             difficulty: 1,
-            options: { multiple: true, lines: 1, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
+            settings: { multiple: true, lines: 1, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
         },
         {
-            name: "D",
+            name: "Drill D",
             difficulty: 1,
-            options: { multiple: true, lines: 1, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
+            settings: { multiple: true, lines: 1, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
         },
         {
-            name: "E",
+            name: "Drill E",
             difficulty: 2,
-            options: { multiple: true, lines: 1, columns: 9, spans: ["0.75in", "0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in", "0.75in"] },
+            settings: { multiple: true, lines: 1, columns: 9, spans: ["0.75in", "0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in", "0.75in"] },
         },
         {
-            name: "F",
+            name: "Drill F",
             difficulty: 0,
-            options: { multiple: true, lines: 2, columns: 3, spans: ["1in", "1in"] },
+            settings: { multiple: true, lines: 2, columns: 3, spans: ["1in", "1in"] },
         },
         {
-            name: "G",
+            name: "Drill G",
             difficulty: 1,
-            options: { multiple: true, lines: 3, columns: 7, spans: ["0.5in", "0.5in", "0in", "0in", "0.5in", "0.5in"] },
+            settings: { multiple: true, lines: 3, columns: 7, spans: ["0.5in", "0.5in", "0in", "0in", "0.5in", "0.5in"] },
         },
         {
-            name: "H",
+            name: "Drill H",
             difficulty: 1,
-            options: { multiple: true, lines: 3, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
+            settings: { multiple: true, lines: 3, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
         },
         {
-            name: "I",
+            name: "Drill I",
             difficulty: 1,
-            options: { multiple: false, lines: 5, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
+            settings: { multiple: false, lines: 5, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
         },
         {
-            name: "J",
+            name: "Drill J",
             difficulty: 2,
-            options: { multiple: true, lines: 3, columns: 7, spans: ["0.75in", "0.75in", "0.75in", "0.75in", "0.75in", "0.75in"] },
+            settings: { multiple: true, lines: 3, columns: 7, spans: ["0.75in", "0.75in", "0.75in", "0.75in", "0.75in", "0.75in"] },
         },
 
     ];
@@ -78,246 +89,169 @@ class Wizard extends React.Component {
         super(props);
 
         this.state = {
+            activeIndex: 0,
+            demoActive: false,
+
             // Copy default settings to make them editable
-            multiple: props.multiple,
-            lines: props.lines,
-            columns: props.columns,
-            spans: props.spans,
-            autoLevel: props.autoLevel,
+            drillSettings: props.drillSettings,
+            textSettings: props.textSettings,
 
             // Preview drill
             drill: this.DEFAULT_DRILL,
-
-            // Copy styling settings as state to update during a drill session
-            fontFamily: props.fontFamily,
-            fontSize: props.fontSize,
-            fontStyle: props.fontStyle,
-            backgroundColor: props.backgroundColor,
-            color: props.color,
         };
 
-        this.handleColumnsChange = this.handleColumnsChange.bind(this);
-        this.handleMultipleChange = this.handleMultipleChange.bind(this);
-        this.handleLinesChange = this.handleLinesChange.bind(this);
-        this.handleAutoLevelChange = this.handleAutoLevelChange.bind(this);
-        this.handleSpansChange = this.handleSpansChange.bind(this);
         this.usePredefinedDrill = this.usePredefinedDrill.bind(this);
 
-        this.handleStyleChanged = this.handleStyleChanged.bind(this);
+        this.handleDrillSettingsChange = this.handleDrillSettingsChange.bind(this);
+        this.handleTextSettingsChange = this.handleTextSettingsChange.bind(this);
+
+        this.handleDemoClick = this.handleDemoClick.bind(this);
         this.handleValidateClick = this.handleValidateClick.bind(this);
     }
 
-    /** Called when the user update the settings. */
-    handleStyleChanged = (event) => {
-        const newFontFamily = event.fontFamily;
-        const newFontSize = event.fontSize;
-        const newFontStyle = event.fontStyle;
-        const newBackgroundColor = event.backgroundColor;
-        const newColor = event.color;
+    handleActiveIndexUpdate = (activeIndex) => this.setState({ activeIndex: activeIndex });
+
+    handleDemoClick = (event) => this.setState({ demoActive: true });
+
+    handleDrillSettingsChange = (drillSettings) => {
+        console.log('Received new drill settings', drillSettings)
         this.setState(state => ({
             ...state,
-            fontFamily: newFontFamily,
-            fontSize: newFontSize,
-            fontStyle: newFontStyle,
-            backgroundColor: newBackgroundColor,
-            color: newColor,
+            drillSettings: drillSettings,
         }));
-    }
+        this.refreshDrill(drillSettings)
+    };
 
-    handleColumnsChange(event) {
-        const newColumn = event.target.value;
-        const newState = {
-            ...this.state,
-            columns: newColumn,
-            spans: Array(newColumn - 1).fill(this.state.spans[0]),
-        }
-        newState.drill = this.refreshDrill(newState);
-        this.setState(newState);
-    }
+    handleTextSettingsChange = (textSettings) => {
+        console.log('Received new text settings', textSettings)
+        this.setState(state => ({
+            ...state,
+            textSettings: textSettings,
+        }));
+    };
 
-    handleMultipleChange(event) {
-        const newState = {
-            ...this.state,
-            multiple: event.target.checked,
-        }
-        newState.drill = this.refreshDrill(newState);
-        this.setState(newState);
-    }
-
-    handleLinesChange(event) {
-        const newState = {
-            ...this.state,
-            lines: event.target.value,
-        }
-        newState.drill = this.refreshDrill(newState);
-        this.setState(newState);
-    }
-
-    handleAutoLevelChange(event) {
-        const newState = {
-            ...this.state,
-            autoLevel: event.target.checked,
-        }
-        this.setState(newState);
-    }
-
-    handleSpansChange(event) {
-        const spanIndex = event.target.dataset.span;
-        const spanValue = event.target.value;
-        const newSpans = this.state.spans.slice(0);
-        newSpans[spanIndex] = spanValue;
-        newSpans[this.state.columns-spanIndex-2] = spanValue; // spans are symmetrical
-        const newState = {
-            ...this.state,
-            spans: newSpans,
-        }
-        newState.drill = this.refreshDrill(newState);
-        this.setState(newState);
-    }
-
-    refreshDrill(newState) {
-        const newDrill = new Engine(newState.lines, newState.columns, newState.multiple ? 2 : 1).getDrill();
-        return newDrill;
-    }
+    refreshDrill({ lines, columns, multiple }) {
+        return new Engine(lines, columns, multiple ? 2 : 1).getDrill();
+    };
 
     usePredefinedDrill(event) {
-        const predefinedDrill = JSON.parse(event.target.dataset.drill);
-        const newState = {
+        const drillSettings = JSON.parse(event.target.dataset.drill);
+        const newDrill = this.refreshDrill(drillSettings);
+        this.setState({
             ...this.state,
-            ...predefinedDrill,
-        };
-        newState.drill = this.refreshDrill(newState);
-        this.setState(newState);
+            activeIndex: 0,
+            drillSettings: drillSettings,
+            drill: newDrill,
+        });
     }
 
     render() {
-        const spans = [];
-        for (let c = 0; c < this.state.columns - 1; c++) {
-            const disabled = (c >= (this.state.columns - 1) / 2);
-            spans.push(
-                <span key={c}>
-                    {c > 0 && <span className="DotSeparator"></span>}
-                    <select name="spans" onChange={this.handleSpansChange} data-span={c} value={this.state.spans[c]} disabled={disabled}>
-                        {helpers.SPANS.map((s, index) => {
-                            return <option key={index} value={s}>{s}</option>
-                        })}
-                    </select>
-                </span>
-            );
-        }
-
-        const predefinedDrills = [];
-        for (let d = 0; d < this.PREDEFINED_DRILLS.length; d++) {
-            const drill = this.PREDEFINED_DRILLS[d];
-            predefinedDrills.push(
-                <button onClick={this.usePredefinedDrill} key={d} data-difficulty={drill.difficulty} data-drill={JSON.stringify(drill.options)}>{drill.name}</button>
-
-            );
-        }
-
         return (
-            <div className="FullScreen Wizard Centered" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
+            <div className="Wizard FullScreen Centered">
 
-                <section className="Options">
+                <div className="Preferences InnerContent Scrollbar">
 
-                    <div className="PredefinedOptions">
-                        {predefinedDrills}
-                    </div>
+                    <TabBar
+                        activeIndex={this.state.activeIndex}
+                        handleActiveIndexUpdate={this.handleActiveIndexUpdate}>
+                        <Tab indicatorContent={<MaterialIcon icon='tune' />} />
+                        <Tab indicatorContent={<MaterialIcon icon='style' />} />
+                        <Tab indicatorContent={<MaterialIcon icon='bookmarks' />} />
+                        <Tab indicatorContent={<MaterialIcon icon='history' />} />
+                    </TabBar>
 
-                    <div className="Option">
-                        <select name="columns" onChange={this.handleColumnsChange} value={this.state.columns}>
-                            <option value={3}>3</option>
-                            <option value={5}>5</option>
-                            <option value={7}>7</option>
-                            <option value={9}>9</option>
-                        </select>
-                        <label htmlFor="columns">Columns</label>
-                    </div>
-
-                    <div className="Option">
-                        <select name="columns" onChange={this.handleMultipleChange} value={this.state.multiple}>
-                            <option value={false}>Unique</option>
-                            <option value={true}>Multiple</option>
-                        </select>
-                        <label htmlFor="columns">Series</label>
-                    </div>
-
-                    {this.state.multiple && <div className="Option" value={this.state.lines}>
-                        <select name="lines" onChange={this.handleLinesChange}>
-                            <option value={1}>1</option>
-                            <option value={2}>2</option>
-                            <option value={3}>3</option>
-                        </select>
-                        <label htmlFor="lines">Lines</label>
+                    {this.state.activeIndex === 0 && <div className="TabContent Centered">
+                        <section>
+                            <h4>Drill options</h4>
+                            <p>Customize the drill.</p>
+                            <FormDrill {...this.state.drillSettings} onChange={this.handleDrillSettingsChange} />
+                        </section>
                     </div>}
 
-                    <div className="Option">
-                        <Switch
-                            nativeControlId='autoLevel'
-                            checked={this.state.autoLevel}
-                            onChange={this.handleAutoLevelChange} />
-                        <label htmlFor="autoLevel">Auto level</label>
-                    </div>
+                    {this.state.activeIndex === 1 && <div className="TabContent Centered">
+                        <section>
+                            <h4>Font</h4>
+                            <p>Control how texts are displayed in the drills.</p>
+                            <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
+                        </section>
+                    </div>}
 
-                    <br/>
+                    {this.state.activeIndex === 2 && <div className="TabContent Centered">
+                        <section>
+                            <h4>Predefined Drills</h4>
+                            <p>Practice with these ready-to-go drills.</p>
+                            <table className="PredefinedDrills">
+                                <tbody>
+                                    {this.PREDEFINED_DRILLS.map((drill, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <th>
+                                                    {drill.name}
+                                                </th>
+                                                <td>
+                                                    <span className="Tag">{drill.settings.columns} columns</span>
+                                                    <span className="Tag">{drill.settings.series ? 'unique' : 'multiple'} series</span>
+                                                    {drill.difficulty === 0 && <span className="Tag Easy">easy</span>}
+                                                    {drill.difficulty === 1 && <span className="Tag Easy">intermediate</span>}
+                                                    {drill.difficulty === 2 && <span className="Tag Easy">advanced</span>}
+                                                    {drill.difficulty === 3 && <span className="Tag Easy">hard</span>}
+                                                </td>
+                                                <td>
+                                                    <MaterialButton onClick={this.usePredefinedDrill} data-drill={JSON.stringify(drill.settings)}>
+                                                        Use Me!
+                                                    </MaterialButton>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>}
 
-                    <div className="Spans">
-                        {spans}
-                    </div>
+                    {this.state.activeIndex === 3 && <div className="TabContent Centered">
+                        <section>
+                            <h4>Previous Drills</h4>
+                            <p>Redo one of your previous drill sessions.</p>
+                            TODO
+                        </section>
+                    </div>}
 
-                </section>
+                    {this.state.demoActive && <div className="Demo FullScreen Centered">
+                        <Viewer
+                            drill={this.state.drill}
+                            {...this.state.drillSettings}
+                            {...this.state.styleSettings} />
+                    </div>}
 
-                <section className="Preview Centered" style={{height: "6em", fontSize: this.state.fontSize}}>
+                </div>
 
-                    <Viewer
-                        drill={this.state.drill}
-                        spans={this.state.spans}
-                        fontFamily={this.state.fontFamily}
-                        fontSize={this.state.fontSize}
-                        fontStyle={this.state.fontStyle}
-                        backgroundColor={this.state.backgroundColor}
-                        color={this.state.color} />
-
-                </section>
-
-                <Button className="ButtonStart" text="Start" onClick={this.handleValidateClick} />
-
-                <Configurator
-                            fontFamily={this.state.fontFamily}
-                            fontSize={this.state.fontSize}
-                            fontStyle={this.state.fontStyle}
-                            backgroundColor={this.state.backgroundColor}
-                            color={this.state.color}
-                            onChange={this.handleStyleChanged} />
+                <div className="ButtonForm">
+                    <Button text="Demo" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
+                    <Button text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
+                </div>
             </div>
         );
     }
 
     handleValidateClick() {
         this.props.onValidate({
-            multiple: this.state.multiple,
-            lines: this.state.lines,
-            columns: this.state.columns,
-            spans: this.state.spans,
-            autoLevel: this.state.autoLevel,
-
-            fontFamily: this.state.fontFamily,
-            fontSize: this.state.fontSize,
-            fontStyle: this.state.fontStyle,
-            backgroundColor: this.state.backgroundColor,
-            color: this.state.color,
+            drillSettings: this.state.drillSettings,
+            textSettings: this.state.textSettings,
         })
     }
 
 }
 
 Wizard.propTypes = {
-    ...Drill.propTypes,
+    drillSettings: PropTypes.object,
+    textSettings: PropTypes.object,
     onValidate: PropTypes.func,
 };
 
 Wizard.defaultProps = {
-    ...Drill.defaultProps,
+    drillSettings: DEFAULT_DRILL_SETTINGS,
+    textSettings: DEFAULT_TEXT_SETTINGS,
     onValidate: function() {},
 };
 

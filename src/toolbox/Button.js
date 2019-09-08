@@ -12,7 +12,7 @@ function Button({ text, className, colorText, colorBackground, onClick }) {
     const Button = styled.button `
         color: ${colorText};
         position: relative;
-        margin: 2em auto;
+        margin: 1em auto;
         padding: 19px 22px;
         transition: all .2s ease;
 
@@ -66,11 +66,11 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-    text: 'Click me',
     className: "",
-    onClick: function() {},
+    text: 'Click me',
     colorText: '#111',
     colorBackground: 'var(--mdc-theme-background)',
+    onClick: function() {},
 };
 
 export default Button;

@@ -5,6 +5,14 @@ import Viewer from './Viewer'
 import Engine from './Engine'
 import * as helpers from '../../functions/engine';
 
+const DEFAULT_DRILL_SETTINGS = {
+    lines: 1,
+    columns: 3,
+    spans: ["0.5in", "0.5in"],
+    multiple: false,
+    autoLevel: false,
+}
+
 class Drill extends React.Component {
 
     constructor(props) {
@@ -218,4 +226,4 @@ Drill.defaultProps = {
     onComplete: function() {},
 };
 
-export default Drill;
+export { Drill as default, DEFAULT_DRILL_SETTINGS };

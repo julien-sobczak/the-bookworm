@@ -3,13 +3,24 @@ import rootReducer from "./reducers";
 
 const initialState = {
     // TODO Convert to array
-    // add lastReading 
+    // add lastReading
     readings: {
         "The-Adventures-of-Tom-Sawyer": {
             chapter: 0,
             line: 0,
         }
-    }
+    },
+    preferences: {
+        text: {
+            fontFamily: 'Roboto',
+            fontSize: '14pt',
+            fontStyle: 'normal',
+            theme: 'Light',
+        },
+        chunk: {
+            chunkStyle: 'highlight',
+        }
+    },
 };
 
 // localStorage persistence implementation: https://stackoverflow.com/questions/35305661/where-to-write-to-localstorage-in-a-redux-app

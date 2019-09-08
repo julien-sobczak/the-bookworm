@@ -1,9 +1,21 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Drill from './Drill';
 import Wizard from './Wizard';
 import Stats from './Stats';
+
+const mapStateToProps = state => {
+    return {
+        preferences: state.preferences,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+    };
+};
 
 class Game extends React.Component {
 
@@ -31,6 +43,7 @@ class Game extends React.Component {
 
     /** Called when the user validate the wizard. */
     handleWizardValidation = (options) => {
+        console.log('Wizard ends with', options);
         this.setState(state => ({
             ...state,
             ...options,
@@ -56,21 +69,12 @@ class Game extends React.Component {
                 <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
                 {!this.state.started && !this.state.finished &&
-                    <Wizard onValidate={this.handleWizardValidation} />}
+                    <Wizard textSettings={this.props.preferences.text} onValidate={this.handleWizardValidation} />}
 
                 {this.state.started &&
                     <Drill
-                        multiple={this.state.multiple}
-                        lines={this.state.lines}
-                        columns={this.state.columns}
-                        spans={this.state.spans}
-                        autoLevel={this.state.autoLevel}
-
-                        fontFamily={this.state.fontFamily}
-                        fontSize={this.state.fontSize}
-                        fontStyle={this.state.fontStyle}
-                        backgroundColor={this.state.backgroundColor}
-                        color={this.state.color}
+                        {...this.state.drillSettings}
+                        {...this.state.textSettings}
 
                         onComplete={this.handleDrillCompletion}
                     />}
@@ -91,4 +95,4 @@ Game.defaultProps = {
     ...Drill.defaultProps,
 };
 
-export default Game;
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

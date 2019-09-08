@@ -15,6 +15,9 @@ import GamePage from './chunking/page/Game'
 import PracticeCatalog from './practice/Catalog'
 import BookViewer from './library/BookViewer'
 
+import SettingsPreferences from './settings/Preferences'
+
+
 import 'normalize.css'
 import './Reset.css';
 import './App.css';
@@ -135,6 +138,15 @@ function PracticeSelector({ match }) {
   }
 }
 
+function SettingsPage() {
+  return (
+    <section id="About" className="page settings">
+      <h2>Settings</h2>
+      <SettingsPreferences />
+    </section>
+  );
+}
+
 function AboutPage() {
   return (
     <section id="About" className="page about">
@@ -152,6 +164,7 @@ function AppRouter() {
         <NavLink to="/vision-span/" activeClassName="active"><div><i className="material-icons">visibility</i> Vision Span</div></NavLink>
         <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i> Chunking</div></NavLink>
         <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i> Practice</div></NavLink>
+        <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i> Settings</div></NavLink>
         <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink>
       </nav>
       <section id="content">
@@ -159,6 +172,7 @@ function AppRouter() {
         <Route path="/vision-span/" component={VisionSpanPage} />
         <Route path="/chunking/"    component={ChunkingPage} />
         <Route path="/practice/"    component={PracticePage} />
+        <Route path="/settings/"    component={SettingsPage} />
         <Route path="/about/"       component={AboutPage} />
       </section>
     </Router>

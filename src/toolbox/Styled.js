@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from "../functions/string";
 
+const DEFAULT_TEXT_SETTINGS = {
+    fontFamily: 'Roboto',
+    fontSize: '14pt',
+    fontStyle: 'normal',
+    theme: 'Light',
+};
+
 const Styled = React.forwardRef((props, ref) => {
 
     const css = function() {
@@ -58,4 +65,4 @@ Styled.defaultProps = {
     chunkStyle: "highlight",
 };
 
-export default Styled;
+export { Styled as default, DEFAULT_TEXT_SETTINGS };
