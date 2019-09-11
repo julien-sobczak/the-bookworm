@@ -14,11 +14,7 @@ const generatePage = (props) => {
 
 function Demo(props) {
     const page = generatePage(props);
-
-    return (
-        <Viewer {...props} page={page} />
-    );
-
+    return <Viewer {...props} page={page} />;
 }
 
 Demo.propTypes = {

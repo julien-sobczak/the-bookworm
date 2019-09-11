@@ -4,45 +4,49 @@ import * as helpers from '../../functions/engine';
 
 // Material Design UI forms
 import Switch from '@material/react-switch';
-import MaterialIcon from '@material/react-material-icon';
 
 import "@material/react-switch/dist/switch.css";
 
 const Form = (props) => {
 
-    const [lines, setLines] = useState(props.lines);
+    const [size, setSize] = useState(props.size);
     const [span, setSpan] = useState(props.span);
     const [autoLevel, setAutoLevel] = useState(props.autoLevel);
 
     const onChange = props.onChange;
 
-    const handleSpanChange = (event) => {
-        const newSpan = event.target.value;
-        setSpan(newSpan);
-        onChange({
-            lines: lines,
-            span: newSpan,
+    const currentState = () => {
+        return {
+            size: size,
+            span: span,
             autoLevel: autoLevel,
+        }
+    };
+
+    const handleSizeChange = (event) => {
+        const newValue = parseInt(event.target.dataset.value);
+        setSize(newValue);
+        onChange({
+            ...currentState(),
+            size: newValue,
         });
     };
 
-    const handleLinesChange = (event) => {
-        const newLines = parseInt(event.target.dataset.value);
-        setLines(newLines);
+    const handleSpanChange = (event) => {
+        const newValue = event.target.value;
+        setSpan(newValue);
         onChange({
-            lines: newLines,
-            span: span,
-            autoLevel: autoLevel,
+            ...currentState(),
+            span: newValue,
         });
     };
 
     const handleAutoLevelChange = (event) => {
-        const newAutoLevel = event.target.checked;
-        setAutoLevel(newAutoLevel);
+        const newValue = event.target.checked;
+        setAutoLevel(newValue);
         onChange({
-            lines: lines,
-            span: span,
-            autoLevel: newAutoLevel,
+            autoLevel: autoLevel,
+            autoLevel: newValue,
         });
     };
 
@@ -50,11 +54,12 @@ const Form = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Lines:</th>
+                    <th>Size:</th>
                     <td>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 1 ? ' selected' : '')} data-value={1}>1</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 2 ? ' selected' : '')} data-value={2}>2</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 5 ? ' selected' : '')} data-value={5}>5</span>
+                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 7 ? ' selected' : '')} data-value={7}>7</span>
+                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 9 ? ' selected' : '')} data-value={9}>9</span>
                     </td>
                 </tr>
                 <tr>
@@ -65,7 +70,6 @@ const Form = (props) => {
                                 return <option key={index} value={s}>{s}</option>
                             })}
                         </select>
-                        <MaterialIcon icon='flip' />
                     </td>
                 </tr>
                 <tr>

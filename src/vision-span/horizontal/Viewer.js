@@ -1,12 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
+
+const DEFAULT_DRILL_SETTINGS = {
+    lines: 1,
+    columns: 3,
+    spans: ["0.5in", "0.5in"],
+    multiple: false,
+    autoLevel: false,
+};
 
 /**
  * Only responsible to display the drill.
  */
 function Viewer(props) {
+
+    let drill = props.drill;
+    if (!drill) {
+        drill = new Engine(props.lines, props.columns, props.multiple ? 2 : 1).getDrill();
+    }
 
     /** Evaluate the CSS classes from the drill options. */
     const cssSpan = function(index) {
@@ -23,7 +37,7 @@ function Viewer(props) {
 
     return (
         <Styled className="Viewer Centered" {...props}>
-            {props.drill && props.drill.map((serie, index) => {
+            {drill && drill.map((serie, index) => {
                 return (
                     <div className="Serie" key={index}>
                         {serie.lines.map((line, index) => {
@@ -45,13 +59,21 @@ function Viewer(props) {
 Viewer.propTypes = {
     ...Styled.propTypes,
 
-    drill: PropTypes.arrayOf(PropTypes.object),
+    // One serie or as much as screen allows
+    multiple: PropTypes.bool,
+    // How many lines per series?
+    lines: PropTypes.number,
+    // How many columns?
+    columns: PropTypes.number,
     // Negative space between two adjacent columns (should contains columns.length - 1 values)
-    spans: PropTypes.arrayOf(PropTypes.string).isRequired,
+    spans: PropTypes.arrayOf(PropTypes.string),
+
+    drill: PropTypes.object,
 };
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
+    ...DEFAULT_DRILL_SETTINGS,
 };
 
-export default Viewer;
+export { Viewer as default, DEFAULT_DRILL_SETTINGS };

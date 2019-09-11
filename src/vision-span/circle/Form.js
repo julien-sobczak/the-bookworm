@@ -14,21 +14,28 @@ const Form = (props) => {
 
     const onChange = props.onChange;
 
-    const handleSpanChange = (event) => {
-        const newSpan = event.target.value;
-        setSpan(newSpan);
-        onChange({
-            span: newSpan,
+    const currentState = () => {
+        return {
+            span: span,
             autoLevel: autoLevel,
+        };
+    };
+
+    const handleSpanChange = (event) => {
+        const newValue = event.target.value;
+        setSpan(newValue);
+        onChange({
+            ...currentState(),
+            span: newValue,
         });
     };
 
     const handleAutoLevelChange = (event) => {
-        const newAutoLevel = event.target.checked;
-        setAutoLevel(newAutoLevel);
+        const newValue = event.target.checked;
+        setAutoLevel(newValue);
         onChange({
-            span: span,
-            autoLevel: newAutoLevel,
+            ...currentState(),
+            autoLevel: newValue,
         });
     };
 

@@ -28,13 +28,6 @@ class Drill extends React.Component {
 
             // The number of errors for the current drill
             errorCount: 0,
-
-            // Copy styling settings as state to update during a drill session
-            fontFamily: props.fontFamily,
-            fontSize: props.fontSize,
-            fontStyle: props.fontStyle,
-            backgroundColor: props.backgroundColor,
-            color: props.color,
         };
 
         // create a ref to store the textInput DOM element
@@ -132,11 +125,11 @@ class Drill extends React.Component {
                         <Viewer
                                 drill={this.state.drill}
                                 span={this.state.span}
-                                fontFamily={this.state.fontFamily}
-                                fontSize={this.state.fontSize}
-                                fontStyle={this.state.fontStyle}
-                                backgroundColor={this.state.backgroundColor}
-                                color={this.state.color} />
+                                fontFamily={this.props.fontFamily}
+                                fontSize={this.props.fontSize}
+                                fontStyle={this.props.fontStyle}
+                                backgroundColor={this.props.backgroundColor}
+                                color={this.props.color} />
 
                     </section>
 
@@ -176,10 +169,6 @@ class Drill extends React.Component {
 Drill.propTypes = {
     ...Viewer.propTypes,
 
-    // Space with the center
-    span: PropTypes.string,
-    // Displays controls to vary the span between columns
-    spanControls: PropTypes.bool,
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
 
@@ -189,12 +178,7 @@ Drill.propTypes = {
 
 Drill.defaultProps = {
     ...Viewer.defaultProps,
-
-    // Drill options
-    span: "1in",
-    spanControls: true,
-    autoLevel: false,
-
+    autoLevel: true,
     onComplete: function() {},
 };
 

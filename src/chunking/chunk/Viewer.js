@@ -4,8 +4,17 @@ import PropTypes from 'prop-types';
 import Styled from '../../toolbox/Styled';
 import { capitalize } from '../../functions/string';
 
-function Viewer(props) {
+const DEFAULT_DRILL_SETTINGS = {
+    // Chunk options
+    neighborChunksPosition: 'vertical',
+    showPreviousChunk: false,
+    showNextChunk: true,
 
+    // Increase the font size as we are printed few words on the screen
+    fontSize: '16pt',
+}
+
+function Viewer(props) {
 
     const classNames = ['NeighborPosition'+capitalize(props.neighborChunksPosition)];
     const previousChunkEmpty = !props.previousChunk || props.currentChunk.startingChunk;
@@ -35,22 +44,21 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    ...Styled.propTypes,
+
     // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
     neighborChunksPosition: PropTypes.string,
+
     // Display the previous chunk
     showPreviousChunk: PropTypes.bool,
+
     // Display the next chunk
     showNextChunk: PropTypes.bool,
 }
 
 Viewer.defaultProps = {
-    // Chunk options
-    neighborChunksPosition: 'vertical',
-    showPreviousChunk: false,
-    showNextChunk: true,
-
-    // Increase the font size as we are printed few words on the screen
-    fontSize: '16pt',
+    ...Styled.defaultProps,
+    ...DEFAULT_DRILL_SETTINGS,
 };
 
-export default Viewer;
+export { Viewer as default, DEFAULT_DRILL_SETTINGS };
