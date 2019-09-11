@@ -1,94 +1,79 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
+import GameFactory from '../../toolbox/GameFactory';
+import History from './History';
+import { DEFAULT_DRILL_SETTINGS } from './Viewer';
+import Demo from './Demo';
+import Form from './Form';
 import Drill from './Drill';
-import Wizard from './Wizard';
-import Stats from './Stats';
 
-class Game extends React.Component {
 
-    constructor(props) {
-        super(props);
+const Game = (props) => {
 
-        this.state = {
-            size: props.size,
-            span: props.span,
-            autoLevel: props.autoLevel,
+    const examples = [
+        {
+            name: "A",
+            difficulty: 0,
+            settings: { size: 3, span: "0.75in" },
+        },
+        {
+            name: "B",
+            difficulty: 1,
+            settings: { size: 3, span: "1in" },
+        },
+        {
+            name: "C",
+            difficulty: 2,
+            settings: { size: 3, span: "1.5in" },
+        },
+        {
+            name: "D",
+            difficulty: 1,
+            settings: { size: 5, span: "0.50in" },
+        },
+        {
+            name: "E",
+            difficulty: 2,
+            settings: { size: 5, span: "1in" },
+        },
+        {
+            name: "F",
+            difficulty: 2,
+            settings: { size: 5, span: "1.25in" },
+        },
+        {
+            name: "G",
+            difficulty: 1,
+            settings: { size: 7, span: "0.50in" },
+        },
+        {
+            name: "H",
+            difficulty: 2,
+            settings: { size: 7, span: "0.75in" },
+        },
+        {
+            name: "I",
+            difficulty: 2,
+            settings: { size: 7, span: "1in" },
+        },
+        {
+            name: "J",
+            difficulty: 2,
+            settings: { size: 9, span: "0.75in" },
+        },
+    ];
 
-            // State management
-            started: false,
-            finished: false,
-
-            // Copy styling settings as state to update during a drill session
-            fontFamily: props.fontFamily,
-            fontSize: props.fontSize,
-            fontStyle: props.fontStyle,
-            backgroundColor: props.backgroundColor,
-            color: props.color,
-        };
-
-        this.handleWizardValidation = this.handleWizardValidation.bind(this);
-        this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
-    }
-
-    /** Called when the user validate the wizard. */
-    handleWizardValidation = (options) => {
-        this.setState(state => ({
-            ...state,
-            ...options,
-            started: true,
-            finished: false,
-        }));
-    }
-
-    /** Called when the user successfully finish the drill. */
-    handleDrillCompletion = (stats) => {
-        this.setState(state => ({
-            ...state,
-            stats: stats,
-            started: false,
-            finished: true,
-        }));
-    }
-
-    render() {
-        return (
-            <div className="FullScreen VisionSpanGame">
-
-                <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
-
-                {!this.state.started && !this.state.finished &&
-                    <Wizard onValidate={this.handleWizardValidation} />}
-
-                {this.state.started &&
-                    <Drill
-                        size={this.state.size}
-                        span={this.state.span}
-                        autoLevel={this.state.autoLevel}
-
-                        fontFamily={this.state.fontFamily}
-                        fontSize={this.state.fontSize}
-                        fontStyle={this.state.fontStyle}
-                        backgroundColor={this.state.backgroundColor}
-                        color={this.state.color}
-
-                        onComplete={this.handleDrillCompletion}
-                    />}
-
-                {this.state.finished &&
-                    <Stats stats={this.state.stats} />}
-            </div>
-        );
-    }
-
-}
-
-Game.propTypes = {
-    ...Drill.propTypes,
-};
-
-Game.defaultProps = {
-    ...Drill.defaultProps,
+    return (
+        <GameFactory
+            {...props}
+            name="drillSchulte"
+            drill={<Drill />}
+            demo={<Demo />}
+            form={<Form />}
+            history={<History />}
+            drillSettings={DEFAULT_DRILL_SETTINGS}
+            predefinedDrills={examples} />
+    );
 };
 
 export default Game;

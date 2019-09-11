@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Styled from '../../toolbox/Styled';
 import * as helpers from '../../functions/engine';
+
+const DEFAULT_DRILL_SETTINGS = {
+    span: "2in",
+    lines: undefined,
+};
 
 function Viewer(props) {
     // How it works?
@@ -10,7 +17,7 @@ function Viewer(props) {
     // We have a list of increment possible for the span (e.g., 0.25in, 0.5in, 0.75in, 1in, 1.25in, ...)
     // We should increment progressively the span to reach the final span.
 
-    if (!props.drill) return <span></span>;
+    let drill = props.drill;
 
     /** Evaluate the CSS classes from the drill options. */
     const cssSpan = function(span) {
@@ -34,13 +41,13 @@ function Viewer(props) {
 
     return (
         <Styled className="Viewer" {...props}>
-            {props.drill && props.drill.lines.map((line, index) => {
+            {drill.lines.map((line, index) => {
                 if (!currentSpan) {
                     // Fist line: start at 0in
                     currentSpanIndex = 0;
                     currentSpan = helpers.SPANS[currentSpanIndex];
                     countLinesInSpan = 1;
-                } else if (index === props.drill.lines.length - 1) {
+                } else if (index === drill.lines.length - 1) {
                     // Last line: end at expected span
                     const end = helpers.SPANS.indexOf(props.span);
                     currentSpan = helpers.SPANS[end];
@@ -67,4 +74,20 @@ function Viewer(props) {
     );
 }
 
-export default Viewer;
+Viewer.propTypes = {
+    ...Styled.propTypes,
+
+    // How many lines
+    lines: PropTypes.number,
+    // Negative space between with the center column for the bottom values
+    span: PropTypes.string,
+
+    drill: PropTypes.object,
+};
+
+Viewer.defaultProps = {
+    ...Styled.defaultProps,
+    ...DEFAULT_DRILL_SETTINGS,
+};
+
+export { Viewer as default, DEFAULT_DRILL_SETTINGS };

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { globalSpan } from '../../functions/engine';
 import { humanReadableDate } from '../../functions/string';
 
-const History = ({history, onSelect}) => {
+const History = ({ history, onSelect }) => {
 
     return (
         <div className="DrillHistory">
@@ -20,16 +20,16 @@ const History = ({history, onSelect}) => {
                 </thead>
                 <tbody>
                     {history.map((drill, index) => {
-                    return (
-                        <tr key={index} onClick={onSelect} data-drill={JSON.stringify(drill)}>
-                            <td className="Clickable">{humanReadableDate(drill.date)}</td>
-                            <td className="Clickable">{drill.drillSettings.columns}</td>
-                            <td className="Clickable">{drill.drillSettings.multiple && <span>&#10003;</span>}</td>
-                            <td className="Clickable">{drill.drillSettings.multiple && <span>{drill.drillSettings.lines}</span>}</td>
-                            <td className="Clickable">{globalSpan(drill.drillSettings.spans)}</td>
-                        </tr>
-                        );
-                    })}
+                        return (
+                            <tr key={index} onClick={onSelect} data-drill={JSON.stringify(drill)}>
+                                <td className="Clickable">{humanReadableDate(drill.date)}</td>
+                                <td className="Clickable">{drill.drillSettings.columns}</td>
+                                <td className="Clickable">{drill.drillSettings.multiple && <span>&#10003;</span>}</td>
+                                <td className="Clickable">{drill.drillSettings.multiple && <span>{drill.drillSettings.lines}</span>}</td>
+                                <td className="Clickable">{globalSpan(drill.drillSettings.spans)}</td>
+                            </tr>
+                            );
+                        })}
                 </tbody>
             </table>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../toolbox/Button';
+import Button from './Button';
 
 import FormText from '../settings/FormText';
 
@@ -35,7 +35,7 @@ const PredefinedDrills = ({drills, onSelect}) => {
     );
 }
 
-class Wizard extends React.Component {
+class WizardFactory extends React.Component {
 
     constructor(props) {
         super(props);
@@ -185,7 +185,7 @@ class Wizard extends React.Component {
 
 }
 
-Wizard.propTypes = {
+WizardFactory.propTypes = {
     form: PropTypes.element.isRequired,
     demo: PropTypes.element.isRequired,
     history: PropTypes.element,
@@ -199,9 +199,9 @@ Wizard.propTypes = {
     onValidate: PropTypes.func,
 };
 
-Wizard.defaultProps = {
+WizardFactory.defaultProps = {
     historySessions: [],
     onValidate: function() {},
 };
 
-export default Wizard;
+export default WizardFactory;

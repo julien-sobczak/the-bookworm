@@ -1,101 +1,79 @@
 import React from 'react';
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
+import GameFactory from '../../toolbox/GameFactory';
+import History from './History';
+import { DEFAULT_DRILL_SETTINGS } from './Viewer';
+import Demo from './Demo';
+import Form from './Form';
 import Drill from './Drill';
-import Wizard from './Wizard';
-import Stats from './Stats';
 
-const mapStateToProps = state => {
-    return {
-        preferences: state.preferences,
-        history: state.history,
-    };
+
+const Game = (props) => {
+
+    const examples = [
+        {
+            name: "Drill A",
+            difficulty: 0,
+            settings: { multiple: true, lines: 1, columns: 3, spans: ["1.25in", "1.25in"] },
+        },
+        {
+            name: "Drill B",
+            difficulty: 0,
+            settings: { multiple: true, lines: 1, columns: 5, spans: ["1.25in", "0", "0", "1.25in"] },
+        },
+        {
+            name: "Drill C",
+            difficulty: 1,
+            settings: { multiple: true, lines: 1, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
+        },
+        {
+            name: "Drill D",
+            difficulty: 1,
+            settings: { multiple: true, lines: 1, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
+        },
+        {
+            name: "Drill E",
+            difficulty: 2,
+            settings: { multiple: true, lines: 1, columns: 9, spans: ["0.75in", "0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in", "0.75in"] },
+        },
+        {
+            name: "Drill F",
+            difficulty: 0,
+            settings: { multiple: true, lines: 2, columns: 3, spans: ["1in", "1in"] },
+        },
+        {
+            name: "Drill G",
+            difficulty: 1,
+            settings: { multiple: true, lines: 3, columns: 7, spans: ["0.5in", "0.5in", "0in", "0in", "0.5in", "0.5in"] },
+        },
+        {
+            name: "Drill H",
+            difficulty: 1,
+            settings: { multiple: true, lines: 3, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
+        },
+        {
+            name: "Drill I",
+            difficulty: 1,
+            settings: { multiple: false, lines: 5, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
+        },
+        {
+            name: "Drill J",
+            difficulty: 2,
+            settings: { multiple: true, lines: 3, columns: 7, spans: ["0.75in", "0.75in", "0.75in", "0.75in", "0.75in", "0.75in"] },
+        },
+    ];
+
+    return (
+        <GameFactory
+            {...props}
+            name="drillHorizontal"
+            drill={<Drill />}
+            demo={<Demo />}
+            form={<Form />}
+            history={<History />}
+            drillSettings={DEFAULT_DRILL_SETTINGS}
+            predefinedDrills={examples} />
+    );
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-class Game extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            spans: props.spans,
-
-            // State management
-            started: false,
-            finished: false,
-
-            // Copy styling settings as state to update during a drill session
-            fontFamily: props.fontFamily,
-            fontSize: props.fontSize,
-            fontStyle: props.fontStyle,
-            backgroundColor: props.backgroundColor,
-            color: props.color,
-        };
-
-        this.handleWizardValidation = this.handleWizardValidation.bind(this);
-        this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
-    }
-
-    /** Called when the user validate the wizard. */
-    handleWizardValidation = (options) => {
-        console.log('Wizard ends with', options);
-        this.setState(state => ({
-            ...state,
-            ...options,
-            started: true,
-            finished: false,
-        }));
-    }
-
-    /** Called when the user successfully finish the drill. */
-    handleDrillCompletion = (stats) => {
-        this.setState(state => ({
-            ...state,
-            stats: stats,
-            started: false,
-            finished: true,
-        }));
-    }
-
-    render() {
-        return (
-            <div className="FullScreen VisionSpanGame">
-
-                <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
-
-                {!this.state.started && !this.state.finished &&
-                    <Wizard textSettings={this.props.preferences.text}
-                            history={this.props.history.drillHorizontal}
-                            onValidate={this.handleWizardValidation} />}
-
-                {this.state.started &&
-                    <Drill
-                        {...this.state.drillSettings}
-                        {...this.state.textSettings}
-
-                        onComplete={this.handleDrillCompletion}
-                    />}
-
-                {this.state.finished &&
-                    <Stats stats={this.state.stats} />}
-            </div>
-        );
-    }
-
-}
-
-Game.propTypes = {
-    ...Drill.propTypes,
-};
-
-Game.defaultProps = {
-    ...Drill.defaultProps,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default Game;

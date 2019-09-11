@@ -18,41 +18,43 @@ const Form = (props) => {
 
     const onChange = props.onChange;
 
+    const currentState = () => {
+        return {
+            multiple: multiple,
+            lines: lines,
+            columns: columns,
+            spans: spans,
+            autoLevel: autoLevel,
+        };
+    };
+
     const handleColumnsChange = (event) => {
         const newColumns = parseInt(event.target.dataset.value);
         const newSpans = Array(newColumns).fill(helpers.SPANS[1]);
         setColumns(newColumns);
         setSpans(newSpans);
         onChange({
-            multiple: multiple,
-            lines: lines,
+            ...currentState(),
             columns: newColumns,
             spans: newSpans,
-            autoLevel: autoLevel,
         });
     };
 
     const handleMultipleChange = (event) => {
-        const newMultiple = event.target.dataset.value === 'true';
-        setMultiple(newMultiple);
+        const newValue = event.target.dataset.value === 'true';
+        setMultiple(newValue);
         onChange({
-            multiple: newMultiple,
-            lines: lines,
-            columns: columns,
-            spans: spans,
-            autoLevel: autoLevel,
+            ...currentState(),
+            multiple: newValue,
         });
     };
 
     const handleLinesChange = (event) => {
-        const newLines = parseInt(event.target.dataset.value);
-        setLines(newLines);
+        const newValue = parseInt(event.target.dataset.value);
+        setLines(newValue);
         onChange({
-            multiple: multiple,
-            lines: newLines,
-            columns: columns,
-            spans: spans,
-            autoLevel: autoLevel,
+            ...currentState(),
+            lines: newValue,
         });
     };
 
@@ -64,23 +66,17 @@ const Form = (props) => {
         newSpans[columns-spanIndex-2] = spanValue; // spans are symmetrical
         setSpans(newSpans);
         onChange({
-            multiple: multiple,
-            lines: lines,
-            columns: columns,
+            ...currentState(),
             spans: newSpans,
-            autoLevel: autoLevel,
         });
     };
 
     const handleAutoLevelChange = (event) => {
-        const newAutoLevel = event.target.checked;
-        setAutoLevel(newAutoLevel);
+        const newValue = event.target.checked;
+        setAutoLevel(newValue);
         onChange({
-            multiple: multiple,
-            lines: lines,
-            columns: columns,
-            spans: spans,
-            autoLevel: newAutoLevel,
+            ...currentState(),
+            autoLevel: newValue,
         });
     };
 

@@ -1,94 +1,74 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
+import GameFactory from '../../toolbox/GameFactory';
+import History from './History';
+import { DEFAULT_DRILL_SETTINGS } from './Viewer';
+import Demo from './Demo';
+import Form from './Form';
 import Drill from './Drill';
-import Wizard from './Wizard';
-import Stats from './Stats';
 
-class Game extends React.Component {
 
-    constructor(props) {
-        super(props);
+const Game = (props) => {
 
-        this.state = {
-            span: props.span,
-            lines: props.lines,
-            autoLevel: props.autoLevel,
+    const examples = [
+        {
+            name: "A",
+            difficulty: 0,
+            settings: { span: "0.75in" },
+        },
+        {
+            name: "B",
+            difficulty: 0,
+            settings: { span: "1in" },
+        },
+        {
+            name: "C",
+            difficulty: 0,
+            settings: { span: "1.25in" },
+        },
+        {
+            name: "D",
+            difficulty: 1,
+            settings: { span: "1.5in" },
+        },
+        {
+            name: "E",
+            difficulty: 1,
+            settings: { span: "1.75in" },
+        },
+        {
+            name: "F",
+            difficulty: 1,
+            settings: { span: "2in" },
+        },
+        {
+            name: "G",
+            difficulty: 2,
+            settings: { span: "2.25in" },
+        },
+        {
+            name: "H",
+            difficulty: 2,
+            settings: { span: "2.5in" },
+        },
+        {
+            name: "I",
+            difficulty: 2,
+            settings: { span: "2.75in" },
+        },
+    ];
 
-            // State management
-            started: false,
-            finished: false,
-
-            // Copy styling settings as state to update during a drill session
-            fontFamily: props.fontFamily,
-            fontSize: props.fontSize,
-            fontStyle: props.fontStyle,
-            backgroundColor: props.backgroundColor,
-            color: props.color,
-        };
-
-        this.handleWizardValidation = this.handleWizardValidation.bind(this);
-        this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
-    }
-
-    /** Called when the user validate the wizard. */
-    handleWizardValidation = (options) => {
-        this.setState(state => ({
-            ...state,
-            ...options,
-            started: true,
-            finished: false,
-        }));
-    }
-
-    /** Called when the user successfully finish the drill. */
-    handleDrillCompletion = (stats) => {
-        this.setState(state => ({
-            ...state,
-            stats: stats,
-            started: false,
-            finished: true,
-        }));
-    }
-
-    render() {
-        return (
-            <div className="FullScreen VisionSpanGame">
-
-                <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
-
-                {!this.state.started && !this.state.finished &&
-                    <Wizard onValidate={this.handleWizardValidation} />}
-
-                {this.state.started &&
-                    <Drill
-                        span={this.state.span}
-                        lines={this.state.lines}
-                        autoLevel={this.state.autoLevel}
-
-                        fontFamily={this.state.fontFamily}
-                        fontSize={this.state.fontSize}
-                        fontStyle={this.state.fontStyle}
-                        backgroundColor={this.state.backgroundColor}
-                        color={this.state.color}
-
-                        onComplete={this.handleDrillCompletion}
-                    />}
-
-                {this.state.finished &&
-                    <Stats stats={this.state.stats} />}
-            </div>
-        );
-    }
-
-}
-
-Game.propTypes = {
-    ...Drill.propTypes,
-};
-
-Game.defaultProps = {
-    ...Drill.defaultProps,
+    return (
+        <GameFactory
+            {...props}
+            name="drillPyramid"
+            drill={<Drill />}
+            demo={<Demo />}
+            form={<Form />}
+            history={<History />}
+            drillSettings={DEFAULT_DRILL_SETTINGS}
+            predefinedDrills={examples} />
+    );
 };
 
 export default Game;

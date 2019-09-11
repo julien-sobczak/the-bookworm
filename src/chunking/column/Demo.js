@@ -48,12 +48,8 @@ const generateChunks = (newState) => {
 }
 
 function Demo(props) {
-
     const chunks = generateChunks();
-
-    return (
-        <Viewer {...props} chunks={chunks} />
-    );
+    return <Viewer {...props} chunks={chunks} />;
 }
 
 Demo.propTypes = {

@@ -5,13 +5,6 @@ import Viewer from './Viewer'
 import Engine from './Engine'
 import * as helpers from '../../functions/engine';
 
-const DEFAULT_DRILL_SETTINGS = {
-    lines: 1,
-    columns: 3,
-    spans: ["0.5in", "0.5in"],
-    multiple: false,
-    autoLevel: false,
-}
 
 class Drill extends React.Component {
 
@@ -195,16 +188,6 @@ class Drill extends React.Component {
 Drill.propTypes = {
     ...Viewer.propTypes,
 
-    // One serie or as much as screen allows
-    multiple: PropTypes.bool,
-    // How many lines per series?
-    lines: PropTypes.number,
-    // How many columns?
-    columns: PropTypes.number,
-    // Negative space between two adjacent columns (should contains columns.length - 1 values)
-    spans: PropTypes.arrayOf(PropTypes.string),
-    // Displays controls to vary the span between columns
-    spanControls: PropTypes.bool,
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
 
@@ -214,16 +197,8 @@ Drill.propTypes = {
 
 Drill.defaultProps = {
     ...Viewer.defaultProps,
-
-    // Drill options
-    lines: 1,
-    columns: 3,
-    spans: ["0.5in", "0.5in"],
-    multiple: false,
-    spanControls: false,
-    autoLevel: false,
-
+    autoLevel: true,
     onComplete: function() {},
 };
 
-export { Drill as default, DEFAULT_DRILL_SETTINGS };
+export default Drill;

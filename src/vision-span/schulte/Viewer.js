@@ -1,9 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
+
+const DEFAULT_DRILL_SETTINGS = {
+    span: "1in",
+    size: 5,
+};
 
 function Viewer(props) {
 
-    if (!props.drill) return <span></span>;
+    let drill = props.drill;
+    if (!drill) {
+        drill = new Engine(props.size).getDrill();
+    }
 
     const cssCell = 'Width' + props.span.replace('.', '_');
 
@@ -11,7 +22,7 @@ function Viewer(props) {
         <Styled className="Viewer" {...props}>
             <table className="SchulteTable">
                 <tbody>
-                    {props.drill && props.drill.lines.map((line, index) => {
+                    {drill && drill.lines.map((line, index) => {
                         return (
                             <tr className="Line" key={index}>
                                 {line.columns.map((col, index) => {
@@ -26,4 +37,20 @@ function Viewer(props) {
     );
 }
 
-export default Viewer;
+Viewer.propTypes = {
+    ...Styled.propTypes,
+
+    // How many lines/columns in the table?
+    size: PropTypes.number,
+    // Cell size
+    span: PropTypes.string,
+
+    drill: PropTypes.object,
+};
+
+Viewer.defaultProps = {
+    ...Styled.defaultProps,
+    ...DEFAULT_DRILL_SETTINGS,
+};
+
+export { Viewer as default, DEFAULT_DRILL_SETTINGS };

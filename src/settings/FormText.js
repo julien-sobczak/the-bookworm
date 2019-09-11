@@ -8,51 +8,52 @@ const FormText = (props) => {
     const [theme, setTheme] = useState(props.theme);
     const onChange = props.onChange;
 
-    const handleFontFamilyClick = (event) => {
-        const newFontFamily = event.target.dataset.value;
-        if (fontFamily === newFontFamily) return;
-        setFontFamily(newFontFamily)
-        onChange({
-            fontFamily: newFontFamily,
+    const currentState = () => {
+        return {
+            fontFamily: fontFamily,
             fontSize: fontSize,
             fontStyle: fontStyle,
             theme: theme,
+        };
+    };
+
+    const handleFontFamilyClick = (event) => {
+        const newValue = event.target.dataset.value;
+        if (fontFamily === newValue) return;
+        setFontFamily(newValue)
+        onChange({
+            ...currentState(),
+            fontFamily: newValue,
         });
     }
 
     const handleFontStyleClick = (event) => {
-        const newFontStyle = event.target.dataset.value;
-        if (fontStyle === newFontStyle) return;
-        setFontStyle(newFontStyle)
+        const newValue = event.target.dataset.value;
+        if (fontStyle === newValue) return;
+        setFontStyle(newValue)
         onChange({
-            fontFamily: fontFamily,
-            fontSize: fontSize,
-            fontStyle: newFontStyle,
-            theme: theme,
+            ...currentState(),
+            fontStyle: newValue,
         });
     }
 
     const handleFontSizeClick = (event) => {
-        const newFontSize = event.target.dataset.value;
-        if (fontSize === newFontSize) return;
-        setFontSize(newFontSize);
+        const newValue = event.target.dataset.value;
+        if (fontSize === newValue) return;
+        setFontSize(newValue);
         onChange({
-            fontFamily: fontFamily,
-            fontSize: newFontSize,
-            fontStyle: fontStyle,
-            theme: theme,
+            ...currentState(),
+            fontSize: newValue,
         });
     }
 
     const handleThemeClick = (event) => {
-        const newTheme = event.target.dataset.value;
-        if (theme === newTheme) return;
-        setTheme(newTheme);
+        const newValue = event.target.dataset.value;
+        if (theme === newValue) return;
+        setTheme(newValue);
         onChange({
-            fontFamily: fontFamily,
-            fontSize: fontSize,
-            fontStyle: fontStyle,
-            theme: newTheme,
+            ...currentState(),
+            theme: newValue,
         });
     }
 

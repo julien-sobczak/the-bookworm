@@ -3,12 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-import Countdown from '../toolbox/Countdown';
-import Wizard from './Wizard';
-import Stats from './Stats';
+import Countdown from './Countdown';
+import WizardFactory from './WizardFactory';
+import Stats from '../vision-span/Stats';
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         preferences: state.preferences,
         historySessions: state.history,
@@ -20,7 +19,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-class Game extends React.Component {
+class GameFactory extends React.Component {
 
     constructor(props) {
         super(props);
@@ -73,7 +72,7 @@ class Game extends React.Component {
                 <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
                 {this.state.state === 'init' &&
-                    <Wizard
+                    <WizardFactory
                             engine={this.props.engine}
                             drill={this.props.drill}
                             form={this.props.form}
@@ -104,23 +103,30 @@ class Game extends React.Component {
 
 }
 
-Game.propTypes = {
+GameFactory.propTypes = {
+    // The name of the game
     name: PropTypes.string.isRequired,
+
+    // List of subcomponents
     drill: PropTypes.element.isRequired,
     form: PropTypes.element.isRequired,
     demo: PropTypes.element.isRequired,
     history: PropTypes.element, // There are no history for chunking sessions
+
+    // Default settings
     drillSettings: PropTypes.object,
+
+    // List of ready-to-go examples
     predefinedDrills: PropTypes.arrayOf(PropTypes.object),
 
     // Display a countdown counter before starting the drill (0 to disable it)
     countdownDuration: PropTypes.number,
 };
 
-Game.defaultProps = {
+GameFactory.defaultProps = {
     history: null,
     countdownDuration: 0,
     predefinedDrills: [],
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(GameFactory);

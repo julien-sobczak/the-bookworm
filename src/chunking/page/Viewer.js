@@ -6,6 +6,14 @@ import Paper from '../../toolbox/Paper';
 import PageContent from '../../toolbox/PageContent';
 import Styled from '../../toolbox/Styled';
 
+const DEFAULT_DRILL_SETTINGS = {
+    blockPosition: 0,
+    chunkPosition: 0,
+    disableVisualRegression: false,
+    disableVisualProgression: false,
+    disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
+};
+
 function Viewer(props) {
 
     const classNames = [];
@@ -33,14 +41,21 @@ function Viewer(props) {
 Viewer.propTypes = {
     ...Styled.propTypes,
 
+    // The page content to display
     page: PropTypes.object,
+
+    // The block index containing the chunk to highlight
     blockPosition: PropTypes.number,
+
+    // The chunk index inside the block to highlight
     chunkPosition: PropTypes.number,
 
     // Hide/Show the text in front of the current chunk
     disableVisualRegression: PropTypes.bool,
+
     // Hide/Show the text behind the current chunk
     disableVisualProgression: PropTypes.bool,
+
     // How the hidden text controlled by `disableVisualRegression`
     // and `disableVisualProgression` should be displayed
     disableVisualProblemStyle: PropTypes.string,
@@ -48,13 +63,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-
-    blockPosition: 0,
-    chunkPosition: 0,
-
-    disableVisualRegression: false,
-    disableVisualProgression: false,
-    disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
+    ...DEFAULT_DRILL_SETTINGS,
 };
 
-export default Viewer;
+export { Viewer as default, DEFAULT_DRILL_SETTINGS };
