@@ -1,24 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
-import VisionSpanCatalog from './vision-span/Catalog'
-import GameHorizontal from './vision-span/horizontal/Game'
-import GamePyramid from './vision-span/pyramid/Game'
-import GameCircle from './vision-span/circle/Game'
-import GameSchulte from './vision-span/schulte/Game'
+import VisionSpanCatalog from './js/components/vision-span/Catalog';
+import GameHorizontal from './js/components/vision-span/horizontal/Game';
+import GamePyramid from './js/components/vision-span/pyramid/Game';
+import GameCircle from './js/components/vision-span/circle/Game';
+import GameSchulte from './js/components/vision-span/schulte/Game';
 
-import ChunkingCatalog from './chunking/Catalog'
-import GameChunk from './chunking/chunk/Game'
-import GameColumn from './chunking/column/Game'
-import GamePage from './chunking/page/Game'
+import ChunkingCatalog from './js/components/chunking/Catalog';
+import GameChunk from './js/components/chunking/chunk/Game';
+import GameColumn from './js/components/chunking/column/Game';
+import GamePage from './js/components/chunking/page/Game';
 
-import PracticeCatalog from './practice/Catalog'
-import BookViewer from './library/BookViewer'
+import PracticeCatalog from './js/components/practice/Catalog';
+import BookViewer from './js/components/library/BookViewer';
 
-import SettingsPreferences from './settings/Preferences'
+import SettingsPreferences from './js/components/settings/Preferences';
 
-
-import 'normalize.css'
+import 'normalize.css';
 import './Reset.css';
 import './App.css';
 
