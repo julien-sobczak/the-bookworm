@@ -77,6 +77,8 @@ class Library extends React.Component {
         return (
             <div className="Library FullScreen Centered">
 
+                <button className="ButtonClose" onClick={() => this.props.onClose()}><i className="material-icons">close</i></button>
+
                 {!this.state.category &&
                     <div className="LibraryWelcome Centered">
                         <h3>What you want to read?</h3>

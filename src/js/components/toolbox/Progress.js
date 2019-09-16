@@ -1,0 +1,42 @@
+import React from 'react';
+import styled from 'styled-components';
+
+function Progress({value, showText}) {
+
+  const ProgressContainer = styled.div`
+    display: inline-block;
+    position: relative;
+    width: 3cm;
+    height: 0.20cm;
+    border-radius: 0.1cm;
+    background: black;
+`;
+  const ProgressBar = styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: ${value}%;
+    border-radius: 0.1cm;
+    background: white;
+`;
+  const ProgressText = styled.div`
+    position: absolute;
+    top: -0.6cm;
+    left: 0;
+    right: 0;
+    font-size: 0.4cm;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+`;
+
+    return (
+      <ProgressContainer>
+        {showText && <ProgressText>{value} %</ProgressText>}
+        <ProgressBar />
+      </ProgressContainer>
+    );
+}
+
+export default Progress;
