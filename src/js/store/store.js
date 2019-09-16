@@ -4,16 +4,43 @@ import rootReducer from "./reducers";
 const initialState = {
     readings: [
         {
+            type: "book",
+            title: "Alice's Adventures in Wonderland",
+            author: "Lewis Carroll",
+            slug: "Alices-Adventures-in-Wonderland",
+            position: {
+                chapter: 5,
+                line: 0,
+                progress: 40,
+            },
+            lastDate: "2019-09-13T18:25:43.511Z",
+        },
+        {
+            type: "book",
+            title: "Pride and Prejudice",
+            author: "Jane Austen",
+            slug: "Pride-and-Prejudice",
+            position: {
+                chapter: 10,
+                line: 0,
+                progress: 90,
+            },
+            lastDate: "2019-08-23T18:25:43.511Z",
+        },
+        {
+            type: "book",
             title: "The Adventures of Tom Sawyer",
             author: "Mark Twain",
             slug: "The-Adventures-of-Tom-Sawyer",
             position: {
                 chapter: 0,
                 line: 0,
+                progress: 0,
             },
+            lastDate: "2019-07-02T18:25:43.511Z",
         },
+
     ],
-    lastReading: 0,
     history: {
         drillHorizontal: [
             {

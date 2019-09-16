@@ -57,10 +57,17 @@
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.5);
     padding: 0.5cm 1cm;
     color: white;
     font-size: 1.2em;
+    z-index: 200;
+}
+.Catalog .PanelCorner.Collapsed {
+    background: rgba(0, 0, 0, 0.5);
+}
+.Catalog .PanelCorner.Expanded {
+    background: rgba(0, 0, 0, 100);
+    transition: 0.1s linear all;
 }
 
 .Catalog .PanelCorner .ButtonBrowse {
@@ -70,6 +77,10 @@
 }
 .Catalog .PanelCorner em {
     font-style: italic;
+    font-weight: 600;
+}
+.Catalog .PanelCorner small {
+    font-size: 75%;
     font-weight: 600;
 }
 

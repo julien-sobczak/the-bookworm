@@ -3,10 +3,25 @@ import { UPDATE_READING, UPDATE_TEXT_PREFERENCES, UPDATE_CHUNK_PREFERENCES } fro
 
 function rootReducer(state, action) {
     if (action.type === UPDATE_READING) {
-        const newReadings = {
-            ...state.readings,
-        };
-        newReadings[action.payload.slug] = action.position;
+        const newReadings = [...state.readings];
+        let found = false;
+        for (let i = 0; i < newReadings.length; i++) {
+            if (newReadings[i].slug === action.payload.slug) {
+                newReadings[i] = {
+                    ...action.payload,
+                    lastDate: new Date().toJSON(),
+                };
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            newReadings.push({
+                ...action.payload,
+                lastDate: new Date().toJSON(),
+            });
+        }
+        newReadings.sort(function(a, b) { return new Date(a.lastDate) < new Date(b.lastDate); })
         return {
             ...state,
             readings: newReadings,

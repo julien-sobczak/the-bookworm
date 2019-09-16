@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { updateReading } from '../../store/actions';
 
 import PanelReading from "./PanelReading.js";
 import Button from "../toolbox/Button.js";
@@ -49,7 +52,7 @@ function DrawingColumn(props) {
     );
 }
 
-function Entry({ name, slug, children }) {
+function Entry({ name, children, slug }) {
     return (
         <div className="Entry">
             <div className="Preview">
@@ -64,12 +67,12 @@ function Entry({ name, slug, children }) {
     );
 }
 
-function Catalog({match}) {
+function Catalog({match, onSelect}) {
 
     return (
         <div className="Catalog">
 
-            <PanelReading />
+            <PanelReading onSelect={(selection) => onSelect(selection)} />
 
             <Entry name="Page Reader" slug="drill-page" match={match}>
                 <DrawingPage />
@@ -86,5 +89,14 @@ function Catalog({match}) {
         </div>
     );
 }
-
-export default Catalog;
+const mapStateToProps = state => {
+    return {
+        readings: state.readings,
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        updateReading: reading => dispatch(updateReading(reading)),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
