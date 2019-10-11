@@ -1,5 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+
+import { updateReading } from './js/store/actions';
 
 import VisionSpanCatalog from './js/components/vision-span/Catalog';
 import GameHorizontal from './js/components/vision-span/horizontal/Game';
@@ -15,12 +18,16 @@ import GamePage from './js/components/chunking/page/Game';
 import PracticeCatalog from './js/components/practice/Catalog';
 import BookViewer from './js/components/library/BookViewer';
 
+import PreviewBook from './js/components/library/PreviewBook';
+import { ContentContext } from './content-context';
+
 import SettingsPreferences from './js/components/settings/Preferences';
 
 import 'normalize.css';
 import './Reset.css';
 import './App.css';
 
+// TODO remove
 const content = {
   title: "The Adventures of Tom Sawyer",
   author: "Mark Twain",
@@ -154,28 +161,162 @@ function AboutPage() {
   );
 }
 
-function AppRouter() {
-  return (
-    <Router>
-      <nav className="menu">
-        <NavLink to="/" activeClassName="active" exact><div><i className="material-icons">home</i> Home</div></NavLink>
-        {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
-        <NavLink to="/vision-span/" activeClassName="active"><div><i className="material-icons">visibility</i> Vision Span</div></NavLink>
-        <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i> Chunking</div></NavLink>
-        <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i> Practice</div></NavLink>
-        <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i> Settings</div></NavLink>
-        <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink>
-      </nav>
-      <section id="content">
-        <Route path="/"       exact component={IndexPage} />
-        <Route path="/vision-span/" component={VisionSpanPage} />
-        <Route path="/chunking/"    component={ChunkingPage} />
-        <Route path="/practice/"    component={PracticePage} />
-        <Route path="/settings/"    component={SettingsPage} />
-        <Route path="/about/"       component={AboutPage} />
-      </section>
-    </Router>
-  );
+
+/**
+ * Return a randomly generated 15-characters string.
+ */
+function uid() {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (let i = 0; i < 15; i++) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
-export default AppRouter;
+
+/**
+ * Download a content.
+ *
+ * @param {Object} reading
+ * @returns {Promise} a Promise containing the downloaded document
+ */
+function download(reading) {
+  if (reading.type === "book") {
+    const contentUrl = `https://open-library-books.firebaseapp.com/gutenberg/${reading.slug}.txt`;
+    const metadataUrl = `https://open-library-books.firebaseapp.com/gutenberg/${reading.slug}.json`;
+    console.log(`Downloading ${contentUrl}...`);
+    console.log(`Downloading ${metadataUrl}...`);
+
+    return new Promise(function(resolve, reject) {
+      Promise.all([
+          fetch(contentUrl).then(response => { return response.text(); }),
+          fetch(metadataUrl).then((response) => { return response.json(); }),
+      ]).then(([content, metadata]) => {
+          console.log('Downloading done!');
+          resolve({
+            ...reading,
+            content: content,
+            metadata: metadata
+          })
+      });
+    });
+  }
+
+  throw new Error(`Unsupported type ${reading.type}`);
+};
+
+function next(data) {
+  if (data.type === "book") {
+    const book = data;
+    const { chapter, line } = book.position;
+    const chapterMetadata = data.metadata.chapters[chapter];
+
+    const chapterRemainingLines = book.content.split('\r\n').slice(chapterMetadata.start - 1, chapterMetadata.end + 1).slice(line);
+
+    return {
+      type: "book",
+      title: book.title,
+      author: book.author,
+      subtitle: chapterMetadata.title,
+      text: [
+        { tag: "h2", content: chapterMetadata.title },
+        ...PreviewBook.convertToHtml(chapterRemainingLines),
+      ]
+    };
+  }
+
+  throw new Error(`Unsupported type ${data.type}`);
+}
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.setContent = (newContent) => {
+      console.log("New content is", newContent);
+      this.setState(state => ({
+        content: newContent,
+      }));
+    };
+
+    this.state = {
+      content: null,
+      setContent: this.setContent,
+    };
+  }
+
+  render() {
+    return (
+      <ContentContext.Provider value={this.state}>
+        <Router>
+          <nav className="menu">
+            <NavLink to="/" activeClassName="active" exact><div><i className="material-icons">home</i> Home</div></NavLink>
+            {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
+            <NavLink to="/vision-span/" activeClassName="active"><div><i className="material-icons">visibility</i> Vision Span</div></NavLink>
+            <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i> Chunking</div></NavLink>
+            <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i> Practice</div></NavLink>
+            <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i> Settings</div></NavLink>
+            <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink>
+          </nav>
+          <section id="content">
+            <Route path="/"       exact component={IndexPage} />
+            <Route path="/vision-span/" component={VisionSpanPage} />
+            <Route path="/chunking/"    component={ChunkingPage} />
+            <Route path="/practice/"    component={PracticePage} />
+            <Route path="/settings/"    component={SettingsPage} />
+            <Route path="/about/"       component={AboutPage} />
+          </section>
+        </Router>
+      </ContentContext.Provider>
+    );
+  }
+
+
+
+  componentDidMount() {
+    if (this.props.readings.length > 0) {
+      const currentReading = this.props.readings[0];
+      const reading = {
+        ...currentReading,
+        position: {
+          ...currentReading.position,
+        }
+      }
+
+      // TODO remove
+      if (!reading.hasOwnProperty('localStorage')) {
+        reading.localStorage = reading.slug || uid();
+      }
+      // TODO end
+
+      if (!localStorage.getItem(reading.localStorage)) {
+        // Content has disappeared from local storage. Reload it
+        download(reading).then((data) => {
+          localStorage.setItem(reading.slug, JSON.stringify(data));
+          this.setContent(next(data));
+        });
+      } else {
+        const data = JSON.parse(localStorage.getItem(reading.slug));
+        this.setContent(next(data));
+      }
+    }
+  }
+
+}
+
+const mapStateToProps = state => {
+  return {
+      readings: state.readings,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      updateReading: reading => dispatch(updateReading(reading)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

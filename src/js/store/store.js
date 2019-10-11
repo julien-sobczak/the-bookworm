@@ -8,6 +8,7 @@ const initialState = {
             title: "Alice's Adventures in Wonderland",
             author: "Lewis Carroll",
             slug: "Alices-Adventures-in-Wonderland",
+            localStorage: "Alices-Adventures-in-Wonderland",
             position: {
                 chapter: 5,
                 line: 0,
@@ -20,6 +21,7 @@ const initialState = {
             title: "Pride and Prejudice",
             author: "Jane Austen",
             slug: "Pride-and-Prejudice",
+            localStorage: "Pride-and-Prejudice",
             position: {
                 chapter: 10,
                 line: 0,
@@ -32,6 +34,7 @@ const initialState = {
             title: "The Adventures of Tom Sawyer",
             author: "Mark Twain",
             slug: "The-Adventures-of-Tom-Sawyer",
+            localStorage: "The-Adventures-of-Tom-Sawyer",
             position: {
                 chapter: 0,
                 line: 0,

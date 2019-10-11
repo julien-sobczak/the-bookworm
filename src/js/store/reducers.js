@@ -21,7 +21,8 @@ function rootReducer(state, action) {
                 lastDate: new Date().toJSON(),
             });
         }
-        newReadings.sort(function(a, b) { return new Date(a.lastDate) < new Date(b.lastDate); })
+        newReadings.sort((a, b) => new Date(a.lastDate) > new Date(b.lastDate) ? -1 : 1);
+        console.log('Updating readings...', newReadings);
         return {
             ...state,
             readings: newReadings,
