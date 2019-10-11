@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { updateReading } from '../../store/actions';
 
-import PanelReading from "./PanelReading.js";
+import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
 
 function DrawingPage(props) {
@@ -67,12 +67,12 @@ function Entry({ name, children, slug }) {
     );
 }
 
-function Catalog({match, onSelect}) {
+function Catalog({match}) {
 
     return (
         <div className="Catalog">
 
-            <PanelReading onSelect={(selection) => onSelect(selection)} />
+            <PanelReading />
 
             <Entry name="Page Reader" slug="drill-page" match={match}>
                 <DrawingPage />

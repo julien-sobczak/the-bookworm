@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
 
 function Entry({ name, slug, children }) {
@@ -37,6 +38,8 @@ function Catalog({match}) {
 
     return (
         <div className="Catalog">
+
+            <PanelReading />
 
             <Entry name="Book Viewer" slug="book-viewer" match={match}>
                 <DrawingBook />

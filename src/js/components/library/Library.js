@@ -7,11 +7,27 @@ import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
 import LibraryUpload from './LibraryUpload';
 
+import Progress from '../toolbox/Progress';
 import Button from "../toolbox/Button";
 import ButtonUpload from "./ButtonUpload";
 
+import ReactButton from '@material/react-button';
+import '@material/react-button/dist/button.css';
+
+import { updateReading } from '../../store/actions';
+import { humanReadableDate } from '../../functions/string';
+
+
 const mapStateToProps = state => {
-    return { readings: state.readings };
+    return {
+        readings: state.readings,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateReading: reading => dispatch(updateReading(reading)),
+    };
 };
 
 class Library extends React.Component {
@@ -62,6 +78,12 @@ class Library extends React.Component {
         }));
     }
 
+    handleReadingSelected(event) {
+        const reading = this.props.readings[event.target.dataset.index];
+        this.props.updateReading(reading);
+        // Download...
+    }
+
     handleCancel(event) {
         this.setState(state => ({
             ...state,
@@ -87,18 +109,21 @@ class Library extends React.Component {
                             <>
                                 <h4>Continue the reading</h4>
                                 <div className="Readings">
-                                    {this.props.readings.map((reading, index) => {
-                                        return (
-                                            <div key={index} className="Clickable" onClick={this.handleBookSelected}>
-                                                <span className="BookTitle">
-                                                    {reading.title}
-                                                </span>
-                                                <span className="BookAuthor">
-                                                    {reading.author}
-                                                </span>
-                                            </div>
-                                        )
-                                    })}
+                                    <table className="Styled">
+                                        <tbody>
+                                            {this.props.readings.map((reading, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td><em>{reading.title}</em></td>
+                                                        <td><small>{reading.author}</small></td>
+                                                        <td><small>{humanReadableDate(reading.lastDate)}</small></td>
+                                                        <td><Progress value={reading.position.progress} showText={true} /></td>
+                                                        <td><ReactButton onClick={this.handleReadingSelected} data-index={index} className="Clickable">Read</ReactButton></td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </>
                         }
@@ -110,6 +135,7 @@ class Library extends React.Component {
 
                             {/*
                               * Disabled because it requires to find a real solution to execute CORS requests
+                              * Ex: https://github.com/Rob--W/cors-anywhere
                             <div className="LibraryCategory">
                                 <Button text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
                             </div>
@@ -156,4 +182,4 @@ Library.defaultProps = {
     onSelect: function() {},
 };
 
-export default connect(mapStateToProps)(Library);
+export default connect(mapStateToProps, mapDispatchToProps)(Library);

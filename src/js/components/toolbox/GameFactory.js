@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
+import { ContentContext } from '../../../content-context';
+
 import Countdown from './Countdown';
 import WizardFactory from './WizardFactory';
 import Stats from '../vision-span/Stats';
@@ -66,38 +68,43 @@ class GameFactory extends React.Component {
             undefined;
 
         return (
-            <div className="FullScreen VisionSpanGame">
+            <ContentContext.Consumer>
+                {({content, setContent}) => (
+                    <div className="FullScreen VisionSpanGame">
 
-                {/* TODO add a new redirectUrl prop */}
-                <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
+                        {/* TODO add a new redirectUrl prop */}
+                        <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
-                {this.state.state === 'init' &&
-                    <WizardFactory
-                            engine={this.props.engine}
-                            drill={this.props.drill}
-                            form={this.props.form}
-                            demo={this.props.demo}
-                            history={this.props.history}
-                            historySessions={historySessions}
-                            predefinedDrills={this.props.predefinedDrills}
-                            drillSettings={this.props.drillSettings}
-                            textSettings={this.props.preferences.text}
-                            onValidate={this.handleWizardValidation} />}
+                        {this.state.state === 'init' &&
+                            <WizardFactory
+                                    engine={this.props.engine}
+                                    drill={this.props.drill}
+                                    form={this.props.form}
+                                    demo={this.props.demo}
+                                    history={this.props.history}
+                                    historySessions={historySessions}
+                                    predefinedDrills={this.props.predefinedDrills}
+                                    drillSettings={this.props.drillSettings}
+                                    textSettings={this.props.preferences.text}
+                                    onValidate={this.handleWizardValidation} />}
 
-                {this.state.state === 'ready' &&
-                    <Countdown duration={3000} onTimesUp={this.handleCountdownCompletion} />}
+                        {this.state.state === 'ready' &&
+                            <Countdown duration={3000} onTimesUp={this.handleCountdownCompletion} />}
 
-                {this.state.state === 'started' &&
-                    React.cloneElement(this.props.drill, {
-                        ...this.state.drillSettings,
-                        ...this.state.textSettings,
-                        onComplete: this.handleDrillCompletion,
-                    })}
+                        {this.state.state === 'started' &&
+                            React.cloneElement(this.props.drill, {
+                                ...this.state.drillSettings,
+                                ...this.state.textSettings,
+                                content: content,
+                                onComplete: this.handleDrillCompletion,
+                            })}
 
-                {this.state.state === 'finished' &&
-                    <Stats stats={this.state.stats} />}
+                        {this.state.state === 'finished' &&
+                            <Stats stats={this.state.stats} />}
 
-            </div>
+                    </div>
+                )}
+            </ContentContext.Consumer>
         );
     }
 

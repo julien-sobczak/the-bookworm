@@ -9,7 +9,7 @@ function Progress({value, showText}) {
     width: 3cm;
     height: 0.20cm;
     border-radius: 0.1cm;
-    background: black;
+    background: rgba(0,0,0,0.5);
 `;
   const ProgressBar = styled.div`
     position: absolute;
