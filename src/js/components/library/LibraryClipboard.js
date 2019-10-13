@@ -1,30 +1,38 @@
 import React, { useState } from 'react';
 
-import PreviewText from './PreviewText';
+import * as string from '../../functions/string';
+import * as library from '../../functions/library';
 
 import Button from "../toolbox/Button";
-
 
 function LibraryClipboard({ onSelect, onCancel }) {
 
     const [text, setText] = useState("");
-    const [ready, setReady] = useState(false);
 
+    const onValidate = () => {
+        const id = string.uid();
+        onSelect({
+            id: `content-paste-${id}`,
+            type: "paste",
+            description: {
+                title: `Paste ${id}`,
+                author: "Unknown",
+            },
+            content: library.parsePaste(text),
+            reloadable: false,
+        });
+    }
+
+    // TODO add field title and author and toggle button to save on localStorage
     return (
         <div className="LibraryClipboard Centered">
-            {ready && <PreviewText text={text} onSelect={(selection) => onSelect(selection) } />}
-
-            {!ready &&
-                <>
-                    <h3>Copy/Paste your text</h3>
-                    <textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)}>
-                    </textarea>
-                    <div className="Buttons">
-                        <Button text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
-                        <Button text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
-                    </div>
-                </>
-            }
+            <h3>Copy/Paste your text</h3>
+            <textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)}>
+            </textarea>
+            <div className="Buttons">
+                <Button text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
+                <Button text="Read" colorText="white" colorBackground="#111" onClick={() => onValidate()} />
+            </div>
         </div>
     );
 }

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer'
 import Pager from '../Pager';
+
+import ProgressLine from '../../toolbox/ProgressLine';
+
 import { chunkDuration } from '../../../functions/wpm';
 
 class Drill extends React.Component {
@@ -176,14 +179,17 @@ class Drill extends React.Component {
 
                 <section className="DrillArea">
                     {this.state.pageNumber > 0 &&
-                        <Viewer {...this.props}
-                            page={this.state.pages[this.state.pageNumber - 1]}
-                            blockPosition={this.state.blockPosition}
-                            chunkPosition={this.state.chunkPosition}
-                            disableVisualRegression={this.props.disableVisualRegression}
-                            disableVisualProgression={this.props.disableVisualProgression}
-                            disableVisualProblemStyle={this.props.disableVisualProblemStyle}
-                             />
+                        <>
+                            <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
+                            <Viewer {...this.props}
+                                page={this.state.pages[this.state.pageNumber - 1]}
+                                blockPosition={this.state.blockPosition}
+                                chunkPosition={this.state.chunkPosition}
+                                disableVisualRegression={this.props.disableVisualRegression}
+                                disableVisualProgression={this.props.disableVisualProgression}
+                                disableVisualProblemStyle={this.props.disableVisualProblemStyle}
+                                />
+                        </>
                     }
                 </section>
             </div>
@@ -197,10 +203,7 @@ Drill.propTypes = {
     ...Viewer.propTypes,
 
     // The content to read
-    content: PropTypes.object.isRequired,
-
-    wpm: PropTypes.number,
-    pageTurningDuration: PropTypes.number, // ms
+    content: PropTypes.object,
 
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
@@ -209,9 +212,6 @@ Drill.propTypes = {
 Drill.defaultProps = {
     ...Pager.defaultProps,
     ...Viewer.defaultProps,
-
-    wpm: 4000,
-    pageTurningDuration: 500,
 
     onComplete: function() {},
 };

@@ -6,7 +6,7 @@ function rootReducer(state, action) {
         const newReadings = [...state.readings];
         let found = false;
         for (let i = 0; i < newReadings.length; i++) {
-            if (newReadings[i].slug === action.payload.slug) {
+            if (newReadings[i].id === action.payload.id) {
                 newReadings[i] = {
                     ...action.payload,
                     lastDate: new Date().toJSON(),

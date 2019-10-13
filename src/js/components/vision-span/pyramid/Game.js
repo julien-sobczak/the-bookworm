@@ -2,7 +2,7 @@ import React from 'react';
 
 import GameFactory from '../../toolbox/GameFactory';
 import History from './History';
-import { DEFAULT_DRILL_SETTINGS } from './Viewer';
+import { defaultDrillSettings } from './Viewer';
 import Demo from './Demo';
 import Form from './Form';
 import Drill from './Drill';
@@ -66,7 +66,7 @@ const Game = (props) => {
             demo={<Demo />}
             form={<Form />}
             history={<History />}
-            drillSettings={DEFAULT_DRILL_SETTINGS}
+            drillSettings={defaultDrillSettings}
             predefinedDrills={examples} />
     );
 };

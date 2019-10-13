@@ -187,7 +187,7 @@ test('extractChapters determines the list of chapters based on the TOC', () => {
         // Should filter the cover as there is no content
         {
             title: "The Beginning",
-            text: [
+            blocks: [
                 // Should remove the first empty paragraph
                 { "tag": "p", content: "2" },
                 { "tag": "p", content: "The Beginning" },
@@ -196,7 +196,7 @@ test('extractChapters determines the list of chapters based on the TOC', () => {
         },
         {
             title: "The End",
-            text: [
+            blocks: [
                 { "tag": "p", content: "The End" },
                 { "tag": "p", content: "A sentence with HTML tags." },
             ],

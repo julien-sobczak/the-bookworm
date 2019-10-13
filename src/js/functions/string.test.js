@@ -1,4 +1,13 @@
-import { capitalize, humanReadableDate } from './string'
+import { capitalize, humanReadableDate, uid, headline } from './string'
+
+describe('uid', () => {
+
+    it('should return a random string with a fixed length', () => {
+        expect(uid()).toHaveLength(15);
+        expect(uid()).not.toEqual(uid());
+    });
+
+});
 
 describe('capitalize', () => {
 
@@ -21,6 +30,16 @@ describe('humanReadableDate', () => {
         expect(humanReadableDate("2019-09-09T14:25:43.511Z", reference, true)).toEqual("20 days ago");
         expect(humanReadableDate("2019-09-28T14:25:43.511Z", reference, true)).toEqual("yesterday, 14:25");
         expect(humanReadableDate("2019-09-29T10:25:43.511Z", reference, true)).toEqual("today, 10:25");
+    });
+
+});
+
+describe('headline', () => {
+
+    it('should return the beginning of the text', () => {
+        expect(headline("This is the beginning of the sentence", 20)).toEqual("This is the...");
+        expect(headline("Too short", 20)).toEqual("Too short");
+        expect(headline("NotASingleSpaceWhereToSplitTheText", 20)).toEqual("NotASingleSpaceWh...");
     });
 
 });

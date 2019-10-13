@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
+
+import ProgressLine from '../../toolbox/ProgressLine';
+
 import { chunkDuration } from '../../../functions/wpm';
 
 class Drill extends React.Component {
@@ -172,18 +175,21 @@ class Drill extends React.Component {
 
                 <section className="DrillControls">
                     <ul>
-                        {this.props.speedControls && <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>}
-                        {this.props.speedControls && <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>}
+                        <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
+                        <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
                     </ul>
                 </section>
 
                 <section className="DrillArea">
 
                     {this.state.currentChunk &&
-                        <Viewer {...this.props}
-                                previousChunk={this.state.previousChunk}
-                                currentChunk={this.state.currentChunk}
-                                nextChunk={this.state.nextChunk} />
+                        <>
+                            <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
+                            <Viewer {...this.props}
+                                    previousChunk={this.state.previousChunk}
+                                    currentChunk={this.state.currentChunk}
+                                    nextChunk={this.state.nextChunk} />
+                        </>
                     }
 
                 </section>
@@ -210,16 +216,7 @@ Drill.propTypes = {
     ...Viewer.propTypes,
 
     // The content to read
-    content: PropTypes.object.isRequired,
-
-    // WPM
-    wpm: PropTypes.number,
-
-    // Displays controls to vary the span between columns
-    speedControls: PropTypes.bool,
-
-    // How many lines per chunk (in practice, pack several chunks into the same chunk)
-    linesPerChunk: PropTypes.number,
+    content: PropTypes.object,
 
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
@@ -228,11 +225,6 @@ Drill.propTypes = {
 Drill.defaultProps = {
     ...Chunker.defaultProps,
     ...Viewer.defaultProps,
-
-    // Chunk options
-    wpm: 2000,
-    linesPerChunk: 1,
-    speedControls: true,
 
     onComplete: function() {},
 };

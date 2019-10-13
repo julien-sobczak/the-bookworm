@@ -125,7 +125,7 @@ export const extractToc = files => {
 
 export const filterChapter = chapter => {
     // Remove sections without content
-    return chapter.text.length < 2;
+    return chapter.blocks.length < 2;
 }
 
 // Extracts the content from all chapters present in the ePub.
@@ -139,7 +139,7 @@ export const extractChapters = (files) => {
             if (file.filename.endsWith(chapter.filename)) {
                 const newChapter = {
                     title: chapter.title,
-                    text: parseFile(file.content),
+                    blocks: parseFile(file.content),
                 }
                 if (!filterChapter(newChapter)) {
                     chapters.push(newChapter);
@@ -173,9 +173,17 @@ export const readEpub = file => {
             Promise.all(promises).then(files => {
                 const chapters = extractChapters(files)
                 resolve({
-                    filename: file.name,
-                    chapters: chapters,
-                })
+                    id: `content-epub-${file.name}`,
+                    type: "epub",
+                    description: {
+                        title: `ePub file.name`, // TODO retrieve the book's name and author from the file
+                        author: "Unknown",
+                    },
+                    content: {
+                        sections: chapters,
+                    },
+                    downloadable: false,
+                });
             });
         })
         .catch(err => {
