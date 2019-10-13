@@ -5,7 +5,6 @@ import Viewer from './Viewer'
 import Engine from './Engine'
 import * as helpers from '../../../functions/engine';
 
-
 class Drill extends React.Component {
 
     constructor(props) {
@@ -188,16 +187,13 @@ class Drill extends React.Component {
 Drill.propTypes = {
     ...Viewer.propTypes,
 
-    // Adjust level according the number of errors
-    autoLevel: PropTypes.bool,
-
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
 };
 
 Drill.defaultProps = {
     ...Viewer.defaultProps,
-    autoLevel: true,
+
     onComplete: function() {},
 };
 

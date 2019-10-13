@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
 
+import { ContentContext } from "../../../content-context";
+
 function Entry({ name, slug, children }) {
     return (
         <div className="Entry">
@@ -39,7 +41,11 @@ function Catalog({match}) {
     return (
         <div className="Catalog">
 
-            <PanelReading />
+            <ContentContext.Consumer>
+                {({content, update, toggle}) => (
+                    <PanelReading content={content} onSelect={update} onToggle={toggle} />
+                )}
+            </ContentContext.Consumer>
 
             <Entry name="Book Viewer" slug="book-viewer" match={match}>
                 <DrawingBook />

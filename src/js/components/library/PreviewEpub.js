@@ -24,7 +24,7 @@ class PreviewEpub extends React.Component {
         this.setState({
             chapterIndex: parseInt(chapterIndex),
             blockStartIndex: 0,
-            blockEndIndex: chapter.text.length  - 1,
+            blockEndIndex: chapter.blocks.length  - 1,
             content: chapter,
         });
     }

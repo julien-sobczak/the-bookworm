@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import Styled from '../../toolbox/Styled';
 import { capitalize } from '../../../functions/string';
 
-const DEFAULT_DRILL_SETTINGS = {
-    // Chunk options
+const defaultDrillProps = {
     neighborChunksPosition: 'vertical',
     showPreviousChunk: false,
     showNextChunk: true,
-
-    // Increase the font size as we are printed few words on the screen
-    fontSize: '16pt',
+    linesPerChunk: 1,
+    wpm: 4000,
 }
 
 function Viewer(props) {
@@ -46,6 +44,12 @@ function Viewer(props) {
 Viewer.propTypes = {
     ...Styled.propTypes,
 
+    // WPM
+    wpm: PropTypes.number,
+
+    // How many lines per chunk (in practice, pack several chunks into the same chunk)
+    linesPerChunk: PropTypes.number,
+
     // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
     neighborChunksPosition: PropTypes.string,
 
@@ -58,7 +62,12 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...DEFAULT_DRILL_SETTINGS,
+
+    // Text
+    // Increase the font size as we are printed few words on the screen
+    fontSize: '16pt',
+
+    ...defaultDrillProps,
 };
 
-export { Viewer as default, DEFAULT_DRILL_SETTINGS };
+export { Viewer as default, defaultDrillProps };
