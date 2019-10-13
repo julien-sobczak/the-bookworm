@@ -1,7 +1,7 @@
 import React from 'react';
 
 import GameFactory from '../../toolbox/GameFactory';
-import { DEFAULT_DRILL_SETTINGS } from './Viewer';
+import { defaultDrillSettings } from './Viewer';
 import Demo from './Demo';
 import Form from './Form';
 import Drill from './Drill';
@@ -53,8 +53,8 @@ const Game = (props) => {
             drill={<Drill />}
             demo={<Demo />}
             form={<Form />}
-            countdownDuration={3000}
-            drillSettings={DEFAULT_DRILL_SETTINGS}
+            countdownDuration={2000}
+            drillSettings={defaultDrillSettings}
             predefinedDrills={examples} />
     );
 };

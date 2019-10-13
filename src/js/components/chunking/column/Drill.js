@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
+
+import ProgressLine from '../../toolbox/ProgressLine';
+import Measurer from '../../toolbox/Measurer';
+
 import { chunkDuration } from '../../../functions/wpm';
 import * as helpers from '../../../functions/engine';
-import Measurer from '../../toolbox/Measurer';
 
 class Drill extends React.Component {
 
@@ -181,19 +184,22 @@ class Drill extends React.Component {
 
                 <section className="DrillControls">
                     <ul>
-                        {this.props.speedControls && <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>}
-                        {this.props.speedControls && <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>}
+                        <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
+                        <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
                     </ul>
                 </section>
 
                 <section className="DrillArea" ref={this.columnsElement}>
 
                     {this.state.chunksOnScreen &&
-                        <Viewer {...this.props}
-                                chunks={this.state.chunksOnScreen}
-                                chunkPosition={this.state.chunkPositionOnScreen}
-                                columns={this.props.columns}
-                                columnWidth={columnWidthOnScreen} />
+                        <>
+                            <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
+                            <Viewer {...this.props}
+                                    chunks={this.state.chunksOnScreen}
+                                    chunkPosition={this.state.chunkPositionOnScreen}
+                                    columns={this.props.columns}
+                                    columnWidth={columnWidthOnScreen} />
+                        </>
                     }
 
                 </section>
@@ -219,16 +225,7 @@ Drill.propTypes = {
     ...Chunker.propTypes,
 
     // The content to read
-    content: PropTypes.object.isRequired,
-
-    // WPM
-    wpm: PropTypes.number,
-
-    // Displays controls to vary the span between columns
-    speedControls: PropTypes.bool,
-
-    // How many lines?
-    linesMax: PropTypes.number,
+    content: PropTypes.object,
 
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
@@ -236,10 +233,7 @@ Drill.propTypes = {
 
 Drill.defaultProps = {
     ...Chunker.defaultProps,
-
-    wpm: 500,
-    speedControls: true,
-    linesMax: undefined,
+    ...Viewer.defaultProps,
 
     onComplete: function() {},
 };

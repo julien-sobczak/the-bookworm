@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import PreviewBook from './PreviewBook';
-
 import Button from "../toolbox/Button";
 import Loader from "../toolbox/Loader";
+
+import * as library from "../../functions/library";
 
 const mapStateToProps = state => {
     return { readings: state.readings };
@@ -12,13 +12,11 @@ const mapStateToProps = state => {
 
 class LibraryBooks extends React.Component {
 
-    CATALOG_URL = "https://open-library-books.firebaseapp.com/catalog.json";
-
     constructor(props) {
         super(props);
 
         this.state = {
-            entry: undefined,
+            loading:  true,
             catalog: [],
         };
 
@@ -30,9 +28,11 @@ class LibraryBooks extends React.Component {
         for (let i = 0; i < this.state.catalog.length; i++) {
             const entry = this.state.catalog[i];
             if (entry.slug === slug) {
+                // Found the content to download
                 this.setState({
-                    entry: entry,
+                    loading: true
                 });
+                library.downloadContent(entry).then(content => this.props.onSelect(content));
                 break
             }
         }
@@ -41,9 +41,9 @@ class LibraryBooks extends React.Component {
     render() {
         return (
             <div className="LibraryBooks Centered">
-                {this.state.catalog.length === 0 && <Loader />}
+                {this.state.loading && <Loader />}
 
-                {!this.state.entry &&
+                {!this.state.loading && this.state.catalog.length > 0 &&
                     <>
                         <h3>Choose a book</h3>
                         {/* TODO Add filters by language, by kind, search box */}
@@ -78,23 +78,18 @@ class LibraryBooks extends React.Component {
                     </>
                 }
 
-                {this.state.entry &&
-                    <PreviewBook entry={this.state.entry} onSelect={(selection) => this.props.onSelect(selection) } />
-                }
-
             </div>
         );
     }
 
     componentDidMount() {
         console.log(`Downloading ${this.CATALOG_URL}...`);
-        fetch(this.CATALOG_URL)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                this.setState({ catalog: data });
+        library.downloadCatalog.then(data => {
+            this.setState({
+                loading: false,
+                catalog: data
             });
+        });
     }
 }
 

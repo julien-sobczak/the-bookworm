@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
 
-const DEFAULT_DRILL_SETTINGS = {
+const defaultDrillSettings = {
     lines: 1,
     columns: 3,
     spans: ["0.5in", "0.5in"],
     multiple: false,
-    autoLevel: false,
+    autoLevel: true,
 };
 
 /**
@@ -68,12 +68,16 @@ Viewer.propTypes = {
     // Negative space between two adjacent columns (should contains columns.length - 1 values)
     spans: PropTypes.arrayOf(PropTypes.string),
 
+    // Adjust level according the number of errors
+    autoLevel: PropTypes.bool,
+
+    // The drill to display
     drill: PropTypes.object,
 };
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...DEFAULT_DRILL_SETTINGS,
+    ...defaultDrillSettings,
 };
 
-export { Viewer as default, DEFAULT_DRILL_SETTINGS };
+export { Viewer as default, defaultDrillSettings };

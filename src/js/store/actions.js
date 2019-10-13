@@ -14,7 +14,3 @@ export function updateTextPreferences(payload) {
 export function updateChunkPreferences(payload) {
     return { type: UPDATE_CHUNK_PREFERENCES, payload };
 };
-
-export function updateLastReading(payload) {
-    return { type: UPDATE_CHUNK_PREFERENCES, payload };
-};

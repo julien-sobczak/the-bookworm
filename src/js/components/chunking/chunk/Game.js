@@ -1,7 +1,7 @@
 import React from 'react';
 
 import GameFactory from '../../toolbox/GameFactory';
-import { DEFAULT_DRILL_SETTINGS } from './Viewer';
+import { defaultDrillProps } from './Viewer';
 import Demo from './Demo';
 import Form from './Form';
 import Drill from './Drill';
@@ -47,8 +47,8 @@ const Game = (props) => {
             drill={<Drill />}
             demo={<Demo />}
             form={<Form />}
-            drillSettings={DEFAULT_DRILL_SETTINGS}
-            shutdownDuration={3000}
+            countdownDuration={2000}
+            drillSettings={defaultDrillProps}
             predefinedDrills={examples} />
     );
 };

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 import Styled from '../../toolbox/Styled';
 
-const DEFAULT_DRILL_SETTINGS = {
+const defaultDrillSettings = {
     chunks: [],
     chunkPosition: 0,
     columns: 2,
     columnWidth: '3.25in',
+    linesMax: undefined,
+    wpm: 500,
 };
 
 function Viewer(props) {
@@ -41,6 +43,12 @@ function Viewer(props) {
 Viewer.propTypes = {
     ...Styled.propTypes,
 
+    // WPM
+    wpm: PropTypes.number,
+
+    // How many lines?
+    linesMax: PropTypes.number,
+
     // The chunks to display
     chunks: PropTypes.arrayOf(PropTypes.object),
 
@@ -56,7 +64,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...DEFAULT_DRILL_SETTINGS,
+    ...defaultDrillSettings,
 };
 
-export { Viewer as default, DEFAULT_DRILL_SETTINGS };
+export { Viewer as default, defaultDrillSettings };

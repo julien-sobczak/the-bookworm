@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
 
-const DEFAULT_DRILL_SETTINGS = {
+const defaultDrillSettings = {
     span: "1in",
     size: 5,
+    autoLevel: true,
 };
 
 function Viewer(props) {
@@ -44,13 +45,15 @@ Viewer.propTypes = {
     size: PropTypes.number,
     // Cell size
     span: PropTypes.string,
-
+    // Adjust level according the number of errors
+    autoLevel: PropTypes.bool,
+    // Drill to display
     drill: PropTypes.object,
 };
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...DEFAULT_DRILL_SETTINGS,
+    ...defaultDrillSettings,
 };
 
-export { Viewer as default, DEFAULT_DRILL_SETTINGS };
+export { Viewer as default, defaultDrillSettings };

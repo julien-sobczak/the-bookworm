@@ -6,12 +6,14 @@ import Paper from '../../toolbox/Paper';
 import PageContent from '../../toolbox/PageContent';
 import Styled from '../../toolbox/Styled';
 
-const DEFAULT_DRILL_SETTINGS = {
+const defaultDrillSettings = {
     blockPosition: 0,
     chunkPosition: 0,
     disableVisualRegression: false,
     disableVisualProgression: false,
     disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
+    wpm: 4000,
+    pageTurningDuration: 500,
 };
 
 function Viewer(props) {
@@ -59,11 +61,17 @@ Viewer.propTypes = {
     // How the hidden text controlled by `disableVisualRegression`
     // and `disableVisualProgression` should be displayed
     disableVisualProblemStyle: PropTypes.string,
+
+    // WPM
+    wpm: PropTypes.number,
+
+    // Pause between two pages
+    pageTurningDuration: PropTypes.number, // ms
 }
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...DEFAULT_DRILL_SETTINGS,
+    ...defaultDrillSettings,
 };
 
-export { Viewer as default, DEFAULT_DRILL_SETTINGS };
+export { Viewer as default, defaultDrillSettings };

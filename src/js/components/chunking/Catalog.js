@@ -6,6 +6,7 @@ import { updateReading } from '../../store/actions';
 
 import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
+import { ContentContext } from "../../../content-context";
 
 function DrawingPage(props) {
     return (
@@ -72,7 +73,11 @@ function Catalog({match}) {
     return (
         <div className="Catalog">
 
-            <PanelReading />
+            <ContentContext.Consumer>
+                {({content, update, toggle}) => (
+                    <PanelReading content={content} onSelect={update} onToggle={toggle} />
+                )}
+            </ContentContext.Consumer>
 
             <Entry name="Page Reader" slug="drill-page" match={match}>
                 <DrawingPage />

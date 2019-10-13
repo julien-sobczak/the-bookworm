@@ -23,36 +23,6 @@ class PreviewBook extends React.Component {
         this.handleValidation = this.handleValidation.bind(this);
     }
 
-    static convertToHtml(lines) {
-        const result = [];
-
-        let currentBlock = undefined;
-        for (let l = 0; l < lines.length; l++) {
-            const line = lines[l];
-
-            // New file = end of the previous block
-            if (line.trim() === '') {
-                if (currentBlock) {
-                    result.push(currentBlock);
-                    currentBlock = undefined;
-                }
-            }
-
-            // Block continuation?
-            if (!currentBlock) {
-                currentBlock = { tag: "p", content: line, sourceLine: l, };
-            } else {
-                currentBlock.content += ' ' + line;
-            }
-        }
-        // Do not forget to add the last block
-        if (currentBlock) {
-            result.push(currentBlock);
-        }
-
-        return result;
-    }
-
     handleChapterSelected(event) {
         const chapterIndex = event.target.dataset.index;
         const chapter = this.state.metadata.chapters[chapterIndex];
@@ -67,7 +37,7 @@ class PreviewBook extends React.Component {
             ]
         };
         const lines = this.state.text.split('\r\n').slice(chapter.start, chapter.end);
-        content.text.push(...PreviewBook.convertToHtml(lines));
+        //content.text.push(...PreviewBook.convertToHtml(lines)); TODO moved to library.parseLiterature
         this.setState({
             chapterIndex: parseInt(chapterIndex),
             lineStartIndex: content.text[0].sourceLine,

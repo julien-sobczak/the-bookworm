@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import LibraryBooks from './LibraryBooks';
 import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
-import LibraryUpload from './LibraryUpload';
 
 import Progress from '../toolbox/Progress';
 import Button from "../toolbox/Button";
@@ -42,7 +41,6 @@ class Library extends React.Component {
         this.handleBookSelection = this.handleBookSelection.bind(this);
         this.handleWebsiteSelection = this.handleWebsiteSelection.bind(this);
         this.handleClipboardSelection = this.handleClipboardSelection.bind(this);
-        this.handleUploadSelection = this.handleUploadSelection.bind(this);
 
         this.handleCancel = this.handleCancel.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
@@ -66,15 +64,6 @@ class Library extends React.Component {
         this.setState(state => ({
             ...state,
             category: "clipboard",
-        }));
-    }
-
-    handleUploadSelection(event) {
-        this.setState(state => ({
-            ...state,
-            category: "upload",
-            file: event.file,
-            filetype: event.filetype,
         }));
     }
 
@@ -146,7 +135,7 @@ class Library extends React.Component {
                             </div>
 
                             <div className="LibraryCategory">
-                                <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleUploadSelection} />
+                                <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelection} />
                             </div>
 
                         </section>
@@ -163,10 +152,6 @@ class Library extends React.Component {
 
                 {this.state.category === "clipboard" &&
                     <LibraryClipboard onSelect={this.handleSelection} onCancel={this.handleCancel} />
-                }
-
-                {this.state.category === "upload" &&
-                    <LibraryUpload file={this.state.file} filetype={this.state.filetype} onSelect={this.handleSelection} onCancel={this.handleCancel} />
                 }
 
             </div>
