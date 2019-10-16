@@ -8,6 +8,7 @@ function Progress({value, showText}) {
     position: relative;
     width: 3cm;
     height: 0.20cm;
+    top: 0.3cm;
     border-radius: 0.1cm;
     background: rgba(0,0,0,0.5);
 `;

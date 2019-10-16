@@ -74,3 +74,21 @@ table.Styled tbody tr {
 .Clickable * {
     pointer-events: none;
 }
+
+
+
+/* Check PanelError.js component */
+.PanelError {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5cm 1cm;
+    color: white;
+    font-size: 1.2em;
+    z-index: 300;
+    background: black;
+}
+.PanelError button {
+    color: white !important;
+}

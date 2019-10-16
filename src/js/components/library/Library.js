@@ -96,15 +96,14 @@ class Library extends React.Component {
 
                         {this.props.readings &&
                             <>
-                                <h4>Continue the reading</h4>
                                 <div className="Readings">
                                     <table className="Styled">
                                         <tbody>
                                             {this.props.readings.map((reading, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <td><em>{reading.title}</em></td>
-                                                        <td><small>{reading.author}</small></td>
+                                                        <td><em>{reading.description.title}</em></td>
+                                                        <td><small>{reading.description.author}</small></td>
                                                         <td><small>{humanReadableDate(reading.lastDate)}</small></td>
                                                         <td><Progress value={reading.position.progress} showText={true} /></td>
                                                         <td><ReactButton onClick={this.handleReadingSelected} data-index={index} className="Clickable">Read</ReactButton></td>
