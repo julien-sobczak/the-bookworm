@@ -5,6 +5,7 @@ import { defaultDrillSettings } from './Viewer';
 import Demo from './Demo';
 import Form from './Form';
 import Drill from './Drill';
+import Stats from '../Stats';
 
 const Game = (props) => {
 
@@ -53,6 +54,7 @@ const Game = (props) => {
             drill={<Drill />}
             demo={<Demo />}
             form={<Form />}
+            stats={<Stats />}
             countdownDuration={2000}
             drillSettings={defaultDrillSettings}
             predefinedDrills={examples} />

@@ -6,7 +6,7 @@ import { defaultDrillSettings } from './Viewer';
 import Demo from './Demo';
 import Form from './Form';
 import Drill from './Drill';
-
+import Stats from '../Stats';
 
 const Game = (props) => {
 
@@ -66,6 +66,7 @@ const Game = (props) => {
             demo={<Demo />}
             form={<Form />}
             history={<History />}
+            stats={<Stats />}
             drillSettings={defaultDrillSettings}
             predefinedDrills={examples} />
     );

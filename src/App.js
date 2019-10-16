@@ -142,7 +142,7 @@ class App extends React.Component {
       console.log(`New content is ${content.description.title}`);
 
       if (content.saveOnLocalStorage || true) {
-        App.storeContent(content)
+        App.storeContent(content);
       }
 
       this.setState(state => ({
@@ -152,8 +152,7 @@ class App extends React.Component {
 
     this.toggleContent = (reading) => {
       console.log(`Toggle content with ${reading.description.title}`);
-      const content = App.reloadContent(reading);
-      this.updateContent(content);
+      App.reloadContent(reading, (content) => this.updateContent(content));
     }
 
     this.state = {
@@ -192,8 +191,7 @@ class App extends React.Component {
   componentDidMount() {
     if (this.props.readings.length > 0) {
       const currentReading = this.props.readings[0];
-      const currentContent = App.reloadContent(currentReading);
-      this.updateContent(currentContent);
+      App.reloadContent(currentReading, (content) => this.updateContent(content));
     }
   }
 
@@ -203,6 +201,7 @@ class App extends React.Component {
    */
 
   static storeContent(reading, content) {
+    if (!content) return; // Happens at load time
     const id = reading.localStorage;
     localStorage.setItem(id, JSON.stringify(content));
   }
@@ -212,21 +211,21 @@ class App extends React.Component {
     return JSON.parse(localStorage.getItem(id));
   }
 
-  static reloadContent(reading) {
+  static reloadContent(reading, onLoad) {
     if (!localStorage.getItem(reading.localStorage)) {
       // Content has disappeared from local storage.
       if (reading.reloadable) {
         console.log('Downloading previous content as missing from localStorage...');
         library.downloadContent(reading.description).then(content => {
-          App.storeContent(reading, content);
-          return content;
+          App.storeContent(reading, content)
+          onLoad(content);
         });
       } else {
         console.error("Unable to reload the previous reading");
       }
     } else {
       console.log('Retrieved previous reading from localStorage');
-      return App.retrieveContent(reading);
+      onLoad(App.retrieveContent(reading));
     }
   }
 
