@@ -176,7 +176,7 @@ export const readEpub = file => {
                     id: `content-epub-${file.name}`,
                     type: "epub",
                     description: {
-                        title: `ePub file.name`, // TODO retrieve the book's name and author from the file
+                        title: `ePub ${file.name}`, // TODO retrieve the book's name and author from the file
                         author: "Unknown",
                     },
                     content: {
