@@ -116,8 +116,6 @@ export function downloadContent(description) {
                 fetch(contentUrl).then(response => { return response.text(); }),
                 fetch(metadataUrl).then((response) => { return response.json(); }),
             ]).then(([rawContent, metadata]) => {
-                console.log('Downloading done!');
-
                 const content = parseLiterature(rawContent, metadata)
 
                 resolve({
@@ -125,7 +123,6 @@ export function downloadContent(description) {
                     type: "book",
                     description: description,
                     content: content,
-                    metadata: metadata, // TODO Check to remove
                     reloadable: true,
                 })
             });
@@ -149,6 +146,7 @@ export function getReading(readings, content) {
             id: content.id,
             type: content.type,
             description: content.description,
+            localStorage: content.id,
             position: {
                 section: 0,
                 block: 0,
@@ -172,7 +170,6 @@ export function getReading(readings, content) {
 export function next(reading, content) {
     const { section, block } = reading.position;
 
-    console.log('Here', content)
     const currentSection = content.content.sections[section];
     const text = [];
     if (currentSection.title) {

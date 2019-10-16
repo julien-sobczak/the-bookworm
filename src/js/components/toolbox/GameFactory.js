@@ -10,7 +10,6 @@ import * as library from '../../functions/library';
 
 import Countdown from './Countdown';
 import WizardFactory from './WizardFactory';
-import Stats from '../vision-span/Stats';
 
 /**
  * Wrap GameFactory to inject the content from the React context.
@@ -139,19 +138,25 @@ class GameFactory extends React.Component {
                     })}
 
                 {this.state.state === 'finished' &&
-                    <Stats stats={this.state.stats} finished={this.state.finished} onContinue={this.handleContinue} />}
+                    React.cloneElement(this.props.stats, {
+                        stats: this.state.stats,
+                        finished: this.state.finished,
+                        onContinue: this.handleContinue,
+                    })}
 
             </div>
         );
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.content.id !== prevState.contentId) {
+        if (!prevState.currentContent || nextProps.content.id !== prevState.contentId) {
             const currentReading = library.getReading(nextProps.readings, nextProps.content);
             const currentContent = library.next(currentReading, nextProps.content);
+            console.log('Current content', currentContent);
             return {
                 currentReading: currentReading,
                 currentContent: currentContent,
+                contentId: nextProps.content.id,
             };
         }
         return null;
@@ -167,6 +172,7 @@ GameFactory.propTypes = {
     form: PropTypes.element.isRequired,
     demo: PropTypes.element.isRequired,
     history: PropTypes.element, // There are no history for chunking sessions
+    stats: PropTypes.element,
 
     // Default settings
     drillSettings: PropTypes.object,

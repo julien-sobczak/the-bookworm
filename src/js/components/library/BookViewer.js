@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import Pager from '../chunking/Pager';
@@ -56,8 +55,6 @@ class BookViewer extends React.Component {
     render() {
         return (
             <div className="FullScreen BookViewer">
-
-                <Link to="/" className="ButtonClose"><i className="material-icons">close</i></Link>
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
                        {...this.props} />
