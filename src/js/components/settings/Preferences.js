@@ -5,6 +5,7 @@ import { updateTextPreferences, updateChunkPreferences } from '../../store/actio
 
 import FormText from './FormText';
 import FormChunk from './FormChunk';
+import FormLocalStorage from './FormLocalStorage';
 
 import Tab from '@material/react-tab';
 import TabBar from '@material/react-tab-bar';
@@ -34,7 +35,7 @@ class Preferences extends React.Component {
         super(props);
 
         this.state = {
-            activeIndex: 0,
+            activeIndex: 1,
         };
     }
 
@@ -80,9 +81,9 @@ class Preferences extends React.Component {
 
                 {this.state.activeIndex === 1 && <div className="TabContent Centered">
                     <section>
-                        <h4>EPUB</h4>
+                        <h4>localStorage</h4>
                         <p>Manage local saved ePubs.</p>
-                        TODO
+                        <FormLocalStorage />
                     </section>
                 </div>}
 

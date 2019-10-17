@@ -20,6 +20,7 @@ function LibraryClipboard({ onSelect, onCancel }) {
             },
             content: library.parsePaste(text),
             reloadable: false,
+            saveOnLocalStorage: true,
         });
     }
 
