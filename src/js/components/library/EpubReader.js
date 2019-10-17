@@ -183,6 +183,7 @@ export const readEpub = file => {
                         sections: chapters,
                     },
                     downloadable: false,
+                    saveOnLocalStorage: true,
                 });
             });
         })

@@ -124,6 +124,7 @@ export function downloadContent(description) {
                     description: description,
                     content: content,
                     reloadable: true,
+                    saveOnLocalStorage: true,
                 })
             });
         });

@@ -52,19 +52,21 @@
 table.Styled {
     width: 80%;
     margin: 2em auto;
+    height: auto; /* FIXME Conflict with Paper.css */
 }
 table.Styled td, table.Styled th {
     text-align: center;
-    padding: 1em;
+    padding: 0.5cm;
+    vertical-align: middle;
 }
-table.Styled tr {
-    height: 2em;
+table.Styled em {
+    font-weight: 700;
 }
 table.Styled thead tr {
-    border-bottom: 0.3em solid black;
+    border-bottom: 0.1cm solid black;
 }
 table.Styled tbody tr {
-    border-bottom: 0.2em solid rgba(0,0,0,0.5);
+    border-bottom: 0.1cm solid rgba(0,0,0,0.5);
 }
 
 
@@ -91,4 +93,15 @@ table.Styled tbody tr {
 }
 .PanelError button {
     color: white !important;
+}
+
+
+
+.Flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.Flex > * {
+    flex-grow: 1;
 }

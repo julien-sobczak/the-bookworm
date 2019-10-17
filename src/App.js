@@ -142,6 +142,7 @@ class App extends React.Component {
       console.log(`New content is ${content.description.title}`);
 
       if (content.saveOnLocalStorage || true) {
+        console.log('Save!');
         App.storeContent(content);
       }
 
@@ -200,24 +201,24 @@ class App extends React.Component {
    * localStorage management
    */
 
-  static storeContent(reading, content) {
+  static storeContent(content) {
     if (!content) return; // Happens at load time
-    const id = reading.localStorage;
+    const id = content.id;
     localStorage.setItem(id, JSON.stringify(content));
   }
 
   static retrieveContent(reading) {
-    const id = reading.localStorage;
+    const id = reading.id;
     return JSON.parse(localStorage.getItem(id));
   }
 
   static reloadContent(reading, onLoad) {
-    if (!localStorage.getItem(reading.localStorage)) {
+    if (!localStorage.getItem(reading.id)) {
       // Content has disappeared from local storage.
       if (reading.reloadable) {
         console.log('Downloading previous content as missing from localStorage...');
         library.downloadContent(reading.description).then(content => {
-          App.storeContent(reading, content)
+          App.storeContent(content)
           onLoad(content);
         });
       } else {

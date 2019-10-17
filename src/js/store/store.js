@@ -4,7 +4,7 @@ import rootReducer from "./reducers";
 const initialState = {
     readings: [
         {
-            id: "20190929103120",
+            id: "content-book-Alices-Adventures-in-Wonderland",
             type: "book",
             description: {
                 "type": "literature",
@@ -16,7 +16,6 @@ const initialState = {
                 "file": "https://www.gutenberg.org/files/11/11-0.txt",
                 "language": "English",
             },
-            localStorage: "content-book-Alices-Adventures-in-Wonderland",
             reloadable: true,
             position: {
                 section: 5,
@@ -26,7 +25,7 @@ const initialState = {
             lastDate: "2019-09-13T18:25:43.511Z",
         },
         {
-            id: "20190924171159",
+            id: "content-book-Pride-and-Prejudice",
             type: "book",
             description: {
                 "type": "literature",
@@ -38,7 +37,6 @@ const initialState = {
                 "file": "https://www.gutenberg.org/files/1342/1342-0.txt",
                 "language": "English",
             },
-            localStorage: "content-book-Pride-and-Prejudice",
             reloadable: true,
             position: {
                 section: 10,
@@ -48,7 +46,7 @@ const initialState = {
             lastDate: "2019-08-23T18:25:43.511Z",
         },
         {
-            id: "20191001230035",
+            id: "content-book-The-Adventures-of-Tom-Sawyer",
             type: "book",
             description: {
                 "type": "literature",
@@ -60,7 +58,6 @@ const initialState = {
                 "file": "https://www.gutenberg.org/files/74/74-0.txt",
                 "language": "English",
             },
-            localStorage: "content-book-The-Adventures-of-Tom-Sawyer",
             reloadable: true,
             position: {
                 section: 0,

@@ -95,3 +95,16 @@ export function humanReadableDate(jsonDate, reference=new Date(), useUTC=false) 
 
     return `today, ${hour}`;
 }
+
+/**
+ * Format the number of bytes to the closest logical unit.
+ * Based on https://stackoverflow.com/a/20732091.
+ *
+ * @param {Number} size A number of bytes
+ * @return {string} The formated size
+ */
+export function humanReadableSize(size) {
+    const i = Math.floor(Math.log(size) / Math.log(1024));
+    const precision = (i < 2) ? 0 : 2; // Ignore decimals for small units
+    return (size / Math.pow(1024, i)).toFixed(precision) * 1 + ' ' + ['bytes', 'kb', 'mb', 'gb', 'tb'][i];
+};
