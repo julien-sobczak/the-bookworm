@@ -233,7 +233,7 @@ class WordsChunker {
  *   title: "The Adventures of Tom Sawyer",
  *   author: "Mark Twain",
  *   subtitle: "Chapter 3",
- *   text: [
+ *   blocks: [
  *     { tag: "h2", content: "Chapter 3" },
  *     { tag: "p", content: "TOM presented himself before Aunt Polly, ..." },
  *     { tag: "p", content: "“What, a'ready? How much have you done?”" },
@@ -298,7 +298,7 @@ class Chunker extends React.Component {
             chunker = new WordsChunker(tokenizer, this.props.chunkWords);
         }
 
-        const chunks = chunker.chunkenize(this.props.content.text);
+        const chunks = chunker.chunkenize(this.props.content.blocks);
 
         this.changed = false;
 

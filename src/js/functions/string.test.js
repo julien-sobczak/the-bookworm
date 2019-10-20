@@ -1,4 +1,4 @@
-import { capitalize, humanReadableDate, uid, headline } from './string'
+import { capitalize, humanReadableDate, humanReadableDuration, uid, headline } from './string'
 
 describe('uid', () => {
 
@@ -30,6 +30,18 @@ describe('humanReadableDate', () => {
         expect(humanReadableDate("2019-09-09T14:25:43.511Z", reference, true)).toEqual("20 days ago");
         expect(humanReadableDate("2019-09-28T14:25:43.511Z", reference, true)).toEqual("yesterday, 14:25");
         expect(humanReadableDate("2019-09-29T10:25:43.511Z", reference, true)).toEqual("today, 10:25");
+    });
+
+});
+
+describe('humanReadableDuration', () => {
+
+    it('should return the most compact format', () => {
+        expect(humanReadableDuration(1)).toEqual("1s");
+        expect(humanReadableDuration(59)).toEqual("59s");
+        expect(humanReadableDuration(60)).toEqual("1min");
+        expect(humanReadableDuration(61)).toEqual("1min 1s");
+        expect(humanReadableDuration(130)).toEqual("2min 10s");
     });
 
 });

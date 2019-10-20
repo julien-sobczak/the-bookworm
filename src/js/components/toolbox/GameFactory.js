@@ -41,6 +41,8 @@ class GameFactory extends React.Component {
         this.handleWizardValidation = this.handleWizardValidation.bind(this);
         this.handleCountdownCompletion = this.handleCountdownCompletion.bind(this);
         this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
+        this.handleContinue = this.handleContinue.bind(this);
+        this.handleRestart = this.handleRestart.bind(this);
     }
 
     /** Called when the user validate the wizard. */
@@ -63,41 +65,76 @@ class GameFactory extends React.Component {
     /** Called when the user successfully finish the drill. */
     handleDrillCompletion = (stats) => {
         // TODO updateHistory
-        const currentReading = this.state.currentReading;
 
-        let progress = 0;
-        if (currentReading.position.section === this.props.content.content.sections.length - 1) {
-            progress = 100;
+        if (this.props.contentAware) {
+            const currentReading = this.state.currentReading;
+
+            let progress = 0;
+            if (currentReading.position.section === this.props.content.content.sections.length - 1) {
+                progress = 100;
+            } else {
+                progress = (currentReading.position.section + 1) * 100 / this.props.content.content.sections.length;
+            }
+
+            const updatedReading = {
+                ...currentReading,
+                position: {
+                    section: (progress === 100) ? 0 : currentReading.position.section + 1,
+                    block: 0,
+                    progress: progress,
+                },
+                lastRead: new Date().toJSON(),
+            }
+
+            this.props.updateReading(updatedReading);
+
+            this.setState(state => ({
+                ...state,
+                stats: stats,
+                currentReading: updatedReading,
+                finished: progress === 100,
+                state: 'finished',
+            }));
         } else {
-            progress = (currentReading.position.section + 1) * 100 / this.props.content.content.sections.length;
+            this.setState(state => ({
+                ...state,
+                stats: stats,
+                state: 'finished',
+            }));
         }
+    }
 
-        const updatedReading = {
-            ...currentReading,
-            position: {
-                section: currentReading.position.section + 1,
-                block: 0,
-                progress: progress,
-            },
-            lastRead: new Date().toJSON(),
+    handleContinue = () => {
+        const newState = {};
+
+        if (this.countdownDuration > 0) {
+            newState.state = 'ready'; 
+        } else { 
+            newState.state = 'started';
+        } 
+
+        if (this.props.contentAware) {
+            newState.currentContent = library.next(this.state.currentReading, this.props.content);
         }
-
-        this.props.updateReading(updatedReading);
 
         this.setState(state => ({
             ...state,
-            stats: stats,
-            currentReading: updatedReading,
-            finished: progress === 100,
-            state: 'finished',
+            ...newState,
         }));
     }
 
-    handleContinue() {
+    handleRestart = () => {
+        const newState = {};
+
+        if (this.countdownDuration > 0) {
+            newState.state = 'ready'; 
+        } else { 
+            newState.state = 'started';
+        } 
+
         this.setState(state => ({
             ...state,
-            currentContent: library.next(this.state.currentReading, this.props.content),
-            state: 'ready',
+            ...newState,
         }));
     }
 
@@ -127,7 +164,7 @@ class GameFactory extends React.Component {
                             onValidate={this.handleWizardValidation} />}
 
                 {this.state.state === 'ready' &&
-                    <Countdown duration={3000} onTimesUp={this.handleCountdownCompletion} />}
+                    <Countdown duration={this.props.countdownDuration} onTimesUp={this.handleCountdownCompletion} />}
 
                 {this.state.state === 'started' &&
                     React.cloneElement(this.props.drill, {
@@ -141,6 +178,7 @@ class GameFactory extends React.Component {
                     React.cloneElement(this.props.stats, {
                         stats: this.state.stats,
                         finished: this.state.finished,
+                        onRestart: this.handleRestart,
                         onContinue: this.handleContinue,
                     })}
 
@@ -149,10 +187,10 @@ class GameFactory extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
+        if (!nextProps.contentAware) return {}; 
         if (!prevState.currentContent || nextProps.content.id !== prevState.contentId) {
             const currentReading = library.getReading(nextProps.readings, nextProps.content);
             const currentContent = library.next(currentReading, nextProps.content);
-            console.log('Current content', currentContent);
             return {
                 currentReading: currentReading,
                 currentContent: currentContent,
@@ -184,6 +222,7 @@ GameFactory.propTypes = {
     countdownDuration: PropTypes.number,
 
     // The currently selected content
+    contentAware: PropTypes.bool,
     content: PropTypes.object,
 };
 
@@ -191,6 +230,7 @@ GameFactory.defaultProps = {
     history: null,
     countdownDuration: 0,
     predefinedDrills: [],
+    contentAware: false,
     content: undefined,
 };
 

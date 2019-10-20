@@ -72,7 +72,7 @@ Viewer.propTypes = {
     autoLevel: PropTypes.bool,
 
     // The drill to display
-    drill: PropTypes.object,
+    drill: PropTypes.arrayOf(PropTypes.object),
 };
 
 Viewer.defaultProps = {

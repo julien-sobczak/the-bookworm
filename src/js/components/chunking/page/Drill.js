@@ -7,6 +7,8 @@ import Pager from '../Pager';
 import ProgressLine from '../../toolbox/ProgressLine';
 
 import { chunkDuration } from '../../../functions/wpm';
+import * as library from '../../../functions/library';
+import * as time from '../../../functions/time';
 
 class Drill extends React.Component {
 
@@ -60,7 +62,13 @@ class Drill extends React.Component {
               start = new Date().getTime();
             }
         }
+
         this.handle = window.requestAnimationFrame(loop);
+    
+        this.setState(state => ({
+            ...state,
+            startDate: new Date(),
+        }));
     }
 
     advanceChunk() {
@@ -93,7 +101,10 @@ class Drill extends React.Component {
                             blockPosition: 0,
                             chunkPosition: 0,
                         }));
-                        const stats = {};
+                        const stats = {
+                            ...library.statsContent(this.props.content, time.duration(this.state.startDate)),
+                            ...library.statsPages(this.state.pages),
+                        };
                         this.props.onComplete(stats);
                         return pageEndingDuration;
                     } else {

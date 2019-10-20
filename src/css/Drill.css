@@ -1,62 +1,60 @@
+/*
+ * General
+ */
+
+.DrillControls {
+  position: fixed;
+  z-index: 999;
+  right: 20px;
+  top: 20px;
+  text-align: right;
+}
+.DrillControls ul {
+  list-style-type: none;
+}
+.DrillControls li {
+  display: inline-block;
+}
+
+.DrillArea {
+  position: fixed;
+  top: 2em;
+  left: 2em;
+  right: 2em;
+  bottom: 2em;
+
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 
 /*
- * General
-*/
+ * Vision Span Drills
+ */
 
-.DrillControls {
-    position: fixed;
-    z-index: 999;
-    right: 20px;
-    top: 20px;
-    text-align: right;
-  }
-  .DrillControls ul {
-    list-style-type: none;
-  }
-  .DrillControls li {
-    display: inline-block;
-  }
+.Serie {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.Line {
+  line-height: 1.5em;
+}
 
-  .DrillArea {
-    position: fixed;
-    top: 2em;
-    left: 2em;
-    right: 2em;
-    bottom: 2em;
-
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-
-  /*
-   * Vision Span Drills
-   */
-
-  .Serie {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-  .Line {
-    line-height: 1.5em;
-  }
-
-  .Cell {
-    display: inline-block;
-    width: 0.25in;
-    text-align: center;
-  }
-  .Cell.valid {
-    color: green;
-  }
-  .Cell.highlighted {
-    background-color: green;
-    color: white;
-  }
+.Cell {
+  display: inline-block;
+  width: 0.25in;
+  text-align: center;
+}
+.Cell.valid {
+  color: green;
+}
+ .Cell.highlighted {
+  background-color: green;
+  color: white;
+}
 
 
   /*
@@ -320,6 +318,61 @@
     opacity: .7;
     cursor: default;
   }
+
+/* 
+ * Stats
+ */
+
+.Stats {
+  background-color: var(--theme-color);
+}
+
+table.Stats {
+  font-size: 2.5em;
+  font-weight: 600;
+  margin: 1cm;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5);
+}
+table.Stats td {
+  padding: 0cm 0.25cm;
+}
+table.Stats td.Statistic {
+  text-align: right;
+}
+
+.Actions > * {
+  /* Add space between buttons */
+  margin: 0 0.5cm;
+}
+
+
+
+/* Inspired by https://codepen.io/markmead/pen/YjQKeZ */
+/* How to use? */
+/* <h1 class="Statictic StatisticStroke StatisticShadow">Text with only stroke and a text shadow</h1>  */
+/* <h1 class="Statictic StatisticStrokeShadow">Text with stroke and fill and a text shadow</h1>  */
+.Statistic {
+  font-size: 8rem;
+  letter-spacing: 6px;
+  margin: 2rem 0;
+  font-style: normal;
+}
+.StatisticStroke {
+  -webkit-text-stroke-width: 2px;
+  -moz-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #0d1b1e;
+  -moz-text-stroke-color: #0d1b1e;
+  color: transparent;
+}
+.StatisticShadow {
+  text-shadow: 6px 6px rgba(0, 0, 0, 0.5);
+}
+.StatisticStrokeShadow {
+  color: var(--theme-color);
+  text-shadow: -2px 0 #0d1b1e, 0 -2px #0d1b1e, 2px 0 #0d1b1e, 0 2px #0d1b1e, 2px 2px #0d1b1e, -2px -2px #0d1b1e, -2px 2px #0d1b1e, 2px -2px #0d1b1e, 6px 6px rgba(0, 0, 0, 0.5);
+}
+
 
 
   /* TODO Not sure about these declarations... */

@@ -145,7 +145,7 @@ const Form = (props) => {
                     <tr>
                         <th>Page turn duration:</th>
                         <td>
-                            <input type="number" min="200" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
+                            <input type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
                         </td>
                     </tr>
                     <tr>

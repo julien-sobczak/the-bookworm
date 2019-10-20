@@ -9,6 +9,9 @@ import Measurer from '../../toolbox/Measurer';
 
 import { chunkDuration } from '../../../functions/wpm';
 import * as helpers from '../../../functions/engine';
+import * as library from '../../../functions/library';
+import * as time from '../../../functions/time';
+
 
 class Drill extends React.Component {
 
@@ -55,6 +58,7 @@ class Drill extends React.Component {
             lines: lines,
             chunksOnScreen: chunksOnScreen,
             chunksOnScreenCount: chunksOnScreenCount,
+            startDate: new Date(),
         }));
 
         this.clear();
@@ -91,7 +95,10 @@ class Drill extends React.Component {
                 ...state,
                 chunkPosition: 0,
             }));
-            const stats = {};
+            const stats = {
+                ...library.statsContent(this.props.content, time.duration(this.state.startDate)),
+                ...library.statsChunks(this.state.chunks),
+            };
             this.props.onComplete(stats);
             return drillEndingDuration;
         }

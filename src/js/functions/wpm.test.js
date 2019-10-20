@@ -1,4 +1,4 @@
-import { chunkDuration } from './wpm';
+import { chunkDuration, wpmFromLetters } from './wpm';
 
 describe('chunkDuration()', () => {
 
@@ -21,3 +21,12 @@ describe('chunkDuration()', () => {
     });
 
 });
+
+describe('wpmFromLetters', () => {
+
+    it('should calculate the WPM', () => {
+        expect(wpmFromLetters(10, 60)).toBe(2); // 2 words read in one minute
+        expect(wpmFromLetters(500 * 2, 60 * 2)).toBe(100); // 100 words per minute
+    });
+
+})

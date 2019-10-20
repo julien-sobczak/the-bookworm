@@ -167,7 +167,7 @@ class WizardFactory extends React.Component {
                 </div>
 
                 <div className="Centered">
-                    <div>
+                    <div className="Actions">
                         <Button text="Demo" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
                         <Button text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
                     </div>

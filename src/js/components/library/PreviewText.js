@@ -32,7 +32,7 @@ class PreviewText extends React.Component {
 
         return {
             type: 'clipboard',
-            text: blocks,
+            blocks: blocks,
         };
     }
 

@@ -35,7 +35,7 @@ class ContentSelector extends React.Component {
     handleValidation() {
         const newContent = {
             ...this.props.content,
-            text: this.props.content.text.slice(this.state.startBlock, this.state.endBlock + 1),
+            blocks: this.props.content.text.slice(this.state.startBlock, this.state.endBlock + 1),
         };
         this.props.onSelect(newContent);
     }
