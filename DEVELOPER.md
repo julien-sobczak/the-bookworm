@@ -33,8 +33,8 @@ In addition, we use a common format to represent the attribute `content` indepen
         {
             title: "Chapter 1",
             blocks: [
-                { tag: "h2", "Chapter 1" },
-                { tag: "p", "Once upon a time, in a land of magic and adventure, a young girl called..." },
+                { tag: "h2", content: "Chapter 1" },
+                { tag: "p", content: "Once upon a time, in a land of magic and adventure, a young girl called..." },
             ],
         }
         // more sections

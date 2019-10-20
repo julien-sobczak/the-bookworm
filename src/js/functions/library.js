@@ -1,4 +1,5 @@
 import * as string from './string';
+import * as wpm from './wpm';
 
 const CATALOG_URL = "https://open-library-books.firebaseapp.com/catalog.json";
 
@@ -172,17 +173,111 @@ export function next(reading, content) {
     const { section, block } = reading.position;
 
     const currentSection = content.content.sections[section];
-    const text = [];
+    const blocks = [];
     if (currentSection.title) {
-        text.push({ tag: "h2", content: currentSection.title });
+        blocks.push({ tag: "h2", content: currentSection.title });
     }
-    text.push(...currentSection.blocks.slice(block));
+    blocks.push(...currentSection.blocks.slice(block));
 
     return {
         type: content.type,
         title: content.description.title,
         author: content.description.author,
         subtitle: currentSection.title,
-        text: text,
+        blocks: blocks,
+    };
+}
+
+function stripTags(str) {
+    if (str === null || str === '') return str;
+    str = str.toString();
+    return str.replace(/<[^>]*>/g, '');
+}
+
+/**
+ * Count the number of words based on the spaces.
+ * 
+ * @param {string} str A text
+ * @return {Number} The number of words 
+ */
+export function countWords(str) {
+    return stripTags(str).split(' ')
+           .filter(function(n) { return n !== '' })
+           .length;
+}
+
+/**
+ * Count the number of letters.
+ * 
+ * @param {string} str A text
+ * @return {Number} The number of readable letters 
+ */
+export function countLetters(str) {
+    // Filter HTML entities first
+    return stripTags(str).length;
+}
+
+/**
+ * Calculates drill statistics based on the input content.
+ * 
+ * @param {Object} content The standard content format used by drills 
+ * @param {Number} durationInSeconds The elapsed drill duration
+ * @return {Object} An object containing the list of statistics.
+ */
+export function statsContent(content, durationInSeconds) {
+    let letters = 0;
+    let words = 0;
+    let paragraphs = 0;
+
+    for (let b = 0; b < content.blocks.length; b++) {
+        const block = content.blocks[b];
+        paragraphs++;
+        letters += block.content.length;
+        words += countWords(block.content);
+    }
+
+    return {
+        letters: letters,
+        words: words,
+        paragraphs: paragraphs,
+        durationInSeconds: durationInSeconds,
+        wpm: wpm.wpmFromLetters(letters, durationInSeconds),
+    };
+}
+
+/**
+ * Calculates the drill statistics based on the pages.
+ * 
+ * @param {Object} pages Pages as returned by the <Pager> component
+ * @return {Object} An object containing the statistics
+ */
+export function statsPages(pages) {
+    let chunks = 0;
+
+    for (let p = 0; p < pages.length; p++) {
+        const page = pages[p];
+        for (let b = 0; b < page.blocks.length; b++) {
+            const block = page.blocks[b];
+            if (block.chunks) {
+                chunks += block.chunks.filter(chunk => chunk.trim() !== '').length;
+            }
+        }
+    }
+
+    return {
+        pages: pages.length,
+        chunks: chunks,
+    }
+}
+
+/**
+ * Calculates the drill statistics based on the chunks.
+ * 
+ * @param {Object} chunks Chunks as returned by the <Chunker> component
+ * @return {Object} An object containing the statistics
+ */
+export function statsChunks(chunks) {
+    return {
+        chunks: chunks.length,
     };
 }

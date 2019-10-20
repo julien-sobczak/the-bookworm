@@ -1,4 +1,5 @@
 import { randomLetter } from '../../../functions/engine';
+import * as time from '../../../functions/time';
 
 class Engine {
 
@@ -12,8 +13,18 @@ class Engine {
         if (size < 3 || size % 2 === 0) {
             throw new Error(`Size ${size} is not supported. Only even sizes starting from 3 are supported: 3, 5, 7, ...`);
         }
+
+        // Settings
         this.size = size;
         this.onDrillFinished = onDrillFinished;
+
+        // Stats
+        this.totalWrongAnswers = 0;
+        this.totalCorrectAnswers = 0;
+        this.totalAnswers = 0;
+        this.startDate = undefined;
+
+        // Generate drill
         this.shuffle();
     }
 
@@ -57,6 +68,8 @@ class Engine {
         this.drill = drill;
         this.currentCircle = 0;
         this.errorCount = 0;
+        this.inputCount = 0;
+        if (!this.startDate) this.startDate = new Date();
     }
 
     /**
@@ -74,7 +87,12 @@ class Engine {
      * @return {Object} The Game statistics
      */
     getStats() {
-        return {};
+        return {
+            wrongAnswers: this.totalWrongAnswers,
+            correctAnswers: this.totalCorrectAnswers,
+            totalAnswers: this.totalAnswers,
+            durationInSeconds: time.duration(this.startDate),
+        };
     }
 
     /**
@@ -83,6 +101,7 @@ class Engine {
      * @param {string} input The character entered by the user
      */
     registerInput(input) {
+        this.inputCount++;
         let drillFinished = true;
         let error = true;
         let matchFound = false; // We want to match only one character, even the same character appears twice on the line
@@ -139,6 +158,9 @@ class Engine {
             if (this.currentCircle < iterationCount) {
                 this.currentCircle++;
             } else {
+                this.totalWrongAnswers += this.errorCount;
+                this.totalCorrectAnswers += this.size * this.size; 
+                this.totalAnswers += this.inputCount;
                 this.onDrillFinished && this.onDrillFinished({
                     errorCount: this.errorCount,
                 })

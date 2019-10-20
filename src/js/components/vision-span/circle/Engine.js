@@ -1,4 +1,5 @@
 import * as helpers from '../../../functions/engine';
+import * as time from '../../../functions/time';
 
 class Engine {
 
@@ -11,6 +12,14 @@ class Engine {
      */
     constructor(onDrillFinished=undefined) {
         this.onDrillFinished = onDrillFinished;
+
+        // Stats
+        this.totalWrongAnswers = 0;
+        this.totalCorrectAnswers = 0;
+        this.totalAnswers = 0;
+        this.startDate = undefined;
+
+        // Generate drill
         this.shuffle();
     }
 
@@ -41,6 +50,8 @@ class Engine {
         });
         this.drill = drill;
         this.errorCount = 0;
+        this.inputCount = 0;
+        if (!this.startDate) this.startDate = new Date();
     }
 
     /**
@@ -58,7 +69,12 @@ class Engine {
      * @return {Object} The Game statistics
      */
     getStats() {
-        return {};
+        return {
+            wrongAnswers: this.totalWrongAnswers,
+            correctAnswers: this.totalCorrectAnswers,
+            totalAnswers: this.totalAnswers,
+            durationInSeconds: time.duration(this.startDate),
+        };
     }
 
     /**
@@ -67,6 +83,7 @@ class Engine {
      * @param {string} input The character entered by the user
      */
     registerInput(input) {
+        this.inputCount++;
         let finished = true;
         let error = true;
         let matchFound = false; // We want to match only one character, even the same character appears twice on the line
@@ -85,6 +102,9 @@ class Engine {
             this.errorCount++;
         }
         if (finished) {
+            this.totalWrongAnswers += this.errorCount;
+            this.totalCorrectAnswers += this.POSITIONS.length; 
+            this.totalAnswers += this.inputCount;
             this.onDrillFinished && this.onDrillFinished({
                 errorCount: this.errorCount,
             })

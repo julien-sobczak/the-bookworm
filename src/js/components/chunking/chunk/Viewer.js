@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Chunker from '../Chunker';
 import Styled from '../../toolbox/Styled';
 import { capitalize } from '../../../functions/string';
 
 const defaultDrillProps = {
+    ...Chunker.defaultProps,
     neighborChunksPosition: 'vertical',
     showPreviousChunk: false,
     showNextChunk: true,
@@ -43,6 +45,7 @@ function Viewer(props) {
 
 Viewer.propTypes = {
     ...Styled.propTypes,
+    ...Chunker.propTypes,
 
     // WPM
     wpm: PropTypes.number,
@@ -62,6 +65,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
+    ...Chunker.defaultProps,
 
     // Text
     // Increase the font size as we are printed few words on the screen

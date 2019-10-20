@@ -108,3 +108,23 @@ export function humanReadableSize(size) {
     const precision = (i < 2) ? 0 : 2; // Ignore decimals for small units
     return (size / Math.pow(1024, i)).toFixed(precision) * 1 + ' ' + ['bytes', 'kb', 'mb', 'gb', 'tb'][i];
 };
+
+/**
+ * Format the number of seconds to the closest logical temporal unit.
+ *
+ * @param {Number} durationInSeconds A number of seconds
+ * @return {string} The formated duration
+ */
+export function humanReadableDuration(durationInSeconds) {
+    if (durationInSeconds < 60) {
+        return `${durationInSeconds}s`;
+    }
+    const minutes = parseInt(durationInSeconds / 60);
+    const seconds = durationInSeconds - minutes * 60;
+
+    let result = `${minutes}min`
+    if (seconds > 0) {
+        result += ` ${seconds}s`;
+    }
+    return result;
+};

@@ -1,4 +1,5 @@
 import * as helpers from '../../../functions/engine';
+import * as time from '../../../functions/time';
 
 class Engine {
 
@@ -9,8 +10,17 @@ class Engine {
      * @param {function} onDrillFinished callback when a drill is finished
      */
     constructor(lines, onDrillFinished=undefined) {
+        // Settings
         this.lines = lines;
         this.callbackDrillFinished = onDrillFinished;  
+
+        // Stats
+        this.totalWrongAnswers = 0;
+        this.totalCorrectAnswers = 0;
+        this.totalAnswers = 0;
+        this.startDate = undefined;
+
+        // Generate drill
         this.shuffle();
     }
 
@@ -64,6 +74,8 @@ class Engine {
         this.drill = drill;
         this.currentLineIndex = 0;
         this.errorCount = 0;
+        this.inputCount = 0;
+        if (!this.startDate) this.startDate = new Date();
     }
 
     /**
@@ -81,7 +93,12 @@ class Engine {
      * @return {Object} The Game statistics
      */
     getStats() {
-        return {};
+        return {
+            wrongAnswers: this.totalWrongAnswers,
+            correctAnswers: this.totalCorrectAnswers,
+            totalAnswers: this.totalAnswers,
+            durationInSeconds: time.duration(this.startDate),
+        };
     }
 
     /**
@@ -90,6 +107,7 @@ class Engine {
      * @param {string} input The character entered by the user
      */
     registerInput(input) {
+        this.inputCount++;
         let finished = true;
         let error = true;
         let matchFound = false; // We want to match only one character, even the same character appears twice on the line
@@ -112,6 +130,9 @@ class Engine {
             if (this.currentLineIndex < this.drill.lines.length - 1) {
                 this.currentLineIndex++;
             } else {
+                this.totalWrongAnswers += this.errorCount;
+                this.totalCorrectAnswers += this.lines * 3 /* columns */; 
+                this.totalAnswers += this.inputCount;
                 this.callbackDrillFinished && this.callbackDrillFinished({
                     errorCount: this.errorCount,
                 })

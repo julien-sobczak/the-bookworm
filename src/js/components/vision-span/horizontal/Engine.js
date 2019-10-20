@@ -1,4 +1,5 @@
 import * as helpers from '../../../functions/engine';
+import * as time from '../../../functions/time';
 
 class Engine {
 
@@ -14,10 +15,20 @@ class Engine {
         if (columns < 3 || columns % 2 === 0) {
             throw new Error(`Drill with ${columns} columns is not supported. Only even sizes starting from 3 are supported: 3, 5, 7, ...` );
         }
+
+        // Settings
         this.lines = lines;
         this.columns = columns;
         this.seriesCount = series;
         this.onDrillFinished = onDrillFinished;
+
+        // Stats
+        this.totalWrongAnswers = 0;
+        this.totalCorrectAnswers = 0;
+        this.totalAnswers = 0;
+        this.startDate = undefined;
+
+        // Generate drill
         this.shuffle();
     }
 
@@ -74,6 +85,8 @@ class Engine {
         this.currentSerieIndex = 0;
         this.currentLineIndex = 0;
         this.errorCount = 0;
+        this.inputCount = 0;
+        if (!this.startDate) this.startDate = new Date();
     }
 
     /**
@@ -91,6 +104,7 @@ class Engine {
      * @param {string} input The character entered by the user
      */
     registerInput(input) {
+        this.inputCount++;
         const currentSerie = this.series[this.currentSerieIndex];
         const currentLine = currentSerie.lines[this.currentLineIndex];
         let lineFinished = true;
@@ -116,6 +130,9 @@ class Engine {
                 this.currentSerieIndex++;
                 this.currentLineIndex = 0;
             } else {
+                this.totalWrongAnswers += this.errorCount;
+                this.totalCorrectAnswers += this.lines * this.columns * this.seriesCount; 
+                this.totalAnswers += this.inputCount;
                 this.onDrillFinished && this.onDrillFinished({
                     errorCount: this.errorCount,
                 })
@@ -130,7 +147,12 @@ class Engine {
      * @return {Object} The Game statistics
      */
     getStats() {
-       return {};
+       return {
+           wrongAnswers: this.totalWrongAnswers,
+           correctAnswers: this.totalCorrectAnswers,
+           totalAnswers: this.totalAnswers,
+           durationInSeconds: time.duration(this.startDate),
+       };
     }
 
 }

@@ -7,6 +7,9 @@ import Chunker from '../Chunker';
 import ProgressLine from '../../toolbox/ProgressLine';
 
 import { chunkDuration } from '../../../functions/wpm';
+import * as library from '../../../functions/library';
+import * as time from '../../../functions/time';
+
 
 class Drill extends React.Component {
 
@@ -94,7 +97,10 @@ class Drill extends React.Component {
                 chunkPosition: 0,
             }));
 
-            const stats = {};
+            const stats = {
+                ...library.statsContent(this.props.content, time.duration(this.state.startDate)),
+                ...library.statsChunks(this.state.chunks),
+            };
             this.props.onComplete(stats);
             return drillEndingDuration;
         } else {
@@ -141,6 +147,11 @@ class Drill extends React.Component {
             }
         }
         this.handle = window.requestAnimationFrame(loop);
+
+        this.setState(state => ({
+            ...state,
+            startDate: new Date(),
+        }));
     }
 
     clear() {
@@ -212,7 +223,6 @@ class Drill extends React.Component {
 }
 
 Drill.propTypes = {
-    ...Chunker.propTypes,
     ...Viewer.propTypes,
 
     // The content to read
@@ -223,7 +233,6 @@ Drill.propTypes = {
 }
 
 Drill.defaultProps = {
-    ...Chunker.defaultProps,
     ...Viewer.defaultProps,
 
     onComplete: function() {},

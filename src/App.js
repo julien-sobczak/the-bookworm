@@ -142,7 +142,6 @@ class App extends React.Component {
       console.log(`New content is ${content.description.title}`);
 
       if (content.saveOnLocalStorage || true) {
-        console.log('Save!');
         App.storeContent(content);
       }
 
@@ -166,7 +165,7 @@ class App extends React.Component {
   render() {
     return (
       <ContentContext.Provider value={this.state}>
-        <Router>
+        {this.state.content.content && <Router>
           <nav className="menu">
             <NavLink to="/" activeClassName="active" exact><div><i className="material-icons">home</i> Home</div></NavLink>
             {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
@@ -184,7 +183,7 @@ class App extends React.Component {
             <Route path="/settings/"    component={SettingsPage} />
             <Route path="/about/"       component={AboutPage} />
           </section>
-        </Router>
+        </Router>}
       </ContentContext.Provider>
     );
   }
@@ -193,6 +192,11 @@ class App extends React.Component {
     if (this.props.readings.length > 0) {
       const currentReading = this.props.readings[0];
       App.reloadContent(currentReading, (content) => this.updateContent(content));
+    } else {
+      // TODO insert "Presentation content"
+      // The Bookworm is a web application to practice speed reading.
+      // Unlike many applications, The Bookworm do not allow you to compare against other users.
+      // ...
     }
   }
 

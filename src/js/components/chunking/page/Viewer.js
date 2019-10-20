@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Pager from '../Pager';
 import { capitalize } from '../../../functions/string';
 import Paper from '../../toolbox/Paper';
 import PageContent from '../../toolbox/PageContent';
 import Styled from '../../toolbox/Styled';
 
 const defaultDrillSettings = {
+    ...Pager.defaultProps,
     blockPosition: 0,
     chunkPosition: 0,
     disableVisualRegression: false,
     disableVisualProgression: false,
     disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
     wpm: 4000,
-    pageTurningDuration: 500,
+    pageTurningDuration: 300,
 };
 
 function Viewer(props) {
@@ -42,6 +44,7 @@ function Viewer(props) {
 
 Viewer.propTypes = {
     ...Styled.propTypes,
+    ...Pager.propTypes,
 
     // The page content to display
     page: PropTypes.object,
@@ -71,6 +74,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
+    ...Pager.defaultProps,
     ...defaultDrillSettings,
 };
 

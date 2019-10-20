@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Chunker from '../Chunker';
 import Styled from '../../toolbox/Styled';
 
 const defaultDrillSettings = {
+    ...Chunker.defaultProps,
     chunks: [],
     chunkPosition: 0,
     columns: 2,
@@ -42,6 +44,7 @@ function Viewer(props) {
 
 Viewer.propTypes = {
     ...Styled.propTypes,
+    ...Chunker.propTypes,
 
     // WPM
     wpm: PropTypes.number,
@@ -64,6 +67,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
+    ...Chunker.defaultProps,
     ...defaultDrillSettings,
 };
 
