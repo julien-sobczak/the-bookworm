@@ -29,6 +29,7 @@ class Drill extends React.Component {
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
         this.onChunkerDone = this.onChunkerDone.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
         this.onMeasurementsChange = this.onMeasurementsChange.bind(this);
     }
 
@@ -95,11 +96,7 @@ class Drill extends React.Component {
                 ...state,
                 chunkPosition: 0,
             }));
-            const stats = {
-                ...library.statsContent(this.props.content, time.duration(this.state.startDate)),
-                ...library.statsChunks(this.state.chunks),
-            };
-            this.props.onComplete(stats);
+            this.reportCompletion(false);
             return drillEndingDuration;
         }
         if (chunkPositionOnScreen + 1 === chunksOnScreenCount) {
@@ -157,6 +154,33 @@ class Drill extends React.Component {
         }));
     }
 
+    stopDrill() {
+        this.reportCompletion(true);
+    }
+
+    reportCompletion(stopped) {
+        const blockPosition = this.currentChunk().block;
+
+        let readContent = this.props.content;
+        let readChunks = this.state.chunks;
+        if (stopped) {
+            // Need to stop where the reader has stop
+            readContent = library.extractContent(readContent, 0, blockPosition);
+            readChunks = readChunks.slice(0, this.state.chunkPosition);
+        }
+
+        const stats = {
+            ...library.statsContent(readContent, time.duration(this.state.startDate)),
+            ...library.statsChunks(readChunks),
+        };
+
+        this.props.onComplete({
+            stopped: stopped,
+            position: blockPosition,
+            stats: stats,
+        });
+    }
+
     columnsDimensions() {
         let element = this.columnsElement.current;
         if (!element) return [undefined, undefined];
@@ -193,6 +217,7 @@ class Drill extends React.Component {
                     <ul>
                         <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
                         <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
+                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
                     </ul>
                 </section>
 
