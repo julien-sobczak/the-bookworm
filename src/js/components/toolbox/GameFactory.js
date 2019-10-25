@@ -62,29 +62,45 @@ class GameFactory extends React.Component {
         }));
     }
 
-    /** Called when the user successfully finish the drill. */
-    handleDrillCompletion = (stats) => {
+    /**
+     * Called when the user successfully finish the drill.
+     *
+     * The event structure should be:
+     *
+     * {
+     *   stopped: true|false, // The drill was ended prematurely
+     *   position: <blockPosition>, // Only for content-based drills
+     *                              // The position when the drill has ended
+     *   stats: {
+     *     // Various statistics (properties depend on the drill category)
+     *   },
+     * }
+     *
+     * @param {Object} The result of the drill session
+     */
+    handleDrillCompletion = (result) => {
         // TODO updateHistory
+
+        const stats = result.stats;
 
         if (this.props.contentAware) {
             const currentReading = this.state.currentReading;
+            const initialPosition = currentReading.position;
+            const lastPosition = {
+                section: initialPosition.section,
+                block: result.position,
+            };
 
-            let progress = 0;
-            if (currentReading.position.section === this.props.content.content.sections.length - 1) {
-                progress = 100;
-            } else {
-                progress = (currentReading.position.section + 1) * 100 / this.props.content.content.sections.length;
-            }
+            console.log("Starting reading from ", initialPosition, "and ending to", lastPosition);
 
+            const newPosition = library.nextPosition(lastPosition, this.props.content.content);
             const updatedReading = {
                 ...currentReading,
-                position: {
-                    section: (progress === 100) ? 0 : currentReading.position.section + 1,
-                    block: 0,
-                    progress: progress,
-                },
+                position: newPosition,
                 lastRead: new Date().toJSON(),
             }
+
+            console.log("New position will be ", newPosition);
 
             this.props.updateReading(updatedReading);
 
@@ -92,7 +108,7 @@ class GameFactory extends React.Component {
                 ...state,
                 stats: stats,
                 currentReading: updatedReading,
-                finished: progress === 100,
+                finished: updatedReading.position.progress === 100,
                 state: 'finished',
             }));
         } else {
@@ -108,13 +124,14 @@ class GameFactory extends React.Component {
         const newState = {};
 
         if (this.countdownDuration > 0) {
-            newState.state = 'ready'; 
-        } else { 
+            newState.state = 'ready';
+        } else {
             newState.state = 'started';
-        } 
+        }
 
         if (this.props.contentAware) {
-            newState.currentContent = library.next(this.state.currentReading, this.props.content);
+            console.log("Continue reading ", this.state.currentReading, "from ", this.state.currentReading.position)
+            newState.currentContent = library.nextContent(this.state.currentReading.position, this.props.content);
         }
 
         this.setState(state => ({
@@ -127,10 +144,10 @@ class GameFactory extends React.Component {
         const newState = {};
 
         if (this.countdownDuration > 0) {
-            newState.state = 'ready'; 
-        } else { 
+            newState.state = 'ready';
+        } else {
             newState.state = 'started';
-        } 
+        }
 
         this.setState(state => ({
             ...state,
@@ -187,10 +204,10 @@ class GameFactory extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (!nextProps.contentAware) return {}; 
+        if (!nextProps.contentAware) return {};
         if (!prevState.currentContent || nextProps.content.id !== prevState.contentId) {
             const currentReading = library.getReading(nextProps.readings, nextProps.content);
-            const currentContent = library.next(currentReading, nextProps.content);
+            const currentContent = library.nextContent(currentReading.position, nextProps.content);
             return {
                 currentReading: currentReading,
                 currentContent: currentContent,

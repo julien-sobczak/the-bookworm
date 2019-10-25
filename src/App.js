@@ -193,6 +193,7 @@ class App extends React.Component {
       const currentReading = this.props.readings[0];
       App.reloadContent(currentReading, (content) => this.updateContent(content));
     } else {
+      
       // TODO insert "Presentation content"
       // The Bookworm is a web application to practice speed reading.
       // Unlike many applications, The Bookworm do not allow you to compare against other users.

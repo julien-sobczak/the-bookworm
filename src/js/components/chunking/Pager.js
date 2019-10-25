@@ -284,7 +284,7 @@ class BlocksPager {
         let pageNumber = 1;
         let pageBlocks = [];
 
-        blocksElements.forEach((blockElement) => {
+        blocksElements.forEach((blockElement, blockElementIndex) => {
 
             const tagName = blockElement.tagName.toLowerCase();
             let tokenElements = [...blockElement.childNodes];
@@ -300,7 +300,12 @@ class BlocksPager {
                 const lineHTML = BlocksPager.getLineHTML(tokenElements);
                 const linesTokens = BlocksPager.getTokensPerLine(tokenElements);
 
-                pageBlocks.push({ tag: tagName, content: lineHTML, lines: linesTokens });
+                pageBlocks.push({
+                    tag: tagName,
+                    content: lineHTML,
+                    lines: linesTokens,
+                    block: blockElementIndex,
+                });
             } else {
                 // The line is spread among two or more different pages.
                 // We need to split it.
@@ -330,6 +335,7 @@ class BlocksPager {
                             tag: tagName,
                             content: currentPageHTML,
                             lines: currentPageLines,
+                            block: blockElementIndex,
                             continued: (indexWordPageBreak !== -1), // the line is not the end
                             continuation: (splitNumber > 0),        // the line is not the start
                         });
@@ -406,20 +412,23 @@ class BlocksPager {
  *   //         "number": 1,
  *   //         "blocks": [
  *   //             { tag: "h2", content: "Chapter 3",
- *   //                          chunks: ["Chapter 3"] },
+ *   //                          chunks: ["Chapter 3"],
+ *   //                          block: 0 },
  *   //             { tag: "p", content: "TOM presented himself before Aunt Polly, ...",
- *   //                         chunks: ["TOM presented", " ", "himself before", " ", "Aunt Polly,", ...] },
+ *   //                         chunks: ["TOM presented", " ", "himself before", " ", "Aunt Polly,", ...],
+ *   //                         block: 1 },
  *   //             { tag: "p", content: "“What, a'ready? How much have you done?”",
- *   //                         chunks: ["“What, a'ready?", " ", "How much have you done?”"] },
+ *   //                         chunks: ["“What, a'ready?", " ", "How much have you done?”"],
+ *   //                         block: 2 },
  *   //         ]
  *   //     },
  *   //     {
  *   //         "number": 2,
  *   //         "blocks": [
- *   //             { tag: "p", continuation: true, content: "“It's all done, aunt.”", chunks: [...] },
- *   //             { tag: "p", content: "“Tom, don't lie to me--I can't bear it.”", chunks: [...] },
- *   //             { tag: "p", content: "“I ain't, aunt; it <i>is</i> all done.”", chunks: [...] },
- *   //             { tag: "p", content: "Aunt Polly placed small trust in such evidence.", chunks: [...] },
+ *   //             { tag: "p", continuation: true, content: "“It's all done, aunt.”", chunks: [...], block: 3 },
+ *   //             { tag: "p", content: "“Tom, don't lie to me--I can't bear it.”", chunks: [...], block: 4 },
+ *   //             { tag: "p", content: "“I ain't, aunt; it <i>is</i> all done.”", chunks: [...], block: 5 },
+ *   //             { tag: "p", content: "Aunt Polly placed small trust in such evidence.", chunks: [...], block: 6 },
  *   //         ]
  *   //     },
  *   // ];
