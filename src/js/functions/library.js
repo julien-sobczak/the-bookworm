@@ -163,14 +163,57 @@ export function getReading(readings, content) {
 }
 
 /**
+ * Calculate the next position from the last known position.
+ *
+ * @param {Object} lastPosition A position
+ * @param {Object} content The parsed content
+ * @return {Object} The new position
+ */
+export function nextPosition(lastPosition, content) {
+    const completed = lastPosition.block === content.sections[lastPosition.section].blocks.length - 1; // Reach the end of the section
+    const lastSection = lastPosition.section === content.sections.length - 1;
+    const contentFinished = completed && lastSection;
+
+    let newPosition = lastPosition;
+
+    console.log(">", lastPosition.block, content.sections[lastPosition.section].blocks.length - 1, completed)
+    if (contentFinished) {
+        newPosition = {
+            // Start over
+            section: 0,
+            block: 0,
+            progress: 100,
+        };
+    } else {
+        if (completed) {
+            // Advance to next section
+            newPosition = {
+                section: lastPosition.section+1,
+                block: 0,
+            };
+        } else {
+            // Advance to next block
+            newPosition = {
+                section: lastPosition.section,
+                block: lastPosition.block+1,
+            }
+        }
+        // TODO Tune the formula to consider blocks and section length
+        newPosition.progress = newPosition.section * 100 / content.sections.length;
+    }
+
+    return newPosition;
+}
+
+/**
  * Calculate the next blocks to read.
  *
- * @param {Array} reading The current reading
+ * @param {Array} position The current position
  * @param {Object} content The content currently selected
- * @param {Object} The content to read compatible with text-based drills.
+ * @return {Object} The content to read compatible with text-based drills.
  */
-export function next(reading, content) {
-    const { section, block } = reading.position;
+export function nextContent(position, content) {
+    const { section, block } = position;
 
     const currentSection = content.content.sections[section];
     const blocks = [];
@@ -196,9 +239,9 @@ function stripTags(str) {
 
 /**
  * Count the number of words based on the spaces.
- * 
+ *
  * @param {string} str A text
- * @return {Number} The number of words 
+ * @return {Number} The number of words
  */
 export function countWords(str) {
     return stripTags(str).split(' ')
@@ -208,9 +251,9 @@ export function countWords(str) {
 
 /**
  * Count the number of letters.
- * 
+ *
  * @param {string} str A text
- * @return {Number} The number of readable letters 
+ * @return {Number} The number of readable letters
  */
 export function countLetters(str) {
     // Filter HTML entities first
@@ -219,8 +262,8 @@ export function countLetters(str) {
 
 /**
  * Calculates drill statistics based on the input content.
- * 
- * @param {Object} content The standard content format used by drills 
+ *
+ * @param {Object} content The standard content format used by drills
  * @param {Number} durationInSeconds The elapsed drill duration
  * @return {Object} An object containing the list of statistics.
  */
@@ -246,8 +289,25 @@ export function statsContent(content, durationInSeconds) {
 }
 
 /**
+ * Extract a subcontent from a content. Useful when the reader stops before the end of the drill.
+ * In this case, statistics should only be evaluated on the read section.
+ *
+ * @param {Object} content
+ * @param {Number} blockStart 0-based index of the first block to extract
+ * @param {Number} blockEnd 0-based index of the last block to extract (not inclusive)
+ * @return {Object} The "sub-"content
+ */
+export function extractContent(content, blockStart, blockEnd) {
+    const subContent = {
+        ...content,
+        blocks: content.blocks.slice(blockStart, blockEnd),
+    };
+    return subContent;
+}
+
+/**
  * Calculates the drill statistics based on the pages.
- * 
+ *
  * @param {Object} pages Pages as returned by the <Pager> component
  * @return {Object} An object containing the statistics
  */
@@ -272,7 +332,7 @@ export function statsPages(pages) {
 
 /**
  * Calculates the drill statistics based on the chunks.
- * 
+ *
  * @param {Object} chunks Chunks as returned by the <Chunker> component
  * @return {Object} An object containing the statistics
  */

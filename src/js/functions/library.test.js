@@ -1,4 +1,4 @@
-import { statsContent, statsPages, statsChunks, countWords, countLetters } from './library';
+import { statsContent, statsPages, statsChunks, countWords, countLetters, nextPosition, extractContent } from './library';
 
 describe('countWords', () => {
 
@@ -86,5 +86,83 @@ describe('statsChunks', () => {
         ];
         const stats = statsChunks(chunks);
         expect(stats.chunks).toBe(4);
+    })
+});
+
+describe('nextPosition', () => {
+
+    const content = {
+        sections: [
+            {
+                title: "Section 1",
+                blocks: [
+                    { tag: "h2", content: "Section 1"},
+                    { tag: "p", content: "Text 1"},
+                ],
+            },
+            {
+                title: "Section 2",
+                blocks: [
+                    { tag: "h2", content: "Section 2"},
+                    { tag: "p", content: "Text 2"},
+                ],
+            },
+        ]
+    };
+
+    it('moves to the next section when the section is finished', () => {
+        const lastPosition = {
+            section: 0,
+            block: 1,
+        };
+        expect(nextPosition(lastPosition, content)).toMatchObject({
+            section: 1,
+            block: 0,
+        });
+    });
+
+    it('moves to the next block when the section is unfinished', () => {
+        const lastPosition = {
+            section: 0,
+            block: 0,
+        };
+        expect(nextPosition(lastPosition, content)).toMatchObject({
+            section: 0,
+            block: 1,
+        });
+    });
+
+    it('moves to the start when the last section is finished', () => {
+        const lastPosition = {
+            section: 1,
+            block: 1,
+        };
+        expect(nextPosition(lastPosition, content)).toMatchObject({
+            section: 0,
+            block: 0,
+            progress: 100,
+        });
+    });
+
+});
+
+describe('extractContent', () => {
+
+    it('calculates various statistics about chnuks', () => {
+        const drillContent = {
+            title: "Section 1",
+            blocks: [
+                { tag: "h2", content: "Section 1"},
+                { tag: "p", content: "Text 1"},
+                { tag: "p", content: "Text 2"},
+            ],
+        };
+        const subContent = extractContent(drillContent, 1, 2);
+        expect(subContent).toMatchObject({
+            title: "Section 1",
+            blocks: [
+                { tag: "p", content: "Text 1"},
+            ],
+        });
     })
 });

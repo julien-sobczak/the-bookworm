@@ -70,7 +70,6 @@ class Library extends React.Component {
     handleReadingSelected(event) {
         const reading = this.props.readings[event.target.dataset.index];
         this.props.updateReading(reading);
-        // Download...
     }
 
     handleCancel(event) {

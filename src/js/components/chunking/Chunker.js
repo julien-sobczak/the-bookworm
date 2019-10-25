@@ -30,7 +30,7 @@ class FixedWidthChunker {
     chunkenize(text) {
         const chunks = [];
 
-        text.forEach((block) => {
+        text.forEach((block, blockIndex) => {
             const tokens = this.tokenizer.tokenize(block.content);
             let indexCurrent = 0;
             let indexStart = 0;
@@ -48,6 +48,7 @@ class FixedWidthChunker {
                     chunks.push({
                         text: newChunk,
                         tag: block.tag,
+                        block: blockIndex,
                         startingChunk: (indexStart === 0),
                     });
                 }
@@ -59,6 +60,7 @@ class FixedWidthChunker {
             chunks.push({
                 text: lastChunk,
                 tag: block.tag,
+                block: blockIndex,
                 startingChunk: (indexStart === 0),
                 endingChunk: (indexCurrent === tokens.length),
             });
@@ -105,7 +107,7 @@ class VariedWidthChunker {
         let currentStep = 0;
         let currentColumn = 0;
 
-        text.forEach((block) => {
+        text.forEach((block, blockIndex) => {
             const tokens = this.tokenizer.tokenize(block.content);
             let indexCurrent = 0;
             let indexStart = 0;
@@ -127,6 +129,7 @@ class VariedWidthChunker {
                         chunks.push({
                             text: newChunk,
                             tag: block.tag,
+                            block: blockIndex,
                             startingChunk: (indexStart === 0),
                         });
 
@@ -152,6 +155,7 @@ class VariedWidthChunker {
             chunks.push({
                 text: lastChunk,
                 tag: block.tag,
+                block: blockIndex,
                 startingChunk: (indexStart === 0),
                 endingChunk: (indexCurrent === tokens.length),
             });
@@ -185,7 +189,7 @@ class WordsChunker {
     chunkenize(text) {
         const chunks = [];
 
-        text.forEach((block) => {
+        text.forEach((block, blockIndex) => {
             const tokens = this.tokenizer.tokenize(block.content);
 
             let i = 0;
@@ -208,6 +212,7 @@ class WordsChunker {
                 chunks.push({
                     text: currentChunk,
                     tag: block.tag,
+                    block: blockIndex,
                     startingChunk: (indexStart === 0),
                     endingChunk: (i === tokens.length),
                 });
@@ -246,10 +251,10 @@ class WordsChunker {
  *
  * const onChunkerDone = function(chunks) {
  *   // Where chunks = [
- *   //   { tag: "h2", text: "Chapter 3" },
- *   //   { tag: "p",  text: "TOM presented" },
- *   //   { tag: "p",  text: "himself before" },
- *   //   { tag: "p",  text: "Aunt Polly," },
+ *   //   { tag: "h2", text: "Chapter 3", block: 0 },
+ *   //   { tag: "p",  text: "TOM presented", block: 1 },
+ *   //   { tag: "p",  text: "himself before", block: 1 },
+ *   //   { tag: "p",  text: "Aunt Polly,", block: 1 },
  *   //   ...
  *   // ];
  * }

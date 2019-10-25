@@ -25,6 +25,7 @@ class Drill extends React.Component {
 
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
         this.onPagerDone = this.onPagerDone.bind(this);
     }
 
@@ -34,11 +35,7 @@ class Drill extends React.Component {
             ...state,
             pages: pages,
             pageNumber: 1,
-        }));
-    }
-
-    componentDidMount() {
-        this.start();
+        }), this.start); // Ready to start!
     }
 
     componentWillUnmount() {
@@ -64,7 +61,7 @@ class Drill extends React.Component {
         }
 
         this.handle = window.requestAnimationFrame(loop);
-    
+
         this.setState(state => ({
             ...state,
             startDate: new Date(),
@@ -101,11 +98,7 @@ class Drill extends React.Component {
                             blockPosition: 0,
                             chunkPosition: 0,
                         }));
-                        const stats = {
-                            ...library.statsContent(this.props.content, time.duration(this.state.startDate)),
-                            ...library.statsPages(this.state.pages),
-                        };
-                        this.props.onComplete(stats);
+                        this.reportCompletion(false);
                         return pageEndingDuration;
                     } else {
                         // Move to next page
@@ -143,11 +136,22 @@ class Drill extends React.Component {
         return chunkDuration(this.currentChunk(), this.state.wpm);
     }
 
-    currentChunk() {
+    currentPage() {
         if (this.state.pageNumber <= 0) return undefined;
-        const page = this.state.pages[this.state.pageNumber-1];
+        return this.state.pages[this.state.pageNumber-1];
+    }
+
+    currentBlock() {
+        const page = this.currentPage();
+        if (!page) return undefined;
         if (this.state.blockPosition >= page.blocks.length) return undefined;
-        const chunks = page.blocks[this.state.blockPosition].chunks;
+        return page.blocks[this.state.blockPosition];
+    }
+
+    currentChunk() {
+        const block = this.currentBlock();
+        if (!block) return undefined;
+        const chunks = block.chunks;
         if (this.state.chunkPosition >= chunks.length) return undefined;
         return chunks[this.state.chunkPosition];
     }
@@ -173,6 +177,31 @@ class Drill extends React.Component {
         }));
     }
 
+    reportCompletion(stopped) {
+        let readContent = this.props.content;
+        let readPages = this.state.pages;
+        const blockPosition = this.currentBlock().block;
+
+        if (stopped) {
+            // Need to calculate only the read portion
+            readContent = library.extractContent(readContent, 0, blockPosition);
+            readPages = readPages.slice(0, this.state.pageNumber);
+        }
+        const stats = {
+            ...library.statsContent(readContent, time.duration(this.state.startDate)),
+            ...library.statsPages(readPages),
+        };
+
+        this.props.onComplete({
+            stopped: stopped,
+            position: blockPosition,
+            stats: stats,
+        });
+    }
+
+    stopDrill() {
+        this.reportCompletion(true);
+    }
 
     render() {
         return (
@@ -185,6 +214,7 @@ class Drill extends React.Component {
                     <ul>
                         <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
                         <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
+                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
                     </ul>
                 </section>
 
