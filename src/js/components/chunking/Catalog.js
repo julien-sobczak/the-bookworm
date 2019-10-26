@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-
-import { updateReading } from '../../store/actions';
 
 import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
@@ -94,14 +91,5 @@ function Catalog({match}) {
         </div>
     );
 }
-const mapStateToProps = state => {
-    return {
-        readings: state.readings,
-    };
-};
-const mapDispatchToProps = dispatch => {
-    return {
-        updateReading: reading => dispatch(updateReading(reading)),
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
+
+export default Catalog;

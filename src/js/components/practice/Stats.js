@@ -1,0 +1,49 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+
+import Button from "../toolbox/Button.js";
+import * as string from '../../functions/string';
+
+function Stats({ stats, finished, onRestart, onContinue }) {
+
+    return (
+        <div className="FullScreen Stats Centered">
+            <table className="Stats">
+                <tbody>
+                    <tr>
+                        <td className="Statistic StatisticStroke StatisticShadow">{stats.words}</td>
+                        <td>words in {string.humanReadableDuration(stats.durationInSeconds)}</td>
+                        <td className="Statistic StatisticStrokeShadow">&#61; {stats.wpm}</td>
+                        <td>WPM</td>
+                    </tr>
+                    <tr>
+                        <td className="Statistic StatisticStroke StatisticShadow">{stats.pages}</td>
+                        <td>pages</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div className="Actions">
+                <Button text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
+                {!finished && <Button text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
+                <Link to="/chunking/"><Button text="Change" colorText="white" colorBackground="#111" /></Link>
+            </div>
+        </div>
+    );
+}
+
+Stats.propTypes = {
+    stats: PropTypes.object,
+    onRestart: PropTypes.func,
+    onContinue: PropTypes.func,
+};
+
+Stats.defaultProps = {
+    stats: undefined,
+    onRestart: () => {},
+    onContinue: () => {},
+};
+
+export default Stats;

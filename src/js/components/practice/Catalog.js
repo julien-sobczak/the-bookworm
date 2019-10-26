@@ -21,7 +21,7 @@ function Entry({ name, slug, children }) {
     );
 }
 
-function DrawingBook(props) {
+function DrawingFree(props) {
     return (
         <div className="Drawing">
             <div className="PageOutline">
@@ -36,7 +36,37 @@ function DrawingBook(props) {
     );
 }
 
-function Catalog({match}) {
+function DrawingPacer(props) {
+    return (
+        <div className="Drawing">
+            <div className="PageOutline">
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
+                <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+            </div>
+        </div>
+    );
+}
+
+function DrawingStopWatch(props) {
+    return (
+        <div className="Drawing">
+            <div className="PageOutline">
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
+                <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+            </div>
+        </div>
+    );
+}
+
+function Catalog({match}) { 
 
     return (
         <div className="Catalog">
@@ -47,8 +77,16 @@ function Catalog({match}) {
                 )}
             </ContentContext.Consumer>
 
-            <Entry name="Book Viewer" slug="book-viewer" match={match}>
-                <DrawingBook />
+            <Entry name="Free Reading" slug="free" match={match}>
+                <DrawingFree />
+            </Entry>
+
+            <Entry name="Run the Pacer" slug="pacer" match={match}>
+                <DrawingPacer />
+            </Entry>
+
+            <Entry name="One-minute" slug="stopwatch" match={match}>
+                <DrawingStopWatch />
             </Entry>
 
         </div>
