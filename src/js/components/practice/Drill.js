@@ -6,6 +6,7 @@ import Pager from '../chunking/Pager';
 
 import ProgressLine from '../toolbox/ProgressLine';
 
+import * as string from '../../functions/string';
 import * as wpm from '../../functions/wpm';
 import * as library from '../../functions/library';
 import * as time from '../../functions/time';
@@ -180,7 +181,7 @@ class Drill extends React.Component {
 
     render() {
         return (
-            <div className="FullScreen ChunkingDrillPage" onClick={this.handleClick}>
+            <div className={"FullScreen DrillPractice Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
                 <Pager content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />
 

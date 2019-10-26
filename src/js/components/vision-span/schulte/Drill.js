@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Engine from './Engine'
-import Viewer from './Viewer'
+import Engine from './Engine';
+import Viewer from './Viewer';
+
+import * as string from '../../../functions/string';
 import * as helpers from '../../../functions/engine';
 
 
@@ -110,7 +112,7 @@ class Drill extends React.Component {
     render() {
         return (
             <div>
-                <div className="Drill FullScreen Centered" style={{backgroundColor: this.state.backgroundColor, color: this.state.color}}>
+                <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)}>
 
                     <section className="DrillControls">
                         <ul>
@@ -136,8 +138,7 @@ class Drill extends React.Component {
                                 fontFamily={this.props.fontFamily}
                                 fontSize={this.props.fontSize}
                                 fontStyle={this.props.fontStyle}
-                                backgroundColor={this.props.backgroundColor}
-                                color={this.props.color} />
+                                theme={this.props.theme} />
 
                     </section>
 

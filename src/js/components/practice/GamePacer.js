@@ -13,6 +13,7 @@ const Game = (props) => {
         <GameFactory
             {...props}
             name="drillPacer"
+            category="practice"
             drill={<Drill />}
             demo={<Demo />}
             form={<Form />}

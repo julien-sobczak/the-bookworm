@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 import Button from './Button';
 
@@ -110,6 +111,8 @@ class WizardFactory extends React.Component {
         return (
             <div className="Wizard FullScreen Scrollbar">
 
+                <Link to={`/${this.props.category}/`} className="ButtonClose"><i className="material-icons">close</i></Link>
+
                 <div className="Preferences InnerContent">
 
                     <TabBar
@@ -186,6 +189,8 @@ class WizardFactory extends React.Component {
 }
 
 WizardFactory.propTypes = {
+    category: PropTypes.string.isRequired,
+
     form: PropTypes.element.isRequired,
     demo: PropTypes.element.isRequired,
     history: PropTypes.element,

@@ -111,7 +111,7 @@ function Catalog({match}) {
     return (
         <div className="Catalog">
 
-            <Entry name="Horizontal Vision" slug="drill-horizontal" match={match}>
+            <Entry name="Horizontal" slug="drill-horizontal" match={match}>
                 <DrawingHorizontal />
             </Entry>
 

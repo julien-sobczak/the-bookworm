@@ -25,8 +25,6 @@ const Styled = React.forwardRef((props, ref) => {
         const inheritedStyle = (props.style) ? props.style : {};
         const styles = {
             ...inheritedStyle,
-            backgroundColor: props.backgroundColor,
-            color: props.color,
         };
         return styles;
     };
@@ -47,8 +45,6 @@ Styled.propTypes = {
     fontFamily: PropTypes.string,
     fontSize: PropTypes.string,
     fontStyle: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    color: PropTypes.string,
 
     // Chunk options
     chunkStyle: PropTypes.string, // `color`, `highlight`, `underline`
@@ -59,8 +55,6 @@ Styled.defaultProps = {
     fontFamily: 'Roboto',
     fontSize: '14pt',
     fontStyle: 'normal',
-    backgroundColor: 'white',
-    color: 'black',
 
     // Chunk options
     chunkStyle: "highlight",

@@ -27,7 +27,7 @@ ProgressLine.propTypes = {
 
 ProgressLine.defaultProps = {
   progress: 0,
-  color: 'DeepSkyBlue',
+  color: 'var(--chunk-color)',
 };
 
 export default ProgressLine;

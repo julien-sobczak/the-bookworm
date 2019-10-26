@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 
 import { updateReading } from '../../store/actions';
 import { ContentContext } from '../../../content-context';
@@ -164,11 +163,9 @@ class GameFactory extends React.Component {
 
             <div className="FullScreen VisionSpanGame">
 
-                {/* TODO add a new redirectUrl prop */}
-                <Link to="/vision-span/" className="ButtonClose"><i className="material-icons">close</i></Link>
-
                 {this.state.state === 'init' &&
                     <WizardFactory
+                            category={this.props.category}
                             engine={this.props.engine}
                             drill={this.props.drill}
                             form={this.props.form}
@@ -178,7 +175,8 @@ class GameFactory extends React.Component {
                             predefinedDrills={this.props.predefinedDrills}
                             drillSettings={this.props.drillSettings}
                             textSettings={this.props.preferences.text}
-                            onValidate={this.handleWizardValidation} />}
+                            onValidate={this.handleWizardValidation} 
+                    />}
 
                 {this.state.state === 'ready' &&
                     <Countdown duration={this.props.countdownDuration} onTimesUp={this.handleCountdownCompletion} />}
@@ -221,6 +219,7 @@ class GameFactory extends React.Component {
 GameFactory.propTypes = {
     // The name of the game
     name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
 
     // List of subcomponents
     drill: PropTypes.element.isRequired,
