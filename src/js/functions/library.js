@@ -176,7 +176,6 @@ export function nextPosition(lastPosition, content) {
 
     let newPosition = lastPosition;
 
-    console.log(">", lastPosition.block, content.sections[lastPosition.section].blocks.length - 1, completed)
     if (contentFinished) {
         newPosition = {
             // Start over

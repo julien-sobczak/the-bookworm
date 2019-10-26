@@ -1,19 +1,18 @@
 # TODO
 
-- [ ] Complete `DEVELOPER.md`
-- [ ] Implements new Games in Practise section
-- [ ] Create homepage
-- [ ] Create content for Home and About pages
-- [ ] Write a tutorial for the default content
-- [ ] Update history with drill settings after each session
-- [ ] Save stats in history?
-- [ ] Rewrite `README.md`
-- [ ] Add more unit tests
-- [ ] Remove cypress from dependencies
-- [ ] Document side projects `openlibrary` to make it easy to add new books in the catalog
-- [ ] Deploy a proxy as a workaround CORS requests
-- [ ] Add section Websites in the library
 - [ ] Support 4 Wikipedia themes
-- [ ] Add backup/import option
+- [ ] Create content for Home and About pages
+- [ ] Create homepage
+- [ ] Update history with drill settings after each session
 - [ ] Add stats to remember the number of book read  
+- [ ] Save stats in history?
+- [ ] Complete `DEVELOPER.md`
+- [ ] Rewrite `README.md`
+- [ ] Add backup/import option
+- [ ] Write a tutorial for the default content
+- [ ] Document side projects `openlibrary` to make it easy to add new books in the catalog
+- [ ] Remove cypress from dependencies
+- [ ] Add more unit tests
+- [ ] Add section Websites in the library
 - [ ] Add a pause button
+- [ ] Deploy a proxy as a workaround CORS requests

@@ -5,13 +5,17 @@ const Form = (props) => {
     //  Drill
     const [pageTurningDuration, setPageTurningDuration] = useState(props.pageTurningDuration);
     const [paperSize, setPaperSize] = useState(props.paperSize);
-
+    const [pacerWpm, setPacerWpm] = useState(props.pacerWpm);
+    const [timer, setTimer] = useState(props.timer);
+    
     const onChange = props.onChange;
 
     const currentState = () => {
         return {
             paperSize: paperSize,
             pageTurningDuration: pageTurningDuration,
+            pacerWpm: pacerWpm,
+            timer: timer,
         };
     };
 
@@ -30,6 +34,24 @@ const Form = (props) => {
         onChange({
             ...currentState(),
             paperSize: newValue,
+        });
+    };
+
+    const handlePacerWpmChange = (event) => {
+        const newValue = event.target.value;
+        setPacerWpm(newValue);
+        onChange({
+            ...currentState(),
+            pacerWpm: newValue,
+        });
+    };
+
+    const handleTimerChange = (event) => {
+        const newValue = event.target.dataset.value;
+        setTimer(newValue);
+        onChange({
+            ...currentState(),
+            timer: newValue,
         });
     };
 
@@ -58,6 +80,19 @@ const Form = (props) => {
                             </select>
                         </td>
                     </tr>
+                    {pacerWpm > 0 && <tr>
+                        <th>Pacer WPM:</th>
+                        <td>
+                            <input type="number" min="50" max="5000" onChange={handlePacerWpmChange} value={pacerWpm} />
+                        </td>
+                    </tr>}
+                    { timer > 0 && <tr>
+                        <th>Timer:</th>
+                        <td>
+                            <span onClick={handleTimerChange} className={"GraphicOption" + (timer === 1 ? ' selected' : '')} data-value={1}>1 minute</span>
+                            <span onClick={handleTimerChange} className={"GraphicOption" + (timer === 2 ? ' selected' : '')} data-value={2}>2 minutes</span>
+                        </td>
+                    </tr>}
                 </tbody>
             </table>
         </>
