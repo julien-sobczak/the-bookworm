@@ -42,9 +42,9 @@ function DrawingPacer(props) {
             <div className="PageOutline">
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "2em", backgroundColor: "black"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em", backgroundColor: "black"}}></span><br/>
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
             </div>
         </div>
@@ -58,9 +58,9 @@ function DrawingStopWatch(props) {
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
                 <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
                 <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
+                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em", opacity: 0.6}}></span><br/>
+                <span className="WordOutline" style={{width: "3em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "4em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "2em", opacity: 0.6}}></span><br/>
+                <span className="WordOutline" style={{width: "3em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "3em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "2em", opacity: 0.6}}></span><br/>
             </div>
         </div>
     );

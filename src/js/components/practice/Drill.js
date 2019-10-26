@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer'
-import Pager from '../../chunking/Pager';
+import Pager from '../chunking/Pager';
 
-import ProgressLine from '../../toolbox/ProgressLine';
+import ProgressLine from '../toolbox/ProgressLine';
 
-import * as library from '../../../functions/library';
-import * as time from '../../../functions/time';
+import * as wpm from '../../functions/wpm';
+import * as library from '../../functions/library';
+import * as time from '../../functions/time';
 
 class Drill extends React.Component {
 
@@ -33,13 +34,87 @@ class Drill extends React.Component {
             ...state,
             pages: pages,
             pageNumber: 1,
+            pagesDuration: this.calculateWpm(pages),
             startDate: new Date(),
-        }));
+            winner: undefined, // use when racing with the pacer
+        }), this.start);
+    }
+
+    calculateWpm(pages) {
+        const durations = [];
+        pages.forEach(page => {
+            let duration = 0;
+            page.blocks.forEach(block => {
+                duration += wpm.textDuration(block.content, this.props.pacerWpm);
+            });
+            durations.push(duration);
+        });
+        return durations;
+    }
+
+    /**
+     * Estimates on which page the pacer is currently reading.
+     * (Based on the pages durations calculated at the start of the drill)
+     * 
+     * @param {Number} elapsedDuration Drill current elapsed duration in ms
+     * @return {Number} The page number of the pacer
+     */
+    getPacerPageNumber(elapsedDuration) {
+        let total = 0;
+        for (let i = 0; i < this.state.pagesDuration.length; i++) {
+            total += this.state.pagesDuration[i];
+            if (elapsedDuration < total) {
+                return i+1; // Pages are 1-based indices
+            }
+        }
+        // Otherwise, the pacer is already at the end and we return the last page number
+        return this.state.pagesDuration.length;
+    }
+
+    start() {
+        if (this.props.timer > 0) {
+            // IMPROVEMENT ask the user to click on the last read block instead of ignore the whole current page
+            setTimeout(() => this.reportCompletion(true), this.props.timer * 60 * 1000); // convert minutes -> ms
+        }
+        if (this.props.pacerWpm > 0) {
+            let start = new Date().getTime();
+            let loop = () => {
+                if (!this.handle) return;
+                const current = new Date().getTime();
+                const elapsedDuration = current - start;
+
+                // [60s, 45s, 30s, 60s, 70s]
+                // Elapsed time 200s and 3rd page
+
+                const userPageNumber = this.state.pageNumber;
+                const pacerPageNumber = this.getPacerPageNumber(elapsedDuration);
+
+                const difference = userPageNumber - pacerPageNumber;
+                if (difference >= 2) {
+                    // The user win
+                    this.setState(state => ({
+                        ...state,
+                        winner: true,
+                    }), () => this.reportCompletion(true));
+                    return;
+                } else if (difference <= -2) {
+                    // The pacer win
+                    this.setState(state => ({
+                        ...state,
+                        winner: false,
+                    }), () => this.reportCompletion(true));
+                    return;
+                }
+
+                this.handle = window.requestAnimationFrame(loop);
+            }
+            this.handle = window.requestAnimationFrame(loop);
+        }
     }
 
     currentPage() {
         if (this.state.pageNumber <= 0) return undefined;
-        return this.state.pages[this.state.pageNumber-1];
+        return this.state.pages[this.state.pageNumber - 1];
     }
 
     turnPage(event) {
@@ -52,7 +127,7 @@ class Drill extends React.Component {
         }));
         if (event) event.stopPropagation();
     }
-    
+
     turnPageBack(event) {
         if (this.state.pageNumber === 1) return;
         this.setState(state => ({
@@ -62,7 +137,16 @@ class Drill extends React.Component {
         if (event) event.stopPropagation();
     }
 
+    clear() {
+        if (this.handle) {
+            clearInterval(this.handle);
+            this.handle = null;
+        }
+    }
+
     reportCompletion(stopped) {
+        this.clear();
+
         let readContent = this.props.content;
         let readPages = this.state.pages;
         const blockPosition = this.currentPage().blocks[0].block; // Ignore all blocks on the current page
@@ -77,11 +161,17 @@ class Drill extends React.Component {
             ...library.statsPages(readPages),
         };
 
-        this.props.onComplete({
+        const result = {
             stopped: stopped,
             position: blockPosition,
             stats: stats,
-        });
+        };
+
+        if (this.props.pacerWpm > 0) {
+            result.stats.winner = this.state.winner;
+        }
+
+        this.props.onComplete(result);
     }
 
     stopDrill() {
@@ -125,8 +215,8 @@ class Drill extends React.Component {
             this.turnPage();
         }
     }
-    
-    handleKeyUp(event) {	
+
+    handleKeyUp(event) {
         switch (event.keyCode) {
             case 37: // Key left
                 this.turnPageBack();
@@ -139,11 +229,11 @@ class Drill extends React.Component {
                 return;
         }
     }
-    
+
     componentDidMount() {
         window.addEventListener("keyup", this.handleKeyUp);
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener("keyup", this.handleKeyUp);
     }
@@ -163,7 +253,7 @@ Drill.propTypes = {
 Drill.defaultProps = {
     ...Viewer.defaultProps,
 
-    onComplete: function() {},
+    onComplete: function () { },
 };
 
 export default Drill;

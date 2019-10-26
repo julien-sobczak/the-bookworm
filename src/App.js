@@ -16,9 +16,9 @@ import GameColumn from './js/components/chunking/column/Game';
 import GamePage from './js/components/chunking/page/Game';
 
 import PracticeCatalog from './js/components/practice/Catalog';
-import GameFree from './js/components/practice/free/Game';
-// import GamePacer from './js/components/practice/pacer/Game';
-// import GameStopWatch from './js/components/practice/stopwatch/Game';
+import GameFree from './js/components/practice/GameFree';
+import GamePacer from './js/components/practice/GamePacer';
+import GameStopWatch from './js/components/practice/GameStopWatch';
 
 import * as library from './js/functions/library';
 
@@ -106,6 +106,8 @@ function PracticePage({ match }) {
 function PracticeSelector({ match }) {
   const drills = {
     'free': <GameFree />,
+    'pacer': <GamePacer />,
+    'stopwatch': <GameStopWatch />,
   }
 
   if (match.params.drill in drills) {

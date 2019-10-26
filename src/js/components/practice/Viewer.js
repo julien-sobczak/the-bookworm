@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Paper from '../../toolbox/Paper';
-import PageContent from '../../toolbox/PageContent';
-import Styled from '../../toolbox/Styled';
+import Paper from '../toolbox/Paper';
+import PageContent from '../toolbox/PageContent';
+import Styled from '../toolbox/Styled';
 
 const defaultDrillSettings = {
     pageTurningDuration: 300,
+
+    // Disable timer by default
+    timer: 0,
+
+    // Disable pacer by default
+    pacerWpm: 0,
 };
 
 function Viewer(props) {
@@ -29,6 +35,12 @@ Viewer.propTypes = {
 
     // Pause between two pages
     pageTurningDuration: PropTypes.number, // ms
+
+    // Enable a timer (stop the reading after the time ends)
+    timer: PropTypes.number,
+
+    // Enable a pacer
+    pacerWpm: PropTypes.number,
 }
 
 Viewer.defaultProps = {

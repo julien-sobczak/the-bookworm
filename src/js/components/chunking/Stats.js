@@ -13,13 +13,13 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                 <tbody>
                     <tr>
                         <td className="Statistic StatisticStroke StatisticShadow">{stats.words}</td>
-                        <td>words in {string.humanReadableDuration(stats.durationInSeconds)}</td>
+                        <td>word(s) in {string.humanReadableDuration(stats.durationInSeconds)}</td>
                         <td className="Statistic StatisticStrokeShadow">&#61; {stats.wpm}</td>
                         <td>WPM</td>
                     </tr>
                     <tr>
                         <td className="Statistic StatisticStroke StatisticShadow">{stats.chunks}</td>
-                        <td>chunks</td>
+                        <td>chunk(s)</td>
                         <td></td>
                         <td></td>
                     </tr>
