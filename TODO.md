@@ -13,3 +13,7 @@
 - [ ] Document side projects `openlibrary` to make it easy to add new books in the catalog
 - [ ] Deploy a proxy as a workaround CORS requests
 - [ ] Add section Websites in the library
+- [ ] Support 4 Wikipedia themes
+- [ ] Add backup/import option
+- [ ] Add stats to remember the number of book read  
+- [ ] Add a pause button

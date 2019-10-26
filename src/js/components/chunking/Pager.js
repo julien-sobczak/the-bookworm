@@ -535,13 +535,15 @@ class Pager extends React.Component {
         const pages = pager.paginate(blocksElements);
 
         // Add chunks
-        const chunker = this.getChunker();
-        pages.forEach(function(page) {
-            page.blocks.forEach(function(block) {
-                block.chunks = block.lines.flatMap((tokens) => chunker.chunkize(tokens));
-                delete block.lines;
+        if (this.props.chunkMode !== 'none') {
+            const chunker = this.getChunker();
+            pages.forEach(function(page) {
+                page.blocks.forEach(function(block) {
+                    block.chunks = block.lines.flatMap((tokens) => chunker.chunkize(tokens));
+                    delete block.lines;
+                });
             });
-        });
+        }
 
         this.changed = false;
 
@@ -573,7 +575,7 @@ Pager.propTypes = {
     onDone: PropTypes.func,
 
     // Calculate chunks based on a specific maximum width or split the line in one or more stops
-    // (Allowed values: 'width', 'stops', 'words')
+    // (Allowed values: 'none', 'width', 'stops', 'words')
     chunkMode: PropTypes.string,
     // chunkMode `width` options
     chunkWidth: PropTypes.string,
