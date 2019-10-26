@@ -7,6 +7,7 @@ import Chunker from '../Chunker';
 import ProgressLine from '../../toolbox/ProgressLine';
 
 import { textDuration } from '../../../functions/wpm';
+import * as string from '../../../functions/string';
 import * as library from '../../../functions/library';
 import * as time from '../../../functions/time';
 
@@ -201,7 +202,7 @@ class Drill extends React.Component {
     render() {
         let i = 0;
         return (
-            <div className="FullScreen DrillChunk Centered">
+            <div className={"FullScreen DrillChunk Centered Theme" + string.capitalize(this.props.theme)}>
 
                 <Chunker content={this.props.content} onDone={this.onChunkerDone}
                        {...this.props}

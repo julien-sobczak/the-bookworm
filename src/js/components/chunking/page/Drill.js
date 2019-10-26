@@ -6,6 +6,7 @@ import Pager from '../Pager';
 
 import ProgressLine from '../../toolbox/ProgressLine';
 
+import * as string from '../../../functions/string';
 import { textDuration } from '../../../functions/wpm';
 import * as library from '../../../functions/library';
 import * as time from '../../../functions/time';
@@ -205,7 +206,7 @@ class Drill extends React.Component {
 
     render() {
         return (
-            <div className="FullScreen ChunkingDrillPage">
+            <div className={"FullScreen ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
                        {...this.props} />

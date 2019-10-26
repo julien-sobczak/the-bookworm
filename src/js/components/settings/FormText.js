@@ -92,8 +92,10 @@ const FormText = (props) => {
                 <tr>
                     <th>Theme:</th>
                     <td>
-                        <span onClick={handleThemeClick} className={"GraphicOption Light "  + (theme === 'Light'  ? 'selected' : '')} data-value="Light">Light</span>
-                        <span onClick={handleThemeClick} className={"GraphicOption Dark "   + (theme === 'Dark'   ? 'selected' : '')} data-value="Dark">Dark</span>
+                        <span onClick={handleThemeClick} className={"GraphicOption ThemeLight " + (theme === 'Light' ? 'selected' : '')} data-value="Light">Light</span>
+                        <span onClick={handleThemeClick} className={"GraphicOption ThemeSepia " + (theme === 'Sepia' ? 'selected' : '')} data-value="Sepia">Sepia</span>
+                        <span onClick={handleThemeClick} className={"GraphicOption ThemeDark "  + (theme === 'Dark'  ? 'selected' : '')} data-value="Dark">Dark</span>
+                        <span onClick={handleThemeClick} className={"GraphicOption ThemeBlack " + (theme === 'Black' ? 'selected' : '')} data-value="Black">Black</span>
                     </td>
                 </tr>
             </tbody>

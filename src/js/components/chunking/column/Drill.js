@@ -7,6 +7,7 @@ import Chunker from '../Chunker';
 import ProgressLine from '../../toolbox/ProgressLine';
 import Measurer from '../../toolbox/Measurer';
 
+import * as string from '../../../functions/string';
 import { textDuration } from '../../../functions/wpm';
 import * as helpers from '../../../functions/engine';
 import * as library from '../../../functions/library';
@@ -205,7 +206,7 @@ class Drill extends React.Component {
             helpers.increaseSpan(this.props.columnWidth)
 
         return (
-            <div className={"FullScreen DrillColumn Centered"}>
+            <div className={"FullScreen DrillColumn Centered Theme" + string.capitalize(this.props.theme)}>
 
                 <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
 

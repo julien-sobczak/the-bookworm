@@ -109,16 +109,16 @@
 
   .ChunkHighlight .Chunk.Selected,
   .GraphicOption.ChunkHighlight > span {
-    background-color: var(--chunk-color-light);
+    background-color: var(--chunk-color);
     color: white;
   }
   .ChunkColor .Chunk.Selected,
   .GraphicOption.ChunkColor > span {
-    color: var(--chunk-color-dark);
+    color: var(--chunk-color);
   }
   .ChunkUnderline .Chunk.Selected,
   .GraphicOption.ChunkUnderline > span {
-    border-bottom: 0.4em solid var(--chunk-color-light);
+    border-bottom: 0.4em solid var(--chunk-color);
   }
 
 
