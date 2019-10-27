@@ -115,16 +115,48 @@ export function humanReadableSize(size) {
  * @param {Number} durationInSeconds A number of seconds
  * @return {string} The formated duration
  */
-export function humanReadableDuration(durationInSeconds) {
+export function humanReadableShortDuration(durationInSeconds) {
     if (durationInSeconds < 60) {
         return `${durationInSeconds}s`;
     }
     const minutes = parseInt(durationInSeconds / 60);
     const seconds = durationInSeconds - minutes * 60;
 
-    let result = `${minutes}min`
+    let result = `${minutes}min`;
     if (seconds > 0) {
         result += ` ${seconds}s`;
+    }
+    return result;
+};
+
+
+/**
+ * Format the number of seconds to the closest logical temporal unit.
+ *
+ * @param {Number} durationInSeconds A number of seconds
+ * @return {string} The formated duration
+ */
+export function humanReadableLongDuration(durationInSeconds) {
+    if (durationInSeconds < 60) {
+        if (durationInSeconds === 1) {
+            return '1 second';
+        } else {
+            return `${durationInSeconds} seconds`;
+        }
+    }
+    const minutes = parseInt(durationInSeconds / 60);
+    const seconds = durationInSeconds - minutes * 60;
+
+    let result = `${minutes} minutes`;
+    if (minutes === 1) {
+        result = '1 minute';
+    }
+    if (seconds > 0) {
+        if (seconds === 1) {
+            result += ' 1 second';
+        } else {
+            result += ` ${seconds} seconds`;
+        }
     }
     return result;
 };

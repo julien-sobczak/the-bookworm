@@ -1,7 +1,46 @@
 import { createStore } from "redux";
 import rootReducer from "./reducers";
 
-const initialState = {
+const defaultState = {
+    startDate: new Date(),
+    readings: [],
+    history: {
+        drillHorizontal: [],
+        drillCircle: [],
+        drillPyramid: [],
+        drillSchulte: [],
+        drillChunk: [],
+        drillPage: [],
+        drillColumn: [],
+        drillFree: [],
+        drillPacer: [],
+        drillStopWatch: [],
+    },
+    preferences: {
+        text: {
+            fontFamily: 'Roboto',
+            fontSize: '14pt',
+            fontStyle: 'normal',
+            theme: 'Light',
+        },
+        chunk: {
+            chunkStyle: 'highlight',
+        }
+    },
+    stats: {
+        "books": 0,
+        "pastes": 0,
+        "epubs": 0,
+        "readingTime": 0, // In seconds
+        "wpms": [], // Ten latest WPM to calculate the current user WPM
+        "wpm": 0,
+    },
+    lastBackup: null,
+    previousReadings: [],
+};
+
+const dummyState = {
+    startDate: new Date(),
     readings: [
         {
             id: "content-book-en-Alices-Adventures-in-Wonderland",
@@ -122,8 +161,8 @@ const initialState = {
         "books": 2,
         "pastes": 10,
         "epubs": 1,
-        "readingTime": 13200, // In seconds
-        "wpms": [350, 340, 540, 320, 400, 200, 100], // Ten latest WPM to calculate the current user WPM 
+        "readingTime": 13200,
+        "wpms": [350, 340, 540, 320, 400, 200, 100],
         "wpm": 450,
     },
     lastBackup: "2019-10-02T18:25:43.511Z",
@@ -158,9 +197,11 @@ const initialState = {
             },
             lastDate: "2019-05-02T18:25:43.511Z",
         },
-        
+
     ],
 };
+
+const initialState = defaultState;
 
 // localStorage persistence implementation
 // Based on blogpost: https://stackoverflow.com/questions/35305661/where-to-write-to-localstorage-in-a-redux-app
@@ -171,4 +212,4 @@ store.subscribe(() => {
     localStorage.setItem('reduxState', JSON.stringify(store.getState()))
 });
 
-export default store;
+export { store as default, defaultState};

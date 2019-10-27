@@ -6,6 +6,8 @@
 
   --drill-vision-span-step: .25in;
 
+  --wide-margin: 1cm;
+
   /* Global theme */
   --theme-color-home:        #FF5733;
   --theme-color-vision-span: #FFC200;
@@ -52,6 +54,7 @@ button:focus {
 @import 'css/Core.css';
 @import 'css/Layout.css';
 @import 'css/Paper.css';
+@import 'css/Profile.css';
 @import 'css/Catalog.css';
 @import 'css/Drill.css';
 @import 'css/Settings.css';

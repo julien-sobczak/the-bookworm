@@ -3,13 +3,14 @@ import React from 'react';
 import Chart from 'chart.js';
 
 import * as string from '../../functions/string';
+import * as storage from '../../functions/storage';
 
 class FormLocalStorage extends React.Component {
 
     constructor(props) {
         super(props);
 
-        const contents = FormLocalStorage.getItems();
+        const contents = storage.getContentsMetadata();
         const [ values, labels, colors ] = FormLocalStorage.getChartData(contents);
 
         this.state = {
@@ -22,29 +23,6 @@ class FormLocalStorage extends React.Component {
         this.chartRef = React.createRef();
 
         this.handleDelete = this.handleDelete.bind(this);
-    }
-
-    static getItems() {
-        const contents = [];
-        for (var key in localStorage) {
-            if (!key.startsWith('content-')) continue;
-
-            const rawContent = localStorage.getItem(key);
-            const content = JSON.parse(rawContent);
-            contents.push({
-                key: key,
-                id: content.id,
-                type: content.type,
-                title: content.description.title,
-                author: content.description.author,
-                size: (new TextEncoder().encode(rawContent)).length,
-            });
-        }
-
-        // Sort by size on disk
-        contents.sort((a, b) => new Date(a.size) > new Date(b.size) ? -1 : 1);
-
-        return contents;
     }
 
     static getChartData(contents) {

@@ -19,7 +19,7 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                     </tr>}
                     <tr>
                         <td className="Statistic StatisticStroke StatisticShadow">{stats.words}</td>
-                        <td>word(s) in {string.humanReadableDuration(stats.durationInSeconds)}</td>
+                        <td>word(s) in {string.humanReadableShortDuration(stats.durationInSeconds)}</td>
                         <td className="Statistic StatisticStrokeShadow">&#61; {stats.wpm}</td>
                         <td>WPM</td>
                     </tr>

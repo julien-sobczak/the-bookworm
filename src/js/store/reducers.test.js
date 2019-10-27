@@ -1,36 +1,8 @@
 import reducer from './reducers';
 import * as actions from './actions';
+import { defaultState } from '../store/store';
 
-const initialState = {
-    readings: [],
-    history: {
-        drillHorizontal: [],
-        drillCircle: [],
-        drillPyramid: [],
-        drillSchulte: []
-    },
-    preferences: {
-        text: {
-            fontFamily: 'Roboto',
-            fontSize: '14pt',
-            fontStyle: 'normal',
-            theme: 'Light',
-        },
-        chunk: {
-            chunkStyle: 'highlight',
-        }
-    },
-    stats: {
-        "books": 0,
-        "paste": 0,
-        "epub": 0,
-        "readingTime": 0,
-        "wpms": [],
-        "wpm": 0,
-    },
-    lastBackup: null,
-    previousReadings: [],
-};
+const initialState = defaultState;
 
 describe('rootReducer', () => {
 
@@ -159,7 +131,7 @@ describe('rootReducer', () => {
             },
         };
         expect(
-            reducer(initialState, actions.recordSession(session)
+            reducer(initialState, actions.recordSession(session))
         ).toMatchObject({
             history: {
                 drillChunk: [session],

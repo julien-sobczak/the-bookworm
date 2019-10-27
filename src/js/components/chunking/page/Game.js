@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import GameFactory from '../../toolbox/GameFactory';
 import { defaultDrillSettings } from './Viewer';
@@ -61,6 +62,14 @@ const Game = (props) => {
             drillSettings={defaultDrillSettings}
             predefinedDrills={examples} />
     );
+};
+
+Game.propTypes = {
+    configurable: PropTypes.bool,
+}
+
+Game.defaultProps = {
+    configurable: true,
 };
 
 export default Game;

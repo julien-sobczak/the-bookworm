@@ -1,0 +1,118 @@
+.Profile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: var(--wide-margin);
+    display: grid;
+    grid-template-columns: auto auto auto 3.5cm;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "hi stats stats wpm"
+        "quote quote quote wpm"
+        "reading reading backup wpm";
+    grid-column-gap: calc(var(--wide-margin) / 2);
+    grid-row-gap: calc(var(--wide-margin) / 2);
+
+    --default-padding: 2em;
+}
+
+.ProfileHi {
+    grid-area: hi;
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+    font-size: 2em;
+    font-weight: 900;
+    padding: var(--default-padding);
+}
+
+.ProfileStats {
+    grid-area: stats;
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2) 10px,
+        rgba(0, 0, 0, 0.3) 10px,
+        rgba(0, 0, 0, 0.3) 20px
+    );
+    color: white;
+    font-size: 1.5em;
+    padding: var(--default-padding);
+}
+
+.ProfileWpm {
+    grid-area: wpm;
+    position: relative;
+    margin-left: 0.5cm;
+}
+
+.ProfileMessage {
+    grid-area: quote;
+    border: 0.2cm solid black;
+    background-color: rgba(0, 0, 0, 0);
+    position: relative;
+    text-align: center;
+    font-weight: 700;
+}
+.ProfileMessage {
+    font-family: cursive;
+    font-size: 1.5em;
+}
+.ProfileMessage::after {
+    position: absolute;
+    top: -0.3cm;
+    left: calc(50% - 3cm);
+    width: 6cm;
+    background-color: var(--theme-color);
+    z-index: 2;
+    padding: 0 0.5cm;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.5cm;
+    text-align: center;
+}
+.ProfileQuote::after {
+    content: 'Quote of the day';
+}
+.ProfileTip::after {
+    content: 'Tip of the day';
+}
+
+.ProfileCurrentReading {
+    grid-area: reading;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 1.4em;
+    padding: var(--default-padding);
+}
+
+.ProfileBackup {
+    grid-area: backup;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: var(--default-padding);
+}
+
+.Profile em {
+    display: inline;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+.Profile p {
+    margin: 0.3cm 0;
+    line-height: 1.5em;
+}
+
+.Profile q {
+    display: block;
+    margin: 0.25cm;
+}
+.LargeQuote {
+    font-size: 3em;
+}
+
+.Profile a {
+    color: white !important;
+    background-color: black;
+    text-decoration: none;
+}
