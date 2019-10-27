@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
-import { updateReading } from '../../store/actions';
+import { updateReading, recordSession } from '../../store/actions';
 import { ContentContext } from '../../../content-context';
 
 import * as library from '../../functions/library';
@@ -78,10 +78,16 @@ class GameFactory extends React.Component {
      * @param {Object} The result of the drill session
      */
     handleDrillCompletion = (result) => {
-        // TODO updateHistory
-
         const stats = result.stats;
 
+        // recordSession
+        const session = {
+            type: this.props.name,
+            stats: stats,
+        };
+        this.props.recordSession(session);
+
+        // updateReading?
         if (this.props.contentAware) {
             const currentReading = this.state.currentReading;
             const initialPosition = currentReading.position;
@@ -261,6 +267,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateReading: reading => dispatch(updateReading(reading)),
+        recordSession: session => dispatch(recordSession(session)),
     };
 };
 

@@ -1,8 +1,20 @@
 
-import { UPDATE_READING, UPDATE_TEXT_PREFERENCES, UPDATE_CHUNK_PREFERENCES } from "./actions";
+import * as actions from "./actions";
+
+/** How many sessions should be kept in history for every drill. */
+const MAX_SESSIONS_HISTORY = 10;
+
+/** Use the last N WPM to determine the current user WPM. */
+const MAX_WPMS = 10;
 
 function rootReducer(state, action) {
-    if (action.type === UPDATE_READING) {
+
+    if (action.type === actions.UPDATE_READING) {
+            // if progress: 100 
+    // => update stats.[books|paste|epubs]
+    // => move to previousReadings
+
+        // Update existing reading
         const newReadings = [...state.readings];
         let found = false;
         for (let i = 0; i < newReadings.length; i++) {
@@ -15,6 +27,7 @@ function rootReducer(state, action) {
                 break;
             }
         }
+        // Or add new reading
         if (!found) {
             newReadings.push({
                 ...action.payload,
@@ -23,11 +36,22 @@ function rootReducer(state, action) {
         }
         newReadings.sort((a, b) => new Date(a.lastDate) > new Date(b.lastDate) ? -1 : 1);
         console.log('Updating readings...', newReadings);
+
+        const currentReading = newReadings[0];
+        const newStats = state.stats;
+        if (currentReading.position.progress === 100) { // Reading is finished
+            // Move the reading to previous readings
+            state.previousReadings.unshift(newReadings.shift());
+            newStats[currentReading.type + 's']++;
+        }
+
         return {
             ...state,
             readings: newReadings,
+            stats: newStats,
         };
-    } else if (action.type === UPDATE_TEXT_PREFERENCES) {
+
+    } else if (action.type === actions.UPDATE_TEXT_PREFERENCES) {
         return {
             ...state,
             preferences: {
@@ -35,13 +59,59 @@ function rootReducer(state, action) {
                 text: action.payload,
             },
         };
-    } else if (action.type === UPDATE_CHUNK_PREFERENCES) {
+
+    } else if (action.type === actions.UPDATE_CHUNK_PREFERENCES) {
         return {
             ...state,
             preferences: {
                 ...state.preferences,
                 chunk: action.payload,
             },
+        };
+
+    } else if (action.type === actions.RESTORE_BACKUP) {
+        return {
+            ...state,
+            // Override everything with previous backup data
+            ...action.payload,
+        };
+
+    } else if (action.type === actions.REGISTER_BACKUP) {
+        return {
+            ...state,
+            lastBackup: action.payload.date.toJSON(),
+        };
+
+    } else if (action.type === actions.RECORD_SESSION) {
+        const drillType = action.payload.type;
+        
+        // Add session in history
+        const previousSessions = [...state.history[drillType]];
+        previousSessions.unshift(action.payload.session);
+
+        // Update reading stats in global stats
+        let newStats = state.stats;
+        const drillStats = action.payload.session.stats;
+        if (drillStats.hasOwnProperty('wpm')) { // Only for text-based drills
+            const wpms = [...state.stats.wpms];
+            wpms.unshift(drillStats.wpm);
+            const sum = wpms.reduce(function(a, b) { return a + b; });
+            const wpm = parseInt(sum / wpms.length); // avg
+            newStats = {
+                ...newStats,
+                wpms: wpms.slice(0, MAX_WPMS),
+                wpm: wpm,
+                readingTime: state.readingTime + drillStats.durationInSeconds,
+            }
+        }
+
+        return {
+            ...state,
+            history: {
+                ...state.history,
+                drillType: previousSessions.slice(0, MAX_SESSIONS_HISTORY)
+            },
+            stats: newStats,
         };
     }
 

@@ -1,4 +1,4 @@
-import { statsContent, statsPages, statsChunks, countWords, countLetters, nextPosition, extractContent } from './library';
+import { statsContent, isoLanguage, statsPages, statsChunks, countWords, countLetters, nextPosition, extractContent, isoLanguage } from './library';
 
 describe('countWords', () => {
 
@@ -166,3 +166,11 @@ describe('extractContent', () => {
         });
     })
 });
+
+describe('isoLanguage', () => {
+
+    it('returns the ISO code from the ISO language name', () => {
+        expect(isoLanguage("French")).toBe('fr');        
+        expect(isoLanguage("English")).toBe('en');        
+    });
+})

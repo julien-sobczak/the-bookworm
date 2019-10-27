@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 import { updateReading } from './js/store/actions';
 
+import Welcome from './js/components/home/Welcome';
+
 import VisionSpanCatalog from './js/components/vision-span/Catalog';
 import GameHorizontal from './js/components/vision-span/horizontal/Game';
 import GamePyramid from './js/components/vision-span/pyramid/Game';
@@ -33,7 +35,7 @@ import './App.css';
 function IndexPage() {
   return (
     <section id="Home" className="page home">
-      <h2>Home</h2>
+      <Welcome />
     </section>
   );
 }

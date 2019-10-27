@@ -120,7 +120,7 @@ export function downloadContent(description) {
                 const content = parseLiterature(rawContent, metadata)
 
                 resolve({
-                    id: `content-book-${description.slug}`,
+                    id: `content-book-${isoLanguage(description.language)}-${description.slug}`,
                     type: "book",
                     description: description,
                     content: content,
@@ -133,6 +133,385 @@ export function downloadContent(description) {
 
     throw new Error(`Unsupported type ${description.type}`);
 };
+
+/**
+ * Convert the language name to the ISO code. 
+ * 
+ * @param {String} language The ISO language name
+ * @return {Stirng} The 639-1 ISO code 
+ */
+export function isoLanguage(language) {
+    // Based on table https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+    switch (language) {
+        case "Abkhazian":
+            return "ab";
+        case "Afar":
+            return "aa";
+        case "Afrikaans":
+            return "af";
+        case "Akan":
+            return "ak";
+        case "Albanian":
+            return "sq";
+        case "Amharic":
+            return "am";
+        case "Arabic":
+            return "ar";
+        case "Aragonese":
+            return "an";
+        case "Armenian":
+            return "hy";
+        case "Assamese":
+            return "as";
+        case "Avaric":
+            return "av";
+        case "Avestan":
+            return "ae";
+        case "Aymara":
+            return "ay";
+        case "Azerbaijani":
+            return "az";
+        case "Bambara":
+            return "bm";
+        case "Bashkir":
+            return "ba";
+        case "Basque":
+            return "eu";
+        case "Belarusian":
+            return "be";
+        case "Bengali":
+            return "bn";
+        case "Bihari":
+            return "bh";
+        case "Bislama":
+            return "bi";
+        case "Bosnian":
+            return "bs";
+        case "Breton":
+            return "br";
+        case "Bulgarian":
+            return "bg";
+        case "Burmese":
+            return "my";
+        case "Catalan":
+            return "ca";
+        case "Chamorro":
+            return "ch";
+        case "Chechen":
+            return "ce";
+        case "Chichewa":
+            return "ny";
+        case "Chinese":
+            return "zh";
+        case "Chuvash":
+            return "cv";
+        case "Cornish":
+            return "kw";
+        case "Corsican":
+            return "co";
+        case "Cree":
+            return "cr";
+        case "Croatian":
+            return "hr";
+        case "Czech":
+            return "cs";
+        case "Danish":
+            return "da";
+        case "Divehi":
+            return "dv";
+        case "Dutch":
+            return "nl";
+        case "Dzongkha":
+            return "dz";
+        case "English":
+            return "en";
+        case "Esperanto":
+            return "eo";
+        case "Estonian":
+            return "et";
+        case "Ewe":
+            return "ee";
+        case "Faroese":
+            return "fo";
+        case "Fijian":
+            return "fj";
+        case "Finnish":
+            return "fi";
+        case "French":
+            return "fr";
+        case "Fulah":
+            return "ff";
+        case "Galician":
+            return "gl";
+        case "Georgian":
+            return "ka";
+        case "German":
+            return "de";
+        case "Greek":
+            return "el";
+        case "Guarani":
+            return "gn";
+        case "Gujarati":
+            return "gu";
+        case "Haitian":
+            return "ht";
+        case "Hausa":
+            return "ha";
+        case "Hebrew":
+            return "he";
+        case "Herero":
+            return "hz";
+        case "Hindi":
+            return "hi";
+        case "Hiri Motu":
+            return "ho";
+        case "Hungarian":
+            return "hu";
+        case "Interlingua":
+            return "ia";
+        case "Indonesian":
+            return "id";
+        case "Interlingue":
+            return "ie";
+        case "Irish":
+            return "ga";
+        case "Igbo":
+            return "ig";
+        case "Inupiaq":
+            return "ik";
+        case "Ido":
+            return "io";
+        case "Icelandic":
+            return "is";
+        case "Italian":
+            return "it";
+        case "Inuktitut":
+            return "iu";
+        case "Japanese":
+            return "ja";
+        case "Javanese":
+            return "jv";
+        case "Kalaallisut":
+            return "kl";
+        case "Kannada":
+            return "kn";
+        case "Kanuri":
+            return "kr";
+        case "Kashmiri":
+            return "ks";
+        case "Kazakh":
+            return "kk";
+        case "Central Khmer":
+            return "km";
+        case "Kikuyu":
+            return "ki";
+        case "Kinyarwanda":
+            return "rw";
+        case "Kirghiz":
+            return "ky";
+        case "Komi":
+            return "kv";
+        case "Kongo":
+            return "kg";
+        case "Korean":
+            return "ko";
+        case "Kurdish":
+            return "ku";
+        case "Kuanyama":
+            return "kj";
+        case "Latin":
+            return "la";
+        case "Luxembourgish":
+            return "lb";
+        case "Ganda":
+            return "lg";
+        case "Limburgan":
+            return "li";
+        case "Lingala":
+            return "ln";
+        case "Lao":
+            return "lo";
+        case "Lithuanian":
+            return "lt";
+        case "Luba-Katanga":
+            return "lu";
+        case "Latvian":
+            return "lv";
+        case "Manx":
+            return "gv";
+        case "Macedonian":
+            return "mk";
+        case "Malagasy":
+            return "mg";
+        case "Malay":
+            return "ms";
+        case "Malayalam":
+            return "ml";
+        case "Maltese":
+            return "mt";
+        case "Maori":
+            return "mi";
+        case "Marathi":
+            return "mr";
+        case "Marshallese":
+            return "mh";
+        case "Mongolian":
+            return "mn";
+        case "Nauru":
+            return "na";
+        case "Navajo":
+            return "nv";
+        case "North Ndebele":
+            return "nd";
+        case "Nepali":
+            return "ne";
+        case "Ndonga":
+            return "ng";
+        case "Norwegian":
+            return "no";
+        case "Sichuan Yi":
+            return "ii";
+        case "South Ndebele":
+            return "nr";
+        case "Occitan":
+            return "oc";
+        case "Ojibwa":
+            return "oj";
+        case "Oromo":
+            return "om";
+        case "Oriya":
+            return "or";
+        case "Ossetian":
+            return "os";
+        case "Punjabi":
+            return "pa";
+        case "Pali":
+            return "pi";
+        case "Persian":
+            return "fa";
+        case "Polish":
+            return "pl";
+        case "Pashto":
+            return "ps";
+        case "Portuguese":
+            return "pt";
+        case "Quechua":
+            return "qu";
+        case "Romansh":
+            return "rm";
+        case "Rundi":
+            return "rn";
+        case "Romanian":
+            return "ro";
+        case "Russian":
+            return "ru";
+        case "Sanskrit":
+            return "sa";
+        case "Sardinian":
+            return "sc";
+        case "Sindhi":
+            return "sd";
+        case "Northern Sami":
+            return "se";
+        case "Samoan":
+            return "sm";
+        case "Sango":
+            return "sg";
+        case "Serbian":
+            return "sr";
+        case "Gaelic":
+            return "gd";
+        case "Shona":
+            return "sn";
+        case "Sinhala":
+            return "si";
+        case "Slovak":
+            return "sk";
+        case "Slovenian":
+            return "sl";
+        case "Somali":
+            return "so";
+        case "Southern Sotho":
+            return "st";
+        case "Spanish":
+            return "es";
+        case "Sundanese":
+            return "su";
+        case "Swahili":
+            return "sw";
+        case "Swati":
+            return "ss";
+        case "Swedish":
+            return "sv";
+        case "Tamil":
+            return "ta";
+        case "Telugu":
+            return "te";
+        case "Tajik":
+            return "tg";
+        case "Thai":
+            return "th";
+        case "Tigrinya":
+            return "ti";
+        case "Tibetan":
+            return "bo";
+        case "Turkmen":
+            return "tk";
+        case "Tagalog":
+            return "tl";
+        case "Tswana":
+            return "tn";
+        case "Tonga":
+            return "to";
+        case "Turkish":
+            return "tr";
+        case "Tsonga":
+            return "ts";
+        case "Tatar":
+            return "tt";
+        case "Twi":
+            return "tw";
+        case "Tahitian":
+            return "ty";
+        case "Uighur":
+            return "ug";
+        case "Ukrainian":
+            return "uk";
+        case "Urdu":
+            return "ur";
+        case "Uzbek":
+            return "uz";
+        case "Venda":
+            return "ve";
+        case "Vietnamese":
+            return "vi";
+        case "Volapük":
+            return "vo";
+        case "Walloon":
+            return "wa";
+        case "Welsh":
+            return "cy";
+        case "Wolof":
+            return "wo";
+        case "Western Frisian":
+            return "fy";
+        case "Xhosa":
+            return "xh";
+        case "Yiddish":
+            return "yi";
+        case "Yoruba":
+            return "yo";
+        case "Zhuang":
+            return "za";
+        case "Zulu":
+            return "zu";
+        default:
+            throw new Error(`Unsupported language ${language}`);
+    }
+
+
+
+}
 
 export function getReading(readings, content) {
     if (Array.isArray(readings)) {
@@ -187,14 +566,14 @@ export function nextPosition(lastPosition, content) {
         if (completed) {
             // Advance to next section
             newPosition = {
-                section: lastPosition.section+1,
+                section: lastPosition.section + 1,
                 block: 0,
             };
         } else {
             // Advance to next block
             newPosition = {
                 section: lastPosition.section,
-                block: lastPosition.block+1,
+                block: lastPosition.block + 1,
             }
         }
         // TODO Tune the formula to consider blocks and section length
@@ -244,8 +623,8 @@ function stripTags(str) {
  */
 export function countWords(str) {
     return stripTags(str).split(' ')
-           .filter(function(n) { return n !== '' })
-           .length;
+        .filter(function (n) { return n !== '' })
+        .length;
 }
 
 /**

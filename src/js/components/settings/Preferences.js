@@ -16,19 +16,6 @@ import '@material/react-tab-scroller/dist/tab-scroller.css';
 import '@material/react-tab/dist/tab.css';
 import '@material/react-tab-indicator/dist/tab-indicator.css';
 
-const mapStateToProps = state => {
-    return {
-        preferences: state.preferences,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        updateTextPreferences: prefs => dispatch(updateTextPreferences(prefs)),
-        updateChunkPreferences: prefs => dispatch(updateChunkPreferences(prefs)),
-    };
-};
-
 class Preferences extends React.Component {
 
     constructor(props) {
@@ -92,5 +79,18 @@ class Preferences extends React.Component {
     }
 
 }
+
+const mapStateToProps = state => {
+    return {
+        preferences: state.preferences,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateTextPreferences: prefs => dispatch(updateTextPreferences(prefs)),
+        updateChunkPreferences: prefs => dispatch(updateChunkPreferences(prefs)),
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Preferences);
