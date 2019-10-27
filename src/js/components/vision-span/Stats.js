@@ -13,7 +13,7 @@ function Stats({ stats, onRestart }) {
                 <tbody>
                     <tr>
                         <td className="Statistic StatisticStroke StatisticShadow">{stats.correctAnswers} &#10003;</td>
-                        <td>in {string.humanReadableDuration(stats.durationInSeconds)}</td>
+                        <td>in {string.humanReadableShortDuration(stats.durationInSeconds)}</td>
                     </tr>
                     <tr>
                         <td className="Statistic StatisticStroke StatisticShadow">{stats.wrongAnswers} &#10799;</td>

@@ -10,7 +10,7 @@ const MAX_WPMS = 10;
 function rootReducer(state, action) {
 
     if (action.type === actions.UPDATE_READING) {
-            // if progress: 100 
+            // if progress: 100
     // => update stats.[books|paste|epubs]
     // => move to previousReadings
 
@@ -74,6 +74,7 @@ function rootReducer(state, action) {
             ...state,
             // Override everything with previous backup data
             ...action.payload,
+            lastBackup: new Date(),
         };
 
     } else if (action.type === actions.REGISTER_BACKUP) {
@@ -84,7 +85,7 @@ function rootReducer(state, action) {
 
     } else if (action.type === actions.RECORD_SESSION) {
         const drillType = action.payload.type;
-        
+
         // Add session in history
         const previousSessions = [...state.history[drillType]];
         previousSessions.unshift(action.payload.session);

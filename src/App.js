@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 import { updateReading } from './js/store/actions';
 
-import Welcome from './js/components/home/Welcome';
+import Profile from './js/components/home/Profile';
 
 import VisionSpanCatalog from './js/components/vision-span/Catalog';
 import GameHorizontal from './js/components/vision-span/horizontal/Game';
@@ -22,7 +22,7 @@ import GameFree from './js/components/practice/GameFree';
 import GamePacer from './js/components/practice/GamePacer';
 import GameStopWatch from './js/components/practice/GameStopWatch';
 
-import * as library from './js/functions/library';
+import * as storage from './js/functions/storage';
 
 import { ContentContext } from './content-context';
 
@@ -32,10 +32,40 @@ import 'normalize.css';
 import './Reset.css';
 import './App.css';
 
+const tutorial = {
+  id: 'content-static-tutorial',
+  type: "static",
+  description: {
+      title: `The Bookworm Missing Manual`,
+      author: "Julien Sobczak",
+  },
+  content: {
+      sections: [
+        {
+            title: "Presentation",
+            blocks: [
+                { tag: "h2", content: "Presentation" },
+                { tag: "p", content: "The Bookworm was created to help you practice speed reading." },
+            ],
+          },
+          {
+            title: "How it works?",
+            blocks: [
+                { tag: "h2", content: "How it works?" },
+                { tag: "p", content: "The Bookworm works in your browser. It is regularly testing with Chrome and Firefox, and should work with your tablet or your computer. Phones are not supported as the screen is too small for most drills." },
+            ],
+        }
+        // TODO
+      ],
+  },
+  reloadable: false,
+  saveOnLocalStorage: false,
+};
+
 function IndexPage() {
   return (
     <section id="Home" className="page home">
-      <Welcome />
+      <Profile />
     </section>
   );
 }
@@ -84,6 +114,7 @@ function ChunkingSelector({ match }) {
     'drill-page': <GamePage />,
     'drill-chunk': <GameChunk />,
     'drill-column': <GameColumn />,
+    'tutorial': <GamePage content={tutorial} configurable={false} />
   }
 
   if (match.params.drill in drills) {
@@ -148,7 +179,7 @@ class App extends React.Component {
       console.log(`New content is ${content.description.title}`);
 
       if (content.saveOnLocalStorage || true) {
-        App.storeContent(content);
+        storage.storeContent(content);
       }
 
       this.setState(state => ({
@@ -158,7 +189,7 @@ class App extends React.Component {
 
     this.toggleContent = (reading) => {
       console.log(`Toggle content with ${reading.description.title}`);
-      App.reloadContent(reading, (content) => this.updateContent(content));
+      storage.reloadContent(reading, (content) => this.updateContent(content));
     }
 
     this.state = {
@@ -197,47 +228,9 @@ class App extends React.Component {
   componentDidMount() {
     if (this.props.readings.length > 0) {
       const currentReading = this.props.readings[0];
-      App.reloadContent(currentReading, (content) => this.updateContent(content));
+      storage.reloadContent(currentReading, (content) => this.updateContent(content));
     } else {
-      
-      // TODO insert "Presentation content"
-      // The Bookworm is a web application to practice speed reading.
-      // Unlike many applications, The Bookworm do not allow you to compare against other users.
-      // ...
-    }
-  }
-
-
-  /*
-   * localStorage management
-   */
-
-  static storeContent(content) {
-    if (!content) return; // Happens at load time
-    const id = content.id;
-    localStorage.setItem(id, JSON.stringify(content));
-  }
-
-  static retrieveContent(reading) {
-    const id = reading.id;
-    return JSON.parse(localStorage.getItem(id));
-  }
-
-  static reloadContent(reading, onLoad) {
-    if (!localStorage.getItem(reading.id)) {
-      // Content has disappeared from local storage.
-      if (reading.reloadable) {
-        console.log('Downloading previous content as missing from localStorage...');
-        library.downloadContent(reading.description).then(content => {
-          App.storeContent(content)
-          onLoad(content);
-        });
-      } else {
-        console.error("Unable to reload the previous reading");
-      }
-    } else {
-      console.log('Retrieved previous reading from localStorage');
-      onLoad(App.retrieveContent(reading));
+      this.updateContent(tutorial);
     }
   }
 

@@ -22,7 +22,7 @@ class Preferences extends React.Component {
         super(props);
 
         this.state = {
-            activeIndex: 1,
+            activeIndex: 0,
         };
     }
 
@@ -69,7 +69,7 @@ class Preferences extends React.Component {
                 {this.state.activeIndex === 1 && <div className="TabContent Centered">
                     <section>
                         <h4>localStorage</h4>
-                        <p>Manage local saved ePubs.</p>
+                        <p>Manage locally saved contents.</p>
                         <FormLocalStorage />
                     </section>
                 </div>}

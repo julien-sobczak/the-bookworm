@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 
 import App from './App';
+import { defaultState } from './js/store/store';
 
 it('renders without crashing', () => {
   const store = {
-    getState: jest.fn(() => ({
-      readings: [],
-    })),
+    getState: jest.fn(() => (defaultState)),
     dispatch: jest.fn(),
     subscribe: jest.fn(),
   }

@@ -1,4 +1,4 @@
-import { capitalize, humanReadableDate, humanReadableDuration, uid, headline } from './string'
+import { capitalize, humanReadableDate, humanReadableShortDuration, humanReadableLongDuration, uid, headline } from './string'
 
 describe('uid', () => {
 
@@ -34,14 +34,28 @@ describe('humanReadableDate', () => {
 
 });
 
-describe('humanReadableDuration', () => {
+describe('humanReadableShortDuration', () => {
 
     it('should return the most compact format', () => {
-        expect(humanReadableDuration(1)).toEqual("1s");
-        expect(humanReadableDuration(59)).toEqual("59s");
-        expect(humanReadableDuration(60)).toEqual("1min");
-        expect(humanReadableDuration(61)).toEqual("1min 1s");
-        expect(humanReadableDuration(130)).toEqual("2min 10s");
+        expect(humanReadableShortDuration(1)).toEqual("1s");
+        expect(humanReadableShortDuration(59)).toEqual("59s");
+        expect(humanReadableShortDuration(60)).toEqual("1min");
+        expect(humanReadableShortDuration(61)).toEqual("1min 1s");
+        expect(humanReadableShortDuration(130)).toEqual("2min 10s");
+    });
+
+});
+
+describe('humanReadableLongDuration', () => {
+
+    it('should return the most compact format', () => {
+        expect(humanReadableLongDuration(1)).toEqual("1 second");
+        expect(humanReadableLongDuration(2)).toEqual("2 seconds");
+        expect(humanReadableLongDuration(59)).toEqual("59 seconds");
+        expect(humanReadableLongDuration(60)).toEqual("1 minute");
+        expect(humanReadableLongDuration(120)).toEqual("2 minutes");
+        expect(humanReadableLongDuration(61)).toEqual("1 minute 1 second");
+        expect(humanReadableLongDuration(130)).toEqual("2 minutes 10 seconds");
     });
 
 });

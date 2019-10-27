@@ -30,7 +30,7 @@ class GameFactory extends React.Component {
 
         this.state = {
             // State management
-            state: 'init',
+            state: props.configurable ? 'init' : 'ready',
             // Reading is finished?
             finished: false,
             // ID of the current content
@@ -181,7 +181,7 @@ class GameFactory extends React.Component {
                             predefinedDrills={this.props.predefinedDrills}
                             drillSettings={this.props.drillSettings}
                             textSettings={this.props.preferences.text}
-                            onValidate={this.handleWizardValidation} 
+                            onValidate={this.handleWizardValidation}
                     />}
 
                 {this.state.state === 'ready' &&
@@ -227,6 +227,9 @@ GameFactory.propTypes = {
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
 
+    // Show the configuration wizard
+    configurable: PropTypes.bool,
+
     // List of subcomponents
     drill: PropTypes.element.isRequired,
     form: PropTypes.element.isRequired,
@@ -250,6 +253,7 @@ GameFactory.propTypes = {
 
 GameFactory.defaultProps = {
     history: null,
+    configurable: true,
     countdownDuration: 0,
     predefinedDrills: [],
     contentAware: false,
