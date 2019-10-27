@@ -4,7 +4,7 @@ import rootReducer from "./reducers";
 const initialState = {
     readings: [
         {
-            id: "content-book-Alices-Adventures-in-Wonderland",
+            id: "content-book-en-Alices-Adventures-in-Wonderland",
             type: "book",
             description: {
                 "type": "literature",
@@ -25,7 +25,7 @@ const initialState = {
             lastDate: "2019-09-13T18:25:43.511Z",
         },
         {
-            id: "content-book-Pride-and-Prejudice",
+            id: "content-book-en-Pride-and-Prejudice",
             type: "book",
             description: {
                 "type": "literature",
@@ -46,7 +46,7 @@ const initialState = {
             lastDate: "2019-08-23T18:25:43.511Z",
         },
         {
-            id: "content-book-The-Adventures-of-Tom-Sawyer",
+            id: "content-book-en-The-Adventures-of-Tom-Sawyer",
             type: "book",
             description: {
                 "type": "literature",
@@ -66,7 +66,6 @@ const initialState = {
             },
             lastDate: "2019-07-02T18:25:43.511Z",
         },
-
     ],
     history: {
         drillHorizontal: [
@@ -119,6 +118,48 @@ const initialState = {
             chunkStyle: 'highlight',
         }
     },
+    stats: {
+        "books": 2,
+        "pastes": 10,
+        "epubs": 1,
+        "readingTime": 13200, // In seconds
+        "wpms": [350, 340, 540, 320, 400, 200, 100], // Ten latest WPM to calculate the current user WPM 
+        "wpm": 450,
+    },
+    lastBackup: "2019-10-02T18:25:43.511Z",
+    previousReadings: [
+        {
+            id: "content-book-en-Peter-Pan",
+            type: "book",
+            description: {
+                "type": "literature",
+                "origin": "gutenberg",
+                "title": "Peter Pan",
+                "author": "J. M. Barrie",
+                "slug": "Peter-Pan",
+                "url": "https://www.gutenberg.org/ebooks/16",
+                "file": "https://www.gutenberg.org/files/16/16-0.txt",
+                "language": "English"
+            },
+            lastDate: "2019-05-02T18:25:43.511Z",
+        },
+        {
+            id: "content-book-en-Peter-Pan",
+            type: "book",
+            description: {
+                "type": "literature",
+                "origin": "gutenberg",
+                "title": "Moby Dick",
+                "author": "Herman Melville",
+                "slug": "Moby-Dick",
+                "url": "https://www.gutenberg.org/ebooks/2701",
+                "file": "https://www.gutenberg.org/files/2701/2701-0.txt",
+                "language": "English"
+            },
+            lastDate: "2019-05-02T18:25:43.511Z",
+        },
+        
+    ],
 };
 
 // localStorage persistence implementation

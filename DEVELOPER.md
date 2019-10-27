@@ -17,7 +17,7 @@ The Library is accessible through the component `<PanelReading />`. The user can
 
 ```
 {
-    id (string): <a unique identifier to identify this particular content> # `content-book-The-Adventures-of-Tom-Sawyer`
+    id (string): <a unique identifier to identify this particular content> # `content-book-en-The-Adventures-of-Tom-Sawyer`
     type (string): <the kind of content> # `book`, `paste`, `epub`, ...
     description (object): <>
     content (object):
