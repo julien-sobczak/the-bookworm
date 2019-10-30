@@ -88,11 +88,15 @@ function rootReducer(state, action) {
 
         // Add session in history
         const previousSessions = [...state.history[drillType]];
-        previousSessions.unshift(action.payload.session);
+        previousSessions.unshift(action.payload);
+        const newHistory = {
+            ...state.history,
+        }
+        newHistory[drillType] = previousSessions.slice(0, MAX_SESSIONS_HISTORY);
 
         // Update reading stats in global stats
         let newStats = state.stats;
-        const drillStats = action.payload.session.stats;
+        const drillStats = action.payload.stats;
         if (drillStats.hasOwnProperty('wpm')) { // Only for text-based drills
             const wpms = [...state.stats.wpms];
             wpms.unshift(drillStats.wpm);
@@ -108,10 +112,7 @@ function rootReducer(state, action) {
 
         return {
             ...state,
-            history: {
-                ...state.history,
-                drillType: previousSessions.slice(0, MAX_SESSIONS_HISTORY)
-            },
+            history: newHistory,
             stats: newStats,
         };
     }

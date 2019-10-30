@@ -32,36 +32,6 @@ import 'normalize.css';
 import './Reset.css';
 import './App.css';
 
-const tutorial = {
-  id: 'content-static-tutorial',
-  type: "static",
-  description: {
-      title: `The Bookworm Missing Manual`,
-      author: "Julien Sobczak",
-  },
-  content: {
-      sections: [
-        {
-            title: "Presentation",
-            blocks: [
-                { tag: "h2", content: "Presentation" },
-                { tag: "p", content: "The Bookworm was created to help you practice speed reading." },
-            ],
-          },
-          {
-            title: "How it works?",
-            blocks: [
-                { tag: "h2", content: "How it works?" },
-                { tag: "p", content: "The Bookworm works in your browser. It is regularly testing with Chrome and Firefox, and should work with your tablet or your computer. Phones are not supported as the screen is too small for most drills." },
-            ],
-        }
-        // TODO
-      ],
-  },
-  reloadable: false,
-  saveOnLocalStorage: false,
-};
-
 function IndexPage() {
   return (
     <section id="Home" className="page home">
@@ -114,7 +84,7 @@ function ChunkingSelector({ match }) {
     'drill-page': <GamePage />,
     'drill-chunk': <GameChunk />,
     'drill-column': <GameColumn />,
-    'tutorial': <GamePage content={tutorial} configurable={false} />
+    'tutorial': <GamePage content={storage.tutorial} configurable={false} />
   }
 
   if (match.params.drill in drills) {
@@ -210,7 +180,7 @@ class App extends React.Component {
             <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i> Chunking</div></NavLink>
             <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i> Practice</div></NavLink>
             <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i> Settings</div></NavLink>
-            <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink>
+            {/* <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink> */}
           </nav>
           <section id="content">
             <Route path="/"       exact component={IndexPage} />
@@ -230,7 +200,7 @@ class App extends React.Component {
       const currentReading = this.props.readings[0];
       storage.reloadContent(currentReading, (content) => this.updateContent(content));
     } else {
-      this.updateContent(tutorial);
+      this.updateContent(storage.tutorial);
     }
   }
 

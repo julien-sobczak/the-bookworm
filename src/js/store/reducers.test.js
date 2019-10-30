@@ -84,12 +84,11 @@ describe('rootReducer', () => {
                 "wpms": [100, 150, 440],
                 "wpm": 200,
             },
-            lastBackup: "2019-10-02T18:25:43.511Z",
             previousReadings: [],
         };
         expect(
             reducer(initialState, actions.restoreBackup(backupState))
-        ).toEqual(backupState);
+        ).toMatchObject(backupState);
     });
 
     it('should handle updateReading', () => {
@@ -123,12 +122,10 @@ describe('rootReducer', () => {
     it('should handle recordSession', () => {
         const session = {
             type: 'drillChunk',
-            session: {
-                date: "2014-02-23T18:25:43.511Z",
-                textSettings: { fontFamily: 'Roboto', fontSize: '14pt', fontStyle: 'bold', theme: 'Light' },
-                drillSettings: { lines: 5, span: "2.25in" },
-                stats: {},
-            },
+            date: "2014-02-23T18:25:43.511Z",
+            textSettings: { fontFamily: 'Roboto', fontSize: '14pt', fontStyle: 'bold', theme: 'Light' },
+            drillSettings: { lines: 5, span: "2.25in" },
+            stats: {},
         };
         expect(
             reducer(initialState, actions.recordSession(session))

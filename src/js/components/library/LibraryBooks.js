@@ -84,7 +84,7 @@ class LibraryBooks extends React.Component {
 
     componentDidMount() {
         console.log(`Downloading ${this.CATALOG_URL}...`);
-        library.downloadCatalog.then(data => {
+        library.downloadCatalog().then(data => {
             this.setState({
                 loading: false,
                 catalog: data
