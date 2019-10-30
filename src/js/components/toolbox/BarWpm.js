@@ -17,13 +17,14 @@ const styleBar = {
 
 const styleMark = {
   position: "absolute",
-  left: "0",
+  left: "0.1cm",
   width: widthBar,
   textAlign: "center",
   fontSize: "0.7em",
   fontWeight: "900",
   color: "white",
   marginTop: "0.2cm",
+  paddingRight: "0.3cm",
 };
 
 const styleStep = {
@@ -73,7 +74,7 @@ function BarWpm({ wpm }) {
       <span style={{...styleCursor, top: `${position}%`}} className="Centered">{text}</span>
 
       {/* Add markers for comparison */}
-      <span style={{...styleMark, top: "10%"}}>{maxWpm}+</span>
+      <span style={{...styleMark, top: "10%"}}>{maxWpm}</span>
       <span style={{...styleStep, top: "10%"}}>Champion</span>
 
       <span style={{...styleMark, top: "30%"}}>800</span>

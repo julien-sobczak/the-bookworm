@@ -81,10 +81,12 @@ function Profile(props) {
                 <div className="ProfileHi Centered">Hi,</div>
                 <div className="ProfileStats Centered">
                     {!newUser && <p>
-                        You have read <em>{props.stats.books} book(s)</em>, <em>{props.stats.pastes} custom text(s)</em>, <em>{props.stats.epubs} ePub(s)</em> in <em>{string.humanReadableLongDuration(props.stats.readingTime)}</em>.
+                        <span>You have read <em>{props.stats.books} book(s)</em>, <em>{props.stats.pastes} custom text(s)</em>, <em>{props.stats.epubs} ePub(s)</em> in <em>{string.humanReadableLongDuration(props.stats.readingTime)}</em>.</span>
                     </p>}
                     {newUser && <p>
-                        <em>Welcome!</em><br/>The Bookworm is an online application to practice speed reading techniques like peripheral vision and chunking. <Link to="/chunking/tutorial">Try the tutorial</Link>.
+                        <span><em>Welcome!</em></span><br/>
+                        <span>The Bookworm is an online application to practice speed reading techniques like peripheral vision and chunking.</span><br/>
+                        <Link to="/chunking/tutorial">Try the tutorial.</Link>
                     </p>}
                 </div>
                 <div className="ProfileWpm">

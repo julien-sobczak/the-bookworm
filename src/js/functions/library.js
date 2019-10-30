@@ -13,7 +13,7 @@ export function downloadCatalog() {
     return fetch(CATALOG_URL)
         .then((response) => {
             return response.json();
-        })
+        });
 }
 
 /**
