@@ -201,7 +201,7 @@ const dummyState = {
     ],
 };
 
-const initialState = defaultState;
+const initialState = defaultState || dummyState;
 
 // localStorage persistence implementation
 // Based on blogpost: https://stackoverflow.com/questions/35305661/where-to-write-to-localstorage-in-a-redux-app

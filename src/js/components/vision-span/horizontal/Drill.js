@@ -104,10 +104,11 @@ class Drill extends React.Component {
     }
 
     stopDrill() {
-        this.props.onComplete({
+        const result = {
             stopped: true,
             stats: this.state.engine.getStats(),
-        });
+        };
+        this.props.onComplete(result);
     }
 
     render() {

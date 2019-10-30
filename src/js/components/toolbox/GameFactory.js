@@ -83,6 +83,9 @@ class GameFactory extends React.Component {
         // recordSession
         const session = {
             type: this.props.name,
+            date: new Date().toJSON(),
+            textSettings: this.state.textSettings,
+            drillSettings: this.state.drillSettings,
             stats: stats,
         };
         this.props.recordSession(session);
