@@ -70,6 +70,10 @@ function Profile(props) {
         fileReader.readAsText(file);
     };
 
+    const goToHomePage = (event) => {
+        document.location.pathname = "/";
+    }
+
     const readAtLeastOneContent = (props.stats.books + props.stats.pastes + props.stats.epubs) > 0;
     const startUsingAppToday = new Date().toDateString() === new Date(props.startDate).toDateString();
     const newUser = !readAtLeastOneContent && startUsingAppToday;
@@ -78,7 +82,10 @@ function Profile(props) {
         <>
             {errorMessage.length > 0 && <PanelError message={errorMessage} onClear={() => setErrorMessage("")}/>}
             <div className="Profile">
-                <div className="ProfileHi Centered">Hi,</div>
+                <div className="ProfileHi Centered">
+                    <span>Hi,</span>
+                    <button onClick={goToHomePage} title="Home Page"><i className="material-icons md-36">home</i></button>
+                </div>
                 <div className="ProfileStats Centered">
                     {!newUser && <p>
                         <span>You have read <em>{props.stats.books} book(s)</em>, <em>{props.stats.pastes} custom text(s)</em>, <em>{props.stats.epubs} ePub(s)</em> in <em>{string.humanReadableLongDuration(props.stats.readingTime)}</em>.</span>

@@ -26,6 +26,9 @@
     font-weight: 900;
     padding: var(--default-padding);
 }
+.ProfileHi button {
+    margin: 0.5cm;
+}
 
 .ProfileStats {
     grid-area: stats;
