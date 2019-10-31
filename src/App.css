@@ -7,15 +7,6 @@
   --drill-vision-span-step: .25in;
 
   --wide-margin: 1cm;
-
-  /* Global theme */
-  --theme-color-home:        #FF5733;
-  --theme-color-vision-span: #FFC200;
-  --theme-color-chunking:    #ADD45B;
-  --theme-color-practice:    #00BAAD;
-  --theme-color-settings:    #49b9e6;
-  --theme-color-about:       #3C3D6B;
-  --theme-color-tdf:         #900B3F;
 }
 
 /* Common */

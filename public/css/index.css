@@ -1,0 +1,153 @@
+/*
+ * HACK: Manage the switch between the index page and the React app
+ */
+body #root {
+    display: none;
+}
+body.App #root {
+    display: block;
+}
+body.App #homepage {
+    display: none;
+}
+
+/* Homepage Design */
+
+:root {
+    --home-color-1: #0ebeff;
+    --home-color-2: #29b0f7;
+    --home-color-3: #44a2ee;
+    --home-color-4: #5e95e6;
+    --home-color-5: #7987dd;
+    --home-color-6: #9479d5;
+    --home-color-7: #af6bcc;
+    --home-color-8: #c95ec4;
+
+    /* Global theme */
+    --theme-color-home:        #FF5733;
+    --theme-color-vision-span: #FFC200;
+    --theme-color-chunking:    #ADD45B;
+    --theme-color-practice:    #00BAAD;
+    --theme-color-settings:    #49b9e6;
+    --theme-color-about:       #3C3D6B;
+    --theme-color-tdf:         #900B3F;
+
+    --home-margin-minimum: 12%;
+
+    font-family: 'Roboto', sans-serif;
+}
+#homepage .fullscreen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+/* ************************************************** */
+
+#header {
+    background-image: url(/images/infography.svg);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+}
+
+#logo {
+    position: absolute;
+    top: var(--home-margin-minimum);
+    left: var(--home-margin-minimum);
+    max-width: 30%;
+}
+
+p#headline {
+    position: absolute;
+    left: var(--home-margin-minimum);
+    top: 40%;
+    bottom: 40%;
+}
+p#headline .handwritten {
+    display: block;
+    color: var(--home-color-1);
+    font-size: 1.9em;
+    line-height: 2.1em;
+    font-family: 'Amatic SC', cursive;
+}
+p#headline .penwritten {
+    display: block;
+    color: #222;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+#try {
+    position: absolute;
+    bottom: var(--home-margin-minimum);
+    left: var(--home-margin-minimum);
+    max-width: 30%;
+    text-align: center;
+}
+#try a {
+    background-color: black;
+    padding: 0.5em 2em;
+    display: block;
+    border-radius: 50vh;
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#try span {
+    color: var(--home-color-1);
+    font-size: 1.5em;
+    font-family: 'Amatic SC', cursive;
+}
+
+/* ************************************************** */
+
+#homepage .quote {
+    padding: 2cm;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 1.2em;
+}
+#homepage .quote q {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.4em;
+    display: block;
+    margin-bottom: 1cm;
+    text-align: center;
+}
+
+/* ************************************************** */
+
+#myths {
+    background-color: var(--home-color-1);
+}
+
+/* ************************************************** */
+
+#vision {
+    background-color: var(--theme-color-vision-span);
+}
+
+/* ************************************************** */
+
+#chunking {
+    background-color: var(--theme-color-chunking);
+}
+
+/* ************************************************** */
+
+#motivations {
+    background-color: var(--home-color-8);
+    color: white;
+}
+
+/* ************************************************** */
+
+#footer {
+    background-color: black;
+    color: white
+}
