@@ -55,6 +55,8 @@ button:focus {
 
 /* https://google.github.io/material-design-icons/#what-are-material-icons- */
 /* Rules for sizing the icon. */
+.material-icons.md-xsmall { font-size: 0.6em; }
+.material-icons.md-small { font-size: 0.8em; }
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }

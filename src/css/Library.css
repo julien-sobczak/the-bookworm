@@ -121,6 +121,52 @@
 }
 
 
+/* 
+ * LibraryBooks
+ */
+
+ .LibraryFilters > * {
+     margin-top: 0.5em;
+     margin-bottom: 0.5em;
+ }
+ .LibraryFilters input {
+     background: rgba(0, 0, 0, 0.5);
+     border: 1px solid black;
+     border-radius: 0.2em;
+     padding: 0.2em;
+     width: 100%;
+     color: white;
+ }
+.LibraryFilters li {
+    display: inline-block;
+    padding: 0.2em;
+    text-align: center;
+    border-radius: 0.2em;
+}
+.LibraryFilters li.Selected {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+}
+.LibraryFilters li sup {
+    display: inline-block;
+    font-size: 0.5em;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50vh;
+    padding: 0.25em 0.5em;
+    color: white;
+}
+.LibraryFilters li.Selected sup {
+    background-color: var(--theme-color);
+    color: black;
+}
+.LibraryFilters button[disabled] {
+    cursor: none;
+    color: rgba(0, 0, 0, 0.3)
+}
+
+
 .Bookshelf {
     max-height: 50vh;
     padding: 2em;
