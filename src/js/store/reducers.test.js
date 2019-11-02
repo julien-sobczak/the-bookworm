@@ -17,6 +17,20 @@ describe('rootReducer', () => {
     //     ]);
     // });
 
+    it('should handle updateLanguagePreferences', () => {
+        expect(
+            reducer(initialState, actions.updateLanguagePreferences({
+                native: 'French'
+            }))
+        ).toMatchObject({
+            preferences: {
+                language: {
+                    native: 'French',
+                },
+            },
+        });
+    });
+
     it('should handle updateChunkPreferences', () => {
         expect(
             reducer(initialState, actions.updateChunkPreferences({

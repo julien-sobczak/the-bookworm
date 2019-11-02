@@ -17,6 +17,9 @@ const defaultState = {
         drillStopWatch: [],
     },
     preferences: {
+        language: {
+            native: "English",
+        },
         text: {
             fontFamily: 'Roboto',
             fontSize: '14pt',
@@ -147,6 +150,9 @@ const dummyState = {
         ]
     },
     preferences: {
+        language: {
+            native: "English",
+        },
         text: {
             fontFamily: 'Roboto',
             fontSize: '14pt',

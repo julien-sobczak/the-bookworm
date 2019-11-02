@@ -8,10 +8,6 @@ import * as library from "../../functions/library";
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
-const mapStateToProps = state => {
-    return { readings: state.readings };
-};
-
 class LibraryBooks extends React.Component {
 
     constructor(props) {
@@ -29,7 +25,7 @@ class LibraryBooks extends React.Component {
             // Which letter is currently selected by the user to filter books?
             filterLetter: "*",
             // Which language is currently selected by the user?
-            filterLanguage: "",
+            filterLanguage: props.preferencesLanguage.native,
         };
 
         this.filterByRegex = this.filterByRegex.bind(this);
@@ -248,5 +244,12 @@ class LibraryBooks extends React.Component {
         });
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        readings: state.readings,
+        preferencesLanguage: state.preferences.language,
+    };
+};
 
 export default connect(mapStateToProps)(LibraryBooks);
