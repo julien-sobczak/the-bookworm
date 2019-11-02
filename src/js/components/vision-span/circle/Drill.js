@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Viewer from './Viewer';
 import Engine from './Engine';
 
+import * as interaction from '../../../functions/interaction';
 import * as string from '../../../functions/string';
 import * as helpers from '../../../functions/engine';
 
@@ -18,9 +19,6 @@ class Drill extends React.Component {
             // This will make the code easier.
             span: props.span,
 
-            // Input entered by the user when a keyboard is available
-            selection: '',
-
             // The engine
             engine: undefined,
 
@@ -32,17 +30,14 @@ class Drill extends React.Component {
             errorCount: 0,
         };
 
-        // create a ref to store the textInput DOM element
-        this.textInput = React.createRef();
         this.drillArea = React.createRef();
 
         // This binding is necessary to make `this` work in the callback
         this.increaseSpan = this.increaseSpan.bind(this);
         this.reduceSpan = this.reduceSpan.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.handleDrillFinished = this.handleDrillFinished.bind(this);
-
-        this.resume = this.resume.bind(this);
         this.stopDrill = this.stopDrill.bind(this);
     }
 
@@ -54,8 +49,6 @@ class Drill extends React.Component {
             ...state,
             span: helpers.increaseSpan(state.span),
         }));
-
-        this.resume();
     }
 
     /** Decrement the span values by one-stop to make the drill easier */
@@ -66,20 +59,6 @@ class Drill extends React.Component {
             ...state,
             span: helpers.reduceSpan(state.span),
         }));
-
-        this.resume();
-    }
-
-    /** Called on each key press by the user. */
-    handleKeyPress = (event) => {
-        let key = event.key;
-        this.state.engine.registerInput(key);
-        this.setState(state => ({
-            ...state,
-            drill: state.drill,
-        }));
-
-        this.textInput.current.value = '';
     }
 
     /** Called when the user successfully finish one drill. */
@@ -92,9 +71,13 @@ class Drill extends React.Component {
                 this.reduceSpan();
             }
         }
+        this.newDrill();
+    }
+
+    newDrill() {
         this.setState(state => ({
             ...state,
-            drill: state.engine.getDrill(),
+            drill: state.engine.newDrill(),
         }));
     }
 
@@ -108,11 +91,10 @@ class Drill extends React.Component {
     render() {
         return (
             <div>
-                <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)}>
+                <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
                     <section className="DrillControls">
                         <ul>
-                            <li><button onClick={this.resume}><i className="material-icons">pause</i></button></li>
                             {this.props.spanControls && <li><button onClick={this.reduceSpan}><i className="material-icons">chevron_left</i></button></li>}
                             {this.props.spanControls && <li><button onClick={this.increaseSpan}><i className="material-icons">chevron_right</i></button></li>}
                             <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
@@ -124,8 +106,6 @@ class Drill extends React.Component {
                              style={{fontSize: this.state.fontSize}}
                     >
                     {/* Important to fix the font size to determine the number of available lines */}
-
-                        <input ref={this.textInput} className="OutOfScreen" type="text" onKeyPress={this.handleKeyPress} />
 
                         <Viewer
                                 drill={this.state.drill}
@@ -142,6 +122,59 @@ class Drill extends React.Component {
         );
     }
 
+    registerInput(event) {
+        this.state.engine.registerInput(event.key);
+        this.setState(state => ({
+            ...state,
+            drill: state.drill,
+        }));
+    }
+
+    handleKeyUp(event) {
+        if (this.props.keyboard) {
+            // Disable other keys when user should enter the letters.
+            if (interaction.isCharacterKey(event)) { // Only register letters
+                this.registerInput(event);
+            }
+            return;
+        }
+        switch (event.keyCode) {
+            case interaction.KEY_RIGHT:
+                this.newDrill();
+                return;
+            case interaction.KEY_DOWN:
+                this.reduceSpan();
+                return;
+            case interaction.KEY_UP:
+                this.increaseSpan();
+                return;
+            default:
+                // Do nothing
+                return;
+        }
+    }
+
+    handleClick(event) {
+        if (this.props.keyboard) {
+            // Ignore clicks and only advance when the user has entered all letters.
+            return;
+        }
+        switch (interaction.getScreenZone(event)) {
+            case interaction.ZONE_RIGHT:
+                this.newDrill();
+                return;
+            case interaction.ZONE_BOTTOM:
+                this.reduceSpan();
+                return;
+            case interaction.ZONE_TOP:
+                this.increaseSpan();
+                return;
+            default: 
+                // Do nothing
+                return;
+        }
+    }
+
     componentDidMount() {
         const engine = new Engine(this.handleDrillFinished);
         this.setState(state => ({
@@ -150,22 +183,11 @@ class Drill extends React.Component {
             drill: engine.getDrill(),
         }));
 
-        this.resume();
+        window.addEventListener("keyup", this.handleKeyUp);
     }
-
-    componentDidUpdate() {
-        if (this.state.selection !== '') {
-            setTimeout(() => this.setState(state => ({
-                ...state,
-                selection: '',
-            })), 200);
-        }
-
-        this.textInput.current.focus();
-    }
-
-    resume() {
-        this.textInput.current.focus();
+    
+    componentWillUnmount() {
+        window.removeEventListener("keyup", this.handleKeyUp);
     }
 
 }

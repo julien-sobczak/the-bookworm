@@ -135,10 +135,19 @@ class Engine {
                 this.totalAnswers += this.inputCount;
                 this.callbackDrillFinished && this.callbackDrillFinished({
                     errorCount: this.errorCount,
-                })
-                this.shuffle();
+                });
             }
         }
+    }
+
+    /**
+     * Return a new drill.
+     * 
+     * @return {Object} The drill content
+     */
+    newDrill() {
+        this.shuffle();
+        return this.getDrill();
     }
 
 }

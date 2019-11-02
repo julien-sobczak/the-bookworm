@@ -1,4 +1,5 @@
 import Engine from './Engine';
+import { ifStatement } from '@babel/types';
 
 it('notifies when the drill is finished', () => {
     const handleFinish = jest.fn()
@@ -22,10 +23,14 @@ it('notifies when the drill is finished', () => {
     engine.registerInput(drill.lines[1].columns[0].label)
 
     expect(handleFinish).toHaveBeenCalledTimes(1)
-
-    const newDrill = engine.getDrill()
-    expect(newDrill).not.toEqual(drill)
 })
+
+it('supports new drill', () => {
+    const engine = new Engine(3);
+    const initialDrill = engine.getDrill();
+    const newDrill = engine.newDrill();
+    expect(newDrill).not.toEqual(initialDrill);
+});
 
 it('supports various table sizes', () => {
     expect(new Engine(3).getDrill()).not.toBeNull()

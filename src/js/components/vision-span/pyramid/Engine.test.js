@@ -16,7 +16,11 @@ it('notifies when the drill is finished', () => {
     }
 
     expect(handleFinish).toHaveBeenCalledTimes(1)
+});
 
-    const newDrill = engine.getDrill()
-    expect(newDrill).not.toEqual(drill)
-})
+it('supports new drill', () => {
+    const engine = new Engine(1);
+    const initialDrill = engine.getDrill();
+    const newDrill = engine.newDrill();
+    expect(newDrill).not.toEqual(initialDrill);
+});

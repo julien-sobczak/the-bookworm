@@ -17,10 +17,14 @@ it('notifies when the drill is finished', () => {
     engine.registerInput(drill[0].lines[0].columns[2].label)
 
     expect(handleFinish).toHaveBeenCalledTimes(1)
+});
 
-    const newDrill = engine.getDrill()
-    expect(newDrill).not.toEqual(drill)
-})
+it('supports new drill', () => {
+    const engine = new Engine(1, 3, 1);
+    const initialDrill = engine.getDrill();
+    const newDrill = engine.newDrill();
+    expect(newDrill).not.toEqual(initialDrill);
+});
 
 it('supports various sizes', () => {
     expect(new Engine(1, 3, 1).getDrill()).not.toBeNull()

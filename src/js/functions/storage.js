@@ -4,7 +4,7 @@ export const tutorial = {
     id: 'content-static-tutorial',
     type: "static",
     description: {
-        title: `The Bookworm Missing Manual`,
+        title: `The Bookworm Manual`,
         author: "Julien Sobczak",
     },
     content: {
