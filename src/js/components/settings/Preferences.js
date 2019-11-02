@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import { updateTextPreferences, updateChunkPreferences } from '../../store/actions';
+import { updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
+import FormLanguage from './FormLanguage';
 import FormText from './FormText';
 import FormChunk from './FormChunk';
 import FormLocalStorage from './FormLocalStorage';
@@ -28,14 +29,19 @@ class Preferences extends React.Component {
 
     handleActiveIndexUpdate = (activeIndex) => this.setState({ activeIndex: activeIndex });
 
-    handleTextPreferencesChange = (style) => {
-        console.log('Saving text preferences...', style);
-        this.props.updateTextPreferences(style);
+    handleLanguagePreferencesChange = (prefs) => {
+        console.log('Saving language preferences...', prefs);
+        this.props.updateLanguagePreferences(prefs);
+    }
+
+    handleTextPreferencesChange = (prefs) => {
+        console.log('Saving text preferences...', prefs);
+        this.props.updateTextPreferences(prefs);
     };
 
-    handleChunkPreferencesChange = (style) => {
-        console.log('Saving chunk preferences...', style);
-        this.props.updateChunkPreferences(style);
+    handleChunkPreferencesChange = (prefs) => {
+        console.log('Saving chunk preferences...', prefs);
+        this.props.updateChunkPreferences(prefs);
     };
 
     render() {
@@ -52,6 +58,13 @@ class Preferences extends React.Component {
                 </TabBar>
 
                 {this.state.activeIndex === 0 && <div className="TabContent Centered">
+
+                    <section>
+                        <h4>Language</h4>
+                        <p>Control the language selected by default in the library.</p>
+                        <FormLanguage {...this.props.preferences.language} onChange={this.handleLanguagePreferencesChange} />
+                    </section>
+
                     <section>
                         <h4>Font</h4>
                         <p>Control how texts are displayed in the drills.</p>
@@ -88,6 +101,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        updateLanguagePreferences: prefs => dispatch(updateLanguagePreferences(prefs)),
         updateTextPreferences: prefs => dispatch(updateTextPreferences(prefs)),
         updateChunkPreferences: prefs => dispatch(updateChunkPreferences(prefs)),
     };
