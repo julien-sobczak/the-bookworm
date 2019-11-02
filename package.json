@@ -16,6 +16,7 @@
     "@material/react-tab-bar": "^0.15.0",
     "@material/react-tab-indicator": "^0.15.0",
     "chart.js": "^2.8.0",
+    "mobile-detect": "^1.4.4",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-color": "^2.17.3",

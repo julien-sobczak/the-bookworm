@@ -163,10 +163,19 @@ class Engine {
                 this.totalAnswers += this.inputCount;
                 this.onDrillFinished && this.onDrillFinished({
                     errorCount: this.errorCount,
-                })
-                this.shuffle();
+                });
             }
         }
+    }
+
+    /**
+     * Return a new drill.
+     * 
+     * @return {Object} The drill content
+     */
+    newDrill() {
+        this.shuffle();
+        return this.getDrill();
     }
 
 }

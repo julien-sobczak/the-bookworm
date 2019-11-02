@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import MobileDetect from 'mobile-detect';
 
 import { updateReading, recordSession } from '../../store/actions';
 import { ContentContext } from '../../../content-context';
@@ -28,6 +29,9 @@ class GameFactory extends React.Component {
     constructor(props) {
         super(props);
 
+        const md = new MobileDetect(window.navigator.userAgent);
+        const keyboardDetected = md.mobile() == null;
+
         this.state = {
             // State management
             state: props.configurable ? 'init' : 'ready',
@@ -35,6 +39,13 @@ class GameFactory extends React.Component {
             finished: false,
             // ID of the current content
             contentId: props.content.id,
+            // Keyboard is available to the user
+            keyboardDetected: keyboardDetected,
+            // Drill settings are editable through the wizard
+            drillSettings: {
+                ...props.drillSettings,
+                keyboard: keyboardDetected, // Override keyboard depending on detection
+            }
         };
 
         this.handleWizardValidation = this.handleWizardValidation.bind(this);
@@ -182,9 +193,10 @@ class GameFactory extends React.Component {
                             history={this.props.history}
                             historySessions={historySessions}
                             predefinedDrills={this.props.predefinedDrills}
-                            drillSettings={this.props.drillSettings}
+                            drillSettings={this.state.drillSettings}
                             textSettings={this.props.preferences.text}
                             onValidate={this.handleWizardValidation}
+                            keyboardDetected={this.state.keyboardDetected}
                     />}
 
                 {this.state.state === 'ready' &&
@@ -194,6 +206,7 @@ class GameFactory extends React.Component {
                     React.cloneElement(this.props.drill, {
                         ...this.state.drillSettings,
                         ...this.state.textSettings,
+                        keyboardDetect: this.state.keyboardDetected,
                         content: this.state.currentContent,
                         onComplete: this.handleDrillCompletion,
                     })}

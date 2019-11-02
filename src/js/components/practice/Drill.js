@@ -6,6 +6,7 @@ import Pager from '../chunking/Pager';
 
 import ProgressLine from '../toolbox/ProgressLine';
 
+import * as interaction from '../../functions/interaction';
 import * as string from '../../functions/string';
 import * as wpm from '../../functions/wpm';
 import * as library from '../../functions/library';
@@ -206,23 +207,25 @@ class Drill extends React.Component {
     }
 
     handleClick(event) {
-        const width = window.innerWidth;
-        const clickX = event.clientX;
-        // If the user clicks on the left part of the screen => go back
-        // If the user clicks on the right part of the screen => go forward
-        if (clickX < 0.4 * width) {
-            this.turnPageBack();
-        } else if (clickX > 0.6 * width) {
-            this.turnPage();
+        switch (interaction.getScreenZone(event)) {
+            case interaction.ZONE_LEFT:
+                this.turnPageBack();
+                break;
+            case interaction.ZONE_RIGHT:
+                this.turnPage();
+                break;
+            default:
+                // Do nothing
+                break;
         }
     }
 
     handleKeyUp(event) {
         switch (event.keyCode) {
-            case 37: // Key left
+            case interaction.KEY_LEFT:
                 this.turnPageBack();
                 return;
-            case 39: // Key right
+            case interaction.KEY_RIGHT:
                 this.turnPage();
                 return;
             default:

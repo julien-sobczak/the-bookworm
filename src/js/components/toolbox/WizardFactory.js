@@ -127,6 +127,7 @@ class WizardFactory extends React.Component {
                             <p>Customize the drill.</p>
                             {React.cloneElement(this.props.form, {
                                 ...this.state.drillSettings,
+                                keyboardDetected: this.props.keyboardDetected,
                                 onChange: this.handleDrillSettingsChange,
                             })}
                         </section>
@@ -201,11 +202,14 @@ WizardFactory.propTypes = {
     predefinedDrills: PropTypes.arrayOf(PropTypes.object),
     historySessions: PropTypes.arrayOf(PropTypes.object),
 
+    keyboardDetected: PropTypes.bool,
+
     onValidate: PropTypes.func,
 };
 
 WizardFactory.defaultProps = {
     historySessions: [],
+    keyboardDetected: false,
     onValidate: function() {},
 };
 
