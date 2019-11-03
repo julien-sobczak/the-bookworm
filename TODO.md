@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] Add CSS/component for tooltip https://codepen.io/davidicus/pen/yyxoXW
+- [ ] Add Component for help (use it to explain localStorage, instructions for games, etc.)
 - [ ] Complete `DEVELOPER.md`
 - [ ] Rewrite `README.md`
 - [ ] Write a tutorial for the default content
@@ -12,3 +14,4 @@
 - [ ] Add a pause button
 - [ ] Deploy a proxy as a workaround CORS requests
 - [ ] Add section Websites in the library
+- [ ] Add support for Mobi files
