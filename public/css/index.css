@@ -36,19 +36,63 @@ body.App #homepage {
 
     font-family: 'Roboto', sans-serif;
 }
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    font-size: 100%;
+}
+
+/* 
+ * Implementation: Prefix all CSS selectors by #homepage to avoid any conflict with the React application 
+ */
+
+/* Common ******************************************* */
+
+#homepage a.button-try {
+    background-color: black;
+    padding: 0.5em 2em;
+    display: inline-block;
+    border-radius: 50vh;
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+    color: white;
+    text-decoration: none;
+    letter-spacing: -0.05cm;
+}
+
 #homepage .fullscreen {
     position: relative;
     width: 100%;
     height: 100vh;
 }
 
+#homepage h1 { 
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 3em;
+    letter-spacing: -0.05cm;
+    padding: 2cm;
+}
+
+#homepage h2 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.7em;
+    line-height: 1.2;
+}
+
 /* ************************************************** */
 
-#header {
-    background-image: url(/images/infography.svg);
+#homepage header {
+    background-image: url(/images/illustration.svg);
     background-position: bottom right;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 98vh;
     background-color: white;
 }
 
@@ -86,18 +130,8 @@ p#headline .penwritten {
     max-width: 30%;
     text-align: center;
 }
-#try a {
-    background-color: black;
-    padding: 0.5em 2em;
-    display: block;
-    border-radius: 50vh;
-    font-size: 1.8em;
-    margin-bottom: 0.5em;
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-}
 #try span {
+    display: block;
     color: var(--home-color-1);
     font-size: 1.5em;
     font-family: 'Amatic SC', cursive;
@@ -105,14 +139,14 @@ p#headline .penwritten {
 
 /* ************************************************** */
 
-#homepage .quote {
+#homepage blockquote {
     padding: 2cm;
     text-align: center;
     background-color: black;
     color: white;
     font-size: 1.2em;
 }
-#homepage .quote q {
+#homepage blockquote q {
     font-family: 'Roboto Slab', serif;
     font-size: 1.4em;
     display: block;
@@ -122,32 +156,275 @@ p#headline .penwritten {
 
 /* ************************************************** */
 
-#myths {
-    background-color: var(--home-color-1);
+#homepage section#myths {
+    background: var(--theme-color-vision-span);
+    text-align: center;
+
+    --chat-thread-bgd-color:        black;
+    --chat-thread-msg-arrow-size:   0.5cm;
+    --chat-thread-avatar-size:      2cm;
+    --chat-thread-offset:           calc(var(--chat-thread-avatar-size) + 1cm);
 }
+
+/* Inspired by https://codepen.io/clintabrown/pen/HAkjq */
+.chat-thread {
+	margin: 0 auto 0 auto;
+	list-style: none;
+    max-width: 15cm;
+}
+.chat-thread:after {
+    /* CSS Trick to clear the float without inserting a new element */ 
+    content: ""; 
+    display: table; 
+    clear: both; 
+}
+
+.chat-thread li {
+	position: relative;
+	clear: both;
+	display: inline-block;
+	padding: 1.2em 2em;
+	margin: 0 0 1cm 0;
+	font: 1em 'Roboto', sans-serif;
+	border-radius: 0.5cm;
+	background-color: var(--chat-thread-bgd-color);
+}
+
+/* Chat - Avatar */
+.chat-thread li:before {
+	position: absolute;
+	top: 0;
+	width: var(--chat-thread-avatar-size);
+	height: var(--chat-thread-avatar-size);
+	border-radius: var(--chat-thread-avatar-size);
+	content: '';
+}
+
+/* Chat - Speech Bubble Arrow */
+.chat-thread li:after {
+	position: absolute;
+    top: var(--chat-thread-msg-arrow-size);
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: var(--chat-thread-msg-arrow-size) solid var(--chat-thread-bgd-color);
+}
+
+.chat-thread li:nth-child(even) {
+	float: right;
+	margin-right: var(--chat-thread-offset);
+	color: #DDD;
+}
+
+.chat-thread li:nth-child(even):before {
+	right: calc(-1 * var(--chat-thread-offset));
+    /* Avatar 1 */
+	background-image: url(/images/face1.svg);
+    background-size: cover;
+    border: 0.25rem solid black;
+}
+
+.chat-thread li:nth-child(even):after {
+	border-right: var(--chat-thread-msg-arrow-size) solid transparent;
+	right: calc(-1 * var(--chat-thread-msg-arrow-size));
+}
+
+.chat-thread li:nth-child(odd) {
+	float: left;
+	margin-left: var(--chat-thread-offset);
+	color: var(--theme-color-vision-span);
+}
+
+.chat-thread li:nth-child(odd):before {
+	left: calc(-1 * var(--chat-thread-offset));
+    /* Avatar 2 */
+	background-image: url(/images/face2.svg);
+    background-size: cover;
+    border: 0.25rem solid black;
+}
+
+.chat-thread li:nth-child(odd):after {
+	border-left: var(--chat-thread-msg-arrow-size) solid transparent;
+	left: calc(-1 * var(--chat-thread-msg-arrow-size));
+}
+
+.chat-thread-illustration {
+    clear: both;
+    max-width: 6cm;
+    margin: 0 auto;
+    display: block;
+}
+
 
 /* ************************************************** */
 
-#vision {
-    background-color: var(--theme-color-vision-span);
+#homepage section#games, #homepage section#library {
+    position: relative;
+    height: 75vh; 
+    overflow: hidden;
 }
 
-/* ************************************************** */
-
-#chunking {
+#homepage section#games {
     background-color: var(--theme-color-chunking);
 }
 
+#homepage section#library {
+    background-color: #EEE;
+}
+
+#homepage section#games img, #homepage section#library img {
+    position: absolute;
+    top: 20%;
+    max-width: 45%;
+}
+#homepage section#games img {
+    right: 0;
+    transform: skew(200deg, -10deg) rotate(2deg);
+    box-shadow: -0.5cm 0.5cm 0 rgba(0, 0, 0, 0.5);
+}
+
+#homepage section#library img {
+    left: 0;
+    transform: skew(160deg, 10deg) rotate(-2deg);
+    box-shadow: 0.5cm 0.5cm 0 rgba(0, 0, 0, 0.5);
+}
+
+
+#homepage section .section-description {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    /* Center text vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#homepage section#games .section-description {
+    left: 10%;
+}
+#homepage section#library .section-description {
+    right: 10%;
+}
+
+#homepage section .section-description p {
+    margin: 1em 0 2em;
+    font-size: 1.5em;
+    line-height: 1.2;
+}
+
 /* ************************************************** */
 
-#motivations {
+#homepage section#motivations {
     background-color: var(--home-color-8);
     color: white;
 }
 
 /* ************************************************** */
 
-#footer {
+#homepage footer {
     background-color: black;
-    color: white
+    color: white;
+    border-top: 0.5rem solid var(--home-color-8);
+}
+#homepage footer a {
+    text-decoration: none;
+    color: inherit;
+}
+#homepage footer em {
+    font-weight: 700;
+}
+
+#homepage footer nav {
+    margin: 2cm auto;
+    max-width: 15cm;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-areas: "reference-github reference-firebase button-try";
+}
+#homepage footer nav a {
+    height: 4cm;
+    align-self: end;
+}
+#homepage footer nav #reference-github {
+    grid-area: reference-github;
+}
+#homepage footer nav #reference-firebase {
+    grid-area: reference-firebase;
+}
+#homepage footer nav #button-try {
+    grid-area: button-try;
+    height: 2cm;
+    margin-left: 1cm;
+    margin-bottom: 0.5cm;
+    
+    /* Center text vertically */
+    font-size: 0.5cm;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50vh;
+    border: 2px solid white;
+    padding: 0.5em 1em;
+    color: white;
+    position: relative; /* To position after element */
+}
+#homepage footer nav #button-try:after {
+    content: '';
+    background: url(/images/try.svg) no-repeat;
+    width: 4cm;
+    height: 3cm;
+    position: absolute;
+    left: 95%;
+    top: 25%;
+}
+#homepage footer nav #button-try:hover {
+    background-color: var(--home-color-7);
+    box-shadow: 0 0 0.2cm 0.2cm rgba(255, 255, 255, 0.2);
+}
+
+
+#homepage footer .reference {
+    text-align: center;
+    position: relative;;
+}
+#homepage footer .reference div {
+    width: 2cm;
+    height: 2cm;
+    background-color: var(--home-color-6);
+    border-radius: 50%;
+    margin: 0.5cm auto 0;
+
+    /* Center image inside the circle */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#homepage footer .reference span {
+    font-size: 0.9em;
+    line-height: 1.4;
+    display: block;
+}
+#homepage footer .reference img {
+    max-width: 80%;
+    max-height: 80%;
+}
+#homepage footer .reference:first-child:after {
+    content: '';
+    border-right: 1px solid white;
+    position: absolute;
+    left: 100%;
+    top: 10%;
+    height: 80%;
+}
+
+#homepage footer #copyright {
+    padding: 2em;
+    background-color: var(--home-color-6);
+    font-size: 0.8em;
+    font-stretch: condensed;
+    text-align: center;
 }

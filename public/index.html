@@ -9,7 +9,11 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -25,26 +29,31 @@
     <!-- https://material.io/tools/icons/?style=baseline -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/csslider.css" rel="stylesheet">
 
     <!-- https://fonts.google.com -->
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&display=swap" rel="stylesheet">
+    <!-- TODO add a system to load dynamically following fonts according the user preferences -->
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Sacramento&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Arizonia&display=swap" rel="stylesheet">
 
-    <!-- Zip.js -->
+    <!-- Zip.js is used to read ePubs -->
     <script type="text/javascript" src="/lib/zip.js"></script>
 
   </head>
   <body>
 
     <div id="homepage">
-      <div id="header" class="fullscreen">
+      <!-- Thanks to http://tholman.com/github-corners/ -->
+      <a href="https://github.com/julien-sobczak/the-bookworm" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0; z-index: 200;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+      <header class="fullscreen">
         <img id="logo" src="/images/logo.svg" />
         <p id="headline">
           <span class="handwritten">Your</span>
@@ -53,47 +62,141 @@
           <span class="handwritten">Simple, Online & Completely Free</span>
         </p>
         <div id="try">
-          <a href="/home">Try</a>
+          <a href="/home" class="button-try">Try</a>
           <span>Not Ready?</span>
         </div>
-      </div>
-      <div class="quote">
+      </header>
+      <blockquote>
           <q>&ldquo;I took a speed-reading course and read War and Peace in twenty minutes. It involves Russia.&rdquo;</q>
           <span>Woody Allen</span>
-      </div>
-      <div id="myths" class="fullscreen">
+      </blockquote>
+      <section id="myths">
         <h1>Speed Reading common fallacies...</h1>
-        <!-- https://codepen.io/drygiel/pen/rtpnE -->
-      </div>
-      <div class="quote">
-          <q>&ldquo;Speed reading is learning silent reading.&rdquo;</q>
-          <span>Julien Sobczak</span>
-      </div>
-      <div id="vision" class="fullscreen">
-        Vision
-      </div>
-      <div class="quote">
-          <q>&ldquo;Speed reading is learning silent reading.&rdquo;</q>
-          <span>Julien Sobczak</span>
-      </div>
-      <div id="chunking" class="fullscreen">
-          Chunking
-      </div>
-      <div class="quote">
-          <q>&ldquo;Speed reading is learning silent reading.&rdquo;</q>
-          <span>Julien Sobczak</span>
-      </div>
-      <div id="motivations">
-          <!-- A few works on The Bookworm -->
-        TODO
-      </div>
-      <div class="quote">
-          <q>&ldquo;Faster reading speed leads to more concentration, which leads to more comprehension, which leads to stronger retention.&rdquo;</q>
-      </div>
+        <img class="chat-thread-illustration" src="/images/discussion.svg" />
+        <!-- Inspired by https://codepen.io/clintabrown/pen/HAkjq & https://codepen.io/drygiel/pen/rtpnE -->
+        <div class="csslider">
+            <input type="radio" name="slides" id="slides_1" checked />
+            <input type="radio" name="slides" id="slides_2" />
+            <input type="radio" name="slides" id="slides_3" />
+            <input type="radio" name="slides" id="slides_4" />
+            <input type="radio" name="slides" id="slides_N" />
+            <ul>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 1: I will not remember -->
+                    <li>If I read faster, I'm afraid to remember nothing...</li>
+                    <li>Do you really remember what you read slowly?</li>
+                    <li>No, not really.</li>
+                    <li>There are many techniques to increase memory retention, and none are incompatible with speed reading.</li>
+                    <li>Do you have some examples?</li>
+                    <li>Start by getting familiar and passionate with the subject, take notes or draw mindmappings, find friends to exchange about key ideas, and apply what you learn.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 2: I love reading to relax -->
+                    <li>But I love to read and <a href="https://www.telegraph.co.uk/news/health/news/5070874/Reading-can-help-reduce-stress.html">relax</a>?</li>
+                    <li>Speed reading is not reading everything fast. You will not read Shakespeare as fast as Slack messages. Speed reading is the ability to read at the right speed.</li>
+                    <li>But there is no point in watching a movie at twice the speed. Why there should be different for books?</li>
+                    <li>Because there is not an ideal speed to read a book. Most readers average around 200 WPM (words per minute) because we learnt to read by reading aloud. Our teachers was testing our ability to read by listening us reading aloud. We never really learn to read silently.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 3: I can't read faster -->
+                    <li>I think I can't read faster.</li>
+                    <li>Indeed, you can't read faster without learning how to read faster. When you read aloud, you are limited by your speech. We talk around 150 WPM. When you read silently, you are limited by your eyes, but you will be surprised by how much your eyes are able to absorbe in a single fixation. Your brain is never the bottleneck. Just consider how much you brain can absorbe almost instantly when you are driving and you brain instructs your foot to brake. Your brain can absorb a lot.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 4: Reading is thinking not information processing -->
+                    <li>What's the point of flooding by brain with so much information when reading is about thinking?</li>
+                    <li>Your are reading with your eyes, but information is processed with our brain. I suppose you've already get new ideas in the shower, are you?</li>
+                    <li>Yes, ideas pop when in the shower, but also when I'm walking alone in the nature.</li>
+                    <li>You brain is split into two hemispheres. The "left" side is analytical. It's the side you use to think over a problem. You cantrol this side while being focus. The "right" brain is the creative guy. It works in the background when you stop interacting with the left brain. Like a magician preparing a magical potion, it connects neurons in new ways to create new insights, the ah-ah moments.</li>
+                    <li>So, when I reading slowly, I'm only giving the floor to my analytical brain.</li>
+                    <li>Right. But it's not because you speed read that you can't stop a moment to think about what you've read. Speed reading is not a race. Take moments during the reading, but also plan moments between readings for both sides of your brain do their job.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 5: -->
+                    <li>I don't want to skim</li>
+                    <li>Many speed reading courses teach skimming to preread the content. It's like using Google Maps to plan your vacation to get the most of it. Skimming can help you read faster by clearing the fog, but skimming is not a synonymous with speed reading.</li>
+                  </ul>
+                </li>
+            </ul>
+            <div class="arrows">
+                <label for="slides_1"></label>
+                <label for="slides_2"></label>
+                <label for="slides_3"></label>
+                <label for="slides_4"></label>
+                <label for="slides_N"></label>
+                <label for="slides_1" class="goto-first"></label>
+                <label for="slides_N" class="goto-last"></label>
+            </div>
+            <div class="navigation">
+              <div>
+                  <label for="slides_1"></label>
+                  <label for="slides_2"></label>
+                  <label for="slides_3"></label>
+                  <label for="slides_4"></label>
+                  <label for="slides_N"></label>
+              </div>
+            </div>
+        </div>
+          <!-- In order to read, the eye has to stop at a part of the text, this is called fixation. Next, it must make a quick movement to the next fixation point, this is called a saccade -->
+          <!-- simply reread the book in a few months. Repetition is a far better solution for retention than slow reading! -->
+          <!-- Speed reading is just a skill than let you adjust your reading speed based on the content, your goal. Speed reading may help you reread books, read books you will not read without it. Speed reading is not just about reading book, but abook readings -- reading emails, chat messages, flyers, ...  -->
+       
+          <!-- One last work. You must be skeptical about speed reading. Do not believe everything you read about the topic, starting from this site. Like anything, there are a part of truth and there are (a lot) debatable point. By the same token, there are many resources to refute speed reading. Be skeptical about them too. -->
+      </section>
+      <blockquote>
+          <q>&ldquo;Learning speed reading is learning <u>silent reading</u>.&rdquo;</q>
+      </blockquote>
+      <section id="games">
+        <div class="section-description">
+          <h2>10 Games.<br/>Entirely Configurable.<br/>Endless Possibilities.</h2>
+          <p>Put your peripheral vision to the test, learn how to read chunks of words, and practice freely on your favorite books. </p>
+          <p><a href="/home" class="button-try">Try</a></p>
+        </div>
+        <img src="/images/screenshots/chunking.png" alt="A screenshot of the page listing available games." />
+      </section>
+      <blockquote>
+          <q>&ldquo;Read the best books first, or you may not have a chance to read them at all.&rdquo;</q>
+          <span>Henry David Thoreau</span>
+      </blockquote>
+      <section id="library">
+        <div class="section-description">
+          <h2>A Vast Library.<br/>Your Own Content.</h2>
+          <p>Browse the catalog based on the most popular books on Project Gutenberg, or upload your own content, using ePubs or copy-paste texts.</p>
+          <p><a href="/home" class="button-try">Try</a></p>
+        </div>
+        <img src="/images/screenshots/game-page.png" alt="A screenshot of the game allowing to speed read a book page per page." />
+      </section>
+      <!--
+      <section id="motivations" style="text-align: center">
+          A few works on The Bookworm
+      </section>
+      -->
       <!-- Footer -->
-      <div id="footer">
-        Footer
-      </div>
+      <footer>
+        <nav>
+          <a id="reference-github" class="reference" href="https://github.com/julien-sobczak/the-bookworm">
+            <span>Code available<br/>on <em>GitHub</em></span>
+            <div><img src="/images/github.svg" /></div>
+          </a>
+          <a id="reference-firebase" class="reference" href="https://the-bookworm.web.app">
+            <span>App hosted<br/>on <em>Firebase</em></span>
+            <div><img src="/images/firebase.svg" /></div>
+          </a>
+          <a id="button-try" href="/home">Try</a>
+        </nav>
+        <div id="copyright">
+          Made by <em>Julien Sobczak</em> - Illustrations use resources from <a href="https://www.freepik.com/"><em>Freepik</em></a>.
+        </div>
+      </footer>
     </div>
 
 
