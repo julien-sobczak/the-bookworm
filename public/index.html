@@ -25,19 +25,21 @@
     <!-- https://material.io/tools/icons/?style=baseline -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/csslider.css" rel="stylesheet">
 
     <!-- https://fonts.google.com -->
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&display=swap" rel="stylesheet">
+    <!-- TODO add a system to load dynamically following fonts according the user preferences -->
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Sacramento&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Arizonia&display=swap" rel="stylesheet">
 
-    <!-- Zip.js -->
+    <!-- Zip.js is used to read ePubs -->
     <script type="text/javascript" src="/lib/zip.js"></script>
 
   </head>
@@ -61,12 +63,94 @@
           <q>&ldquo;I took a speed-reading course and read War and Peace in twenty minutes. It involves Russia.&rdquo;</q>
           <span>Woody Allen</span>
       </div>
-      <div id="myths" class="fullscreen">
+      <div id="myths">
         <h1>Speed Reading common fallacies...</h1>
-        <!-- https://codepen.io/drygiel/pen/rtpnE -->
+        <!-- Inspired by https://codepen.io/clintabrown/pen/HAkjq & https://codepen.io/drygiel/pen/rtpnE -->
+        <div class="csslider">
+            <input type="radio" name="slides" id="slides_1" checked />
+            <input type="radio" name="slides" id="slides_2" />
+            <input type="radio" name="slides" id="slides_3" />
+            <input type="radio" name="slides" id="slides_4" />
+            <input type="radio" name="slides" id="slides_N" />
+            <ul>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 1: I will not remember -->
+                    <li>If I read faster, I'm afraid to remember nothing...</li>
+                    <li>Do you really remember what you read slowly?</li>
+                    <li>No, not really.</li>
+                    <li>There are many techniques to increase memory retention, and none are incompatible with speed reading.</li>
+                    <li>Do you have some examples?</li>
+                    <li>Start by getting familiar and passionate with the subject, take notes or draw mindmappings, find friends to exchange about key ideas, and apply what you learn.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 2: I love reading to relax -->
+                    <li>But I love to read and <a href="https://www.telegraph.co.uk/news/health/news/5070874/Reading-can-help-reduce-stress.html">relax</a>?</li>
+                    <li>Speed reading is not reading everything fast. You will not read Shakespeare as fast as Slack messages. Speed reading is the ability to read at the right speed.</li>
+                    <li>But there is no point in watching a movie at twice the speed. Why there should be different for books?</li>
+                    <li>Because there is not an ideal speed to read a book. Most readers average around 200 WPM (words per minute) because we learnt to read by reading aloud. Our teachers was testing our ability to read by listening us reading aloud. We never really learn to read silently.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 3: I can't read faster -->
+                    <li>I think I can't read faster.</li>
+                    <li>Indeed, you can't read faster without learning how to read faster. When you read aloud, you are limited by your speech. We talk around 150 WPM. When you read silently, you are limited by your eyes, but you will be surprised by how much your eyes are able to absorbe in a single fixation. Your brain is never the bottleneck. Just consider how much you brain can absorbe almost instantly when you are driving and you brain instructs your foot to brake. Your brain can absorb a lot.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 4: Reading is thinking not information processing -->
+                    <li>What's the point of flooding by brain with so much information when reading is about thinking?</li>
+                    <li>Your are reading with your eyes, but information is processed with our brain. I suppose you've already get new ideas in the shower, are you?</li>
+                    <li>Yes, ideas pop when in the shower, but also when I'm walking alone in the nature.</li>
+                    <li>You brain is split into two hemispheres. The "left" side is analytical. It's the side you use to think over a problem. You cantrol this side while being focus. The "right" brain is the creative guy. It works in the background when you stop interacting with the left brain. Like a magician preparing a magical potion, it connects neurons in new ways to create new insights, the ah-ah moments.</li>
+                    <li>So, when I reading slowly, I'm only giving the floor to my analytical brain.</li>
+                    <li>Right. But it's not because you speed read that you can't stop a moment to think about what you've read. Speed reading is not a race. Take moments during the reading, but also plan moments between readings for both sides of your brain do their job.</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="chat-thread">
+                    <!-- Myth 5: -->
+                    <li>I don't want to skim</li>
+                    <li>Many speed reading courses teach skimming to preread the content. It's like using Google Maps to plan your vacation to get the most of it. Skimming can help you read faster by clearing the fog, but skimming is not a synonymous with speed reading.</li>
+                  </ul>
+                </li>
+            </ul>
+            <div class="arrows">
+                <label for="slides_1"></label>
+                <label for="slides_2"></label>
+                <label for="slides_3"></label>
+                <label for="slides_4"></label>
+                <label for="slides_N"></label>
+                <label for="slides_1" class="goto-first"></label>
+                <label for="slides_N" class="goto-last"></label>
+            </div>
+            <div class="navigation">
+              <div>
+                  <label for="slides_1"></label>
+                  <label for="slides_2"></label>
+                  <label for="slides_3"></label>
+                  <label for="slides_4"></label>
+                  <label for="slides_N"></label>
+              </div>
+            </div>
+        </div>
+
+          <!-- In order to read, the eye has to stop at a part of the text, this is called fixation. Next, it must make a quick movement to the next fixation point, this is called a saccade -->
+
+          <!-- simply reread the book in a few months. Repetition is a far better solution for retention than slow reading! -->
+
+          <!-- Speed reading is just a skill than let you adjust your reading speed based on the content, your goal. Speed reading may help you reread books, read books you will not read without it. Speed reading is not just about reading book, but abook readings -- reading emails, chat messages, flyers, ...  -->
+          
+        <h1 style="clear: both">
+          One last work. You must be skeptical about speed reading. Do not believe everything you read about the topic, starting from this site. Like anything, there are a part of truth and there are (a lot) debatable point. By the same token, there are many resources to refute speed reading. Be skeptical about them too.
+        </h1>
       </div>
       <div class="quote">
-          <q>&ldquo;Speed reading is learning silent reading.&rdquo;</q>
+          <q>&ldquo;Learning speed reading is learning <u>silent reading</u>.&rdquo;</q>
           <span>Julien Sobczak</span>
       </div>
       <div id="vision" class="fullscreen">
@@ -83,9 +167,8 @@
           <q>&ldquo;Speed reading is learning silent reading.&rdquo;</q>
           <span>Julien Sobczak</span>
       </div>
-      <div id="motivations">
+      <div id="motivations" style="text-align: center">
           <!-- A few works on The Bookworm -->
-        TODO
       </div>
       <div class="quote">
           <q>&ldquo;Faster reading speed leads to more concentration, which leads to more comprehension, which leads to stronger retention.&rdquo;</q>
