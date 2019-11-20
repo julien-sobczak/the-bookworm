@@ -1,10 +1,10 @@
-import { statsContent, isoLanguage, statsPages, statsChunks, countWords, countLetters, nextPosition, extractContent } from './library';
+import * as library from './library';
 
 describe('countWords', () => {
 
     it('calculates the number of words', () => {
         const text = "A very, simple, but useful example!";
-        expect(countWords(text)).toBe(6);
+        expect(library.countWords(text)).toBe(6);
     });
 
 });
@@ -14,8 +14,8 @@ describe('countLetters', () => {
     it('calculates the number of letters', () => {
         const textWithoutHTML = "A simple text";
         const textWithHTML = "“I ain't, aunt; it <i>is</i> all done.”";
-        expect(countLetters(textWithoutHTML)).toBe(13);
-        expect(countLetters(textWithHTML)).toBe(32);
+        expect(library.countLetters(textWithoutHTML)).toBe(13);
+        expect(library.countLetters(textWithHTML)).toBe(32);
     });
 });
 
@@ -36,7 +36,7 @@ describe('statsContent', () => {
                 { tag: "p", content: "Aunt Polly placed small trust in such evidence..." },
             ]
         };
-        const stats = statsContent(content, 100);
+        const stats = library.statsContent(content, 100);
         expect(stats.paragraphs).toBe(7);
         expect(stats.words).toBe(43);
         expect(stats.letters).toBe(243);
@@ -68,7 +68,7 @@ describe('statsPages', () => {
                 ]
             },
         ];
-        const stats = statsPages(pages);
+        const stats = library.statsPages(pages);
         expect(stats.pages).toBe(1);
         expect(stats.chunks).toBe(6);
     });
@@ -84,7 +84,7 @@ describe('statsChunks', () => {
             { tag: "p", text: "himself before" },
             { tag: "p", text: "Aunt Polly," },
         ];
-        const stats = statsChunks(chunks);
+        const stats = library.statsChunks(chunks);
         expect(stats.chunks).toBe(4);
     })
 });
@@ -115,7 +115,7 @@ describe('nextPosition', () => {
             section: 0,
             block: 1,
         };
-        expect(nextPosition(lastPosition, content)).toMatchObject({
+        expect(library.nextPosition(lastPosition, content)).toMatchObject({
             section: 1,
             block: 0,
         });
@@ -126,7 +126,7 @@ describe('nextPosition', () => {
             section: 0,
             block: 0,
         };
-        expect(nextPosition(lastPosition, content)).toMatchObject({
+        expect(library.nextPosition(lastPosition, content)).toMatchObject({
             section: 0,
             block: 1,
         });
@@ -137,7 +137,7 @@ describe('nextPosition', () => {
             section: 1,
             block: 1,
         };
-        expect(nextPosition(lastPosition, content)).toMatchObject({
+        expect(library.nextPosition(lastPosition, content)).toMatchObject({
             section: 0,
             block: 0,
             progress: 100,
@@ -157,7 +157,7 @@ describe('extractContent', () => {
                 { tag: "p", content: "Text 2"},
             ],
         };
-        const subContent = extractContent(drillContent, 1, 2);
+        const subContent = library.extractContent(drillContent, 1, 2);
         expect(subContent).toMatchObject({
             title: "Section 1",
             blocks: [
@@ -170,7 +170,7 @@ describe('extractContent', () => {
 describe('isoLanguage', () => {
 
     it('returns the ISO code from the ISO language name', () => {
-        expect(isoLanguage("French")).toBe('fr');
-        expect(isoLanguage("English")).toBe('en');
+        expect(library.isoLanguage("French")).toBe('fr');
+        expect(library.isoLanguage("English")).toBe('en');
     });
 })

@@ -6,7 +6,7 @@ import * as helpers from '../../../functions/engine';
 
 const defaultDrillSettings = {
     span: "2in",
-    lines: undefined,
+    lines: 0,
     autoLevel: true,
 };
 

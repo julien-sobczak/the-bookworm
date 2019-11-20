@@ -1,12 +1,12 @@
-import { getQuoteOfTheDay, getTipOfTheDay, getMessageOfTheDay } from './quote';
+import * as information from './information';
 
 describe('getQuoteOfTheDay', () => {
 
     it('should return a random quote', () => {
-        const quote = getQuoteOfTheDay();
+        const quotation = information.getQuoteOfTheDay();
         // Text and author are required for all quotations
-        expect(quote.author).toMatch(/.+/);
-        expect(quote.text).toMatch(/.+/);
+        expect(quotation.author).toMatch(/.+/);
+        expect(quotation.text).toMatch(/.+/);
     });
 
 });
@@ -14,7 +14,7 @@ describe('getQuoteOfTheDay', () => {
 describe('getTipOfTheDay', () => {
 
     it('should return a random tip', () => {
-        const tip = getTipOfTheDay();
+        const tip = information.getTipOfTheDay();
         // Only text is required for tips
         expect(tip.text).toMatch(/.+/);
     });
@@ -24,7 +24,7 @@ describe('getTipOfTheDay', () => {
 describe('getMessageOfTheDay', () => {
 
     it('should return a random message', () => {
-        const message = getMessageOfTheDay();
+        const message = information.getMessageOfTheDay();
         // Text is always required
         expect(message.text).toMatch(/.+/);
         // Type is used to determine the kind

@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import { ContentContext } from "../../../content-context";
 import { restoreBackup, registerBackup } from '../../store/actions';
 
-import * as quote from '../../functions/quote';
+import * as information from '../../functions/information';
 import * as storage from '../../functions/storage';
 import * as string from '../../functions/string';
 
 import PanelError from "../toolbox/PanelError";
 import BarWpm from "../toolbox/BarWpm";
 
-const messageToday = quote.getMessageOfTheDay();
+const messageToday = information.getMessageOfTheDay();
 
 function Profile(props) {
 

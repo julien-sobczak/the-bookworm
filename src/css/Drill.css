@@ -17,8 +17,9 @@
 }
 .DrillControls .material-icons {
   font-size: 48px;
-  color: var(--theme-color);
-  text-shadow: 0 0.1cm black;
+  color: white;
+  border-radius: 100%;
+  background-color: black;
 }
 
 .DrillArea {
@@ -324,7 +325,7 @@
     cursor: default;
   }
 
-/* 
+/*
  * Stats
  */
 

@@ -124,7 +124,7 @@ const Form = (props) => {
     };
 
     const handleChunkStopsChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = parseInt(event.target.dataset.value);
         setChunkStops(newValue);
         onChange({
             ...currentState(),

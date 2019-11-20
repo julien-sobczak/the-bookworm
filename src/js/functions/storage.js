@@ -1,5 +1,6 @@
 import * as library from './library';
 
+// TODO export to a JSON file and load dynamically
 export const tutorial = {
     id: 'content-static-tutorial',
     type: "static",
@@ -23,13 +24,18 @@ export const tutorial = {
                     { tag: "p", content: "The Bookworm works in your browser. It is regularly testing with Chrome and Firefox, and should work with your tablet or your computer. Phones are not supported as the screen is too small for most drills." },
                 ],
             }
-            // TODO
+            // TODO complete
         ],
     },
     reloadable: false,
     saveOnLocalStorage: false,
 };
 
+/**
+ * Store a new content.
+ *
+ * @param {Object} content A new content
+ */
 export function storeContent(content) {
     if (!content) return; // Happens at load time
     const id = content.id;
@@ -37,12 +43,29 @@ export function storeContent(content) {
     localStorage.setItem(id, JSON.stringify(content));
 }
 
+/**
+ * Search for the content associated with a reading in the local storage.
+ *
+ * @param {Object} reading The reading
+ * @return {Object} The content present in storage, or undefined if not found
+ */
 export function retrieveContent(reading) {
     const id = reading.id;
-    return JSON.parse(localStorage.getItem(id));
+    const content = localStorage.getItem(id);
+    if (content) {
+        return JSON.parse(content);
+    }
+    return undefined;
 }
 
+/**
+ * Retrieve the content associated with a reading, and reload it if missing from the local storage.
+ *
+ * @param {Object} reading The reading
+ * @param {Function} onLoad Callback called when the content is available
+ */
 export function reloadContent(reading, onLoad) {
+    // TODO return a Promise instead
     if (!localStorage.getItem(reading.id)) {
         // Content has disappeared from local storage.
         if (reading.reloadable) {
