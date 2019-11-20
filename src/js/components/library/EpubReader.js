@@ -8,7 +8,7 @@ const getEntries = file => {
     return new Promise((resolve, reject) => {
         zip.createReader(new zip.BlobReader(file), zipReader => {
             zipReader.getEntries((entries) => {
-                resolve(entries)
+                resolve(entries);
             });
         }, reject)
     });
@@ -22,7 +22,7 @@ const getEntryFile = entry => {
             reader.onload = () => {
                 resolve({
                     filename: entry.filename,
-                    content: reader.result
+                    content: reader.result,
                 });
             };
             reader.readAsText(blob);
@@ -34,8 +34,8 @@ const getEntryFile = entry => {
 // Reads the TOC file and determine the list of chapters
 export const parseToc = content => {
     const toc = [];
-    const tocDoc = new DOMParser().parseFromString(content, "application/xml")
-    const chapters = [...tocDoc.querySelectorAll('navPoint')] // converts NodeList to Array
+    const tocDoc = new DOMParser().parseFromString(content, "application/xml");
+    const chapters = [...tocDoc.querySelectorAll('navPoint')]; // converts NodeList to Array
     chapters.forEach(element => {
         const text = element.querySelector('text').innerHTML;
         const filename = element.querySelector('content').getAttribute('src');
@@ -109,7 +109,7 @@ export const getFileMatching = (files, regex) => {
     for (let i = 0; i < files.length; i++) {
         const file = files[i]
         if (regex.test(file.filename)) {
-            return file
+            return file;
         }
     }
     return undefined;
@@ -117,8 +117,8 @@ export const getFileMatching = (files, regex) => {
 
 // Reads the TOC file and determine the list of chapters
 export const extractToc = files => {
-    const tocFile = getFileMatching(files, /.*toc[.]ncx$/)
-    if (!tocFile) return null
+    const tocFile = getFileMatching(files, /.*toc[.]ncx$/);
+    if (!tocFile) return null;
 
     return parseToc(tocFile.content);
 }
@@ -130,7 +130,7 @@ export const filterChapter = chapter => {
 
 // Extracts the content from all chapters present in the ePub.
 export const extractChapters = (files) => {
-    const toc = extractToc(files)
+    const toc = extractToc(files);
     const chapters = [];
     for (let i = 0; i < toc.length; i++) {
         const chapter = toc[i];
@@ -168,10 +168,10 @@ export const readEpub = file => {
             }
             entries.forEach(entry => {
                 if (!isTextEntry(entry)) return;
-                promises.push(getEntryFile(entry))
+                promises.push(getEntryFile(entry));
             });
             Promise.all(promises).then(files => {
-                const chapters = extractChapters(files)
+                const chapters = extractChapters(files);
                 resolve({
                     id: `content-epub-${file.name}`,
                     type: "epub",
@@ -188,7 +188,7 @@ export const readEpub = file => {
             });
         })
         .catch(err => {
-            reject(err)
+            reject(err);
         });
     });
 }

@@ -15,8 +15,8 @@ describe('textDuration()', () => {
     it('should ignore HTML tags in the chunk text', () => {
         const textWithTags = "This <i>text</i> contains<br/> HTML tags.";
         const textWithoutTags = "This text contains HTML tags.";
-        const durationWithTags = wpm.textDuration(textWithTags, 100)
-        const durationWithoutTags = wpm.textDuration(textWithoutTags, 100)
+        const durationWithTags = wpm.textDuration(textWithTags, 100);
+        const durationWithoutTags = wpm.textDuration(textWithoutTags, 100);
         expect(durationWithTags).toBe(durationWithoutTags);
     });
 

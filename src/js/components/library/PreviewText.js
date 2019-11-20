@@ -27,7 +27,7 @@ class PreviewText extends React.Component {
                 continue;
             }
 
-            blocks.push({ tag: "p", content: line })
+            blocks.push({ tag: "p", content: line });
         }
 
         return {

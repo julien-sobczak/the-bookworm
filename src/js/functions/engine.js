@@ -23,7 +23,7 @@ export function reduceSpan(span) {
     if (isMinSpan(span)) return span;
 
     if (Array.isArray(span)) {
-        return span.map((s) => SPANS[SPANS.indexOf(s) - 1])
+        return span.map((s) => SPANS[SPANS.indexOf(s) - 1]);
     } else {
         return SPANS[SPANS.indexOf(span) - 1];
     }

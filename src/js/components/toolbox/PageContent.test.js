@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import PageContent from './PageContent';
 
 it('sets CSS classes', () => {
@@ -21,24 +21,24 @@ it('sets CSS classes', () => {
         ],
     };
 
-    const { container, getByText } = render(<PageContent page={page} blockPosition={1} chunkPosition={0} />)
+    const { container, getByText } = render(<PageContent page={page} blockPosition={1} chunkPosition={0} />);
 
     // class Selected
-    expect(getByText('Chapter 3')).not.toHaveClass('Selected')
-    expect(getByText('TOM presented himself')).toHaveClass('Selected')
-    expect(getByText('before Aunt Polly,')).not.toHaveClass('Selected')
+    expect(getByText('Chapter 3')).not.toHaveClass('Selected');
+    expect(getByText('TOM presented himself')).toHaveClass('Selected');
+    expect(getByText('before Aunt Polly,')).not.toHaveClass('Selected');
 
     // class Before/After
-    expect(getByText('Chapter 3')).toHaveClass('Before')
-    expect(getByText('before Aunt Polly,')).toHaveClass('After')
+    expect(getByText('Chapter 3')).toHaveClass('Before');
+    expect(getByText('before Aunt Polly,')).toHaveClass('After');
 
     // class Chunk/Space
-    expect(getByText('Chapter 3')).toHaveClass('Chunk')
-    expect(getByText('before Aunt Polly,').previousSibling).toHaveClass('Space')
+    expect(getByText('Chapter 3')).toHaveClass('Chunk');
+    expect(getByText('before Aunt Polly,').previousSibling).toHaveClass('Space');
 
     // class Continuation/Continued/Entire
-    expect(container.querySelector('h2')).toHaveClass('Entire')
-    expect(container.querySelector('p')).toHaveClass('Continued')
+    expect(container.querySelector('h2')).toHaveClass('Entire');
+    expect(container.querySelector('p')).toHaveClass('Continued');
 });
 
 it('preserves HTML tags in content', () => {
@@ -52,7 +52,7 @@ it('preserves HTML tags in content', () => {
         ],
     };
 
-    const { getByText } = render(<PageContent page={page} />)
+    const { getByText } = render(<PageContent page={page} />);
 
     expect(getByText('TOM presented himself')).toContainHTML(
         '<span class="Selected Chunk">TOM presented himself</span>')

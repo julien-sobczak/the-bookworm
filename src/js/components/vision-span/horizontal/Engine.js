@@ -117,7 +117,7 @@ class Engine {
                 matchFound = true;
                 error = false;
             } else if (column.valid !== true) { // Still (at least) a missing column
-                lineFinished = false
+                lineFinished = false;
             }
         }
         if (error) {
@@ -131,7 +131,7 @@ class Engine {
                 this.currentLineIndex = 0;
             } else {
                 this.totalWrongAnswers += this.errorCount;
-                this.totalCorrectAnswers += this.lines * this.columns * this.seriesCount; 
+                this.totalCorrectAnswers += this.lines * this.columns * this.seriesCount;
                 this.totalAnswers += this.inputCount;
                 this.onDrillFinished && this.onDrillFinished({
                     errorCount: this.errorCount,
@@ -156,7 +156,7 @@ class Engine {
 
     /**
      * Return a new drill.
-     * 
+     *
      * @return {Object} The drill content
      */
     newDrill() {

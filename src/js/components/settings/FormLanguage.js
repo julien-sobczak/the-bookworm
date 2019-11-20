@@ -8,7 +8,7 @@ const FormLanguage = (props) => {
     const handleNativeChange = (event) => {
         const newNative = event.target.value;
         if (native === newNative) return;
-        setNative(newNative)
+        setNative(newNative);
         onChange({
             native: newNative,
         });

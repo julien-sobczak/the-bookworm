@@ -81,7 +81,7 @@ class Library extends React.Component {
     }
 
     handleSelection(selection) {
-        this.props.onSelect(selection)
+        this.props.onSelect(selection);
     }
 
     render() {

@@ -44,10 +44,10 @@ class LibraryBooks extends React.Component {
             if (entry.slug === slug) {
                 // Found the content to download
                 this.setState({
-                    loading: true
+                    loading: true,
                 });
                 library.downloadContent(entry).then(content => this.props.onSelect(content));
-                break
+                break;
             }
         }
     }
@@ -77,7 +77,7 @@ class LibraryBooks extends React.Component {
             const indexFirstLetter = letters.indexOf(firstLetter);
             if (indexFirstLetter !== -1) {
                 letterCount[indexFirstLetter] = letterCount[indexFirstLetter]+1;
-            }            
+            }
             return true;
         }
         const books = this.state.catalog.filter(matchFilters);
@@ -128,11 +128,11 @@ class LibraryBooks extends React.Component {
                         {/* TODO Add filters by language, by kind, search box */}
 
                         <div className="LibraryFilters">
-                            
+
                             {/* Filter by regex */}
                             {this.state.filterRegex}
                             <input type="text" placeholder="Search..." value={this.state.filterRegex} onChange={this.filterByRegex} />
-                            
+
                             {/* Filter by language */}
                             <ul>
                                 {this.state.popularLanguages.map((language, index) => {

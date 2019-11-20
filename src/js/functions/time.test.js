@@ -1,4 +1,4 @@
-import * as time from './time'
+import * as time from './time';
 
 describe('duration', () => {
 

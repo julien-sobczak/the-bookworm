@@ -35,7 +35,7 @@ const ButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
         }).catch(err => {
             setLoading(false);
             setErrorMessage(err);
-            console.error(`Unable to parse file ${file.name} as ePub`, err)
+            console.error(`Unable to parse file ${file.name} as ePub`, err);
         });
     }
     return (
