@@ -67,7 +67,7 @@ test('parseToc extracts chapters from the TOC file', () => {
     </navMap>
 </ncx>
 `
-    const toc = parseToc(content)
+    const toc = parseToc(content);
     const expected = [
         {"filename": "pages/contents.xhtml", "title": "Contents"},
         {"filename": "pages/about_author.xhtml", "title": "About the Author"},

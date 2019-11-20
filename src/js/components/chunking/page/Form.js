@@ -167,7 +167,7 @@ const Form = (props) => {
                         <th>Disable visual regression:</th>
                         <td>
                             <Switch
-                                nativeControlId='disableVisualRegression'
+                                nativeControlId="disableVisualRegression"
                                 checked={disableVisualRegression}
                                 onChange={handleDisableVisualRegressionChange} />
                         </td>
@@ -176,7 +176,7 @@ const Form = (props) => {
                         <th>Disable visual progression:</th>
                         <td>
                             <Switch
-                                nativeControlId='disableVisualProgression'
+                                nativeControlId="disableVisualProgression"
                                 checked={disableVisualProgression}
                                 onChange={handleDisableVisualProgressionChange} />
                         </td>

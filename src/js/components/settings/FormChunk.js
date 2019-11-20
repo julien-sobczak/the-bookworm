@@ -8,7 +8,7 @@ const FormChunk = (props) => {
     const handleChunkStyleClick = (event) => {
         const newChunkStyle = event.target.dataset.value;
         if (chunkStyle === newChunkStyle) return;
-        setChunkStyle(newChunkStyle)
+        setChunkStyle(newChunkStyle);
         onChange({
             chunkStyle: newChunkStyle,
         });

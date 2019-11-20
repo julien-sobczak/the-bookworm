@@ -120,7 +120,7 @@ class Engine {
                 matchFound = true;
                 error = false;
             } else if (element.valid !== true) { // Still (at least) a missing column
-                finished = false
+                finished = false;
             }
         }
         if (error) {
@@ -131,7 +131,7 @@ class Engine {
                 this.currentLineIndex++;
             } else {
                 this.totalWrongAnswers += this.errorCount;
-                this.totalCorrectAnswers += this.lines * 3 /* columns */; 
+                this.totalCorrectAnswers += this.lines * 3 /* columns */;
                 this.totalAnswers += this.inputCount;
                 this.callbackDrillFinished && this.callbackDrillFinished({
                     errorCount: this.errorCount,
@@ -142,7 +142,7 @@ class Engine {
 
     /**
      * Return a new drill.
-     * 
+     *
      * @return {Object} The drill content
      */
     newDrill() {

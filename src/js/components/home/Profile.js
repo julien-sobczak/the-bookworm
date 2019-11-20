@@ -30,7 +30,7 @@ function Profile(props) {
         const dd = ("" + today.getUTCDate()).padStart(2, '0');
         const hh = ("" + today.getUTCHours()).padStart(2, '0');
         const mm = ("" + today.getUTCMinutes()).padStart(2, '0');
-        return `backup-${yyyy}${MM}${dd}-${hh}${mm}.json`
+        return `backup-${yyyy}${MM}${dd}-${hh}${mm}.json`;
     }
 
     const createBackup = () => {

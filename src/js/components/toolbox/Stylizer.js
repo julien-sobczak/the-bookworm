@@ -69,7 +69,7 @@ class Stylizer extends React.Component {
             fontFamily: newFontFamily,
         }
         this.setState(newState);
-        this.props.onChange(newState)
+        this.props.onChange(newState);
     }
 
     handleFontStyleClick = (event) => {
@@ -80,7 +80,7 @@ class Stylizer extends React.Component {
             fontStyle: newFontStyle,
         }
         this.setState(newState);
-        this.props.onChange(newState)
+        this.props.onChange(newState);
     }
 
     handleFontSizeClick = (event) => {
@@ -91,7 +91,7 @@ class Stylizer extends React.Component {
             fontSize: newFontSize,
         }
         this.setState(newState);
-        this.props.onChange(newState)
+        this.props.onChange(newState);
     }
 
     handleThemeClick = (event) => {
@@ -109,7 +109,7 @@ class Stylizer extends React.Component {
             newState.backgroundColor = Stylizer.THEME_DARK_BACKGROUND_COLOR;
         }
         this.setState(newState);
-        this.props.onChange(newState)
+        this.props.onChange(newState);
     }
 
     handleColorChange = (color) => {
@@ -118,7 +118,7 @@ class Stylizer extends React.Component {
             color: color,
         }
         this.setState(newState);
-        this.props.onChange(newState)
+        this.props.onChange(newState);
     };
 
     handleBackgroundColorChange = (color) => {
@@ -127,7 +127,7 @@ class Stylizer extends React.Component {
             backgroundColor: color,
         }
         this.setState(newState);
-        this.props.onChange(newState)
+        this.props.onChange(newState);
     };
 
 

@@ -67,13 +67,13 @@ class Drill extends React.Component {
 
         const startingPause = 500;
         let delay = startingPause + this.advanceChunk();
-        let start = new Date().getTime()
+        let start = new Date().getTime();
         this.handle = undefined;
         let loop = () => {
             if (!this.handle) return;
             this.handle = window.requestAnimationFrame(loop);
-            const current = new Date().getTime()
-            const delta = current - start
+            const current = new Date().getTime();
+            const delta = current - start;
             if (delta >= delay) {
               delay = this.advanceChunk();
               start = new Date().getTime();
@@ -203,7 +203,7 @@ class Drill extends React.Component {
     render() {
         const columnWidthOnScreen = (this.props.chunkMode === 'dynamic') ?
             helpers.increaseSpan(this.props.chunkWidthMax) :
-            helpers.increaseSpan(this.props.columnWidth)
+            helpers.increaseSpan(this.props.columnWidth);
 
         return (
             <div className={"FullScreen DrillColumn Centered Theme" + string.capitalize(this.props.theme)}>

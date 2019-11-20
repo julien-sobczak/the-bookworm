@@ -1,4 +1,4 @@
-import * as string from './string'
+import * as string from './string';
 
 describe('uid', () => {
 
@@ -22,7 +22,7 @@ describe('capitalize', () => {
 describe('humanReadableDate', () => {
 
     it('should return the most compact format', () => {
-        const reference = new Date("2019-09-29T14:25:43.511Z")
+        const reference = new Date("2019-09-29T14:25:43.511Z");
         expect(string.humanReadableDate("2017-09-29T14:25:43.511Z", reference, true)).toEqual("2 years ago");
         expect(string.humanReadableDate("2018-09-29T14:25:43.511Z", reference, true)).toEqual("last year");
         expect(string.humanReadableDate("2019-01-29T14:25:43.511Z", reference, true)).toEqual("8 months ago");

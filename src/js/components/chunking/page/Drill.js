@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Viewer from './Viewer'
+import Viewer from './Viewer';
 import Pager from '../Pager';
 
 import ProgressLine from '../../toolbox/ProgressLine';
@@ -48,13 +48,13 @@ class Drill extends React.Component {
 
         const startingPause = 500;
         let delay = startingPause + wpm.textDuration(this.currentChunk(), this.state.wpm);
-        let start = new Date().getTime()
+        let start = new Date().getTime();
         this.handle = undefined;
         let loop = () => {
             if (!this.handle) return;
             this.handle = window.requestAnimationFrame(loop);
-            const current = new Date().getTime()
-            const delta = current - start
+            const current = new Date().getTime();
+            const delta = current - start;
             if (delta >= delay) {
               delay = this.advanceChunk();
               start = new Date().getTime();
