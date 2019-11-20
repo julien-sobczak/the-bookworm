@@ -1,5 +1,17 @@
-const charactersPerWord = 5; // https://en.wikipedia.org/wiki/Words_per_minute
-const minimumEyeFixationDuration = 275;
+// Standard number of letter in a "word" (WPM).
+// See https://en.wikipedia.org/wiki/Words_per_minute
+const charactersPerWord = 5;
+
+// Mimimum duration for the eye to fix a point.
+// See https://journals.sagepub.com/doi/pdf/10.1177/1529100615623267
+// See also https://www.ncbi.nlm.nih.gov/pubmed/7406068
+// (Exact value is around 250 ms)
+const minimumEyeFixationDuration = 150;
+
+// Minimum duration for the eye for move to the next fixation point.
+// See https://journals.sagepub.com/doi/pdf/10.1177/1529100615623267
+// (Exact value depends on the distance and is between 20 and 25s for a 7 letters saccade)
+const minimumEyeSaccadeDuration = 20;
 
 /**
  * Return how many milliseconds the user is allowed to read this chunk.
@@ -22,7 +34,7 @@ export function textDuration(text, wpm) {
     // The second component involves stimulus processing, estimated to require a minimum of 50 to 100 msec.
     // https://www.ncbi.nlm.nih.gov/pubmed/7406068
     const theoricalTextReadingDuration = (stripedText.length * 60 * 1000) / (wpm * charactersPerWord);
-    const duration = Math.max(minimumEyeFixationDuration, theoricalTextReadingDuration);
+    const duration = Math.max(minimumEyeFixationDuration + minimumEyeSaccadeDuration, theoricalTextReadingDuration);
     // const duration = theoricalTextReadingDuration; // FIXME uncomment above line to add contraint on eye fixation duration
 
     return duration;
@@ -30,7 +42,7 @@ export function textDuration(text, wpm) {
 
 /**
  * Calculate the WPM from a number of letters read during an interval.
- * 
+ *
  * @param {Number} letters Total number of read letters
  * @param {Number} durationInSeconds Reading time in seconds
  * @param {Number} The WPM

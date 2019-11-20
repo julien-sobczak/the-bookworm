@@ -49,7 +49,7 @@ const Form = (props) => {
     };
 
     const handleColumnsChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = parseInt(event.target.dataset.value);
         setColumns(newValue);
         onChange({
             ...currentState(),
@@ -67,7 +67,7 @@ const Form = (props) => {
     };
 
     const handleLinesMaxChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.dataset.value);
         setLinesMax(newValue);
         onChange({
             ...currentState(),
@@ -152,9 +152,9 @@ const Form = (props) => {
                         <th>Columns:</th>
                         <td>
                             <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 1 ? ' selected' : '')} data-value={1}>1</span>
-                            <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 2 ? ' selected' : '')} data-value={1}>2</span>
-                            <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 3 ? ' selected' : '')} data-value={1}>3</span>
-                            <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 4 ? ' selected' : '')} data-value={1}>4</span>
+                            <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 2 ? ' selected' : '')} data-value={2}>2</span>
+                            <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 3 ? ' selected' : '')} data-value={3}>3</span>
+                            <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 4 ? ' selected' : '')} data-value={4}>4</span>
                         </td>
                     </tr>
                     <tr>
@@ -170,7 +170,11 @@ const Form = (props) => {
                     <tr>
                         <th>Lines:</th>
                         <td>
-                            <input type="number" min="0" max="20" onChange={handleLinesMaxChange} value={linesMax} />
+                            <span onClick={handleLinesMaxChange} className={"GraphicOption" + (linesMax === 5  ? ' selected' : '')} data-value={5}>5</span>
+                            <span onClick={handleLinesMaxChange} className={"GraphicOption" + (linesMax === 10 ? ' selected' : '')} data-value={10}>10</span>
+                            <span onClick={handleLinesMaxChange} className={"GraphicOption" + (linesMax === 15 ? ' selected' : '')} data-value={15}>15</span>
+                            <span onClick={handleLinesMaxChange} className={"GraphicOption" + (linesMax === 20 ? ' selected' : '')} data-value={20}>20</span>
+                            <span onClick={handleLinesMaxChange} className={"GraphicOption" + (linesMax === 0  ? ' selected' : '')} data-value={0}>Fit Screen</span>
                         </td>
                     </tr>
                 </tbody>

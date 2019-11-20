@@ -42,9 +42,9 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th>Lines:</th>
                     <td>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 1 ? ' selected' : '')} data-value={1}>1</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 2 ? ' selected' : '')} data-value={2}>2</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 5  ? ' selected' : '')} data-value={5}>5</span>
+                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 10 ? ' selected' : '')} data-value={10}>10</span>
+                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 0  ? ' selected' : '')} data-value={0}>Fit Screen</span>
                     </td>
                 </tr>
                 <tr>

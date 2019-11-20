@@ -1,4 +1,4 @@
-import * as sut from './interaction';
+import * as interaction from './interaction';
 
 describe('getScreenZone', () => {
 
@@ -15,8 +15,8 @@ describe('getScreenZone', () => {
             clientX: 200,
             clientY: 600,
         };
-        expect(sut.getScreenZone(eventTop)).toBe(sut.ZONE_LEFT);
-        expect(sut.getScreenZone(eventBottom)).toBe(sut.ZONE_LEFT);
+        expect(interaction.getScreenZone(eventTop)).toBe(interaction.ZONE_LEFT);
+        expect(interaction.getScreenZone(eventBottom)).toBe(interaction.ZONE_LEFT);
     });
 
     it('should return ZONE_RIGHT when the user click on the right', () => {
@@ -28,8 +28,8 @@ describe('getScreenZone', () => {
             clientX: 900,
             clientY: 600,
         };
-        expect(sut.getScreenZone(eventTop)).toBe(sut.ZONE_RIGHT);
-        expect(sut.getScreenZone(eventBottom)).toBe(sut.ZONE_RIGHT);
+        expect(interaction.getScreenZone(eventTop)).toBe(interaction.ZONE_RIGHT);
+        expect(interaction.getScreenZone(eventBottom)).toBe(interaction.ZONE_RIGHT);
     });
 
     it('should return ZONE_TOP when the user click on the top middle', () => {
@@ -45,9 +45,9 @@ describe('getScreenZone', () => {
             clientX: 900,
             clientY: 200,
         };
-        expect(sut.getScreenZone(eventLeft)).toBe(sut.ZONE_LEFT);
-        expect(sut.getScreenZone(eventMiddle)).toBe(sut.ZONE_TOP);
-        expect(sut.getScreenZone(eventRight)).toBe(sut.ZONE_RIGHT);
+        expect(interaction.getScreenZone(eventLeft)).toBe(interaction.ZONE_LEFT);
+        expect(interaction.getScreenZone(eventMiddle)).toBe(interaction.ZONE_TOP);
+        expect(interaction.getScreenZone(eventRight)).toBe(interaction.ZONE_RIGHT);
     });
 
     it('should return ZONE_BOTTOM when the user click on the bottom middle', () => {
@@ -63,9 +63,9 @@ describe('getScreenZone', () => {
             clientX: 900,
             clientY: 600,
         };
-        expect(sut.getScreenZone(eventLeft)).toBe(sut.ZONE_LEFT);
-        expect(sut.getScreenZone(eventMiddle)).toBe(sut.ZONE_BOTTOM);
-        expect(sut.getScreenZone(eventRight)).toBe(sut.ZONE_RIGHT);
+        expect(interaction.getScreenZone(eventLeft)).toBe(interaction.ZONE_LEFT);
+        expect(interaction.getScreenZone(eventMiddle)).toBe(interaction.ZONE_BOTTOM);
+        expect(interaction.getScreenZone(eventRight)).toBe(interaction.ZONE_RIGHT);
     });
 
 });
@@ -73,18 +73,18 @@ describe('getScreenZone', () => {
 describe('isCharacterKey', () => {
 
     it('should return true for alphabet letters', () => {
-        const eventA = { keyCode: sut.KEY_A };
-        const eventL = { keyCode: sut.KEY_L };
-        const eventZ = { keyCode: sut.KEY_Z };
-        const event0 = { keyCode: sut.KEY_NUMPAD_0 };
-        const eventArrowRight = { keyCode: sut.KEY_RIGHT };
-        const eventComma = { keyCode: sut.KEY_COMMA };
-        expect(sut.isCharacterKey(eventA)).toBeTruthy();
-        expect(sut.isCharacterKey(eventL)).toBeTruthy();
-        expect(sut.isCharacterKey(eventZ)).toBeTruthy();
-        expect(sut.isCharacterKey(event0)).not.toBeTruthy();
-        expect(sut.isCharacterKey(eventArrowRight)).not.toBeTruthy();
-        expect(sut.isCharacterKey(eventComma)).not.toBeTruthy();
+        const eventA = { keyCode: interaction.KEY_A };
+        const eventL = { keyCode: interaction.KEY_L };
+        const eventZ = { keyCode: interaction.KEY_Z };
+        const event0 = { keyCode: interaction.KEY_NUMPAD_0 };
+        const eventArrowRight = { keyCode: interaction.KEY_RIGHT };
+        const eventComma = { keyCode: interaction.KEY_COMMA };
+        expect(interaction.isCharacterKey(eventA)).toBeTruthy();
+        expect(interaction.isCharacterKey(eventL)).toBeTruthy();
+        expect(interaction.isCharacterKey(eventZ)).toBeTruthy();
+        expect(interaction.isCharacterKey(event0)).not.toBeTruthy();
+        expect(interaction.isCharacterKey(eventArrowRight)).not.toBeTruthy();
+        expect(interaction.isCharacterKey(eventComma)).not.toBeTruthy();
     });
-    
+
 });

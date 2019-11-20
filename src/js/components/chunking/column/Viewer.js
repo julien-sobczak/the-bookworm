@@ -10,7 +10,7 @@ const defaultDrillSettings = {
     chunkPosition: 0,
     columns: 2,
     columnWidth: '3.25in',
-    linesMax: undefined,
+    linesMax: 0,
     wpm: 500,
 };
 
