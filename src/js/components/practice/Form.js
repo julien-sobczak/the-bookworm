@@ -7,7 +7,7 @@ const Form = (props) => {
     const [paperSize, setPaperSize] = useState(props.paperSize);
     const [pacerWpm, setPacerWpm] = useState(props.pacerWpm);
     const [timer, setTimer] = useState(props.timer);
-    
+
     const onChange = props.onChange;
 
     const currentState = () => {
@@ -47,7 +47,7 @@ const Form = (props) => {
     };
 
     const handleTimerChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = parseInt(event.target.dataset.value);
         setTimer(newValue);
         onChange({
             ...currentState(),

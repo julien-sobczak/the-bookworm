@@ -112,13 +112,13 @@ class Drill extends React.Component {
                     >
                     {/* Important to fix the font size to determine the number of available lines */}
 
-                        <Viewer
+                        {this.state.drill && <Viewer
                                 drill={this.state.drill}
                                 span={this.state.span}
                                 fontFamily={this.props.fontFamily}
                                 fontSize={this.props.fontSize}
                                 fontStyle={this.props.fontStyle}
-                                theme={this.props.theme} />
+                                theme={this.props.theme} />}
 
                     </section>
 
@@ -134,7 +134,7 @@ class Drill extends React.Component {
         const lineHeight = 2 * fontSize; // The height of series (lines + margin)
         const maxLines = Math.floor(areaHeight / lineHeight - 1); // Remove one line to be sure
 
-        if (this.props.lines === undefined) {
+        if (!this.props.lines) {
             return maxLines;
         } else {
             return Math.min(this.props.lines, maxLines);
@@ -189,7 +189,7 @@ class Drill extends React.Component {
             case interaction.ZONE_TOP:
                 this.increaseSpan();
                 return;
-            default: 
+            default:
                 // Do nothing
                 return;
         }
@@ -209,7 +209,7 @@ class Drill extends React.Component {
 
         window.addEventListener("keyup", this.handleKeyUp);
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener("keyup", this.handleKeyUp);
     }

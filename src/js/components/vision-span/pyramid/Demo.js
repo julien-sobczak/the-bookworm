@@ -4,7 +4,7 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 
 function Demo(props) {
-    const drill = new Engine(props.lines).getDrill();
+    const drill = new Engine(3).getDrill();
     return <Viewer {...props} drill={drill} />;
 }
 
