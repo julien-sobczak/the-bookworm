@@ -159,7 +159,7 @@ class App extends React.Component {
 
     this.toggleContent = (reading) => {
       console.log(`Toggle content with ${reading.description.title}`);
-      storage.reloadContent(reading, (content) => this.updateContent(content));
+      storage.reloadContent(reading).then((content) => this.updateContent(content));
     }
 
     this.state = {
@@ -199,7 +199,7 @@ class App extends React.Component {
   componentDidMount() {
     if (this.props.readings.length > 0) {
       const currentReading = this.props.readings[0];
-      storage.reloadContent(currentReading, (content) => this.updateContent(content));
+      storage.reloadContent(currentReading).then((content) => this.updateContent(content));
     } else {
       this.updateContent(storage.tutorial);
     }

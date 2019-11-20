@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { capitalize } from "../../functions/string";
+import * as string from "../../functions/string";
 
 const DEFAULT_TEXT_SETTINGS = {
     fontFamily: 'Roboto',
@@ -14,10 +14,10 @@ const Styled = React.forwardRef((props, ref) => {
 
     const css = function() {
         const defaultClassName = props.className ? props.className + ' ': '';
-        const fontFamilyClass = capitalize(props.fontFamily);
+        const fontFamilyClass = string.capitalize(props.fontFamily);
         const fontSizeClass = 'Size' + props.fontSize;
-        const fontStyleClass = props.fontStyle.split(' ').map(capitalize).join('');
-        const chunkStyleClass = 'Chunk' + capitalize(props.chunkStyle);
+        const fontStyleClass = props.fontStyle.split(' ').map(string.capitalize).join('');
+        const chunkStyleClass = 'Chunk' + string.capitalize(props.chunkStyle);
         return `${defaultClassName}Styled ${fontFamilyClass} ${fontSizeClass} ${fontStyleClass} ${chunkStyleClass}`
     };
 

@@ -7,7 +7,7 @@ import Pager from '../Pager';
 import ProgressLine from '../../toolbox/ProgressLine';
 
 import * as string from '../../../functions/string';
-import { textDuration } from '../../../functions/wpm';
+import * as wpm from '../../../functions/wpm';
 import * as library from '../../../functions/library';
 import * as time from '../../../functions/time';
 
@@ -47,7 +47,7 @@ class Drill extends React.Component {
         this.clear();
 
         const startingPause = 500;
-        let delay = startingPause + textDuration(this.currentChunk(), this.state.wpm);
+        let delay = startingPause + wpm.textDuration(this.currentChunk(), this.state.wpm);
         let start = new Date().getTime()
         this.handle = undefined;
         let loop = () => {
@@ -109,7 +109,7 @@ class Drill extends React.Component {
                             blockPosition: 0,
                             chunkPosition: 0,
                         }));
-                        return pageTurningDuration + textDuration(this.currentChunk(), this.state.wpm);
+                        return pageTurningDuration + wpm.textDuration(this.currentChunk(), this.state.wpm);
                     }
                 } else {
                     // Move to next block
@@ -134,7 +134,7 @@ class Drill extends React.Component {
         } while (retry);
         // eslint-enable no-loop-func
 
-        return textDuration(this.currentChunk(), this.state.wpm);
+        return wpm.textDuration(this.currentChunk(), this.state.wpm);
     }
 
     currentPage() {

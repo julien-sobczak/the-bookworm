@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Pager from '../Pager';
-import { capitalize } from '../../../functions/string';
 import Paper from '../../toolbox/Paper';
 import PageContent from '../../toolbox/PageContent';
 import Styled from '../../toolbox/Styled';
+
+import * as string from '../../../functions/string';
 
 const defaultDrillSettings = {
     ...Pager.defaultProps,
@@ -27,7 +28,7 @@ function Viewer(props) {
     if (props.disableVisualProgression) {
         classNames.push('DisableVisualProgression');
     }
-    classNames.push('DisableVisualProblemStyle' + capitalize(props.disableVisualProblemStyle));
+    classNames.push('DisableVisualProblemStyle' + string.capitalize(props.disableVisualProblemStyle));
 
     return (
         <div className={"ViewerPage Centered " + classNames.join(' ')}>
