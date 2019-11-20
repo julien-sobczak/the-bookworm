@@ -14,7 +14,8 @@ import ReactButton from '@material/react-button';
 import '@material/react-button/dist/button.css';
 
 import { updateReading } from '../../store/actions';
-import { humanReadableDate } from '../../functions/string';
+
+import * as string from '../../functions/string';
 
 
 const mapStateToProps = state => {
@@ -103,7 +104,7 @@ class Library extends React.Component {
                                                     <tr key={index}>
                                                         <td><em>{reading.description.title}</em></td>
                                                         <td><small>{reading.description.author}</small></td>
-                                                        <td><small>{humanReadableDate(reading.lastDate)}</small></td>
+                                                        <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                                         <td><Progress value={reading.position.progress} showText={true} /></td>
                                                         <td><ReactButton onClick={this.handleReadingSelected} data-index={index} className="Clickable">Read</ReactButton></td>
                                                     </tr>

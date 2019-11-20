@@ -1,4 +1,4 @@
-import { randomLetter } from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 import * as time from '../../../functions/time';
 
 class Engine {
@@ -58,7 +58,7 @@ class Engine {
             const line = { columns: [] };
             for (let j = 0; j < this.size; j++) {
                 const column = {
-                    label: randomLetter(),
+                    label: engine.randomLetter(),
                     valid: null,
                 }
                 line.columns.push(column);
@@ -159,7 +159,7 @@ class Engine {
                 this.currentCircle++;
             } else {
                 this.totalWrongAnswers += this.errorCount;
-                this.totalCorrectAnswers += this.size * this.size; 
+                this.totalCorrectAnswers += this.size * this.size;
                 this.totalAnswers += this.inputCount;
                 this.onDrillFinished && this.onDrillFinished({
                     errorCount: this.errorCount,
@@ -170,7 +170,7 @@ class Engine {
 
     /**
      * Return a new drill.
-     * 
+     *
      * @return {Object} The drill content
      */
     newDrill() {

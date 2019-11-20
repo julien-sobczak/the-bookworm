@@ -6,7 +6,7 @@ import Chunker from '../Chunker';
 
 import ProgressLine from '../../toolbox/ProgressLine';
 
-import { textDuration } from '../../../functions/wpm';
+import * as wpm from '../../../functions/wpm';
 import * as string from '../../../functions/string';
 import * as library from '../../../functions/library';
 import * as time from '../../../functions/time';
@@ -113,7 +113,7 @@ class Drill extends React.Component {
                 currentChunk: currentChunk,
                 nextChunk: nextChunk,
             }));
-            return textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
+            return wpm.textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
         }
     }
 

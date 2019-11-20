@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Library from './Library';
 import Progress from '../toolbox/Progress';
 
-import { humanReadableDate } from '../../functions/string';
+import * as string from '../../functions/string';
 
 import MaterialIcon from '@material/react-material-icon';
 import ReactButton from '@material/react-button';
@@ -62,7 +62,7 @@ function PanelReading(props) {
                                 <tr key={index}>
                                     <td><em>{reading.description.title}</em></td>
                                     <td><small>{reading.description.author}</small></td>
-                                    <td><small>{humanReadableDate(reading.lastDate)}</small></td>
+                                    <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                     <td><Progress value={reading.position.progress} showText={true} /></td>
                                     <td><ReactButton onClick={handleReadingSwitch} data-index={index} className="Clickable">Switch</ReactButton></td>
                                 </tr>

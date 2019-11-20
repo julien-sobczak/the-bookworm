@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { humanReadableDate } from '../../../functions/string';
+import * as string from '../../../functions/string';
 
 const History = ({ history, onSelect }) => {
 
@@ -18,7 +18,7 @@ const History = ({ history, onSelect }) => {
                     {history.map((drill, index) => {
                         return (
                             <tr key={index} onClick={onSelect} data-drill={JSON.stringify(drill)}>
-                                <td className="Clickable">{humanReadableDate(drill.date)}</td>
+                                <td className="Clickable">{string.humanReadableDate(drill.date)}</td>
                                 <td className="Clickable">{drill.drillSettings.span}</td>
                             </tr>
                             );
