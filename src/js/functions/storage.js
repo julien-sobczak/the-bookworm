@@ -62,27 +62,28 @@ export function retrieveContent(reading) {
  * Retrieve the content associated with a reading, and reload it if missing from the local storage.
  *
  * @param {Object} reading The reading
- * @param {Function} onLoad Callback called when the content is available
+ * @return {Promise} When the content is available
  */
-export function reloadContent(reading, onLoad) {
-    // TODO return a Promise instead
-    if (!localStorage.getItem(reading.id)) {
-        // Content has disappeared from local storage.
-        if (reading.reloadable) {
-            console.log('Downloading previous content as missing from localStorage...');
-            library.downloadContent(reading.description).then(content => {
-                storeContent(content)
-                onLoad(content);
-            });
-        } else if (reading.id === 'content-static-tutorial') {
-            onLoad(tutorial);
+export function reloadContent(reading) {
+    return new Promise((resolve) => {
+        if (!localStorage.getItem(reading.id)) {
+            // Content has disappeared from local storage.
+            if (reading.reloadable) {
+                console.log('Downloading previous content as missing from localStorage...');
+                library.downloadContent(reading.description).then(content => {
+                    storeContent(content)
+                    resolve(content);
+                });
+            } else if (reading.id === 'content-static-tutorial') {
+                resolve(tutorial);
+            } else {
+                console.error("Unable to reload the previous reading");
+            }
         } else {
-            console.error("Unable to reload the previous reading");
+            console.log('Retrieved previous reading from localStorage');
+            resolve(retrieveContent(reading));
         }
-    } else {
-        console.log('Retrieved previous reading from localStorage');
-        onLoad(retrieveContent(reading));
-    }
+    });
 }
 
 /**

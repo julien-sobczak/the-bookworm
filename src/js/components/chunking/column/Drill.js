@@ -8,7 +8,7 @@ import ProgressLine from '../../toolbox/ProgressLine';
 import Measurer from '../../toolbox/Measurer';
 
 import * as string from '../../../functions/string';
-import { textDuration } from '../../../functions/wpm';
+import * as wpm from '../../../functions/wpm';
 import * as helpers from '../../../functions/engine';
 import * as library from '../../../functions/library';
 import * as time from '../../../functions/time';
@@ -112,7 +112,7 @@ class Drill extends React.Component {
                 chunkPositionOnScreen: 0,
             }));
 
-            return textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
+            return wpm.textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
         } else {
             // Move to next chunk
             const newChunkPosition = chunkPosition + 1;
@@ -121,7 +121,7 @@ class Drill extends React.Component {
                 chunkPosition: newChunkPosition,
                 chunkPositionOnScreen: state.chunkPositionOnScreen+1,
             }));
-            return textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
+            return wpm.textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
         }
     }
 

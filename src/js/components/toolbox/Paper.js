@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Styled from '../toolbox/Styled';
-import {capitalize} from '../../functions/string'
+
+import * as string from '../../functions/string';
 
 const Paper = React.forwardRef((props, ref) => {
 
     const defaultClassName = props.className ? props.className + ' ': '';
-    const paperCss = capitalize(props.paperSize);
+    const paperCss = string.capitalize(props.paperSize);
     const css = `${defaultClassName}Paper${paperCss}`;
 
     return (

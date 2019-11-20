@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { globalSpan } from '../../../functions/engine';
-import { humanReadableDate } from '../../../functions/string';
+import * as engine from '../../../functions/engine';
+import * as string from '../../../functions/string';
 
 const History = ({ history, onSelect }) => {
 
@@ -20,9 +20,9 @@ const History = ({ history, onSelect }) => {
                     {history.map((drill, index) => {
                         return (
                             <tr key={index} onClick={onSelect} data-drill={JSON.stringify(drill)}>
-                                <td className="Clickable">{humanReadableDate(drill.date)}</td>
+                                <td className="Clickable">{string.humanReadableDate(drill.date)}</td>
                                 <td className="Clickable">{drill.drillSettings.lines}</td>
-                                <td className="Clickable">{globalSpan([drill.drillSettings.span, drill.drillSettings.span])}</td>
+                                <td className="Clickable">{engine.globalSpan([drill.drillSettings.span, drill.drillSettings.span])}</td>
                             </tr>
                             );
                         })}
