@@ -220,7 +220,7 @@ export function parsePaste(rawText) {
             continue;
         }
 
-        blocks.push({ tag: "p", content: line })
+        blocks.push({ tag: "p", content: line });
     }
 
     return {
@@ -303,7 +303,7 @@ export function downloadContent(description) {
                 fetch(contentUrl).then(response => { return response.text(); }),
                 fetch(metadataUrl).then((response) => { return response.json(); }),
             ]).then(([rawContent, metadata]) => {
-                const content = parseLiterature(rawContent, metadata)
+                const content = parseLiterature(rawContent, metadata);
 
                 resolve({
                     id: `content-book-${isoLanguage(description.language)}-${description.slug}`,

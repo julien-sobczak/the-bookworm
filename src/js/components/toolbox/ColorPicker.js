@@ -12,9 +12,9 @@ function ColorPicker(props) {
     const [color, setColor] = useState(props.color);
 
     const handleColorChange = (c) => {
-        setColor(c.hex)
+        setColor(c.hex);
         if (props.onChange) {
-            props.onChange(c.hex)
+            props.onChange(c.hex);
         }
     };
 

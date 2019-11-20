@@ -20,7 +20,7 @@ describe('rootReducer', () => {
     it('should handle updateLanguagePreferences', () => {
         expect(
             reducer(initialState, actions.updateLanguagePreferences({
-                native: 'French'
+                native: 'French',
             }))
         ).toMatchObject({
             preferences: {
@@ -34,7 +34,7 @@ describe('rootReducer', () => {
     it('should handle updateChunkPreferences', () => {
         expect(
             reducer(initialState, actions.updateChunkPreferences({
-                chunkStyle: 'underline'
+                chunkStyle: 'underline',
             }))
         ).toMatchObject({
             preferences: {
@@ -48,7 +48,7 @@ describe('rootReducer', () => {
     it('should handle updateTextPreferences', () => {
         expect(
             reducer(initialState, actions.updateTextPreferences({
-                fontSize: '12pt'
+                fontSize: '12pt',
             }))
         ).toMatchObject({
             preferences: {
@@ -63,7 +63,7 @@ describe('rootReducer', () => {
         const now = new Date();
         expect(
             reducer(initialState, actions.registerBackup({
-                date: now
+                date: now,
             }))
         ).toMatchObject({
             lastBackup: now.toJSON(),

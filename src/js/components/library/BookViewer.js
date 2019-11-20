@@ -50,7 +50,7 @@ class BookViewer extends React.Component {
     }
 
     cssPaperSize() {
-        return 'Paper' + string.capitalize(this.props.paperSize)
+        return 'Paper' + string.capitalize(this.props.paperSize);
     }
 
     render() {

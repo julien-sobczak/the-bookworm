@@ -20,7 +20,7 @@ const FormText = (props) => {
     const handleFontFamilyClick = (event) => {
         const newValue = event.target.dataset.value;
         if (fontFamily === newValue) return;
-        setFontFamily(newValue)
+        setFontFamily(newValue);
         onChange({
             ...currentState(),
             fontFamily: newValue,
@@ -30,7 +30,7 @@ const FormText = (props) => {
     const handleFontStyleClick = (event) => {
         const newValue = event.target.dataset.value;
         if (fontStyle === newValue) return;
-        setFontStyle(newValue)
+        setFontStyle(newValue);
         onChange({
             ...currentState(),
             fontStyle: newValue,

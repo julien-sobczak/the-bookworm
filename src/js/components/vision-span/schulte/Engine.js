@@ -145,7 +145,7 @@ class Engine {
                 matchFound = true;
                 error = false;
             } else if (element.valid !== true) { // Still (at least) a missing column
-                drillFinished = false
+                drillFinished = false;
             }
         }
 

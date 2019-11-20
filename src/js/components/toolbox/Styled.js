@@ -18,7 +18,7 @@ const Styled = React.forwardRef((props, ref) => {
         const fontSizeClass = 'Size' + props.fontSize;
         const fontStyleClass = props.fontStyle.split(' ').map(string.capitalize).join('');
         const chunkStyleClass = 'Chunk' + string.capitalize(props.chunkStyle);
-        return `${defaultClassName}Styled ${fontFamilyClass} ${fontSizeClass} ${fontStyleClass} ${chunkStyleClass}`
+        return `${defaultClassName}Styled ${fontFamilyClass} ${fontSizeClass} ${fontStyleClass} ${chunkStyleClass}`;
     };
 
     const styles = function() {

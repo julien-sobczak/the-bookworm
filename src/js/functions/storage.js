@@ -71,7 +71,7 @@ export function reloadContent(reading) {
             if (reading.reloadable) {
                 console.log('Downloading previous content as missing from localStorage...');
                 library.downloadContent(reading.description).then(content => {
-                    storeContent(content)
+                    storeContent(content);
                     resolve(content);
                 });
             } else if (reading.id === 'content-static-tutorial') {

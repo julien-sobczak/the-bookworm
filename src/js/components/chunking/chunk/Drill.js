@@ -51,7 +51,7 @@ class Drill extends React.Component {
             const subChunksInCurrentBlock = [];
             for (let j = 0; j < subChunks.length; j++) {
                 const chunk = subChunks[j];
-                subChunksInCurrentBlock.push(chunk)
+                subChunksInCurrentBlock.push(chunk);
                 if (chunk.endingChunk) {
                     // Stop here
                     break;
@@ -131,13 +131,13 @@ class Drill extends React.Component {
 
         const startingPause = 500;
         let delay = startingPause + this.advanceChunk();
-        let start = new Date().getTime()
+        let start = new Date().getTime();
         this.handle = undefined;
         let loop = () => {
             if (!this.handle) return;
             this.handle = window.requestAnimationFrame(loop);
-            const current = new Date().getTime()
-            const delta = current - start
+            const current = new Date().getTime();
+            const delta = current - start;
             if (delta >= delay) {
               delay = this.advanceChunk();
               start = new Date().getTime();

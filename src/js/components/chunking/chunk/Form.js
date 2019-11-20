@@ -176,7 +176,7 @@ const Form = (props) => {
                         <th>Show previous chunk:</th>
                         <td>
                             <Switch
-                                nativeControlId='showPreviousChunk'
+                                nativeControlId="showPreviousChunk"
                                 checked={showPreviousChunk}
                                 onChange={handleShowPreviousChunkChange} />
                         </td>
@@ -185,7 +185,7 @@ const Form = (props) => {
                         <th>Show next chunk:</th>
                         <td>
                             <Switch
-                                nativeControlId='showNextChunk'
+                                nativeControlId="showNextChunk"
                                 checked={showNextChunk}
                                 onChange={handleShowNextChunkChange} />
                         </td>

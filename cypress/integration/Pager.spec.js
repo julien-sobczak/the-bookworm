@@ -1,6 +1,5 @@
-import Pager from '../../src/chunking/Pager.js'
-import Paper from '../../src/toolbox/Paper.js'
-import React from 'react'
+import Pager from '../../src/chunking/Pager.js';
+import React from 'react';
 
 import '../../src/App.css';
 
