@@ -24,13 +24,13 @@ const History = ({ history, onSelect }) => {
                                 <td className="Clickable">{drill.drillSettings.lines}</td>
                                 <td className="Clickable">{engine.globalSpan([drill.drillSettings.span, drill.drillSettings.span])}</td>
                             </tr>
-                            );
-                        })}
+                        );
+                    })}
                 </tbody>
             </table>
         </div>
     );
-}
+};
 
 History.propTypes = {
     history: PropTypes.arrayOf(PropTypes.object),

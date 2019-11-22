@@ -40,7 +40,7 @@ class PreviewEpub extends React.Component {
                 <div className="Toc">
                     <ul>
                         {this.props.epub.chapters.map((chapter, index) => {
-                            return <li key={index} data-index={index} className={index === this.state.chapterIndex ? 'Selected' : ''} onClick={this.handleChapterSelected}>{chapter.title}</li>
+                            return <li key={index} data-index={index} className={index === this.state.chapterIndex ? 'Selected' : ''} onClick={this.handleChapterSelected}>{chapter.title}</li>;
                         })}
                     </ul>
                 </div>

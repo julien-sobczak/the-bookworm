@@ -451,7 +451,7 @@ function Loader() {
 
     return (
       <div className="FullScreen Centered">
-        <Rubiks>
+        <Rubiks data-testid="rubik">
           <Cube>
             <PieceFaceFrontRowTopColLeft />
             <PieceFaceFrontRowTopColCenter />

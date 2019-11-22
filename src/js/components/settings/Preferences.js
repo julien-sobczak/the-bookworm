@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 import { updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
@@ -27,22 +28,24 @@ class Preferences extends React.Component {
         };
     }
 
-    handleActiveIndexUpdate = (activeIndex) => this.setState({ activeIndex: activeIndex });
+    handleActiveIndexUpdate(activeIndex) {
+        this.setState({ activeIndex: activeIndex });
+    }
 
-    handleLanguagePreferencesChange = (prefs) => {
+    handleLanguagePreferencesChange(prefs) {
         console.log('Saving language preferences...', prefs);
         this.props.updateLanguagePreferences(prefs);
     }
 
-    handleTextPreferencesChange = (prefs) => {
+    handleTextPreferencesChange(prefs) {
         console.log('Saving text preferences...', prefs);
         this.props.updateTextPreferences(prefs);
-    };
+    }
 
-    handleChunkPreferencesChange = (prefs) => {
+    handleChunkPreferencesChange(prefs) {
         console.log('Saving chunk preferences...', prefs);
         this.props.updateChunkPreferences(prefs);
-    };
+    }
 
     render() {
         return (
@@ -92,6 +95,14 @@ class Preferences extends React.Component {
     }
 
 }
+
+Preferences.propTypes = {
+    // Redux state
+    preferences: PropTypes.object.isRequired,
+    updateLanguagePreferences: PropTypes.func.isRequired,
+    updateTextPreferences: PropTypes.func.isRequired,
+    updateChunkPreferences: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => {
     return {

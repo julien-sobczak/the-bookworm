@@ -59,7 +59,7 @@ class Drill extends React.Component {
               delay = this.advanceChunk();
               start = new Date().getTime();
             }
-        }
+        };
 
         this.handle = window.requestAnimationFrame(loop);
 
@@ -249,7 +249,7 @@ Drill.propTypes = {
 
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
-}
+};
 
 Drill.defaultProps = {
     ...Pager.defaultProps,

@@ -36,8 +36,6 @@ class PreviewBook extends React.Component {
                 { tag: "h2", content: chapter.title },
             ]
         };
-        const lines = this.state.text.split('\r\n').slice(chapter.start, chapter.end);
-        //content.text.push(...PreviewBook.convertToHtml(lines)); TODO moved to library.parseLiterature
         this.setState({
             chapterIndex: parseInt(chapterIndex),
             lineStartIndex: content.text[0].sourceLine,
@@ -64,7 +62,7 @@ class PreviewBook extends React.Component {
                         <div className="Toc">
                             <ul>
                                 {this.state.metadata.chapters && this.state.metadata.chapters.map((chapter, index) => {
-                                    return <li key={index} data-index={index} className={index === this.state.chapterIndex ? 'Selected' : ''} onClick={this.handleChapterSelected}>{chapter.title}</li>
+                                    return <li key={index} data-index={index} className={index === this.state.chapterIndex ? 'Selected' : ''} onClick={this.handleChapterSelected}>{chapter.title}</li>;
                                 })}
                             </ul>
                         </div>

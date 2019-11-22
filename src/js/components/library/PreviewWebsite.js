@@ -60,7 +60,7 @@ class PreviewWebsite extends React.Component {
                          });
                     });
                 }
-            })
+            });
     }
 }
 

@@ -24,7 +24,7 @@ describe('LineWidthChunker', () => {
                 innerHTML: texts[i],
                 offsetLeft: offsetLeft,
                 offsetWidth: widths[i],
-            })
+            });
             offsetLeft += widths[i];
         }
         return result;

@@ -25,11 +25,13 @@ const Paper = React.forwardRef((props, ref) => {
 Paper.propTypes = {
     ...Styled.propTypes,
     paperSize: PropTypes.string,
-}
+};
 
 Paper.defaultProps = {
     ...Styled.defaultProps,
     paperSize: 'A5',
 };
+
+Paper.displayName = 'Paper';
 
 export default Paper;

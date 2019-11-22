@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
+import Viewer from './Viewer';
 
 import * as helpers from '../../../functions/engine';
 
@@ -162,7 +165,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleColumnWidthChange} value={columnWidth}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -194,7 +197,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleChunkWidthChange} value={chunkWidth}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -218,7 +221,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleChunkWidthMinChange} value={chunkWidthMin}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -228,7 +231,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleChunkWidthMaxChange} value={chunkWidthMax}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -250,6 +253,15 @@ const Form = (props) => {
             </table>
         </>
     );
-}
+};
+
+Form.propTypes = {
+    ...Viewer.propTypes,
+    onChange: PropTypes.func.isRequired,
+};
+
+Form.defaultProps = {
+    ...Viewer.defaultProps,
+};
 
 export default Form;

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import { ContentContext } from "../../../content-context";
 import { restoreBackup, registerBackup } from '../../store/actions';
@@ -31,7 +32,7 @@ function Profile(props) {
         const hh = ("" + today.getUTCHours()).padStart(2, '0');
         const mm = ("" + today.getUTCMinutes()).padStart(2, '0');
         return `backup-${yyyy}${MM}${dd}-${hh}${mm}.json`;
-    }
+    };
 
     const createBackup = () => {
         const element = document.createElement("a");
@@ -47,7 +48,7 @@ function Profile(props) {
         });
     };
 
-    const handleBackupSelected = (event) => {
+    const handleBackupSelected = () => {
         const file = inputRef.current.files[0];
 
         // Protection against invalid files
@@ -70,9 +71,9 @@ function Profile(props) {
         fileReader.readAsText(file);
     };
 
-    const goToHomePage = (event) => {
+    const goToHomePage = () => {
         document.location.pathname = "/";
-    }
+    };
 
     const readAtLeastOneContent = (props.stats.books + props.stats.pastes + props.stats.epubs) > 0;
     const startUsingAppToday = new Date().toDateString() === new Date(props.startDate).toDateString();
@@ -107,7 +108,7 @@ function Profile(props) {
                 </div>
                 <div className="ProfileCurrentReading Centered">
                     <ContentContext.Consumer>
-                        {({content, update, toggle}) => (
+                        {({content, }) => (
                             <>
                                 {!content.type && <span>No reading in progress.</span>}
                                 {content.type && <span>You are reading <em>{content.description.title}</em> by <em>{content.description.author}</em> </span>}
@@ -130,6 +131,17 @@ function Profile(props) {
         </>
     );
 }
+
+Profile.propTypes = {
+    // Redux State
+    reduxState: PropTypes.object.isRequired,
+    readings: PropTypes.array.isRequired,
+    stats: PropTypes.object.isRequired,
+    lastBackup: PropTypes.object.isRequired,
+    startDate: PropTypes.object.isRequired,
+    registerBackup: PropTypes.func.isRequired,
+    restoreBackup: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => {
     return {

@@ -66,7 +66,7 @@ test('parseToc extracts chapters from the TOC file', () => {
         </navPoint>
     </navMap>
 </ncx>
-`
+`;
     const toc = parseToc(content);
     const expected = [
         {"filename": "pages/contents.xhtml", "title": "Contents"},
@@ -201,7 +201,7 @@ test('extractChapters determines the list of chapters based on the TOC', () => {
                 { "tag": "p", content: "A sentence with HTML tags." },
             ],
         },
-    ]
+    ];
 
     expect(chapters).toEqual(expected);
 });

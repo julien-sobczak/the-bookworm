@@ -17,19 +17,6 @@ import { updateReading } from '../../store/actions';
 
 import * as string from '../../functions/string';
 
-
-const mapStateToProps = state => {
-    return {
-        readings: state.readings,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        updateReading: reading => dispatch(updateReading(reading)),
-    };
-};
-
 class Library extends React.Component {
 
     constructor(props) {
@@ -47,21 +34,21 @@ class Library extends React.Component {
         this.handleSelection = this.handleSelection.bind(this);
     }
 
-    handleBookSelection(event) {
+    handleBookSelection() {
         this.setState(state => ({
             ...state,
             category: "book",
         }));
     }
 
-    handleWebsiteSelection(event) {
+    handleWebsiteSelection() {
         this.setState(state => ({
             ...state,
             category: "website",
         }));
     }
 
-    handleClipboardSelection(event) {
+    handleClipboardSelection() {
         this.setState(state => ({
             ...state,
             category: "clipboard",
@@ -73,7 +60,7 @@ class Library extends React.Component {
         this.props.updateReading(reading);
     }
 
-    handleCancel(event) {
+    handleCancel() {
         this.setState(state => ({
             ...state,
             category: undefined,
@@ -159,11 +146,29 @@ class Library extends React.Component {
 }
 
 Library.propTypes = {
+    // Redux state
+    readings: PropTypes.array.isRequired,
+    updateReading: PropTypes.func.isRequired,
+    // Callbacks
     onSelect: PropTypes.func,
+    onClose: PropTypes.func,
 };
 
 Library.defaultProps = {
     onSelect: function() {},
+    onClose: function() {},
+};
+
+const mapStateToProps = state => {
+    return {
+        readings: state.readings,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateReading: reading => dispatch(updateReading(reading)),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Library);

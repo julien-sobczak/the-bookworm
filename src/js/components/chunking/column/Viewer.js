@@ -63,7 +63,7 @@ Viewer.propTypes = {
 
     // The width of every column
     columnWidth: PropTypes.string,
-}
+};
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,

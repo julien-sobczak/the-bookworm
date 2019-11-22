@@ -312,12 +312,12 @@ class Chunker extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.content !== this.props.content) {
             this.setState({
                 // Chunks in progress
                 chunks: [],
-            })
+            });
             this.changed = true;
         }
     }
@@ -347,7 +347,7 @@ Chunker.propTypes = {
     chunkWidthMax: PropTypes.string,
     chunkTransition: PropTypes.string, // `step`, `wave`
     chunkSteps: PropTypes.number,
-}
+};
 
 Chunker.defaultProps = {
     ...Styled.defaultProps,

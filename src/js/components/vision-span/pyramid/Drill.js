@@ -66,7 +66,7 @@ class Drill extends React.Component {
     }
 
     /** Called when the user successfully finish one drill. */
-    handleDrillFinished = (event) => {
+    handleDrillFinished(event) {
         // Check to adjust the level
         if (this.props.autoLevel) {
             if (event.errorCount < 2) {

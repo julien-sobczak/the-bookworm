@@ -9,19 +9,19 @@ export const RECORD_SESSION = "RECORD_SESSION";
 
 export function updateReading(payload) {
     return { type: UPDATE_READING, payload };
-};
+}
 
 export function updateLanguagePreferences(payload) {
     return { type: UPDATE_LANGUAGE_PREFERENCES, payload };
-};
+}
 
 export function updateTextPreferences(payload) {
     return { type: UPDATE_TEXT_PREFERENCES, payload };
-};
+}
 
 export function updateChunkPreferences(payload) {
     return { type: UPDATE_CHUNK_PREFERENCES, payload };
-};
+}
 
 export function restoreBackup(payload) {
     return { type: RESTORE_BACKUP, payload };

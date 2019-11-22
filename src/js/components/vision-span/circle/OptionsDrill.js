@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
+import Viewer from './Viewer';
 
 import * as helpers from '../../../functions/engine';
 
@@ -31,7 +34,7 @@ const OptionsDrill = (props) => {
                     <td>
                         <select name="span" onChange={handleSpanChange} value={span}>
                             {helpers.SPANS.map((s, index) => {
-                                return <option key={index} value={s}>{s}</option>
+                                return <option key={index} value={s}>{s}</option>;
                             })}
                         </select>
                     </td>
@@ -39,6 +42,15 @@ const OptionsDrill = (props) => {
             </tbody>
         </table>
     );
-}
+};
+
+OptionsDrill.propTypes = {
+    ...Viewer.propTypes,
+    onChange: PropTypes.func.isRequired,
+};
+
+OptionsDrill.defaultProps = {
+    ...Viewer.defaultProps,
+};
 
 export default OptionsDrill;

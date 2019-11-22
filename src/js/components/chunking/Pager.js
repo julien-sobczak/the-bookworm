@@ -119,12 +119,10 @@ class LineWidthChunker {
         const a = tokens.map((e) => e.offsetWidth);
         const chunkWidths = partition(a, k);
 
-        let i = 0;
-        chunkWidths.forEach(function(p) {
+        chunkWidths.forEach(p => {
             let text = "";
             p.forEach(function(token) {
-                text += tokens[i].innerHTML;
-                i++;
+                text += token.innerHTML;
             });
             chunks.push(text);
         });
@@ -255,7 +253,7 @@ class BlocksPager {
      * @returns {Array[Array[HTMLElement]]} The same HTML elements groupes by line
      */
     static getTokensPerLine(tokens) {
-        const lines = []
+        const lines = [];
         let currentLine = [];
         let previousOffsetLeft = 0;
 
@@ -472,7 +470,7 @@ class Pager extends React.Component {
                         block.tag,
                         {key: index},
                         tokenizer.tokenize(block.content).map((token, iToken) => {
-                            return <span className={token.type} key={iToken} dangerouslySetInnerHTML={{__html: token.token}}></span>
+                            return <span className={token.type} key={iToken} dangerouslySetInnerHTML={{__html: token.token}}></span>;
                         })
                     ))}
                 </Paper>
@@ -552,14 +550,14 @@ class Pager extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.content !== this.props.content) {
             this.setState({
                 // Pages in progress
                 pages: [],
                 // Current index in props.content.blocks
                 position: 0,
-            })
+            });
             this.changed = true;
         }
     }
@@ -584,7 +582,7 @@ Pager.propTypes = {
     chunkStops: PropTypes.number,
     // chunkMode `words` options
     chunkWords: PropTypes.number,
-}
+};
 
 Pager.defaultProps = {
     ...Paper.defaultProps,

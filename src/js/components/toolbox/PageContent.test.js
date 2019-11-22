@@ -55,5 +55,5 @@ it('preserves HTML tags in content', () => {
     const { getByText } = render(<PageContent page={page} />);
 
     expect(getByText('TOM presented himself')).toContainHTML(
-        '<span class="Selected Chunk">TOM presented himself</span>')
+        '<span class="Selected Chunk">TOM presented himself</span>');
 });

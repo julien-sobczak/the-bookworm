@@ -41,7 +41,7 @@ Viewer.propTypes = {
 
     // Enable a pacer
     pacerWpm: PropTypes.number,
-}
+};
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,

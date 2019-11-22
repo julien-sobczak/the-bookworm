@@ -25,8 +25,9 @@ class Drill extends React.Component {
             engine: undefined,
 
             // The Drill content
-            drill: undefined, // We create the drill lazily (after component mount)
-                              // because we need to determine the available space on screen.
+            drill: undefined, 
+            // We create the drill lazily (after component mount)
+            // because we need to determine the available space on screen.
 
             // The number of errors for the current drill
             errorCount: 0,
@@ -64,7 +65,7 @@ class Drill extends React.Component {
     }
 
     /** Called when the user successfully finish one drill. */
-    handleDrillFinished = (event) => {
+    handleDrillFinished(event) {
         // Check to adjust the level
         if (this.props.autoLevel) {
             if (event.errorCount < 2) {
@@ -187,7 +188,7 @@ class Drill extends React.Component {
             case interaction.ZONE_TOP:
                 this.increaseSpan();
                 return;
-            default: 
+            default:
                 // Do nothing
                 return;
         }
@@ -203,7 +204,7 @@ class Drill extends React.Component {
 
         window.addEventListener("keyup", this.handleKeyUp);
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener("keyup", this.handleKeyUp);
     }

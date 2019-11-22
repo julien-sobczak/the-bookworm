@@ -7,28 +7,6 @@ import ColorPicker from './ColorPicker';
  */
 class Stylizer extends React.Component {
 
-    static propTypes = {
-        enablePaperSize: PropTypes.bool,
-
-        // Default selection
-        fontFamily: PropTypes.string,
-        fontSize: PropTypes.string,
-        fontStyle: PropTypes.string,
-        theme: PropTypes.string,
-        backgroundColor: PropTypes.string,
-        color: PropTypes.string,
-    };
-
-    static defaultProps = {
-        enablePaperSize: false,
-        fontFamily: 'Roboto',
-        fontSize: '12pt',
-        fontStyle: 'normal',
-        theme: 'Light',
-        backgroundColor: Stylizer.THEME_LIGHT_TEXT_COLOR,
-        color: Stylizer.THEME_LIGHT_BACKGROUND_COLOR,
-    };
-
     constructor(props) {
         super(props);
 
@@ -51,56 +29,54 @@ class Stylizer extends React.Component {
         this.handleBackgroundColorChange = this.handleBackgroundColorChange.bind(this);
     }
 
-
     /** Called when the user expand/unexpand the setting panel. */
-    handleExpand = (event) => {
+    handleExpand() {
         this.setState(state => ({
             ...state,
             expanded: !state.expanded,
-        }))
+        }));
     }
 
-
-    handleFontFamilyClick = (event) => {
+    handleFontFamilyClick(event) {
         const newFontFamily = event.target.dataset.value;
         if (this.state.fontFamily === newFontFamily) return;
         const newState = {
             ...this.state,
             fontFamily: newFontFamily,
-        }
+        };
         this.setState(newState);
         this.props.onChange(newState);
     }
 
-    handleFontStyleClick = (event) => {
+    handleFontStyleClick(event) {
         const newFontStyle = event.target.dataset.value;
         if (this.state.fontStyle === newFontStyle) return;
         const newState = {
             ...this.state,
             fontStyle: newFontStyle,
-        }
+        };
         this.setState(newState);
         this.props.onChange(newState);
     }
 
-    handleFontSizeClick = (event) => {
+    handleFontSizeClick(event) {
         const newFontSize = event.target.dataset.value;
         if (this.state.fontSize === newFontSize) return;
         const newState = {
             ...this.state,
             fontSize: newFontSize,
-        }
+        };
         this.setState(newState);
         this.props.onChange(newState);
     }
 
-    handleThemeClick = (event) => {
+    handleThemeClick(event) {
         const newTheme = event.target.dataset.value;
         if (this.state.theme === newTheme) return;
         const newState = {
             ...this.state,
             theme: newTheme,
-        }
+        };
         if (newTheme === 'Light') {
             newState.color = Stylizer.THEME_LIGHT_TEXT_COLOR;
             newState.backgroundColor = Stylizer.THEME_LIGHT_BACKGROUND_COLOR;
@@ -112,27 +88,25 @@ class Stylizer extends React.Component {
         this.props.onChange(newState);
     }
 
-    handleColorChange = (color) => {
+    handleColorChange(color) {
         const newState = {
             ...this.state,
             color: color,
-        }
+        };
         this.setState(newState);
         this.props.onChange(newState);
-    };
+    }
 
-    handleBackgroundColorChange = (color) => {
+    handleBackgroundColorChange(color) {
         const newState = {
             ...this.state,
             backgroundColor: color,
-        }
+        };
         this.setState(newState);
         this.props.onChange(newState);
-    };
-
+    }
 
     render() {
-
         return (
             <div className="Configurator">
                 {!this.state.expanded && <button className="SettingsButton" onClick={this.handleExpand}><i className="material-icons">style</i></button>}
@@ -146,11 +120,31 @@ class Stylizer extends React.Component {
                                     <tr>
                                         <th>Typeface:</th>
                                         <td>
-                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption Roboto " + (this.state.fontFamily === 'Roboto' ? 'selected' : '')} data-value="Roboto">Roboto</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption SourceCodePro " + (this.state.fontFamily === 'SourceCodePro' ? 'selected' : '')} data-value="SourceCodePro">Source Code Pro</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption Slabo " + (this.state.fontFamily === 'Slabo' ? 'selected' : '')} data-value="Slabo">Slabo</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption Sacramento " + (this.state.fontFamily === 'Sacramento' ? 'selected' : '')} data-value="Sacramento">Sacramento</span>
-                                            <span onClick={this.handleFontFamilyClick} className={"GraphicOption FredokaOne " + (this.state.fontFamily === 'FredokaOne' ? 'selected' : '')} data-value="FredokaOne">Fredoka One</span>
+                                            <span onClick={this.handleFontFamilyClick}
+                                                  className={"GraphicOption Roboto " + (this.state.fontFamily === 'Roboto' ? 'selected' : '')}
+                                                  data-value="Roboto">
+                                                Roboto
+                                            </span>
+                                            <span onClick={this.handleFontFamilyClick}
+                                                  className={"GraphicOption SourceCodePro " + (this.state.fontFamily === 'SourceCodePro' ? 'selected' : '')}
+                                                  data-value="SourceCodePro">
+                                                Source Code Pro
+                                            </span>
+                                            <span onClick={this.handleFontFamilyClick}
+                                                  className={"GraphicOption Slabo " + (this.state.fontFamily === 'Slabo' ? 'selected' : '')}
+                                                  data-value="Slabo">
+                                                Slabo
+                                            </span>
+                                            <span onClick={this.handleFontFamilyClick}
+                                                  className={"GraphicOption Sacramento " + (this.state.fontFamily === 'Sacramento' ? 'selected' : '')}
+                                                  data-value="Sacramento">
+                                                Sacramento
+                                            </span>
+                                            <span onClick={this.handleFontFamilyClick}
+                                                  className={"GraphicOption FredokaOne " + (this.state.fontFamily === 'FredokaOne' ? 'selected' : '')}
+                                                  data-value="FredokaOne">
+                                                Fredoka One
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -196,6 +190,30 @@ class Stylizer extends React.Component {
     }
 
 }
+
+Stylizer.propTypes = {
+    enablePaperSize: PropTypes.bool,
+
+    // Default selection
+    fontFamily: PropTypes.string,
+    fontSize: PropTypes.string,
+    fontStyle: PropTypes.string,
+    theme: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    color: PropTypes.string,
+
+    onChange: PropTypes.func.isRequired,
+};
+
+Stylizer.defaultProps = {
+    enablePaperSize: false,
+    fontFamily: 'Roboto',
+    fontSize: '12pt',
+    fontStyle: 'normal',
+    theme: 'Light',
+    backgroundColor: Stylizer.THEME_LIGHT_TEXT_COLOR,
+    color: Stylizer.THEME_LIGHT_BACKGROUND_COLOR,
+};
 
 Stylizer.THEME_LIGHT_TEXT_COLOR = '#000000';
 Stylizer.THEME_LIGHT_BACKGROUND_COLOR = '#FFFFFF';

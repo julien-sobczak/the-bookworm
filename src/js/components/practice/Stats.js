@@ -10,7 +10,7 @@ function Stats({ stats, finished, onRestart, onContinue }) {
         <div className="FullScreen Stats Centered">
             <table className="Stats">
                 <tbody>
-                    {stats.hasOwnProperty('winner') && <tr>
+                    {Object.prototype.hasOwnProperty.call(stats, 'winner') && <tr>
                         <td colSpan="4" className="Statistic StatisticStroke StatisticShadow">
                             {stats.winner === true && <span>You WIN!</span>}
                             {stats.winner === false && <span>You LOSE!</span>}
@@ -42,12 +42,14 @@ function Stats({ stats, finished, onRestart, onContinue }) {
 
 Stats.propTypes = {
     stats: PropTypes.object,
+    finished: PropTypes.bool,
     onRestart: PropTypes.func,
     onContinue: PropTypes.func,
 };
 
 Stats.defaultProps = {
     stats: undefined,
+    finished: false,
     onRestart: () => {},
     onContinue: () => {},
 };
