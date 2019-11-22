@@ -119,12 +119,10 @@ class LineWidthChunker {
         const a = tokens.map((e) => e.offsetWidth);
         const chunkWidths = partition(a, k);
 
-        let i = 0;
-        chunkWidths.forEach(function(p) {
+        chunkWidths.forEach(p => {
             let text = "";
             p.forEach(function(token) {
-                text += tokens[i].innerHTML;
-                i++;
+                text += token.innerHTML;
             });
             chunks.push(text);
         });
@@ -552,7 +550,7 @@ class Pager extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.content !== this.props.content) {
             this.setState({
                 // Pages in progress

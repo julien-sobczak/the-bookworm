@@ -35,16 +35,15 @@ const generateChunks = (newState) => {
         return results;
     };
 
-    switch (newState.chunkMode) {
-        case "width":
-            const length = helpers.SPANS.indexOf(newState.chunkWidth);
-            const subtext = 'o'.repeat(length);
-            return chunks(`l${subtext}ng`);
-        case "dynamic":
-            return chunks(["A", "text", "becoming", "larger as we", "progress on the column"]);
-        default:
-            throw new Error(`${newState.chunkMode} is not implemented.`);
+    if (newState.chunkMode === "width") {
+        const length = helpers.SPANS.indexOf(newState.chunkWidth);
+        const subtext = 'o'.repeat(length);
+        return chunks(`l${subtext}ng`);
+    } else if (newState.chunkMode === "dynamic") {
+        return chunks(["A", "text", "becoming", "larger as we", "progress on the column"]);
     }
+    
+    throw new Error(`${newState.chunkMode} is not implemented.`);
 };
 
 function Demo(props) {

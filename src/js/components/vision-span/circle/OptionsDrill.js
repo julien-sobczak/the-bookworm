@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
+import Viewer from './Viewer';
 
 import * as helpers from '../../../functions/engine';
 
@@ -39,6 +42,15 @@ const OptionsDrill = (props) => {
             </tbody>
         </table>
     );
+};
+
+OptionsDrill.propTypes = {
+    ...Viewer.propTypes,
+    onChange: PropTypes.func.isRequired,
+};
+
+OptionsDrill.defaultProps = {
+    ...Viewer.defaultProps,
 };
 
 export default OptionsDrill;

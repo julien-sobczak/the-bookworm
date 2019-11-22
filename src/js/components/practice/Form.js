@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
+import Viewer from './Viewer';
 
 const Form = (props) => {
 
@@ -97,6 +100,15 @@ const Form = (props) => {
             </table>
         </>
     );
+};
+
+Form.propTypes = {
+    ...Viewer.propTypes,
+    onChange: PropTypes.func.isRequired,
+};
+
+Form.defaultProps = {
+    ...Viewer.defaultProps,
 };
 
 export default Form;

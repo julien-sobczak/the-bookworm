@@ -12,7 +12,7 @@
     },
     "settings": {
         "react": {
-            "version": "detect"
+            "version": "16.8"
         }
     },
     "parserOptions": {
@@ -24,6 +24,7 @@
     },
     "plugins": ["jest", "react", "react-hooks"],
     "rules": {
-        "semi": "error"
+        "semi": "error",
+        "indent": ["error", 4]
     }
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Switch from '@material/react-switch';
 
@@ -60,6 +61,17 @@ const OptionsGame = (props) => {
             </tbody>
         </table>
     );
+};
+
+OptionsGame.propTypes = {
+    keyboardDetected: PropTypes.bool,
+    autoLevel: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+};
+
+OptionsGame.defaultProps = {
+    keyboardDetected: false,
+    autoLevel: false,
 };
 
 export default OptionsGame;

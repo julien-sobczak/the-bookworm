@@ -312,7 +312,7 @@ class Chunker extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.content !== this.props.content) {
             this.setState({
                 // Chunks in progress

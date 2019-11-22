@@ -20,10 +20,10 @@ class Tokenizer {
             { token: text, type: "word" },
         ];
 
-        separators.forEach(function(s, idx) {
+        separators.forEach(s => {
             const r = new RegExp(s.characters, 'g');
             const newTokens = [];
-            tokens.forEach(function(t, idx) {
+            tokens.forEach(t => {
                 if (t.type === 'space') {
                     newTokens.push(t);
                 } else {

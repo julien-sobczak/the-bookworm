@@ -12,7 +12,7 @@ class Engine {
     constructor(lines, onDrillFinished=undefined) {
         // Settings
         this.lines = lines;
-        this.callbackDrillFinished = onDrillFinished;  
+        this.callbackDrillFinished = onDrillFinished;
 
         // Stats
         this.totalWrongAnswers = 0;

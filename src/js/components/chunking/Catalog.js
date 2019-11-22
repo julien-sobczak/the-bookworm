@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
@@ -65,6 +66,12 @@ function Entry({ name, children, slug }) {
     );
 }
 
+Entry.propTypes = {
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    children: PropTypes.element,
+};
+
 function Catalog({match}) {
 
     return (
@@ -91,5 +98,9 @@ function Catalog({match}) {
         </div>
     );
 }
+
+Catalog.propTypes = {
+    match: PropTypes.string.isRequired,
+};
 
 export default Catalog;

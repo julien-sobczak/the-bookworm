@@ -298,7 +298,7 @@ export function downloadContent(description) {
         console.log(`Downloading ${contentUrl}...`);
         console.log(`Downloading ${metadataUrl}...`);
 
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
             Promise.all([
                 fetch(contentUrl).then(response => { return response.text(); }),
                 fetch(metadataUrl).then((response) => { return response.json(); }),

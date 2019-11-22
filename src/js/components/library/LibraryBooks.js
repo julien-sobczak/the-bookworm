@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 import Button from "../toolbox/Button";
 import Loader from "../toolbox/Loader";
@@ -244,6 +245,15 @@ class LibraryBooks extends React.Component {
         });
     }
 }
+
+LibraryBooks.propTypes = {
+    // Redux State
+    readings: PropTypes.array.isRequired,
+    preferencesLanguage: PropTypes.string.isRequired,
+    // Callbacks
+    onSelect: PropTypes.func,
+    onCancel: PropTypes.func,
+};
 
 const mapStateToProps = state => {
     return {

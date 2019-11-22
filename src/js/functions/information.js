@@ -91,15 +91,15 @@ export function getTipOfTheDay() {
 export function getMessageOfTheDay() {
     const types = ["quote", "tip"];
     const selectedType = randomElement(types);
+    const quoteToday = getQuoteOfTheDay();
+    const tipToday = getTipOfTheDay();
     switch (selectedType) {
         case "quote":
-            const quoteToday = getQuoteOfTheDay();
             return {
                 type: "quote",
                 ...quoteToday,
             };
         case "tip":
-            const tipToday = getTipOfTheDay();
             return {
                 type: "tip",
                 ...tipToday,

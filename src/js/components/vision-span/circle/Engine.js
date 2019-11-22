@@ -1,9 +1,9 @@
 import * as helpers from '../../../functions/engine';
 import * as time from '../../../functions/time';
 
-class Engine {
+const POSITIONS = ["center", "top", "topRight", "right", "bottomRight", "bottom", "bottomLeft", "left", "topLeft"];
 
-    POSITIONS = ["center", "top", "topRight", "right", "bottomRight", "bottom", "bottomLeft", "left", "topLeft"];
+class Engine {
 
     /**
      * Creates a new drill.
@@ -42,11 +42,11 @@ class Engine {
      */
     shuffle() {
         const drill = {};
-        this.POSITIONS.forEach((p) => {
+        POSITIONS.forEach((p) => {
             drill[p] = {
                 label: helpers.randomLetter(),
                 valid: null,
-            }
+            };
         });
         this.drill = drill;
         this.errorCount = 0;
@@ -88,7 +88,7 @@ class Engine {
         let error = true;
         let matchFound = false; // We want to match only one character, even the same character appears twice on the line
 
-        this.POSITIONS.forEach((p) => {
+        POSITIONS.forEach((p) => {
             const element = this.drill[p];
             if (!element.valid && element.label === input.toUpperCase() && !matchFound) {
                 element.valid = true;
@@ -103,7 +103,7 @@ class Engine {
         }
         if (finished) {
             this.totalWrongAnswers += this.errorCount;
-            this.totalCorrectAnswers += this.POSITIONS.length;
+            this.totalCorrectAnswers += POSITIONS.length;
             this.totalAnswers += this.inputCount;
             this.onDrillFinished && this.onDrillFinished({
                 errorCount: this.errorCount,

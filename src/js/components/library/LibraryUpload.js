@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import PreviewEpub from './PreviewEpub';
 
 class LibraryUpload extends React.Component {
@@ -17,5 +17,11 @@ class LibraryUpload extends React.Component {
     }
 
 }
+
+LibraryUpload.propTypes = {
+    filetype: PropTypes.string.isRequired,
+    file: PropTypes.object.isRequired,
+    onSelect: PropTypes.func.isRequired,
+};
 
 export default LibraryUpload;

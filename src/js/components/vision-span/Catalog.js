@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import Button from "../toolbox/Button.js";
 
@@ -17,6 +18,12 @@ function Entry({ name, slug, children }) {
         </div>
     );
 }
+
+Entry.propTypes = {
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    children: PropTypes.element,
+};
 
 function DrawingHorizontal() {
     return (
@@ -130,5 +137,9 @@ function Catalog({match}) {
         </div>
     );
 }
+
+Catalog.propTypes = {
+    match: PropTypes.string.isRequired,
+};
 
 export default Catalog;

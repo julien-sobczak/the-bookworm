@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import ColorPicker from './ColorPicker';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<ColorPicker />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  const { getByTestId } = render(<ColorPicker />);
+  expect(getByTestId('swatch')).not.toBeNull();
 });

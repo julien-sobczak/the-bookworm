@@ -32,4 +32,6 @@ Paper.defaultProps = {
     paperSize: 'A5',
 };
 
+Paper.displayName = 'Paper';
+
 export default Paper;

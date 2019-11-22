@@ -6,16 +6,15 @@ const initialState = defaultState;
 
 describe('rootReducer', () => {
 
-    // TODO add a unit test to test the initial state
-    // it('should return the initial state', () => {
-    //     expect(reducer(undefined, {})).toEqual([
-    //         {
-    //             text: 'Use Redux',
-    //             completed: false,
-    //             id: 0
-    //         }
-    //     ]);
-    // });
+    it('should return the initial state', () => {
+        expect(reducer(defaultState, {})).toMatchObject({
+            preferences: {
+                language: {
+                    native: 'English',
+                },
+            },
+        });
+    });
 
     it('should handle updateLanguagePreferences', () => {
         expect(

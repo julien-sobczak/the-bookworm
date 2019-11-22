@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'props-types';
+
+import Styled from './Styled';
 
 const FormText = (props) => {
 
@@ -101,6 +104,15 @@ const FormText = (props) => {
             </tbody>
         </table>
     );
+};
+
+FormText.propTypes = {
+    ...Styled.propTypes,
+    onChange: PropTypes.func.isRequired,
+};
+
+FormText.defaultProps = {
+    ...Styled.defaultProps,
 };
 
 export default FormText;

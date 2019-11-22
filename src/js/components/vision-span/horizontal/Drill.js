@@ -61,7 +61,7 @@ class Drill extends React.Component {
     }
 
     /** Called when the user successfully finish one drill. */
-    handleDrillFinished = (event) => {
+    handleDrillFinished(event) {
         // Check to adjust the level
         if (this.props.autoLevel) {
             if (event.errorCount < 2) {
@@ -137,7 +137,7 @@ class Drill extends React.Component {
         const engine = this.state.engine;
         engine.registerInput(event.key);
         const drill = engine.getDrill();
-    
+
         this.setState(state => ({
             ...state,
             drill: drill,
@@ -183,7 +183,7 @@ class Drill extends React.Component {
             case interaction.ZONE_TOP:
                 this.increaseSpan();
                 return;
-            default: 
+            default:
                 // Do nothing
                 return;
         }
@@ -193,7 +193,7 @@ class Drill extends React.Component {
         // Now that we can determine the available space on screen,
         // We can generate the drill.
         const seriesCount = this.calculateSeriesCount();
-        const engine = new Engine(this.props.lines, this.props.columns, seriesCount, this.handleDrillFinished)
+        const engine = new Engine(this.props.lines, this.props.columns, seriesCount, this.handleDrillFinished);
         this.setState(state => ({
             ...state,
             engine: engine,
@@ -202,7 +202,7 @@ class Drill extends React.Component {
 
         window.addEventListener("keyup", this.handleKeyUp);
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener("keyup", this.handleKeyUp);
     }

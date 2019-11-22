@@ -2,7 +2,7 @@ import React from 'react';
 
 import Viewer from './Viewer';
 
-const generatePage = (props) => {
+const generatePage = () => {
     return {
         "number": 1,
         "blocks": [

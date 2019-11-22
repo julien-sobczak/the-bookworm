@@ -10,10 +10,6 @@ const MAX_WPMS = 10;
 function rootReducer(state, action) {
 
     if (action.type === actions.UPDATE_READING) {
-            // if progress: 100
-    // => update stats.[books|paste|epubs]
-    // => move to previousReadings
-
         // Update existing reading
         const newReadings = [...state.readings];
         let found = false;
@@ -106,7 +102,7 @@ function rootReducer(state, action) {
         // Update reading stats in global stats
         let newStats = state.stats;
         const drillStats = action.payload.stats;
-        if (drillStats.hasOwnProperty('wpm')) { // Only for text-based drills
+        if (Object.prototype.hasOwnProperty.call(drillStats, 'wpm')) { // Only for text-based drills
             const wpms = [...state.stats.wpms];
             wpms.unshift(drillStats.wpm);
             const sum = wpms.reduce(function(a, b) { return a + b; });

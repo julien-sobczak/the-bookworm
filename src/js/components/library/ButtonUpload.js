@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Loader from "../toolbox/Loader.js";
 import Button from "../toolbox/Button";
@@ -47,5 +48,18 @@ const ButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
         </>
     );
 };
+
+ButtonUpload.propTypes = {
+    text: PropTypes.string.isRequired,
+    colorText: PropTypes.string,
+    colorBackground: PropTypes.string,
+    onClick: PropTypes.func.isRequired,
+};
+
+ButtonUpload.defaultProps = {
+    colorText: 'black',
+    colorBackground: 'white',
+};
+
 
 export default ButtonUpload;
