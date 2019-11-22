@@ -58,7 +58,7 @@ class BookViewer extends React.Component {
             <div className="FullScreen BookViewer">
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
-                       {...this.props} />
+                    {...this.props} />
 
                 <section className="DrillControls">
                     <ul>

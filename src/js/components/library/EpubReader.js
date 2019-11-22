@@ -187,8 +187,8 @@ export const readEpub = file => {
                 });
             });
         })
-        .catch(err => {
-            reject(err);
-        });
+            .catch(err => {
+                reject(err);
+            });
     });
 };

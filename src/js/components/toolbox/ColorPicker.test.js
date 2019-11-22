@@ -4,6 +4,6 @@ import '@testing-library/jest-dom/extend-expect';
 import ColorPicker from './ColorPicker';
 
 it('renders without crashing', () => {
-  const { getByTestId } = render(<ColorPicker />);
-  expect(getByTestId('swatch')).not.toBeNull();
+    const { getByTestId } = render(<ColorPicker />);
+    expect(getByTestId('swatch')).not.toBeNull();
 });

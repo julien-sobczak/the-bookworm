@@ -32,7 +32,7 @@ function Viewer(props) {
 
     return (
         <div className={"ViewerPage Centered " + classNames.join(' ')}>
-             <Paper {...props}>
+            <Paper {...props}>
                 <PageContent
                     page={props.page}
                     blockPosition={props.blockPosition}

@@ -121,28 +121,28 @@ class Stylizer extends React.Component {
                                         <th>Typeface:</th>
                                         <td>
                                             <span onClick={this.handleFontFamilyClick}
-                                                  className={"GraphicOption Roboto " + (this.state.fontFamily === 'Roboto' ? 'selected' : '')}
-                                                  data-value="Roboto">
+                                                className={"GraphicOption Roboto " + (this.state.fontFamily === 'Roboto' ? 'selected' : '')}
+                                                data-value="Roboto">
                                                 Roboto
                                             </span>
                                             <span onClick={this.handleFontFamilyClick}
-                                                  className={"GraphicOption SourceCodePro " + (this.state.fontFamily === 'SourceCodePro' ? 'selected' : '')}
-                                                  data-value="SourceCodePro">
+                                                className={"GraphicOption SourceCodePro " + (this.state.fontFamily === 'SourceCodePro' ? 'selected' : '')}
+                                                data-value="SourceCodePro">
                                                 Source Code Pro
                                             </span>
                                             <span onClick={this.handleFontFamilyClick}
-                                                  className={"GraphicOption Slabo " + (this.state.fontFamily === 'Slabo' ? 'selected' : '')}
-                                                  data-value="Slabo">
+                                                className={"GraphicOption Slabo " + (this.state.fontFamily === 'Slabo' ? 'selected' : '')}
+                                                data-value="Slabo">
                                                 Slabo
                                             </span>
                                             <span onClick={this.handleFontFamilyClick}
-                                                  className={"GraphicOption Sacramento " + (this.state.fontFamily === 'Sacramento' ? 'selected' : '')}
-                                                  data-value="Sacramento">
+                                                className={"GraphicOption Sacramento " + (this.state.fontFamily === 'Sacramento' ? 'selected' : '')}
+                                                data-value="Sacramento">
                                                 Sacramento
                                             </span>
                                             <span onClick={this.handleFontFamilyClick}
-                                                  className={"GraphicOption FredokaOne " + (this.state.fontFamily === 'FredokaOne' ? 'selected' : '')}
-                                                  data-value="FredokaOne">
+                                                className={"GraphicOption FredokaOne " + (this.state.fontFamily === 'FredokaOne' ? 'selected' : '')}
+                                                data-value="FredokaOne">
                                                 Fredoka One
                                             </span>
                                         </td>
@@ -174,8 +174,8 @@ class Stylizer extends React.Component {
                                             <span onClick={this.handleThemeClick} className={"GraphicOption Custom " + (this.state.theme === 'Custom' ? 'selected' : '')} data-value="Custom">Custom</span>
                                             { this.state.theme === 'Custom' &&
                                               <span style={{display: 'flex'}}>
-                                                <span className="SubGraphicOption">Text:</span>       <ColorPicker color={ this.state.color }           onChange={ this.handleColorChange } />
-                                                <span className="SubGraphicOption">Background:</span> <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
+                                                  <span className="SubGraphicOption">Text:</span>       <ColorPicker color={ this.state.color }           onChange={ this.handleColorChange } />
+                                                  <span className="SubGraphicOption">Background:</span> <ColorPicker color={ this.state.backgroundColor } onChange={ this.handleBackgroundColorChange } />
                                               </span>
                                             }
                                         </td>

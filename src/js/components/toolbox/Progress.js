@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 function Progress({value, showText}) {
 
-  const ProgressContainer = styled.div`
+    const ProgressContainer = styled.div`
     display: inline-block;
     position: relative;
     width: 3cm;
@@ -13,7 +13,7 @@ function Progress({value, showText}) {
     border-radius: 0.1cm;
     background: rgba(0,0,0,0.5);
 `;
-  const ProgressBar = styled.div`
+    const ProgressBar = styled.div`
     position: absolute;
     left: 0;
     top: 0;
@@ -22,7 +22,7 @@ function Progress({value, showText}) {
     border-radius: 0.1cm;
     background: white;
 `;
-  const ProgressText = styled.div`
+    const ProgressText = styled.div`
     position: absolute;
     top: -0.6cm;
     left: 0;
@@ -34,20 +34,20 @@ function Progress({value, showText}) {
 `;
 
     return (
-      <ProgressContainer>
-        {showText && <ProgressText>{value} %</ProgressText>}
-        <ProgressBar />
-      </ProgressContainer>
+        <ProgressContainer>
+            {showText && <ProgressText>{value} %</ProgressText>}
+            <ProgressBar />
+        </ProgressContainer>
     );
 }
 
 Progress.propTypes = {
-  value: PropTypes.number,
-  showText: PropTypes.boolean,
+    value: PropTypes.number,
+    showText: PropTypes.boolean,
 };
 
 Progress.defaultTypes = {
-  showText: false,
+    showText: false,
 };
 
 export default Progress;

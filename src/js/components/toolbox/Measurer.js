@@ -54,7 +54,7 @@ class Measurer extends React.Component {
         }
     }
 
-   /**
+    /**
     * Measure the effective width and height of a given text.
     * @param {string} text The text to measure
     * @returns {number[]} The effective width in pixels
@@ -67,7 +67,7 @@ class Measurer extends React.Component {
         return Measurer._measure();
     }
 
-   /**
+    /**
     * Measure the effective width and height of the current inner element.
     * @returns {number[]} The effective width in pixels
     */

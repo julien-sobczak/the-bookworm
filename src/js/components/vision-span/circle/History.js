@@ -21,8 +21,8 @@ const History = ({ history, onSelect }) => {
                                 <td className="Clickable">{string.humanReadableDate(drill.date)}</td>
                                 <td className="Clickable">{drill.drillSettings.span}</td>
                             </tr>
-                            );
-                        })}
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

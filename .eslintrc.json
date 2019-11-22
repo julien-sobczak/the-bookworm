@@ -24,6 +24,7 @@
     },
     "plugins": ["jest", "react", "react-hooks"],
     "rules": {
+        "no-console": "off",
         "semi": "error",
         "indent": ["error", 4]
     }
