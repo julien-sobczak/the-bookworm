@@ -71,7 +71,7 @@ Viewer.propTypes = {
 
     // Pause between two pages
     pageTurningDuration: PropTypes.number, // ms
-}
+};
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,

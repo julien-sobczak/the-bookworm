@@ -12,7 +12,7 @@ const FormChunk = (props) => {
         onChange({
             chunkStyle: newChunkStyle,
         });
-    }
+    };
 
     return (
         <table className="Setting">
@@ -34,6 +34,6 @@ const FormChunk = (props) => {
             </tbody>
         </table>
     );
-}
+};
 
 export default FormChunk;

@@ -100,7 +100,7 @@ function rootReducer(state, action) {
         previousSessions.unshift(action.payload);
         const newHistory = {
             ...state.history,
-        }
+        };
         newHistory[drillType] = previousSessions.slice(0, MAX_SESSIONS_HISTORY);
 
         // Update reading stats in global stats
@@ -116,7 +116,7 @@ function rootReducer(state, action) {
                 wpms: wpms.slice(0, MAX_WPMS),
                 wpm: wpm,
                 readingTime: state.readingTime + drillStats.durationInSeconds,
-            }
+            };
         }
 
         return {
@@ -127,6 +127,6 @@ function rootReducer(state, action) {
     }
 
     return state;
-};
+}
 
 export default rootReducer;

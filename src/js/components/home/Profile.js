@@ -31,7 +31,7 @@ function Profile(props) {
         const hh = ("" + today.getUTCHours()).padStart(2, '0');
         const mm = ("" + today.getUTCMinutes()).padStart(2, '0');
         return `backup-${yyyy}${MM}${dd}-${hh}${mm}.json`;
-    }
+    };
 
     const createBackup = () => {
         const element = document.createElement("a");
@@ -72,7 +72,7 @@ function Profile(props) {
 
     const goToHomePage = (event) => {
         document.location.pathname = "/";
-    }
+    };
 
     const readAtLeastOneContent = (props.stats.books + props.stats.pastes + props.stats.epubs) > 0;
     const startUsingAppToday = new Date().toDateString() === new Date(props.startDate).toDateString();

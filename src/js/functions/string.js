@@ -107,7 +107,7 @@ export function humanReadableSize(size) {
     const i = Math.floor(Math.log(size) / Math.log(1024));
     const precision = (i < 2) ? 0 : 2; // Ignore decimals for small units
     return (size / Math.pow(1024, i)).toFixed(precision) * 1 + ' ' + ['bytes', 'kb', 'mb', 'gb', 'tb'][i];
-};
+}
 
 /**
  * Format the number of seconds to the closest logical temporal unit.
@@ -127,7 +127,7 @@ export function humanReadableShortDuration(durationInSeconds) {
         result += ` ${seconds}s`;
     }
     return result;
-};
+}
 
 
 /**
@@ -159,4 +159,4 @@ export function humanReadableLongDuration(durationInSeconds) {
         }
     }
     return result;
-};
+}

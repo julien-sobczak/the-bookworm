@@ -25,7 +25,7 @@ const FormText = (props) => {
             ...currentState(),
             fontFamily: newValue,
         });
-    }
+    };
 
     const handleFontStyleClick = (event) => {
         const newValue = event.target.dataset.value;
@@ -35,7 +35,7 @@ const FormText = (props) => {
             ...currentState(),
             fontStyle: newValue,
         });
-    }
+    };
 
     const handleFontSizeClick = (event) => {
         const newValue = event.target.dataset.value;
@@ -45,7 +45,7 @@ const FormText = (props) => {
             ...currentState(),
             fontSize: newValue,
         });
-    }
+    };
 
     const handleThemeClick = (event) => {
         const newValue = event.target.dataset.value;
@@ -55,7 +55,7 @@ const FormText = (props) => {
             ...currentState(),
             theme: newValue,
         });
-    }
+    };
 
     return (
         <table className="Setting">
@@ -101,6 +101,6 @@ const FormText = (props) => {
             </tbody>
         </table>
     );
-}
+};
 
 export default FormText;

@@ -312,13 +312,13 @@ export function downloadContent(description) {
                     content: content,
                     reloadable: true,
                     saveOnLocalStorage: true,
-                })
+                });
             });
         });
     }
 
     throw new Error(`Unsupported type ${description.type}`);
-};
+}
 
 /**
  * Convert the language name to the ISO code.
@@ -353,7 +353,7 @@ export function getReading(readings, content) {
             },
             reloadable: content.reloadable,
             lastDate: new Date().toJSON(),
-        }
+        };
     } else {
         return readings;
     }
@@ -392,7 +392,7 @@ export function nextPosition(lastPosition, content) {
             newPosition = {
                 section: lastPosition.section,
                 block: lastPosition.block + 1,
-            }
+            };
         }
         // TODO Tune the formula to consider blocks and section length
         newPosition.progress = newPosition.section * 100 / content.sections.length;
@@ -441,7 +441,7 @@ function stripTags(str) {
  */
 export function countWords(str) {
     return stripTags(str).split(' ')
-        .filter(function (n) { return n !== '' })
+        .filter(function (n) { return n !== ''; })
         .length;
 }
 
@@ -523,7 +523,7 @@ export function statsPages(pages) {
     return {
         pages: pages.length,
         chunks: chunks,
-    }
+    };
 }
 
 /**

@@ -255,7 +255,7 @@ class BlocksPager {
      * @returns {Array[Array[HTMLElement]]} The same HTML elements groupes by line
      */
     static getTokensPerLine(tokens) {
-        const lines = []
+        const lines = [];
         let currentLine = [];
         let previousOffsetLeft = 0;
 
@@ -472,7 +472,7 @@ class Pager extends React.Component {
                         block.tag,
                         {key: index},
                         tokenizer.tokenize(block.content).map((token, iToken) => {
-                            return <span className={token.type} key={iToken} dangerouslySetInnerHTML={{__html: token.token}}></span>
+                            return <span className={token.type} key={iToken} dangerouslySetInnerHTML={{__html: token.token}}></span>;
                         })
                     ))}
                 </Paper>
@@ -559,7 +559,7 @@ class Pager extends React.Component {
                 pages: [],
                 // Current index in props.content.blocks
                 position: 0,
-            })
+            });
             this.changed = true;
         }
     }
@@ -584,7 +584,7 @@ Pager.propTypes = {
     chunkStops: PropTypes.number,
     // chunkMode `words` options
     chunkWords: PropTypes.number,
-}
+};
 
 Pager.defaultProps = {
     ...Paper.defaultProps,

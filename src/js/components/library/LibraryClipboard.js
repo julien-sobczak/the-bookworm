@@ -22,7 +22,7 @@ function LibraryClipboard({ onSelect, onCancel }) {
             reloadable: false,
             saveOnLocalStorage: true,
         });
-    }
+    };
 
     // TODO add field title and author and toggle button to save on localStorage
     return (

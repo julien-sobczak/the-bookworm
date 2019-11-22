@@ -70,7 +70,7 @@ class ContentSelector extends React.Component {
                             attributes.className = 'ExpandBottom';
                         }
 
-                        attributes.dangerouslySetInnerHTML = {__html: block.content}
+                        attributes.dangerouslySetInnerHTML = {__html: block.content};
 
                         return React.createElement(block.tag, attributes, null);
                     })}
@@ -88,7 +88,7 @@ class ContentSelector extends React.Component {
                 ...this.state,
                 startBlock: 0,
                 endBlock: this.props.content.text.length - 1,
-            })
+            });
         }
     }
 

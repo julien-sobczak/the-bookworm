@@ -52,7 +52,7 @@ const tips = [
     { text: "You have to consciously make time for the important things. If reading is one of your “important things,” you’ll find time for it.", },
     { text: "Just because you learn how to speed read, doesn’t mean you’ll automatically speed read everything. You probably know how to run, but you don’t run everywhere, do you? Most likely you walk much more often than you run. The same is true for speed reading.", },
     // Add new tip in this array to print them on the homepage
-]
+];
 
 /**
  * Returns a random element present in the given array.

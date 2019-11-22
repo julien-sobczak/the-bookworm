@@ -33,6 +33,6 @@ const FormLanguage = (props) => {
             </tbody>
         </table>
     );
-}
+};
 
 export default FormLanguage;

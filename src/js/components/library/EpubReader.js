@@ -10,7 +10,7 @@ const getEntries = file => {
             zipReader.getEntries((entries) => {
                 resolve(entries);
             });
-        }, reject)
+        }, reject);
     });
 };
 const getEntryFile = entry => {
@@ -42,11 +42,11 @@ export const parseToc = content => {
         toc.push({
             title: text,
             filename: filename,
-        })
-    })
+        });
+    });
 
     return toc;
-}
+};
 
 // Parses a text files to extract the HTML readable content.
 export const parseFile = content => {
@@ -75,7 +75,7 @@ export const parseFile = content => {
         }
 
         return result;
-    }
+    };
 
     const keepTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'p'];
     const doc = new DOMParser().parseFromString(content, "text/html");
@@ -102,18 +102,18 @@ export const parseFile = content => {
     }
 
     return results;
-}
+};
 
 // Returns the first file whose filename matches the given regex
 export const getFileMatching = (files, regex) => {
     for (let i = 0; i < files.length; i++) {
-        const file = files[i]
+        const file = files[i];
         if (regex.test(file.filename)) {
             return file;
         }
     }
     return undefined;
-}
+};
 
 // Reads the TOC file and determine the list of chapters
 export const extractToc = files => {
@@ -121,12 +121,12 @@ export const extractToc = files => {
     if (!tocFile) return null;
 
     return parseToc(tocFile.content);
-}
+};
 
 export const filterChapter = chapter => {
     // Remove sections without content
     return chapter.blocks.length < 2;
-}
+};
 
 // Extracts the content from all chapters present in the ePub.
 export const extractChapters = (files) => {
@@ -140,7 +140,7 @@ export const extractChapters = (files) => {
                 const newChapter = {
                     title: chapter.title,
                     blocks: parseFile(file.content),
-                }
+                };
                 if (!filterChapter(newChapter)) {
                     chapters.push(newChapter);
                 }
@@ -149,7 +149,7 @@ export const extractChapters = (files) => {
         }
     }
     return chapters;
-}
+};
 
 export const readEpub = file => {
 
@@ -165,7 +165,7 @@ export const readEpub = file => {
                     }
                 }
                 return false;
-            }
+            };
             entries.forEach(entry => {
                 if (!isTextEntry(entry)) return;
                 promises.push(getEntryFile(entry));
@@ -191,4 +191,4 @@ export const readEpub = file => {
             reject(err);
         });
     });
-}
+};

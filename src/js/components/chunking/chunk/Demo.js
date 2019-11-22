@@ -24,7 +24,7 @@ const generateChunks = (props) => {
                 previousChunk: chunk("A"),
                 currentChunk: chunk(`l${subtext}ng`),
                 nextChunk: chunk("chunk"),
-            }
+            };
         case "words":
             const previousWords = ["a", "about", "after", "all", "also", "an", "and", "any", "as", "at"];
             const currentWords = ["than", "that", "the", "their", "them", "then", "there", "these", "they", "this", "to"];
@@ -33,17 +33,17 @@ const generateChunks = (props) => {
                 previousChunk: chunk(previousWords.slice(0, props.chunkWords).join(' ')),
                 currentChunk: chunk(currentWords.slice(0, props.chunkWords).join(' ')),
                 nextChunk: chunk(nextWords.slice(0, props.chunkWords).join(' ')),
-            }
+            };
         case "dynamic":
             return {
                 previousChunk: chunk("Tiny"),
                 currentChunk: chunk("Medium"),
                 nextChunk: chunk("Laaaaarge"),
-            }
+            };
         default:
             throw new Error(`${props.chunkMode} is not implemented.`);
     }
-}
+};
 
 function Demo(props) {
 
@@ -62,7 +62,7 @@ function Demo(props) {
 
 Demo.propTypes = {
     ...Viewer.propTypes,
-}
+};
 
 Demo.defaultProps = {
     ...Viewer.defaultProps,

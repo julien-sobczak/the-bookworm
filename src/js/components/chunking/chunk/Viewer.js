@@ -13,7 +13,7 @@ const defaultDrillProps = {
     showNextChunk: true,
     linesPerChunk: 1,
     wpm: 4000,
-}
+};
 
 function Viewer(props) {
 
@@ -62,7 +62,7 @@ Viewer.propTypes = {
 
     // Display the next chunk
     showNextChunk: PropTypes.bool,
-}
+};
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,

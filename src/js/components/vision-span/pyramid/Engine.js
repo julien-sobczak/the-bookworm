@@ -69,7 +69,7 @@ class Engine {
                         valid: null,
                     },
                 ]
-            })
+            });
         }
         this.drill = drill;
         this.currentLineIndex = 0;

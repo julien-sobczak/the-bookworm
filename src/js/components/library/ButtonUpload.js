@@ -37,7 +37,7 @@ const ButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
             setErrorMessage(err);
             console.error(`Unable to parse file ${file.name} as ePub`, err);
         });
-    }
+    };
     return (
         <>
             {errorMessage.length > 0 && <PanelError message={errorMessage} onClear={() => setErrorMessage("")}/>}
@@ -46,6 +46,6 @@ const ButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
             {loading && <Loader />}
         </>
     );
-}
+};
 
 export default ButtonUpload;

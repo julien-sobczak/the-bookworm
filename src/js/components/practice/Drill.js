@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Viewer from './Viewer'
+import Viewer from './Viewer';
 import Pager from '../chunking/Pager';
 
 import ProgressLine from '../toolbox/ProgressLine';
@@ -109,7 +109,7 @@ class Drill extends React.Component {
                 }
 
                 this.handle = window.requestAnimationFrame(loop);
-            }
+            };
             this.handle = window.requestAnimationFrame(loop);
         }
     }
@@ -252,7 +252,7 @@ Drill.propTypes = {
 
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
-}
+};
 
 Drill.defaultProps = {
     ...Viewer.defaultProps,

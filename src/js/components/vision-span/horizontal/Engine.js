@@ -75,7 +75,7 @@ class Engine {
                         label: helpers.randomLetter(),
                         valid: null,
                         center: (k === this.columns / 2),
-                    })
+                    });
                 }
                 serie.lines.push(line);
             }

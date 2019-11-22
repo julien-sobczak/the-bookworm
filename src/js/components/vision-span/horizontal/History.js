@@ -34,7 +34,7 @@ const History = ({ history, onSelect }) => {
             </table>
         </div>
     );
-}
+};
 
 History.propTypes = {
     history: PropTypes.arrayOf(PropTypes.object),

@@ -17,4 +17,4 @@ test('notifies on click', () => {
     const button = container.firstChild;
     fireEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(1);
-  })
+  });

@@ -45,7 +45,7 @@ const generateChunks = (newState) => {
         default:
             throw new Error(`${newState.chunkMode} is not implemented.`);
     }
-}
+};
 
 function Demo(props) {
     const chunks = generateChunks();
@@ -54,7 +54,7 @@ function Demo(props) {
 
 Demo.propTypes = {
     ...Viewer.propTypes,
-}
+};
 
 Demo.defaultProps = {
     ...Viewer.defaultProps,

@@ -12,12 +12,12 @@ function PanelError({ message, onClear }) {
             </div>}
         </>
     );
-};
+}
 
 PanelError.propTypes = {
     message: PropTypes.string,
     onClear: PropTypes.func,
-}
+};
 
 PanelError.defaultProps = {
     message: undefined,

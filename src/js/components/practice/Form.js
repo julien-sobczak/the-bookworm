@@ -97,6 +97,6 @@ const Form = (props) => {
             </table>
         </>
     );
-}
+};
 
 export default Form;

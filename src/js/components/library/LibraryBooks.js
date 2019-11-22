@@ -79,7 +79,7 @@ class LibraryBooks extends React.Component {
                 letterCount[indexFirstLetter] = letterCount[indexFirstLetter]+1;
             }
             return true;
-        }
+        };
         const books = this.state.catalog.filter(matchFilters);
         this.setState({
             books: books,
@@ -190,7 +190,7 @@ class LibraryBooks extends React.Component {
                                                     }
                                                 </td>
                                             </tr>
-                                        )
+                                        );
                                     })}
                                 </tbody>
                             </table>

@@ -25,7 +25,7 @@ const Paper = React.forwardRef((props, ref) => {
 Paper.propTypes = {
     ...Styled.propTypes,
     paperSize: PropTypes.string,
-}
+};
 
 Paper.defaultProps = {
     ...Styled.defaultProps,

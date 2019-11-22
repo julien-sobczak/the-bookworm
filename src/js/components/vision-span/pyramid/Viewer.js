@@ -23,7 +23,7 @@ function Viewer(props) {
     /** Evaluate the CSS classes from the drill options. */
     const cssSpan = function(span) {
         return "SpanLeft" + span.replace('.', '_') + ' SpanRight' + span.replace('.', '_');
-    }
+    };
 
     let startSpanIndex = 0;
     let endSpanIndex = helpers.SPANS.indexOf(props.span);
@@ -66,10 +66,10 @@ function Viewer(props) {
                 return (
                     <div className="Line" key={index}>
                         {line.columns.map((col, index) => {
-                            return <span key={index} className={"Cell " + cssSpan(currentSpan) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>
+                            return <span key={index} className={"Cell " + cssSpan(currentSpan) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
                         })}
                     </div>
-                )
+                );
             })}
         </Styled>
     );

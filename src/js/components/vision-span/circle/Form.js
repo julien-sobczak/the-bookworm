@@ -20,6 +20,6 @@ const Form = (props) => {
             <OptionsGame {...props} onChange={handleOptionsChange } />
         </>
     );
-}
+};
 
 export default Form;

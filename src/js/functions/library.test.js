@@ -86,7 +86,7 @@ describe('statsChunks', () => {
         ];
         const stats = library.statsChunks(chunks);
         expect(stats.chunks).toBe(4);
-    })
+    });
 });
 
 describe('nextPosition', () => {
@@ -164,7 +164,7 @@ describe('extractContent', () => {
                 { tag: "p", content: "Text 1"},
             ],
         });
-    })
+    });
 });
 
 describe('isoLanguage', () => {
@@ -173,4 +173,4 @@ describe('isoLanguage', () => {
         expect(library.isoLanguage("French")).toBe('fr');
         expect(library.isoLanguage("English")).toBe('en');
     });
-})
+});

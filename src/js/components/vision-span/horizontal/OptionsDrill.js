@@ -73,7 +73,7 @@ const OptionsDrill = (props) => {
                 {i > 0 && <span className="DotSeparator"></span>}
                 <select name="spans" onChange={handleSpansChange} data-span={i} value={spans[i]}>
                     {helpers.SPANS.map((s, index) => {
-                        return <option key={index} value={s}>{s}</option>
+                        return <option key={index} value={s}>{s}</option>;
                     })}
                 </select>
             </span>
@@ -117,6 +117,6 @@ const OptionsDrill = (props) => {
             </tbody>
         </table>
     );
-}
+};
 
 export default OptionsDrill;

@@ -214,7 +214,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleChunkWidthChange} value={chunkWidth}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -238,7 +238,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleChunkWidthMinChange} value={chunkWidthMin}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -248,7 +248,7 @@ const Form = (props) => {
                         <td>
                             <select onChange={handleChunkWidthMaxChange} value={chunkWidthMax}>
                                 {helpers.SPANS.map((s, index) => {
-                                    return <option key={index} value={s}>{s}</option>
+                                    return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
                         </td>
@@ -270,6 +270,6 @@ const Form = (props) => {
             </table>
         </>
     );
-}
+};
 
 export default Form;

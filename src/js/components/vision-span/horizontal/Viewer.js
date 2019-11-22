@@ -33,7 +33,7 @@ function Viewer(props) {
         const spanRight = (index > props.spans.length - 1) ? '0in' : props.spans[index];
 
         return "SpanLeft" + spanLeft.replace('.', '_') + ' SpanRight' + spanRight.replace('.', '_'); // . is forbidden in CSS class names
-    }
+    };
 
     return (
         <Styled className="Viewer Centered" {...props}>
@@ -44,13 +44,13 @@ function Viewer(props) {
                             return (
                                 <div className="Line" key={index}>
                                     {line.columns.map((col, index) => {
-                                        return <span key={index} className={"Cell " + cssSpan(index) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>
+                                        return <span key={index} className={"Cell " + cssSpan(index) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
                                     })}
                                 </div>
-                            )
+                            );
                         })}
                     </div>
-                )
+                );
             })}
         </Styled>
     );

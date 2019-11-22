@@ -60,6 +60,6 @@ const OptionsGame = (props) => {
             </tbody>
         </table>
     );
-}
+};
 
 export default OptionsGame;

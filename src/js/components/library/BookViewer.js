@@ -87,7 +87,7 @@ BookViewer.propTypes = {
 
     chunkWidth: PropTypes.string,
     chunkAccuracy: PropTypes.number,
-}
+};
 
 BookViewer.defaultProps = {
     ...Paper.defaultProps,
