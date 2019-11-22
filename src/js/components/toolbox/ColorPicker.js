@@ -49,7 +49,7 @@ function ColorPicker(props) {
     return (
 
         <div style={{'position': 'relative'}}>
-            <Swatch onClick={ () => setDisplayColorPicker(!displayColorPicker) }>
+            <Swatch data-testid="swatch" onClick={ () => setDisplayColorPicker(!displayColorPicker) }>
                 <Color />
             </Swatch>
             { displayColorPicker ?

@@ -36,12 +36,14 @@ function Stats({ stats, finished, onRestart, onContinue }) {
 
 Stats.propTypes = {
     stats: PropTypes.object,
+    finished: PropTypes.bool,
     onRestart: PropTypes.func,
     onContinue: PropTypes.func,
 };
 
 Stats.defaultProps = {
     stats: undefined,
+    finished: false,
     onRestart: () => {},
     onContinue: () => {},
 };

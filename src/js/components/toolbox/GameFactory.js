@@ -17,7 +17,7 @@ import WizardFactory from './WizardFactory';
 function GameFactoryContentAware(props) {
     return (
         <ContentContext.Consumer>
-            {({ content, update, toggle }) => (
+            {({ content, }) => (
                 <GameFactory {...props} content={content}  />
             )}
         </ContentContext.Consumer>
@@ -56,7 +56,7 @@ class GameFactory extends React.Component {
     }
 
     /** Called when the user validate the wizard. */
-    handleWizardValidation = (options) => {
+    handleWizardValidation(options) {
         this.setState(state => ({
             ...state,
             ...options,
@@ -65,7 +65,7 @@ class GameFactory extends React.Component {
     }
 
     /** Called when the countdown is finished. */
-    handleCountdownCompletion = () => {
+    handleCountdownCompletion() {
         this.setState(state => ({
             ...state,
             state: 'started',
@@ -88,7 +88,7 @@ class GameFactory extends React.Component {
      *
      * @param {Object} The result of the drill session
      */
-    handleDrillCompletion = (result) => {
+    handleDrillCompletion(result) {
         const stats = result.stats;
 
         // recordSession
@@ -117,7 +117,7 @@ class GameFactory extends React.Component {
                 ...currentReading,
                 position: newPosition,
                 lastRead: new Date().toJSON(),
-            }
+            };
 
             console.log("New position will be ", newPosition);
 
@@ -139,7 +139,7 @@ class GameFactory extends React.Component {
         }
     }
 
-    handleContinue = () => {
+    handleContinue() {
         const newState = {};
 
         if (this.countdownDuration > 0) {
@@ -149,7 +149,7 @@ class GameFactory extends React.Component {
         }
 
         if (this.props.contentAware) {
-            console.log("Continue reading ", this.state.currentReading, "from ", this.state.currentReading.position)
+            console.log("Continue reading ", this.state.currentReading, "from ", this.state.currentReading.position);
             newState.currentContent = library.nextContent(this.state.currentReading.position, this.props.content);
         }
 
@@ -159,7 +159,7 @@ class GameFactory extends React.Component {
         }));
     }
 
-    handleRestart = () => {
+    handleRestart() {
         const newState = {};
 
         if (this.countdownDuration > 0) {
@@ -239,14 +239,23 @@ class GameFactory extends React.Component {
 }
 
 GameFactory.propTypes = {
+    // State
+    readings: PropTypes.array.isRequired,
+    preferences: PropTypes.object.isRequired,
+    historySessions: PropTypes.array.isRequired,
+    updateReading: PropTypes.func.isRequired,
+    recordSession: PropTypes.func.isRequired,
+
     // The name of the game
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
+
 
     // Show the configuration wizard
     configurable: PropTypes.bool,
 
     // List of subcomponents
+    engine: PropTypes.object, // For vision-span drills
     drill: PropTypes.element.isRequired,
     form: PropTypes.element.isRequired,
     demo: PropTypes.element.isRequired,

@@ -66,7 +66,7 @@ const Game = (props) => {
 
 Game.propTypes = {
     configurable: PropTypes.bool,
-}
+};
 
 Game.defaultProps = {
     configurable: true,

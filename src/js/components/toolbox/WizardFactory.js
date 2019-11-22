@@ -34,7 +34,12 @@ const PredefinedDrills = ({drills, onSelect}) => {
             })}
         </div>
     );
-}
+};
+
+PredefinedDrills.propTypes = {
+    drills: PropTypes.array.isRequired,
+    onSelect: PropTypes.func.isRequired,
+};
 
 class WizardFactory extends React.Component {
 
@@ -60,23 +65,31 @@ class WizardFactory extends React.Component {
         this.handleValidateClick = this.handleValidateClick.bind(this);
     }
 
-    handleActiveIndexUpdate = (activeIndex) => this.setState({ activeIndex: activeIndex });
+    handleActiveIndexUpdate(activeIndex) {
+        this.setState({
+            activeIndex: activeIndex,
+        });
+    }
 
-    handleDemoClick = (event) => this.setState({ demoActive: !this.state.demoActive });
+    handleDemoClick()  {
+        this.setState({
+            demoActive: !this.state.demoActive,
+        });
+    }
 
-    handleDrillSettingsChange = (drillSettings) => {
+    handleDrillSettingsChange(drillSettings) {
         this.setState(state => ({
             ...state,
             drillSettings: drillSettings,
         }));
-    };
+    }
 
-    handleTextSettingsChange = (textSettings) => {
+    handleTextSettingsChange(textSettings) {
         this.setState(state => ({
             ...state,
             textSettings: textSettings,
         }));
-    };
+    }
 
     usePredefinedDrill(event) {
         const drillSettings = JSON.parse(event.target.dataset.drill);
@@ -85,7 +98,7 @@ class WizardFactory extends React.Component {
             activeIndex: 0,
             drillSettings: drillSettings,
         });
-    };
+    }
 
     useHistoryDrill(event) {
         const drill = JSON.parse(event.target.parentNode.dataset.drill);
@@ -95,10 +108,9 @@ class WizardFactory extends React.Component {
             drillSettings: drill.drillSettings,
             textSettings: drill.textSettings,
         });
-    };
+    }
 
     render() {
-
         const tabs = [];
         tabs.push(<Tab key={1} indicatorContent={<MaterialIcon icon='tune' />} />);
         tabs.push(<Tab key={2} indicatorContent={<MaterialIcon icon='style' />} />);
@@ -184,7 +196,7 @@ class WizardFactory extends React.Component {
         this.props.onValidate({
             drillSettings: this.state.drillSettings,
             textSettings: this.state.textSettings,
-        })
+        });
     }
 
 }

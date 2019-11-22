@@ -29,4 +29,4 @@ describe('wpmFromLetters', () => {
         expect(wpm.wpmFromLetters(500 * 2, 60 * 2)).toBe(100); // 100 words per minute
     });
 
-})
+});

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import * as string from '../../functions/string';
 import * as library from '../../functions/library';
@@ -22,7 +23,7 @@ function LibraryClipboard({ onSelect, onCancel }) {
             reloadable: false,
             saveOnLocalStorage: true,
         });
-    }
+    };
 
     // TODO add field title and author and toggle button to save on localStorage
     return (
@@ -37,5 +38,10 @@ function LibraryClipboard({ onSelect, onCancel }) {
         </div>
     );
 }
+
+LibraryClipboard.propTypes = {
+    onSelect: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+};
 
 export default LibraryClipboard;

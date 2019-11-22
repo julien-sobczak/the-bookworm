@@ -62,7 +62,7 @@ class Drill extends React.Component {
     }
 
     /** Called when the user successfully finish one drill. */
-    handleDrillFinished = (event) => {
+    handleDrillFinished(event) {
         // Check to adjust the level
         if (this.props.autoLevel) {
             if (event.errorCount < 2) {
@@ -169,7 +169,7 @@ class Drill extends React.Component {
             case interaction.ZONE_TOP:
                 this.increaseSpan();
                 return;
-            default: 
+            default:
                 // Do nothing
                 return;
         }
@@ -185,7 +185,7 @@ class Drill extends React.Component {
 
         window.addEventListener("keyup", this.handleKeyUp);
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener("keyup", this.handleKeyUp);
     }

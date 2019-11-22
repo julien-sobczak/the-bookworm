@@ -215,7 +215,7 @@ const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStor
 const store = createStore(rootReducer, persistedState);
 
 store.subscribe(() => {
-    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 });
 
 export { store as default, defaultState};

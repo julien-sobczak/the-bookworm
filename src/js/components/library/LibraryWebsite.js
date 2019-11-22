@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import PreviewWebsite from './PreviewWebsite';
 
@@ -26,5 +27,10 @@ function LibraryWebsite({ onSelect, onCancel }) {
         </div>
     );
 }
+
+LibraryWebsite.propTypes = {
+    onSelect: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+};
 
 export default LibraryWebsite;

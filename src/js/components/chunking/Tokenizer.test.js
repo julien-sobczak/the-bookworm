@@ -12,7 +12,7 @@ it('split words according to spaces', () => {
         { token: "un", type: "word" },
         { token: " ", type: "space" },
         { token: "test", type: "word" },
-    ])
+    ]);
 });
 
 it('split words according to en dashes', () => {
@@ -28,5 +28,5 @@ it('split words according to en dashes', () => {
         { token: "--are", type: "word" },
         { token: " ", type: "space" },
         { token: "popular", type: "word" },
-    ])
+    ]);
 });

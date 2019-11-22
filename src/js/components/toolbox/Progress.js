@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 function Progress({value, showText}) {
@@ -39,5 +40,14 @@ function Progress({value, showText}) {
       </ProgressContainer>
     );
 }
+
+Progress.propTypes = {
+  value: PropTypes.number,
+  showText: PropTypes.boolean,
+};
+
+Progress.defaultTypes = {
+  showText: false,
+};
 
 export default Progress;

@@ -60,7 +60,7 @@ class Engine {
                 const column = {
                     label: engine.randomLetter(),
                     valid: null,
-                }
+                };
                 line.columns.push(column);
             }
             drill.lines.push(line);

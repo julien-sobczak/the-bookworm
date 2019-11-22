@@ -77,7 +77,7 @@ class Drill extends React.Component {
                     tag: firstChunk.tag,
                     startingChunk: firstChunk.startingChunk,
                     endingChunk: lastChunk.endingChunk,
-                })
+                });
                 i += subChunks.length;
             }
         }
@@ -142,7 +142,7 @@ class Drill extends React.Component {
               delay = this.advanceChunk();
               start = new Date().getTime();
             }
-        }
+        };
         this.handle = window.requestAnimationFrame(loop);
 
         this.setState(state => ({
@@ -255,7 +255,7 @@ Drill.propTypes = {
 
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
-}
+};
 
 Drill.defaultProps = {
     ...Viewer.defaultProps,

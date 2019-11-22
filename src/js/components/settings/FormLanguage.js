@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const FormLanguage = (props) => {
 
@@ -33,6 +34,11 @@ const FormLanguage = (props) => {
             </tbody>
         </table>
     );
-}
+};
+
+FormLanguage.propTypes = {
+    native: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+};
 
 export default FormLanguage;

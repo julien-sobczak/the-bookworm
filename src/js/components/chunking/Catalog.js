@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
 import { ContentContext } from "../../../content-context";
 
-function DrawingPage(props) {
+function DrawingPage() {
     return (
         <div className="Drawing Centered">
             <div className="PageOutline">
@@ -18,7 +19,7 @@ function DrawingPage(props) {
     );
 }
 
-function DrawingChunk(props) {
+function DrawingChunk() {
     return (
         <div className="Drawing Centered">
             <span className="ElementOutline ElementOutlineSelected" style={{width: "5em"}}></span>
@@ -26,7 +27,7 @@ function DrawingChunk(props) {
     );
 }
 
-function DrawingColumn(props) {
+function DrawingColumn() {
     return (
         <div className="Drawing Centered">
             <div>
@@ -65,6 +66,12 @@ function Entry({ name, children, slug }) {
     );
 }
 
+Entry.propTypes = {
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    children: PropTypes.element,
+};
+
 function Catalog({match}) {
 
     return (
@@ -91,5 +98,9 @@ function Catalog({match}) {
         </div>
     );
 }
+
+Catalog.propTypes = {
+    match: PropTypes.string.isRequired,
+};
 
 export default Catalog;

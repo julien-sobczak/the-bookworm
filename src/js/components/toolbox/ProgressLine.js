@@ -23,7 +23,7 @@ ProgressLine.propTypes = {
 
   // CSS valid color
   color: PropTypes.string,
-}
+};
 
 ProgressLine.defaultProps = {
   progress: 0,

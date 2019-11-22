@@ -50,7 +50,7 @@ class PageContent extends React.Component {
 
                                 return <span className={classNames.join(' ')}
                                             key={indexChunk}
-                                            dangerouslySetInnerHTML={{__html: chunk}} />
+                                            dangerouslySetInnerHTML={{__html: chunk}} />;
                             }));
                     } else {
                         return React.createElement(
@@ -72,7 +72,7 @@ PageContent.propTypes = {
     page: PropTypes.object,
     blockPosition: PropTypes.number,
     chunkPosition: PropTypes.number,
-}
+};
 
 PageContent.defaultProps = {
     page: DEFAULT_PAGE,

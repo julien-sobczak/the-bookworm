@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const FormChunk = (props) => {
 
@@ -12,7 +13,7 @@ const FormChunk = (props) => {
         onChange({
             chunkStyle: newChunkStyle,
         });
-    }
+    };
 
     return (
         <table className="Setting">
@@ -34,6 +35,15 @@ const FormChunk = (props) => {
             </tbody>
         </table>
     );
-}
+};
+
+FormChunk.propTypes = {
+    chunkStyle: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+};
+
+FormChunk.defaultProps = {
+    chunkStyle: "highlight",
+};
 
 export default FormChunk;

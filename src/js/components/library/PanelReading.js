@@ -17,11 +17,6 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
 function PanelReading(props) {
 
     const [libraryActive, setLibraryActive] = useState(false);
@@ -81,6 +76,8 @@ function PanelReading(props) {
 
 
 PanelReading.propTypes = {
+    // Redux state
+    readings: PropTypes.array.isRequired,
     // The current selected content.
     content: PropTypes.object,
     // Callback when the user selects a new content.
@@ -95,4 +92,4 @@ PanelReading.defaultProps = {
     onToggle: () => {},
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PanelReading);
+export default connect(mapStateToProps)(PanelReading);

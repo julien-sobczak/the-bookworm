@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
@@ -21,7 +22,13 @@ function Entry({ name, slug, children }) {
     );
 }
 
-function DrawingFree(props) {
+Entry.propTypes = {
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    children: PropTypes.element,
+};
+
+function DrawingFree() {
     return (
         <div className="Drawing">
             <div className="PageOutline">
@@ -36,7 +43,7 @@ function DrawingFree(props) {
     );
 }
 
-function DrawingPacer(props) {
+function DrawingPacer() {
     return (
         <div className="Drawing">
             <div className="PageOutline">
@@ -51,7 +58,7 @@ function DrawingPacer(props) {
     );
 }
 
-function DrawingStopWatch(props) {
+function DrawingStopWatch() {
     return (
         <div className="Drawing">
             <div className="PageOutline">
@@ -66,7 +73,7 @@ function DrawingStopWatch(props) {
     );
 }
 
-function Catalog({match}) { 
+function Catalog({match}) {
 
     return (
         <div className="Catalog">
@@ -92,5 +99,9 @@ function Catalog({match}) {
         </div>
     );
 }
+
+Catalog.propTypes = {
+    match: PropTypes.string.isRequired,
+};
 
 export default Catalog;

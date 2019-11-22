@@ -27,10 +27,10 @@ function Viewer(props) {
                         return (
                             <tr className="Line" key={index}>
                                 {line.columns.map((col, index) => {
-                                    return <td key={index} className={"Cell " + cssCell + " " + (col.valid === true ? 'valid' : '')}>{col.label}</td>
+                                    return <td key={index} className={"Cell " + cssCell + " " + (col.valid === true ? 'valid' : '')}>{col.label}</td>;
                                 })}
                             </tr>
-                        )
+                        );
                     })}
                 </tbody>
             </table>

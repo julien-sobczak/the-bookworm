@@ -93,7 +93,7 @@ function BarWpm({ wpm }) {
 BarWpm.propTypes = {
   // User current WPM
   wpm: PropTypes.number,
-}
+};
 
 BarWpm.defaultProps = {
   wpm: 200,
