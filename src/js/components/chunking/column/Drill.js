@@ -75,8 +75,8 @@ class Drill extends React.Component {
             const current = new Date().getTime();
             const delta = current - start;
             if (delta >= delay) {
-              delay = this.advanceChunk();
-              start = new Date().getTime();
+                delay = this.advanceChunk();
+                start = new Date().getTime();
             }
         };
         this.handle = window.requestAnimationFrame(loop);
@@ -92,8 +92,8 @@ class Drill extends React.Component {
         const chunksOnScreenCount = this.state.chunksOnScreenCount;
 
         if (chunkPosition+1 === chunks.length) {
-             // Finish
-             this.setState(state => ({
+            // Finish
+            this.setState(state => ({
                 ...state,
                 chunkPosition: 0,
             }));
@@ -211,7 +211,7 @@ class Drill extends React.Component {
                 <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
 
                 <Chunker content={this.props.content} onDone={this.onChunkerDone}
-                       {...this.props}
+                    {...this.props}
                 />
 
                 <section className="DrillControls">
@@ -228,10 +228,10 @@ class Drill extends React.Component {
                         <>
                             <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
                             <Viewer {...this.props}
-                                    chunks={this.state.chunksOnScreen}
-                                    chunkPosition={this.state.chunkPositionOnScreen}
-                                    columns={this.props.columns}
-                                    columnWidth={columnWidthOnScreen} />
+                                chunks={this.state.chunksOnScreen}
+                                chunkPosition={this.state.chunkPositionOnScreen}
+                                columns={this.props.columns}
+                                columnWidth={columnWidthOnScreen} />
                         </>
                     }
 

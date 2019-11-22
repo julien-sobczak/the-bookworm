@@ -36,7 +36,7 @@ describe('LineWidthChunker', () => {
             ["This", " ", "is", " ", "a", " ", "first", " ", "test"],
             [  100 , 10 ,  20 , 10 , 20 , 10 ,     80 , 10 ,    60 ]);
         expect(c.chunkize(l)).toEqual([
-                "This is a", " ", "first test",
+            "This is a", " ", "first test",
         ]);
     });
 

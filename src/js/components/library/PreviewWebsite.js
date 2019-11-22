@@ -57,7 +57,7 @@ class PreviewWebsite extends React.Component {
                             html: text,
                             statusCode: 200,
                             statusMessage: 'OK',
-                         });
+                        });
                     });
                 }
             });

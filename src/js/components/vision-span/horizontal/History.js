@@ -28,8 +28,8 @@ const History = ({ history, onSelect }) => {
                                 <td className="Clickable">{drill.drillSettings.multiple && <span>{drill.drillSettings.lines}</span>}</td>
                                 <td className="Clickable">{engine.globalSpan(drill.drillSettings.spans)}</td>
                             </tr>
-                            );
-                        })}
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

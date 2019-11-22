@@ -49,8 +49,8 @@ class PageContent extends React.Component {
                                 }
 
                                 return <span className={classNames.join(' ')}
-                                            key={indexChunk}
-                                            dangerouslySetInnerHTML={{__html: chunk}} />;
+                                    key={indexChunk}
+                                    dangerouslySetInnerHTML={{__html: chunk}} />;
                             }));
                     } else {
                         return React.createElement(

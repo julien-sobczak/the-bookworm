@@ -18,7 +18,7 @@ const defaultDrillSettings = {
 function Viewer(props) {
     return (
         <div className="ViewerPage Centered">
-             <Paper {...props}>
+            <Paper {...props}>
                 <PageContent
                     page={props.page} />
             </Paper>

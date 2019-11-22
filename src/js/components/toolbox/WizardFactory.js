@@ -177,7 +177,7 @@ class WizardFactory extends React.Component {
                         {React.cloneElement(this.props.demo, {
                             ...this.state.drillSettings,
                             ...this.state.styleSettings,
-                         })}
+                        })}
                     </div>}
 
                 </div>

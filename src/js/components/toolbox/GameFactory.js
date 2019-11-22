@@ -185,18 +185,18 @@ class GameFactory extends React.Component {
 
                 {this.state.state === 'init' &&
                     <WizardFactory
-                            category={this.props.category}
-                            engine={this.props.engine}
-                            drill={this.props.drill}
-                            form={this.props.form}
-                            demo={this.props.demo}
-                            history={this.props.history}
-                            historySessions={historySessions}
-                            predefinedDrills={this.props.predefinedDrills}
-                            drillSettings={this.state.drillSettings}
-                            textSettings={this.props.preferences.text}
-                            onValidate={this.handleWizardValidation}
-                            keyboardDetected={this.state.keyboardDetected}
+                        category={this.props.category}
+                        engine={this.props.engine}
+                        drill={this.props.drill}
+                        form={this.props.form}
+                        demo={this.props.demo}
+                        history={this.props.history}
+                        historySessions={historySessions}
+                        predefinedDrills={this.props.predefinedDrills}
+                        drillSettings={this.state.drillSettings}
+                        textSettings={this.props.preferences.text}
+                        onValidate={this.handleWizardValidation}
+                        keyboardDetected={this.state.keyboardDetected}
                     />}
 
                 {this.state.state === 'ready' &&
