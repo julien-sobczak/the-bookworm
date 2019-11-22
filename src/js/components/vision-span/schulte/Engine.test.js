@@ -1,5 +1,4 @@
 import Engine from './Engine';
-import { ifStatement } from '@babel/types';
 
 it('notifies when the drill is finished', () => {
     const handleFinish = jest.fn()

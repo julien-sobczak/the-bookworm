@@ -5,7 +5,7 @@ import PanelReading from "../library/PanelReading.js";
 import Button from "../toolbox/Button.js";
 import { ContentContext } from "../../../content-context";
 
-function DrawingPage(props) {
+function DrawingPage() {
     return (
         <div className="Drawing Centered">
             <div className="PageOutline">
@@ -18,7 +18,7 @@ function DrawingPage(props) {
     );
 }
 
-function DrawingChunk(props) {
+function DrawingChunk() {
     return (
         <div className="Drawing Centered">
             <span className="ElementOutline ElementOutlineSelected" style={{width: "5em"}}></span>
@@ -26,7 +26,7 @@ function DrawingChunk(props) {
     );
 }
 
-function DrawingColumn(props) {
+function DrawingColumn() {
     return (
         <div className="Drawing Centered">
             <div>

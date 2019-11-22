@@ -36,8 +36,6 @@ class PreviewBook extends React.Component {
                 { tag: "h2", content: chapter.title },
             ]
         };
-        const lines = this.state.text.split('\r\n').slice(chapter.start, chapter.end);
-        //content.text.push(...PreviewBook.convertToHtml(lines)); TODO moved to library.parseLiterature
         this.setState({
             chapterIndex: parseInt(chapterIndex),
             lineStartIndex: content.text[0].sourceLine,

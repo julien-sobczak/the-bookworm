@@ -1,0 +1,24 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended"],
+    "globals": {
+        "localStorage": true,
+        "fetch": true,
+        "console": true
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": ["jest", "react", "react-hooks"],
+    "rules": {
+        "semi": "error"
+    }
+}
