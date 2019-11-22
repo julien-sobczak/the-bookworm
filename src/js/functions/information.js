@@ -94,17 +94,17 @@ export function getMessageOfTheDay() {
     const quoteToday = getQuoteOfTheDay();
     const tipToday = getTipOfTheDay();
     switch (selectedType) {
-        case "quote":
-            return {
-                type: "quote",
-                ...quoteToday,
-            };
-        case "tip":
-            return {
-                type: "tip",
-                ...tipToday,
-            };
-        default:
-            throw new Error(`Something went wrong. Type ${selectedType} is unknown.`);
+    case "quote":
+        return {
+            type: "quote",
+            ...quoteToday,
+        };
+    case "tip":
+        return {
+            type: "tip",
+            ...tipToday,
+        };
+    default:
+        throw new Error(`Something went wrong. Type ${selectedType} is unknown.`);
     }
 }

@@ -450,33 +450,33 @@ const PieceFaceLeftRowBottomColRight = styled.div`
 function Loader() {
 
     return (
-      <div className="FullScreen Centered">
-        <Rubiks data-testid="rubik">
-          <Cube>
-            <PieceFaceFrontRowTopColLeft />
-            <PieceFaceFrontRowTopColCenter />
-            <PieceFaceFrontRowTopColRight />
-            <PieceFaceFrontRowCenterColLeft />
-            <PieceFaceFrontRowCenterColCenter />
-            <PieceFaceFrontRowCenterColRight />
-            <PieceFaceFrontRowBottomColLeft />
-            <PieceFaceFrontRowBottomColCenter />
-            <PieceFaceFrontRowBottomColRight />
-            <PieceFaceDownRowTopColCenter />
-            <PieceFaceDownRowCenterColCenter />
-            <PieceFaceDownRowBottomColCenter />
-            <PieceFaceRightRowCenterColLeft />
-            <PieceFaceRightRowCenterColCenter />
-            <PieceFaceRightRowCenterColRight />
-            <PieceFaceUpRowTopColLeft />
-            <PieceFaceUpRowCenterColLeft />
-            <PieceFaceUpRowBottomColLeft />
-            <PieceFaceLeftRowBottomColLeft />
-            <PieceFaceLeftRowBottomColCenter />
-            <PieceFaceLeftRowBottomColRight />
-          </Cube>
-        </Rubiks>
-      </div>
+        <div className="FullScreen Centered">
+            <Rubiks data-testid="rubik">
+                <Cube>
+                    <PieceFaceFrontRowTopColLeft />
+                    <PieceFaceFrontRowTopColCenter />
+                    <PieceFaceFrontRowTopColRight />
+                    <PieceFaceFrontRowCenterColLeft />
+                    <PieceFaceFrontRowCenterColCenter />
+                    <PieceFaceFrontRowCenterColRight />
+                    <PieceFaceFrontRowBottomColLeft />
+                    <PieceFaceFrontRowBottomColCenter />
+                    <PieceFaceFrontRowBottomColRight />
+                    <PieceFaceDownRowTopColCenter />
+                    <PieceFaceDownRowCenterColCenter />
+                    <PieceFaceDownRowBottomColCenter />
+                    <PieceFaceRightRowCenterColLeft />
+                    <PieceFaceRightRowCenterColCenter />
+                    <PieceFaceRightRowCenterColRight />
+                    <PieceFaceUpRowTopColLeft />
+                    <PieceFaceUpRowCenterColLeft />
+                    <PieceFaceUpRowBottomColLeft />
+                    <PieceFaceLeftRowBottomColLeft />
+                    <PieceFaceLeftRowBottomColCenter />
+                    <PieceFaceLeftRowBottomColRight />
+                </Cube>
+            </Rubiks>
+        </div>
     );
 }
 

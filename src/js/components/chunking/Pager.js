@@ -460,12 +460,12 @@ class Pager extends React.Component {
             <div className="FullScreen Pager">
                 <div className={"Ruler " + this.cssChunkSize()} ref={this.rulerElement}></div>
                 <Paper ref={this.paperElement}
-                       paperSize={this.props.paperSize}
-                       fontFamily={this.props.fontFamily}
-                       fontSize={this.props.fontSize}
-                       fontStyle={this.props.fontStyle}
-                       backgroundColor={this.props.backgroundColor}
-                       color={this.props.color}>
+                    paperSize={this.props.paperSize}
+                    fontFamily={this.props.fontFamily}
+                    fontSize={this.props.fontSize}
+                    fontStyle={this.props.fontStyle}
+                    backgroundColor={this.props.backgroundColor}
+                    color={this.props.color}>
                     {this.props.content.blocks.slice(this.state.position).map((block, index) => React.createElement(
                         block.tag,
                         {key: index},

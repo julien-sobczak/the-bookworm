@@ -23,8 +23,8 @@ const History = ({ history, onSelect }) => {
                                 <td className="Clickable">{drill.drillSettings.size}</td>
                                 <td className="Clickable">{drill.drillSettings.span}</td>
                             </tr>
-                            );
-                        })}
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

@@ -43,16 +43,16 @@ export function globalSpan(spans) {
     const inches = parseInt(total / 4); // We reach one inch every 4 steps
     const subinches = total % 4;
     switch (subinches) {
-        case 0:
-            return `${inches}in`;
-        case 1:
-            return `${inches}.25in`;
-        case 2:
-            return `${inches}.5in`;
-        case 3:
-            return `${inches}.75in`;
-        default:
-            throw new Error('Should not happen');
+    case 0:
+        return `${inches}in`;
+    case 1:
+        return `${inches}.25in`;
+    case 2:
+        return `${inches}.5in`;
+    case 3:
+        return `${inches}.75in`;
+    default:
+        throw new Error('Should not happen');
     }
 }
 

@@ -16,4 +16,4 @@ Demo.defaultProps = {
     ...Viewer.defaultProps,
 };
 
- export default Demo;
+export default Demo;

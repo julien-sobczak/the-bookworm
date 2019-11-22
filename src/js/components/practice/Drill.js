@@ -208,29 +208,29 @@ class Drill extends React.Component {
 
     handleClick(event) {
         switch (interaction.getScreenZone(event)) {
-            case interaction.ZONE_LEFT:
-                this.turnPageBack();
-                break;
-            case interaction.ZONE_RIGHT:
-                this.turnPage();
-                break;
-            default:
-                // Do nothing
-                break;
+        case interaction.ZONE_LEFT:
+            this.turnPageBack();
+            break;
+        case interaction.ZONE_RIGHT:
+            this.turnPage();
+            break;
+        default:
+            // Do nothing
+            break;
         }
     }
 
     handleKeyUp(event) {
         switch (event.keyCode) {
-            case interaction.KEY_LEFT:
-                this.turnPageBack();
-                return;
-            case interaction.KEY_RIGHT:
-                this.turnPage();
-                return;
-            default:
-                // Ignore other keys
-                return;
+        case interaction.KEY_LEFT:
+            this.turnPageBack();
+            return;
+        case interaction.KEY_RIGHT:
+            this.turnPage();
+            return;
+        default:
+            // Ignore other keys
+            return;
         }
     }
 

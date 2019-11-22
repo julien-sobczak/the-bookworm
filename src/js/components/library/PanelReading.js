@@ -44,8 +44,8 @@ function PanelReading(props) {
                 </div>}
                 {props.content.type && <div>
                     <ReactButton className="Clickable"
-                            onClick={() => setCollapsed(!collapsed)}
-                            icon={<MaterialIcon icon={collapsed ? "unfold_less" : "unfold_more"} />}>
+                        onClick={() => setCollapsed(!collapsed)}
+                        icon={<MaterialIcon icon={collapsed ? "unfold_less" : "unfold_more"} />}>
                         You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em>
                     </ReactButton>
                 </div>}

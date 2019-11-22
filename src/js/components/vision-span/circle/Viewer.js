@@ -75,4 +75,4 @@ Viewer.defaultProps = {
     ...defaultDrillSettings,
 };
 
- export { Viewer as default, defaultDrillSettings };
+export { Viewer as default, defaultDrillSettings };

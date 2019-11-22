@@ -56,8 +56,8 @@ class Drill extends React.Component {
             const current = new Date().getTime();
             const delta = current - start;
             if (delta >= delay) {
-              delay = this.advanceChunk();
-              start = new Date().getTime();
+                delay = this.advanceChunk();
+                start = new Date().getTime();
             }
         };
 
@@ -209,7 +209,7 @@ class Drill extends React.Component {
             <div className={"FullScreen ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
-                       {...this.props} />
+                    {...this.props} />
 
                 <section className="DrillControls">
                     <ul>
@@ -230,7 +230,7 @@ class Drill extends React.Component {
                                 disableVisualRegression={this.props.disableVisualRegression}
                                 disableVisualProgression={this.props.disableVisualProgression}
                                 disableVisualProblemStyle={this.props.disableVisualProblemStyle}
-                                />
+                            />
                         </>
                     }
                 </section>

@@ -12,9 +12,9 @@ it('allows text customization', () => {
 test('notifies on click', () => {
     const handleClick = jest.fn();
     const { container } = render(
-      <Button onClick={handleClick} />
+        <Button onClick={handleClick} />
     );
     const button = container.firstChild;
     fireEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(1);
-  });
+});

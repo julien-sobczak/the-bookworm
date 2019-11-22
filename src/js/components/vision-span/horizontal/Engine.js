@@ -146,12 +146,12 @@ class Engine {
      * @return {Object} The Game statistics
      */
     getStats() {
-       return {
-           wrongAnswers: this.totalWrongAnswers,
-           correctAnswers: this.totalCorrectAnswers,
-           totalAnswers: this.totalAnswers,
-           durationInSeconds: time.duration(this.startDate),
-       };
+        return {
+            wrongAnswers: this.totalWrongAnswers,
+            correctAnswers: this.totalCorrectAnswers,
+            totalAnswers: this.totalAnswers,
+            durationInSeconds: time.duration(this.startDate),
+        };
     }
 
     /**

@@ -25,7 +25,7 @@ class Drill extends React.Component {
 
             // The Drill content
             drill: undefined, // We create the drill lazily (after component mount)
-                              // because we need to determine the available space on screen.
+            // because we need to determine the available space on screen.
 
             // The current position inside the drill
             currentLine: 0,
@@ -107,18 +107,18 @@ class Drill extends React.Component {
                     </section>
 
                     <section className="DrillArea"
-                             ref={this.drillArea}
-                             style={{fontSize: this.state.fontSize}}
+                        ref={this.drillArea}
+                        style={{fontSize: this.state.fontSize}}
                     >
-                    {/* Important to fix the font size to determine the number of available lines */}
+                        {/* Important to fix the font size to determine the number of available lines */}
 
                         {this.state.drill && <Viewer
-                                drill={this.state.drill}
-                                span={this.state.span}
-                                fontFamily={this.props.fontFamily}
-                                fontSize={this.props.fontSize}
-                                fontStyle={this.props.fontStyle}
-                                theme={this.props.theme} />}
+                            drill={this.state.drill}
+                            span={this.state.span}
+                            fontFamily={this.props.fontFamily}
+                            fontSize={this.props.fontSize}
+                            fontStyle={this.props.fontStyle}
+                            theme={this.props.theme} />}
 
                     </section>
 
@@ -159,18 +159,18 @@ class Drill extends React.Component {
             return;
         }
         switch (event.keyCode) {
-            case interaction.KEY_RIGHT:
-                this.newDrill();
-                return;
-            case interaction.KEY_DOWN:
-                this.reduceSpan();
-                return;
-            case interaction.KEY_UP:
-                this.increaseSpan();
-                return;
-            default:
-                // Do nothing
-                return;
+        case interaction.KEY_RIGHT:
+            this.newDrill();
+            return;
+        case interaction.KEY_DOWN:
+            this.reduceSpan();
+            return;
+        case interaction.KEY_UP:
+            this.increaseSpan();
+            return;
+        default:
+            // Do nothing
+            return;
         }
     }
 
@@ -180,18 +180,18 @@ class Drill extends React.Component {
             return;
         }
         switch (interaction.getScreenZone(event)) {
-            case interaction.ZONE_RIGHT:
-                this.newDrill();
-                return;
-            case interaction.ZONE_BOTTOM:
-                this.reduceSpan();
-                return;
-            case interaction.ZONE_TOP:
-                this.increaseSpan();
-                return;
-            default:
-                // Do nothing
-                return;
+        case interaction.ZONE_RIGHT:
+            this.newDrill();
+            return;
+        case interaction.ZONE_BOTTOM:
+            this.reduceSpan();
+            return;
+        case interaction.ZONE_TOP:
+            this.increaseSpan();
+            return;
+        default:
+            // Do nothing
+            return;
         }
     }
 
