@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'props-types';
+import PropTypes from 'prop-types';
 
-import Styled from './Styled';
+import Styled from '../toolbox/Styled';
 
 const FormText = (props) => {
 
@@ -108,7 +108,7 @@ const FormText = (props) => {
 
 FormText.propTypes = {
     ...Styled.propTypes,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 FormText.defaultProps = {

@@ -202,7 +202,7 @@ Stylizer.propTypes = {
     backgroundColor: PropTypes.string,
     color: PropTypes.string,
 
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 Stylizer.defaultProps = {

@@ -119,10 +119,12 @@ class LineWidthChunker {
         const a = tokens.map((e) => e.offsetWidth);
         const chunkWidths = partition(a, k);
 
-        chunkWidths.forEach(p => {
+        let i = 0;
+        chunkWidths.forEach(function(p) {
             let text = "";
-            p.forEach(function(token) {
-                text += token.innerHTML;
+            p.forEach(() => {
+                text += tokens[i].innerHTML;
+                i++;
             });
             chunks.push(text);
         });

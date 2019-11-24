@@ -66,7 +66,7 @@ const OptionsGame = (props) => {
 OptionsGame.propTypes = {
     keyboardDetected: PropTypes.bool,
     autoLevel: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 OptionsGame.defaultProps = {

@@ -124,7 +124,7 @@ const OptionsDrill = (props) => {
 
 OptionsDrill.propTypes = {
     ...Viewer.propTypes,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 OptionsDrill.defaultProps = {

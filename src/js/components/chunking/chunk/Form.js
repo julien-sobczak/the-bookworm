@@ -277,7 +277,7 @@ const Form = (props) => {
 
 Form.propTypes = {
     ...Viewer.propTypes,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 Form.defaultProps = {

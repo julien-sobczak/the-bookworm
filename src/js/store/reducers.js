@@ -31,7 +31,6 @@ function rootReducer(state, action) {
             });
         }
         newReadings.sort((a, b) => new Date(a.lastDate) > new Date(b.lastDate) ? -1 : 1);
-        console.log('Updating readings...', newReadings);
 
         const currentReading = newReadings[0];
         const newStats = state.stats;

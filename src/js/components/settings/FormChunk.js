@@ -39,7 +39,7 @@ const FormChunk = (props) => {
 
 FormChunk.propTypes = {
     chunkStyle: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 FormChunk.defaultProps = {
