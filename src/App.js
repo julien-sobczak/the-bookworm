@@ -29,7 +29,6 @@ import { ContentContext } from './content-context';
 import SettingsPreferences from './js/components/settings/Preferences';
 
 import 'normalize.css';
-import './Reset.css';
 import './App.css';
 
 function IndexPage() {

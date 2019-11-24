@@ -20,21 +20,23 @@ function Viewer(props) {
     const cssCell = 'Width' + props.span.replace('.', '_');
 
     return (
-        <Styled className="Viewer" {...props}>
-            <table className="SchulteTable">
-                <tbody>
-                    {drill && drill.lines.map((line, index) => {
-                        return (
-                            <tr className="Line" key={index}>
-                                {line.columns.map((col, index) => {
-                                    return <td key={index} className={"Cell " + cssCell + " " + (col.valid === true ? 'valid' : '')}>{col.label}</td>;
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </Styled>
+        <div>
+            <Styled className="Viewer" {...props}>
+                <table className="SchulteTable">
+                    <tbody>
+                        {drill && drill.lines.map((line, index) => {
+                            return (
+                                <tr className="Line" key={index}>
+                                    {line.columns.map((col, index) => {
+                                        return <td key={index} className={"Cell " + cssCell + " " + (col.valid === true ? 'valid' : '')}>{col.label}</td>;
+                                    })}
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </Styled>
+        </div>
     );
 }
 

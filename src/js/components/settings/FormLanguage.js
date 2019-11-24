@@ -38,7 +38,7 @@ const FormLanguage = (props) => {
 
 FormLanguage.propTypes = {
     native: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
 };
 
 export default FormLanguage;
