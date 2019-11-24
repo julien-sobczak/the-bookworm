@@ -41,39 +41,37 @@ function Viewer(props) {
     let countLinesInSpan = 0;
 
     return (
-        <div>
-            <Styled className="Viewer" {...props}>
-                {drill.lines.map((line, index) => {
-                    if (!currentSpan) {
-                        // Fist line: start at 0in
-                        currentSpanIndex = 0;
-                        currentSpan = helpers.SPANS[currentSpanIndex];
-                        countLinesInSpan = 1;
-                    } else if (index === drill.lines.length - 1) {
-                        // Last line: end at expected span
-                        const end = helpers.SPANS.indexOf(props.span);
-                        currentSpan = helpers.SPANS[end];
-                        countLinesInSpan = 1;
-                    } else if (countLinesInSpan === linesPerSpan) {
-                        // Intermediate line requiring span increment
-                        currentSpanIndex += increment;
-                        currentSpan = helpers.SPANS[currentSpanIndex];
-                        countLinesInSpan = 1;
-                    } else {
-                        // Intermediate line still using the same span
-                        countLinesInSpan++;
-                    }
+        <Styled className="Viewer Centered" {...props}>
+            {drill.lines.map((line, index) => {
+                if (!currentSpan) {
+                    // Fist line: start at 0in
+                    currentSpanIndex = 0;
+                    currentSpan = helpers.SPANS[currentSpanIndex];
+                    countLinesInSpan = 1;
+                } else if (index === drill.lines.length - 1) {
+                    // Last line: end at expected span
+                    const end = helpers.SPANS.indexOf(props.span);
+                    currentSpan = helpers.SPANS[end];
+                    countLinesInSpan = 1;
+                } else if (countLinesInSpan === linesPerSpan) {
+                    // Intermediate line requiring span increment
+                    currentSpanIndex += increment;
+                    currentSpan = helpers.SPANS[currentSpanIndex];
+                    countLinesInSpan = 1;
+                } else {
+                    // Intermediate line still using the same span
+                    countLinesInSpan++;
+                }
 
-                    return (
-                        <div className="Line" key={index}>
-                            {line.columns.map((col, index) => {
-                                return <span key={index} className={"Cell " + cssSpan(currentSpan) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
-                            })}
-                        </div>
-                    );
-                })}
-            </Styled>
-        </div>
+                return (
+                    <div className="Line" key={index}>
+                        {line.columns.map((col, index) => {
+                            return <span key={index} className={"Cell " + cssSpan(currentSpan) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
+                        })}
+                    </div>
+                );
+            })}
+        </Styled>
     );
 }
 
