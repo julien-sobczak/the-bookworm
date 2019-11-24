@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ProgressLine({ progress, color }) {
-
     return (
         <div style={{
             position: "fixed",

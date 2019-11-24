@@ -36,7 +36,7 @@ function Progress({value, showText}) {
     return (
         <ProgressContainer>
             {showText && <ProgressText>{value} %</ProgressText>}
-            <ProgressBar />
+            <ProgressBar data-testid="bar" />
         </ProgressContainer>
     );
 }
