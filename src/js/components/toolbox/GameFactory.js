@@ -242,7 +242,7 @@ GameFactory.propTypes = {
     // State
     readings: PropTypes.array.isRequired,
     preferences: PropTypes.object.isRequired,
-    historySessions: PropTypes.array.isRequired,
+    historySessions: PropTypes.object.isRequired,
     updateReading: PropTypes.func.isRequired,
     recordSession: PropTypes.func.isRequired,
 

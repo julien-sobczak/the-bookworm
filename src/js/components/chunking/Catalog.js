@@ -69,7 +69,7 @@ function Entry({ name, children, slug }) {
 Entry.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    children: PropTypes.element,
+    children: PropTypes.any,
 };
 
 function Catalog({match}) {
@@ -100,7 +100,7 @@ function Catalog({match}) {
 }
 
 Catalog.propTypes = {
-    match: PropTypes.string.isRequired,
+    match: PropTypes.object.isRequired,
 };
 
 export default Catalog;

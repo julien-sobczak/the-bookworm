@@ -44,7 +44,7 @@ Styled.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.string,
-    children: PropTypes.element,
+    children: PropTypes.any,
 
     // Text options
     fontFamily: PropTypes.string,

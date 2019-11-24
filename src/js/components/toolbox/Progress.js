@@ -43,7 +43,7 @@ function Progress({value, showText}) {
 
 Progress.propTypes = {
     value: PropTypes.number,
-    showText: PropTypes.boolean,
+    showText: PropTypes.bool,
 };
 
 Progress.defaultTypes = {

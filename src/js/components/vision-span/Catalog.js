@@ -22,7 +22,7 @@ function Entry({ name, slug, children }) {
 Entry.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    children: PropTypes.element,
+    children: PropTypes.any,
 };
 
 function DrawingHorizontal() {
@@ -139,7 +139,7 @@ function Catalog({match}) {
 }
 
 Catalog.propTypes = {
-    match: PropTypes.string.isRequired,
+    match: PropTypes.object.isRequired,
 };
 
 export default Catalog;
