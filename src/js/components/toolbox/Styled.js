@@ -43,7 +43,7 @@ const Styled = React.forwardRef((props, ref) => {
 Styled.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
-    style: PropTypes.string,
+    style: PropTypes.object,
     children: PropTypes.any,
 
     // Text options
@@ -56,11 +56,6 @@ Styled.propTypes = {
 };
 
 Styled.defaultProps = {
-    id: '',
-    className: '',
-    style: '',
-    children: undefined,
-
     // Text options
     fontFamily: 'Roboto',
     fontSize: '14pt',

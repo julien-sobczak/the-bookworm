@@ -36,25 +36,23 @@ function Viewer(props) {
     };
 
     return (
-        <div>
-            <Styled className="Viewer Centered" {...props}>
-                {drill && drill.map((serie, index) => {
-                    return (
-                        <div className="Serie" key={index}>
-                            {serie.lines.map((line, index) => {
-                                return (
-                                    <div className="Line" key={index}>
-                                        {line.columns.map((col, index) => {
-                                            return <span key={index} className={"Cell " + cssSpan(index) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
-                                        })}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    );
-                })}
-            </Styled>
-        </div>
+        <Styled className="Viewer Centered" {...props}>
+            {drill && drill.map((serie, index) => {
+                return (
+                    <div className="Serie" key={index}>
+                        {serie.lines.map((line, index) => {
+                            return (
+                                <div className="Line" key={index}>
+                                    {line.columns.map((col, index) => {
+                                        return <span key={index} className={"Cell " + cssSpan(index) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
+                                    })}
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            })}
+        </Styled>
     );
 }
 
