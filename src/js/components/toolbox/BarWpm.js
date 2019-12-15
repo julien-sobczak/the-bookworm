@@ -71,7 +71,7 @@ function BarWpm({ wpm }) {
         <div style={styleBar}>
 
             {/* Position the cursor */}
-            <span style={{...styleCursor, top: `${position}%`}} className="Centered">{text}</span>
+            <span data-testid="wpm-cursor" style={{...styleCursor, top: `${position}%`}} className="Centered">{text}</span>
 
             {/* Add markers for comparison */}
             <span style={{...styleMark, top: "10%"}}>{maxWpm}</span>
