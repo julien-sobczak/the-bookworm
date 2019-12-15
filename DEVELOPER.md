@@ -15,7 +15,7 @@
 
 The Library is accessible through the component `<PanelReading />`. The user can choose to continue a previous reading (retrieved from Redux), or switch to a new content through the component `<Library />`. There are many categories inside the library: books, copy-paste, Epub, etc. Each category is implemented by a different component (e.g., `LibraryBooks`), and all components expose the same attribute `onSelect` whose value follows the structure:
 
-```
+```javascript
 {
     id (string): <a unique identifier to identify this particular content> # `content-book-en-The-Adventures-of-Tom-Sawyer`
     type (string): <the kind of content> # `book`, `paste`, `epub`, ...
@@ -27,7 +27,7 @@ The Library is accessible through the component `<PanelReading />`. The user can
 
 In addition, we use a common format to represent the attribute `content` independently of its type. All components should parse the raw content and convert to this format (this way, the bookmark logic is easily implemented):
 
-```
+```javascript
 {
     sections: [
         {
@@ -44,7 +44,7 @@ In addition, we use a common format to represent the attribute `content` indepen
 
 We update the Redux store after each reading to update the position of the reader in the content (i.e, bookmark). We identify the position using two indices: the section index, and the block index:
 
-```
+```javascript
 {
     position: {
         section: 0,

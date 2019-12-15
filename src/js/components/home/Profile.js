@@ -137,8 +137,8 @@ Profile.propTypes = {
     reduxState: PropTypes.object.isRequired,
     readings: PropTypes.array.isRequired,
     stats: PropTypes.object.isRequired,
-    lastBackup: PropTypes.object.isRequired,
-    startDate: PropTypes.object.isRequired,
+    lastBackup: PropTypes.object,
+    startDate: PropTypes.string.isRequired,
     registerBackup: PropTypes.func.isRequired,
     restoreBackup: PropTypes.func.isRequired,
 };

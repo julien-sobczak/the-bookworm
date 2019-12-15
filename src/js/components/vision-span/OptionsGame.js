@@ -44,6 +44,7 @@ const OptionsGame = (props) => {
                     <th>Enable Keyboard:</th>
                     <td>
                         <Switch
+                            data-testid="keyboard"
                             nativeControlId="keyboard"
                             checked={keyboard}
                             onChange={handleKeyboardChange} />
@@ -53,6 +54,7 @@ const OptionsGame = (props) => {
                     <th>Auto-Level:</th>
                     <td>
                         <Switch
+                            data-testid="autoLevel"
                             nativeControlId="autoLevel"
                             checked={autoLevel}
                             onChange={handleAutoLevelChange} />

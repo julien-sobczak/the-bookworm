@@ -6,7 +6,7 @@ function PanelError({ message, onClear }) {
     const showError = message && message.trim().length > 0;
     return (
         <>
-            {showError && <div className="PanelError Clickable" onClick={onClear}>
+            {showError && <div data-testid="panel" className="PanelError Clickable" onClick={onClear}>
                 {message}
                 <button><i className="material-icons">close</i></button>
             </div>}
