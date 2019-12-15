@@ -104,7 +104,7 @@ class FormLocalStorage extends React.Component {
                     <canvas ref={this.chartRef} />
                 </div>
                 <div>
-                    <table className="Styled">
+                    <table data-testid="table" className="Styled">
                         <tbody>
                             {this.state.contents.map((content, index) => {
                                 return (
@@ -144,6 +144,7 @@ class FormLocalStorage extends React.Component {
 
     componentDidMount() {
         const ctx = this.chartRef.current.getContext('2d');
+        if (!ctx) return; // Happens with Jest
         this.chart = new Chart(ctx, {  // eslint-disable-line no-new
             type: 'doughnut',
             data: this.getGraphData(),
