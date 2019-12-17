@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
-import Switch from '@material/react-switch';
-
-import "@material/react-switch/dist/switch.css";
+import Switch from '@material-ui/core/Switch';
 
 const OptionsGame = (props) => {
 
@@ -45,7 +42,6 @@ const OptionsGame = (props) => {
                     <td>
                         <Switch
                             data-testid="keyboard"
-                            nativeControlId="keyboard"
                             checked={keyboard}
                             onChange={handleKeyboardChange} />
                     </td>
@@ -55,7 +51,6 @@ const OptionsGame = (props) => {
                     <td>
                         <Switch
                             data-testid="autoLevel"
-                            nativeControlId="autoLevel"
                             checked={autoLevel}
                             onChange={handleAutoLevelChange} />
                     </td>

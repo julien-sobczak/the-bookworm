@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import FlipIcon from '@material-ui/icons/Flip';
 
 import Viewer from './Viewer';
 
 import * as helpers from '../../../functions/engine';
 
-import MaterialIcon from '@material/react-material-icon';
 
 const OptionsDrill = (props) => {
 
@@ -114,7 +114,7 @@ const OptionsDrill = (props) => {
                     <th>Span:</th>
                     <td>
                         {spansElements}
-                        <MaterialIcon icon='flip' />
+                        <FlipIcon />
                     </td>
                 </tr>
             </tbody>

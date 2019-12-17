@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import ReactButton from '@material-ui/core/Button';
+import UnfoldLessIcon from '@material-ui/icons/UnfoldLess';
+import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 
 import Library from './Library';
 import Progress from '../toolbox/Progress';
 
 import * as string from '../../functions/string';
-
-import MaterialIcon from '@material/react-material-icon';
-import ReactButton from '@material/react-button';
-import '@material/react-button/dist/button.css';
 
 const mapStateToProps = state => {
     return {
@@ -37,17 +36,26 @@ function PanelReading(props) {
         <>
             <div className={"PanelCorner " + (collapsed ? "Collapsed" : "Expanded")}>
 
-                <ReactButton className="ButtonBrowse" onClick={() => setLibraryActive(true)}>Browse Library</ReactButton>
+                <ReactButton variant="contained" disableElevation={true} className="ButtonBrowse" onClick={() => setLibraryActive(true)}>Browse Library</ReactButton>
 
                 {!props.content.type && <div>
                     No reading in progress.
                 </div>}
                 {props.content.type && <div>
-                    <ReactButton className="Clickable"
-                        onClick={() => setCollapsed(!collapsed)}
-                        icon={<MaterialIcon icon={collapsed ? "unfold_less" : "unfold_more"} />}>
-                        You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em>
-                    </ReactButton>
+                    {collapsed ?
+                        <ReactButton variant="contained" disableElevation={true}
+                            className="ButtonLight Clickable"
+                            onClick={() => setCollapsed(false)}
+                            startIcon={<UnfoldLessIcon />}>
+                            You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em>
+                        </ReactButton> :
+                        <ReactButton variant="contained" disableElevation={true}
+                            className="ButtonDark Clickable"
+                            onClick={() => setCollapsed(true)}
+                            startIcon={<UnfoldMoreIcon />}>
+                            You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em>
+                        </ReactButton>
+                    }
                 </div>}
 
                 {!collapsed && <table className="Styled">
@@ -59,7 +67,7 @@ function PanelReading(props) {
                                     <td><small>{reading.description.author}</small></td>
                                     <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                     <td><Progress value={reading.position.progress} showText={true} /></td>
-                                    <td><ReactButton onClick={handleReadingSwitch} data-index={index} className="Clickable">Switch</ReactButton></td>
+                                    <td><ReactButton variant="contained" disableElevation={true} onClick={handleReadingSwitch} data-index={index} className="ButtonLight Clickable">Switch</ReactButton></td>
                                 </tr>
                             );
                         })}
@@ -88,8 +96,8 @@ PanelReading.propTypes = {
 
 PanelReading.defaultProps = {
     content: {},
-    onSelect: () => {},
-    onToggle: () => {},
+    onSelect: () => { },
+    onToggle: () => { },
 };
 
 export default connect(mapStateToProps)(PanelReading);

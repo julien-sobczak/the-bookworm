@@ -6,17 +6,12 @@ import Button from './Button';
 
 import FormText from '../settings/FormText';
 
-// Material Design UI forms
-import Tab from '@material/react-tab';
-import TabBar from '@material/react-tab-bar';
-import MaterialIcon from '@material/react-material-icon';
-
-import '@material/react-tab-bar/dist/tab-bar.css';
-import '@material/react-tab-scroller/dist/tab-scroller.css';
-import '@material/react-tab/dist/tab.css';
-import '@material/react-tab-indicator/dist/tab-indicator.css';
-import '@material/react-button/dist/button.css';
-
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import TuneIcon from '@material-ui/icons/Tune';
+import StyleIcon from '@material-ui/icons/Style';
+import HistoryIcon from '@material-ui/icons/History';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
 
 const PredefinedDrills = ({drills, onSelect}) => {
     return (
@@ -47,7 +42,7 @@ class WizardFactory extends React.Component {
         super(props);
 
         this.state = {
-            activeIndex: 0,
+            activeTab: 0,
             demoActive: false,
 
             // Copy default settings to make them editable
@@ -63,11 +58,13 @@ class WizardFactory extends React.Component {
 
         this.handleDemoClick = this.handleDemoClick.bind(this);
         this.handleValidateClick = this.handleValidateClick.bind(this);
+
+        this.handleTabChange = this.handleTabChange.bind(this);
     }
 
-    handleActiveIndexUpdate(activeIndex) {
+    handleTabChange(event, activeTab) {
         this.setState({
-            activeIndex: activeIndex,
+            activeTab: activeTab,
         });
     }
 
@@ -95,7 +92,7 @@ class WizardFactory extends React.Component {
         const drillSettings = JSON.parse(event.target.dataset.drill);
         this.setState({
             ...this.state,
-            activeIndex: 0,
+            activeTab: 0,
             drillSettings: drillSettings,
         });
     }
@@ -104,7 +101,7 @@ class WizardFactory extends React.Component {
         const drill = JSON.parse(event.target.parentNode.dataset.drill);
         this.setState({
             ...this.state,
-            activeIndex: 0,
+            activeTab: 0,
             drillSettings: drill.drillSettings,
             textSettings: drill.textSettings,
         });
@@ -112,13 +109,13 @@ class WizardFactory extends React.Component {
 
     render() {
         const tabs = [];
-        tabs.push(<Tab key={1} indicatorContent={<MaterialIcon icon='tune' />} />);
-        tabs.push(<Tab key={2} indicatorContent={<MaterialIcon icon='style' />} />);
+        tabs.push(<Tab key={1} icon={<TuneIcon />} label="Options" />);
+        tabs.push(<Tab key={2} icon={<StyleIcon />} label="Style" />);
         if (this.props.history) {
-            tabs.push(<Tab key={3} indicatorContent={<MaterialIcon icon='history' />} />);
+            tabs.push(<Tab key={3} icon={<HistoryIcon />} label="History" />);
         }
         if (this.props.predefinedDrills) {
-            tabs.push(<Tab key={4} indicatorContent={<MaterialIcon icon='bookmarks' />} />);
+            tabs.push(<Tab key={4} icon={<BookmarksIcon />} label="Favorite" />);
         }
         return (
             <div className="Wizard FullScreen Scrollbar">
@@ -127,13 +124,16 @@ class WizardFactory extends React.Component {
 
                 <div className="Preferences InnerContent">
 
-                    <TabBar
-                        activeIndex={this.state.activeIndex}
-                        handleActiveIndexUpdate={this.handleActiveIndexUpdate}>
+                    <Tabs
+                        value={this.state.activeTab}
+                        onChange={this.handleTabChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered>
                         {tabs}
-                    </TabBar>
+                    </Tabs>
 
-                    {this.state.activeIndex === 0 && <div className="TabContent Centered">
+                    {this.state.activeTab === 0 && <div className="TabContent Centered">
                         <section>
                             <h4>Drill options</h4>
                             <p>Customize the drill.</p>
@@ -145,7 +145,7 @@ class WizardFactory extends React.Component {
                         </section>
                     </div>}
 
-                    {this.state.activeIndex === 1 && <div className="TabContent Centered">
+                    {this.state.activeTab === 1 && <div className="TabContent Centered">
                         <section>
                             <h4>Font</h4>
                             <p>Control how texts are displayed in the drills.</p>
@@ -153,7 +153,7 @@ class WizardFactory extends React.Component {
                         </section>
                     </div>}
 
-                    {this.state.activeIndex === 2 && <div className="TabContent Centered">
+                    {this.state.activeTab === 2 && <div className="TabContent Centered">
                         <section>
                             <h4>Predefined Drills</h4>
                             <p>Practice with these ready-to-go drills.</p>
@@ -161,7 +161,7 @@ class WizardFactory extends React.Component {
                         </section>
                     </div>}
 
-                    {this.state.activeIndex === 3 && <div className="TabContent Centered">
+                    {this.state.activeTab === 3 && <div className="TabContent Centered">
                         <section>
                             <h4>Previous Drills</h4>
                             <p>Redo one of your previous drill sessions.</p>
