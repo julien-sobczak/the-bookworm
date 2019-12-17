@@ -10,8 +10,7 @@ import Progress from '../toolbox/Progress';
 import Button from "../toolbox/Button";
 import ButtonUpload from "./ButtonUpload";
 
-import ReactButton from '@material/react-button';
-import '@material/react-button/dist/button.css';
+import ReactButton from '@material-ui/core/Button';
 
 import { updateReading } from '../../store/actions';
 
@@ -93,7 +92,7 @@ class Library extends React.Component {
                                                         <td><small>{reading.description.author}</small></td>
                                                         <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                                         <td><Progress value={reading.position.progress} showText={true} /></td>
-                                                        <td><ReactButton onClick={this.handleReadingSelected} data-index={index} className="Clickable">Read</ReactButton></td>
+                                                        <td><ReactButton variant="contained" disableElevation={true} onClick={this.handleReadingSelected} data-index={index} className="ButtonDark Clickable">Read</ReactButton></td>
                                                     </tr>
                                                 );
                                             })}
