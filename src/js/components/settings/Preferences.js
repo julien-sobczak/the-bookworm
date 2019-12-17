@@ -9,14 +9,10 @@ import FormText from './FormText';
 import FormChunk from './FormChunk';
 import FormLocalStorage from './FormLocalStorage';
 
-import Tab from '@material/react-tab';
-import TabBar from '@material/react-tab-bar';
-import MaterialIcon from '@material/react-material-icon';
-
-import '@material/react-tab-bar/dist/tab-bar.css';
-import '@material/react-tab-scroller/dist/tab-scroller.css';
-import '@material/react-tab/dist/tab.css';
-import '@material/react-tab-indicator/dist/tab-indicator.css';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import StyleIcon from '@material-ui/icons/Style';
+import StorageIcon from '@material-ui/icons/Storage';
 
 class Preferences extends React.Component {
 
@@ -24,12 +20,15 @@ class Preferences extends React.Component {
         super(props);
 
         this.state = {
-            activeIndex: 0,
+            activeTab: 0,
         };
+
+        this.handleTabChange = this.handleTabChange.bind(this);
     }
 
-    handleActiveIndexUpdate(activeIndex) {
-        this.setState({ activeIndex: activeIndex });
+    handleTabChange(event, activeTab) {
+        console.log('activeTab', activeTab)
+        this.setState({ activeTab: activeTab });
     }
 
     handleLanguagePreferencesChange(prefs) {
@@ -51,16 +50,17 @@ class Preferences extends React.Component {
         return (
             <div className="Preferences InnerContent">
 
-                <TabBar
-                    activeIndex={this.state.activeIndex}
-                    handleActiveIndexUpdate={this.handleActiveIndexUpdate}>
-                    <Tab indicatorContent={<MaterialIcon icon='style' />}>
-                    </Tab>
-                    <Tab indicatorContent={<MaterialIcon icon='storage' />}>
-                    </Tab>
-                </TabBar>
+                <Tabs
+                    value={this.state.activeTab}
+                    onChange={this.handleTabChange}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    centered>
+                    <Tab icon={<StyleIcon />} label="Style" />
+                    <Tab icon={<StorageIcon />} label="Storage" />
+                </Tabs>
 
-                {this.state.activeIndex === 0 && <div className="TabContent Centered">
+                {this.state.activeTab === 0 && <div className="TabContent Centered">
 
                     <section>
                         <h4>Language</h4>
@@ -82,7 +82,7 @@ class Preferences extends React.Component {
 
                 </div>}
 
-                {this.state.activeIndex === 1 && <div className="TabContent Centered">
+                {this.state.activeTab === 1 && <div className="TabContent Centered">
                     <section>
                         <h4>localStorage</h4>
                         <p>Manage locally saved contents.</p>

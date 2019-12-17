@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Switch from '@material-ui/core/Switch';
 
 import Viewer from './Viewer';
 
 import * as helpers from '../../../functions/engine';
 
-// Material Design UI forms
-import Switch from '@material/react-switch';
-
-import "@material/react-switch/dist/switch.css";
 
 const Form = (props) => {
 
@@ -170,7 +167,6 @@ const Form = (props) => {
                         <th>Disable visual regression:</th>
                         <td>
                             <Switch
-                                nativeControlId="disableVisualRegression"
                                 checked={disableVisualRegression}
                                 onChange={handleDisableVisualRegressionChange} />
                         </td>
@@ -179,7 +175,6 @@ const Form = (props) => {
                         <th>Disable visual progression:</th>
                         <td>
                             <Switch
-                                nativeControlId="disableVisualProgression"
                                 checked={disableVisualProgression}
                                 onChange={handleDisableVisualProgressionChange} />
                         </td>

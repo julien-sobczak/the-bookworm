@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Switch from '@material-ui/core/Switch';
 
 import Viewer from './Viewer';
 
 import * as helpers from '../../../functions/engine';
-
-// Material Design UI forms
-import Switch from '@material/react-switch';
-
-import "@material/react-switch/dist/switch.css";
 
 const Form = (props) => {
 
@@ -179,7 +175,6 @@ const Form = (props) => {
                         <th>Show previous chunk:</th>
                         <td>
                             <Switch
-                                nativeControlId="showPreviousChunk"
                                 checked={showPreviousChunk}
                                 onChange={handleShowPreviousChunkChange} />
                         </td>
@@ -188,7 +183,6 @@ const Form = (props) => {
                         <th>Show next chunk:</th>
                         <td>
                             <Switch
-                                nativeControlId="showNextChunk"
                                 checked={showNextChunk}
                                 onChange={handleShowNextChunkChange} />
                         </td>
