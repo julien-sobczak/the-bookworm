@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, wait, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Form from './Form';
 
@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByLabelText, queryByLabelText, getByTestId, queryByTestId } = render(
+    const { getByLabelText, queryByLabelText, getByAltText } = render(
         <Form 
             wpm={250}
             columns={2}
@@ -18,7 +18,7 @@ it('allows editing values', async () => {
             chunkWidthMin="2in"
             chunkWidthMax="2in"
             chunkWords={2}
-            chunkTransition="wave"
+            chunkTransition="step"
             chunkSteps={5}
             onChange={mockFn} />
     );
@@ -30,24 +30,24 @@ it('allows editing values', async () => {
     // chunkMode dynamic options are hidden
     expect(queryByLabelText(/Min/i)).not.toBeInTheDocument();
     expect(queryByLabelText(/Max/i)).not.toBeInTheDocument();
-    expect(queryByTestId('chunkTransitionWave')).not.toBeInTheDocument();
+    expect(queryByLabelText(/Wave/i)).not.toBeInTheDocument();
     expect(queryByLabelText(/Steps/i)).not.toBeInTheDocument();
     
     // Change the chunk mode to words
-    fireEvent.click(getByTestId('chunkModeWords'));
+    fireEvent.click(getByLabelText('Words'));
     expect(queryByLabelText(/chunk words/i)).toBeInTheDocument();
     expect(queryByLabelText(/chunk width/i)).not.toBeInTheDocument();
     
     // Change the chunk mode to words
-    fireEvent.click(getByTestId('chunkModeDynamic'));
+    fireEvent.click(getByLabelText('Dynamic'));
     expect(queryByLabelText(/Min/i)).toBeInTheDocument();
     expect(queryByLabelText(/Max/i)).toBeInTheDocument();
-    expect(queryByTestId('chunkTransitionWave')).toBeInTheDocument();
+    expect(queryByLabelText(/Smooth/i)).toBeInTheDocument();
     expect(queryByLabelText(/Steps/i)).toBeInTheDocument();
     expect(queryByLabelText(/chunk words/i)).not.toBeInTheDocument();
     
     // Restore the original chunk mode 
-    fireEvent.click(getByTestId('chunkModeWidth'));
+    fireEvent.click(getByLabelText('Width'));
     // and change the chunk width
     fireEvent.change(getByLabelText(/chunk width/i), { target: { value: '1in' } });
     // should trigger onChange event
@@ -58,7 +58,7 @@ it('allows editing values', async () => {
     });
 
     // Try to tune the chunk mode words
-    fireEvent.click(getByTestId('chunkModeWords'));
+    fireEvent.click(getByLabelText('Words'));
     // and change the number of words
     fireEvent.change(getByLabelText(/chunk words/i), { target: { value: 3 } });
     // should trigger onChange event
@@ -69,19 +69,19 @@ it('allows editing values', async () => {
     });
 
     // Try to tune the chunk mode stops
-    fireEvent.click(getByTestId('chunkModeDynamic'));
+    fireEvent.click(getByLabelText('Dynamic'));
     // and change the options
-    fireEvent.change(getByLabelText(/Min/i), { target: { value: '0.5in' } })
-    fireEvent.change(getByLabelText(/Max/i), { target: { value: '1.75in' } })
-    fireEvent.click(getByTestId('chunkTransitionStep'));
-    fireEvent.change(getByLabelText(/Steps/i), { target: { value: 10 } })
+    fireEvent.change(getByLabelText(/Min/i), { target: { value: '0.5in' } });
+    fireEvent.change(getByLabelText(/Max/i), { target: { value: '1.75in' } });
+    fireEvent.click(getByLabelText(/Smooth/i));
+    fireEvent.change(getByLabelText(/Steps/i), { target: { value: 10 } });
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(11);
     expect(mockFn.mock.calls[10][0]).toMatchObject({
         chunkMode: 'dynamic',
         chunkWidthMin: '0.5in',
         chunkWidthMax: '1.75in',
-        chunkTransition: 'step',
+        chunkTransition: 'wave',
         chunkSteps: 10,
     });
 
@@ -94,7 +94,7 @@ it('allows editing values', async () => {
     });
 
     // Reduce the number of columns
-    fireEvent.click(getByTestId('columns3'));
+    fireEvent.click(getByAltText('Three columns'));
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(13);
     expect(mockFn.mock.calls[12][0]).toMatchObject({
@@ -102,7 +102,7 @@ it('allows editing values', async () => {
     });
 
     // Change the column width
-    fireEvent.change(getByLabelText(/width/i), { target: { value: "2.5in" } });
+    fireEvent.change(getByLabelText(/column width/i), { target: { value: "2.5in" } });
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(14);
     expect(mockFn.mock.calls[13][0]).toMatchObject({
@@ -110,7 +110,7 @@ it('allows editing values', async () => {
     });
 
     // Change the number of lines
-    fireEvent.click(getByTestId('linesMax20'));
+    fireEvent.click(getByAltText('20 lines maximum'));
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(15);
     expect(mockFn.mock.calls[14][0]).toMatchObject({

@@ -179,7 +179,6 @@ class FormLocalStorage extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("update with", this.state.chartValues);
         if (this.chart) {
             this.chart.data = this.getGraphData();
             this.chart.update();

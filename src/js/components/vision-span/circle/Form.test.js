@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByTestId } = render(
+    const { getByLabelText } = render(
         <Form 
             span="0.5in"
             autoLevel={true}
@@ -18,16 +18,14 @@ it('allows editing values', async () => {
     // Edit Game settings
 
     // Enable the keyboard 
-    const keyboardSwitch = getByTestId('keyboard');
-    const keyboardCheckbox = keyboardSwitch.querySelector('[type="checkbox"]');
-    keyboardCheckbox.click();
-    fireEvent.change(keyboardCheckbox, { target: { checked: true } });
+    const keyboardSwitch = getByLabelText(/Enable Keyboard/i);
+    keyboardSwitch.click();
+    fireEvent.change(keyboardSwitch, { target: { checked: true } });
 
     // Disable auto-level
-    const autoLevelSwitch = getByTestId('autoLevel');
-    const autoLevelCheckbox = autoLevelSwitch.querySelector('[type="checkbox"]');
-    autoLevelCheckbox.click();
-    fireEvent.change(autoLevelCheckbox, { target: { checked: "" } });
+    const autoLevelSwitch = getByLabelText(/Auto-Level/i);
+    autoLevelSwitch.click();
+    fireEvent.change(autoLevelSwitch, { target: { checked: "" } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(2);
@@ -39,7 +37,7 @@ it('allows editing values', async () => {
     // Edit Drill settings
 
     // Change the span
-    fireEvent.change(getByTestId('span'), { target: { value: '2in' } })
+    fireEvent.change(getByLabelText(/Span/i), { target: { value: '2in' } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(3);

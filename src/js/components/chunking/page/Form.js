@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
 import Viewer from './Viewer';
+import RadioButtons from '../../toolbox/RadioButtons';
 
 import * as helpers from '../../../functions/engine';
 
@@ -87,7 +88,7 @@ const Form = (props) => {
     };
 
     const handleDisableVisualProblemStyleChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         setDisableVisualProblemStyle(newValue);
         onChange({
             ...currentState(),
@@ -96,7 +97,7 @@ const Form = (props) => {
     };
 
     const handleChunkModeChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         setChunkMode(newValue);
         onChange({
             ...currentState(),
@@ -123,7 +124,7 @@ const Form = (props) => {
     };
 
     const handleChunkStopsChange = (event) => {
-        const newValue = parseInt(event.target.dataset.value);
+        const newValue = event.target.value;
         setChunkStops(newValue);
         onChange({
             ...currentState(),
@@ -183,11 +184,16 @@ const Form = (props) => {
                         </td>
                     </tr>
                     {(disableVisualRegression || disableVisualProgression) &&<tr>
-                        <th>Style:</th>
+                        <th><label>Style</label>:</th>
                         <td>
-                            <span data-testid="styleTransparent" onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'transparent' ? ' selected' : '')} data-value="transparent">Transparent</span>
-                            <span data-testid="styleFade"        onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'fade' ? ' selected' : '')} data-value="fade">Fade</span>
-                            <span data-testid="styleBlur"        onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'blur' ? ' selected' : '')} data-value="blur">Blur</span>
+                            <RadioButtons
+                                options={[
+                                    { value: "transparent" },
+                                    { value: "fade" },
+                                    { value: "blur" },
+                                ]} 
+                                onChange={handleDisableVisualProblemStyleChange} 
+                                value={disableVisualProblemStyle} />
                         </td>
                     </tr>}
                 </tbody>
@@ -195,11 +201,16 @@ const Form = (props) => {
             <table className="Setting">
                 <tbody>
                     <tr>
-                        <th>Chunk Mode:</th>
+                        <th><label>Chunk Mode</label>:</th>
                         <td>
-                            <span data-testid="chunkModeWidth" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'width' ? ' selected' : '')} data-value="width">Width</span>
-                            <span data-testid="chunkModeWords" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'words' ? ' selected' : '')} data-value="words">Words</span>
-                            <span data-testid="chunkModeStops" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'stops' ? ' selected' : '')} data-value="stops">Dynamic</span>
+                            <RadioButtons
+                                options={[
+                                    { value: "width" },
+                                    { value: "words" },
+                                    { value: "stops" },
+                                ]} 
+                                onChange={handleChunkModeChange} 
+                                value={chunkMode} />
                         </td>
                     </tr>
                     {chunkMode === 'width' && <tr>
@@ -213,7 +224,7 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'words' && <tr>
-                        <th>"<label htmlFor="chunkWords">Chunk Words</label>:</th>
+                        <th><label htmlFor="chunkWords">Chunk Words</label>:</th>
                         <td>
                             <select id="chunkWords" onChange={handleChunkWordsChange} value={chunkWords}>
                                 <option key={1} value={1}>1 word</option>
@@ -227,12 +238,17 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'stops' && <tr>
-                        <th>Stops:</th>
+                        <th><label>Stops</label>:</th>
                         <td>
-                            <span data-testid="chunkStops1" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 1 ? ' selected' : '')} data-value={1}>1 stop</span>
-                            <span data-testid="chunkStops2" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 2 ? ' selected' : '')} data-value={2}>2 stops</span>
-                            <span data-testid="chunkStops3" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 3 ? ' selected' : '')} data-value={3}>3 stops</span>
-                            <span data-testid="chunkStops4" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 4 ? ' selected' : '')} data-value={4}>4 stops</span>
+                            <RadioButtons 
+                                options={[
+                                    { value: 1, label: "1 stop" },
+                                    { value: 2, label: "2 stops" },
+                                    { value: 3, label: "3 stops" },
+                                    { value: 4, label: "4 stops" },
+                                ]} 
+                                onChange={handleChunkStopsChange} 
+                                value={chunkStops} />
                         </td>
                     </tr>}
                 </tbody>

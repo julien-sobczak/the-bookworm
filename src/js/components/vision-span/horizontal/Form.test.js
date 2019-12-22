@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByTestId, queryByTestId } = render(
+    const { getByLabelText, queryByAltText, getByTestId, getByAltText } = render(
         <Form 
             lines={1} 
             columns={3} 
@@ -21,16 +21,14 @@ it('allows editing values', async () => {
     // Edit Game settings
 
     // Enable the keyboard 
-    const keyboardSwitch = getByTestId('keyboard');
-    const keyboardCheckbox = keyboardSwitch.querySelector('[type="checkbox"]');
-    keyboardCheckbox.click();
-    fireEvent.change(keyboardCheckbox, { target: { checked: true } });
+    const keyboardSwitch = getByLabelText(/Enable Keyboard/i);
+    keyboardSwitch.click();
+    fireEvent.change(keyboardSwitch, { target: { checked: true } });
 
     // Disable auto-level
-    const autoLevelSwitch = getByTestId('autoLevel');
-    const autoLevelCheckbox = autoLevelSwitch.querySelector('[type="checkbox"]');
-    autoLevelCheckbox.click();
-    fireEvent.change(autoLevelCheckbox, { target: { checked: "" } });
+    const autoLevelSwitch = getByLabelText(/Auto-Level/i);
+    autoLevelSwitch.click();
+    fireEvent.change(autoLevelSwitch, { target: { checked: "" } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(2);
@@ -42,7 +40,7 @@ it('allows editing values', async () => {
     // Edit Drill settings
 
     // Change the span
-    fireEvent.change(getByTestId('span0'), { target: { value: '2in' } })
+    fireEvent.change(getByTestId('span0'), { target: { value: '2in' } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(3);
@@ -51,7 +49,7 @@ it('allows editing values', async () => {
     });
 
     // Change the number of columns
-    fireEvent.click(getByTestId('columns5'));
+    fireEvent.click(getByAltText(/5 columns/i));
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(4);
@@ -63,21 +61,21 @@ it('allows editing values', async () => {
     fireEvent.change(getByTestId('span0'), { target: { value: '2in' } });
 
     // Should trigger onChange event
-    expect(mockFn.mock.calls.length).toEqual(5)
+    expect(mockFn.mock.calls.length).toEqual(5);
     expect(mockFn.mock.calls[4][0]).toMatchObject({
         spans: ['2in', '0.25in', '0.25in', '2in'], // Spans are symmetrical
     });
 
     // Finally, change the number of series
-    expect(queryByTestId('lines2')).not.toBeInTheDocument();
-    fireEvent.click(getByTestId('seriesMultiple')); // Lines control should appear
+    expect(queryByAltText(/2 lines/i)).not.toBeInTheDocument();
+    fireEvent.click(getByLabelText(/Multiple/i)); // Lines control should appear
     await wait(() => {
-        expect(queryByTestId('lines2')).toBeInTheDocument()
+        expect(queryByAltText(/2 lines/i)).toBeInTheDocument();
     });
-    fireEvent.click(getByTestId('lines2'));
+    fireEvent.click(getByAltText(/2 lines/i));
 
     // Should trigger the last onChange event
-    expect(mockFn.mock.calls.length).toEqual(7)
+    expect(mockFn.mock.calls.length).toEqual(7);
     expect(mockFn.mock.calls[6][0]).toMatchObject({
         keyboard: true,
         autoLevel: false,

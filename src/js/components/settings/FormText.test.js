@@ -7,12 +7,12 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByText } = render(
+    const { getByLabelText } = render(
         <FormText fontFamily="Roboto" fontSize="12pt" fontStyle="normal" theme="Light" onChange={mockFn} />
     );
 
     // Change the font family
-    fireEvent.click(getByText("Source Code Pro"));
+    fireEvent.click(getByLabelText("Source Code Pro"));
     expect(mockFn.mock.calls[0][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "12pt",
@@ -21,7 +21,7 @@ it('allows editing values', async () => {
     });
 
     // Change the font size
-    fireEvent.click(getByText("Bold"));
+    fireEvent.click(getByLabelText("Bold"));
     expect(mockFn.mock.calls[1][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "12pt",
@@ -30,7 +30,7 @@ it('allows editing values', async () => {
     });
 
     // Change the font style 
-    fireEvent.click(getByText("14 pt"));
+    fireEvent.click(getByLabelText("14 pt"));
     expect(mockFn.mock.calls[2][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "14pt",
@@ -39,7 +39,7 @@ it('allows editing values', async () => {
     });
 
     // Change the theme
-    fireEvent.click(getByText("Dark"));
+    fireEvent.click(getByLabelText("Dark"));
     expect(mockFn.mock.calls[3][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "14pt",

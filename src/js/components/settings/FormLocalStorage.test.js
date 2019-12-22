@@ -23,12 +23,12 @@ class LocalStorageMock {
     removeItem(key) {
         delete this.store[key];
     }
-  };
+}
   
-  beforeEach(() => {
-       global.localStorage = new LocalStorageMock();
-  });
-  afterEach(cleanup);
+beforeEach(() => {
+    global.localStorage = new LocalStorageMock();
+});
+afterEach(cleanup);
 
 it('retrieves books from the localStorage', () => {
     var util = require('util');

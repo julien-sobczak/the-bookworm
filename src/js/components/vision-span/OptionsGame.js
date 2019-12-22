@@ -38,20 +38,20 @@ const OptionsGame = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Enable Keyboard:</th>
+                    <th><label htmlFor="keyboard">Enable Keyboard</label>:</th>
                     <td>
                         <Switch
-                            data-testid="keyboard"
+                            id="keyboard"
                             color="primary"
                             checked={keyboard}
                             onChange={handleKeyboardChange} />
                     </td>
                 </tr>
                 <tr>
-                    <th>Auto-Level:</th>
+                    <th><label htmlFor="autoLevel">Auto-Level</label>:</th>
                     <td>
                         <Switch
-                            data-testid="autoLevel"
+                            id="autoLevel"
                             color="primary"
                             checked={autoLevel}
                             onChange={handleAutoLevelChange} />
