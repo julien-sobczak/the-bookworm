@@ -130,13 +130,16 @@
   line-height: 35px;
   vertical-align: baseline;
   border-radius: 2px;
-  padding: 0 20px;
   text-align: center;
   cursor: pointer;
-  margin: 0 0.2em;
+  margin: 0 0.1em;
 }
 .Setting .GraphicOption.selected {
   border: 1px solid black;
+}
+.Setting .GraphicOption .Clickable {
+  display: block;
+  padding: 0 1em;
 }
 
 .Setting select,

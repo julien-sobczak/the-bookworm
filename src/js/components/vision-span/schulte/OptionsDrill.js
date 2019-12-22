@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
+import RadioButtons from '../../toolbox/RadioButtons';
 
 import * as helpers from '../../../functions/engine';
 
@@ -20,7 +21,7 @@ const OptionsDrill = (props) => {
     };
 
     const handleSizeChange = (event) => {
-        const newValue = parseInt(event.target.dataset.value);
+        const newValue = event.target.value;
         setSize(newValue);
         onChange({
             ...currentState(),
@@ -41,18 +42,24 @@ const OptionsDrill = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Size:</th>
+                    <th><label htmlFor="size">Size</label>:</th>
                     <td>
-                        <span data-testid="size3" onClick={handleSizeChange} className={"GraphicOption" + (size === 3 ? ' selected' : '')} data-value={3}>3</span>
-                        <span data-testid="size5" onClick={handleSizeChange} className={"GraphicOption" + (size === 5 ? ' selected' : '')} data-value={5}>5</span>
-                        <span data-testid="size7" onClick={handleSizeChange} className={"GraphicOption" + (size === 7 ? ' selected' : '')} data-value={7}>7</span>
-                        <span data-testid="size9" onClick={handleSizeChange} className={"GraphicOption" + (size === 9 ? ' selected' : '')} data-value={9}>9</span>
+                        <RadioButtons
+                            id="size"
+                            options={[
+                                { value: 3, alt: "witdh 3" },
+                                { value: 5, alt: "width 5" },
+                                { value: 7, alt: "width 7" },
+                                { value: 9, alt: "width 9" },
+                            ]} 
+                            onChange={handleSizeChange} 
+                            value={size} />
                     </td>
                 </tr>
                 <tr>
-                    <th>Span:</th>
+                    <th><label htmlFor="span">Span</label>:</th>
                     <td>
-                        <select data-testid="span" name="span" onChange={handleSpanChange} value={span}>
+                        <select id="span" name="span" onChange={handleSpanChange} value={span}>
                             {helpers.SPANS.map((s, index) => {
                                 return <option key={index} value={s}>{s}</option>;
                             })}

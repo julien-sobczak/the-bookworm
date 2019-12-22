@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, wait, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Form from './Form';
 
@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { queryByTestId, getByLabelText } = render(
+    const { queryByLabelText, getByLabelText } = render(
         <Form 
             pageTurningDuration={300}
             paperSize="a5"
@@ -17,8 +17,8 @@ it('allows editing values', async () => {
     );
 
     // Advanced options are disabled by default
-    expect(queryByTestId('pacerWpm')).not.toBeInTheDocument();
-    expect(queryByTestId('timer1')).not.toBeInTheDocument();
+    expect(queryByLabelText(/pacer wpm/i)).not.toBeInTheDocument();
+    expect(queryByLabelText(/timer/i)).not.toBeInTheDocument();
 
     // Change the page turning duration
     fireEvent.change(getByLabelText(/page turn duration/i), { target: { value: 1000 } });
@@ -42,7 +42,7 @@ it('allows editing values', async () => {
 
 it('supports a pacer', async () => {
     const mockFn = jest.fn();
-    const { queryByTestId, getByLabelText } = render(
+    const { queryByLabelText, getByLabelText } = render(
         <Form 
             pageTurningDuration={300}
             paperSize="a5"
@@ -52,7 +52,7 @@ it('supports a pacer', async () => {
     );
 
     // Advanced options are disabled by default
-    expect(queryByTestId('pacerWpm')).toBeInTheDocument();
+    expect(queryByLabelText(/pacer wpm/i)).toBeInTheDocument();
     
     // Change the page turning duration
     fireEvent.change(getByLabelText(/pacer WPM/i), { target: { value: 300 } });
@@ -66,7 +66,7 @@ it('supports a pacer', async () => {
 
 it('supports a timer', async () => {
     const mockFn = jest.fn();
-    const { queryByTestId, getByTestId } = render(
+    const { queryByLabelText, getByLabelText } = render(
         <Form 
             pageTurningDuration={300}
             paperSize="a5"
@@ -76,10 +76,10 @@ it('supports a timer', async () => {
     );
 
     // Advanced options are disabled by default
-    expect(queryByTestId('timer1')).toBeInTheDocument();
+    expect(queryByLabelText(/1 minute/i)).toBeInTheDocument();
     
     // Change the page turning duration
-    fireEvent.click(getByTestId('timer2'));
+    fireEvent.click(getByLabelText(/2 minutes/i));
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(1);

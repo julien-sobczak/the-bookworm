@@ -27,7 +27,6 @@ class Preferences extends React.Component {
     }
 
     handleTabChange(event, activeTab) {
-        console.log('activeTab', activeTab)
         this.setState({ activeTab: activeTab });
     }
 

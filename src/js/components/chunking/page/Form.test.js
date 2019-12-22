@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, wait, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Form from './Form';
 
@@ -7,14 +7,14 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByLabelText, queryByLabelText, getByTestId, queryByTestId } = render(
+    const { getByLabelText, queryByLabelText } = render(
         <Form 
             wpm={250}
             pageTurningDuration={100}
             paperSize="a5"
             disableVisualRegression={false}
             disableVisualProgression={false}
-            disableVisualProblemStyle="fade"
+            disableVisualProblemStyle="blur"
             chunkMode="width"
             chunkWidth="2in"
             chunkWords={2}
@@ -27,20 +27,20 @@ it('allows editing values', async () => {
     // chunkMode words options are hidden
     expect(queryByLabelText(/chunk words/i)).not.toBeInTheDocument();
     // chunkMode stops options are hidden
-    expect(queryByTestId('chunkStops1')).not.toBeInTheDocument();
+    expect(queryByLabelText(/1 stop/i)).not.toBeInTheDocument();
     
     // Change the chunk mode to words
-    fireEvent.click(getByTestId('chunkModeWords'));
+    fireEvent.click(getByLabelText('Words'));
     expect(queryByLabelText(/chunk words/i)).toBeInTheDocument();
     expect(queryByLabelText(/chunk width/i)).not.toBeInTheDocument();
     
     // Change the chunk mode to words
-    fireEvent.click(getByTestId('chunkModeStops'));
-    expect(queryByTestId('chunkStops1')).toBeInTheDocument();
+    fireEvent.click(getByLabelText('Stops'));
+    expect(queryByLabelText(/1 stop/i)).toBeInTheDocument();
     expect(queryByLabelText(/chunk words/i)).not.toBeInTheDocument();
     
     // Restore the original chunk mode 
-    fireEvent.click(getByTestId('chunkModeWidth'));
+    fireEvent.click(getByLabelText('Width'));
     // and change the chunk width
     fireEvent.change(getByLabelText(/chunk width/i), { target: { value: '1in' } });
     // should trigger onChange event
@@ -51,7 +51,7 @@ it('allows editing values', async () => {
     });
 
     // Try to tune the chunk mode words
-    fireEvent.click(getByTestId('chunkModeWords'));
+    fireEvent.click(getByLabelText('Words'));
     // and change the number of words
     fireEvent.change(getByLabelText(/chunk words/i), { target: { value: 3 } });
     // should trigger onChange event
@@ -62,9 +62,9 @@ it('allows editing values', async () => {
     });
 
     // Try to tune the chunk mode stops
-    fireEvent.click(getByTestId('chunkModeStops'));
+    fireEvent.click(getByLabelText('Stops'));
     // and change the number of stops
-    fireEvent.click(getByTestId('chunkStops3'));
+    fireEvent.click(getByLabelText(/3 stops/i));
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(8);
     expect(mockFn.mock.calls[7][0]).toMatchObject({
@@ -97,14 +97,14 @@ it('allows editing values', async () => {
     });
 
     // Play with visual problems
-    expect(queryByTestId('styleTransparent')).not.toBeInTheDocument();
+    expect(queryByLabelText('Transparent')).not.toBeInTheDocument();
     fireEvent.click(getByLabelText(/Disable visual regression/i));
     fireEvent.change(getByLabelText(/Disable visual regression/i), { target: { checked: true } }); // enable
-    expect(queryByTestId('styleTransparent')).toBeInTheDocument();
+    expect(queryByLabelText('Transparent')).toBeInTheDocument();
     fireEvent.click(getByLabelText(/Disable visual progression/i));
     fireEvent.change(getByLabelText(/Disable visual progression/i), { target: { checked: true } }); // enable
-    expect(queryByTestId('styleTransparent')).toBeInTheDocument();
-    fireEvent.click(getByTestId('styleFade'));
+    expect(queryByLabelText('Transparent')).toBeInTheDocument();
+    fireEvent.click(getByLabelText(/Fade/i));
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(14);
     expect(mockFn.mock.calls[13][0]).toMatchObject({

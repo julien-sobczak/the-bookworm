@@ -7,13 +7,15 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByText } = render(<FormChunk chunkStyle="color" onChange={mockFn} />);
+    const { getByLabelText } = render(
+        <FormChunk chunkStyle="color" onChange={mockFn} />
+    );
 
     // Change the chunk style
-    fireEvent.click(getByText('Highlight').closest('span.GraphicOption'));
+    fireEvent.click(getByLabelText('Highlight'));
 
     // Should trigger onChange event
-    expect(mockFn.mock.calls.length).toEqual(1)
+    expect(mockFn.mock.calls.length).toEqual(1);
     expect(mockFn.mock.calls[0][0]).toMatchObject({
         chunkStyle: "highlight",
     });

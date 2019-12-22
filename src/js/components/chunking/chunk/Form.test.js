@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByLabelText, queryByLabelText, getByTestId, queryByTestId } = render(
+    const { getByLabelText, queryByLabelText, getByAltText } = render(
         <Form
             wpm={250}
             linesPerChunk={1}
@@ -31,24 +31,24 @@ it('allows editing values', async () => {
     // chunkMode dynamic options are hidden
     expect(queryByLabelText(/Min/i)).not.toBeInTheDocument();
     expect(queryByLabelText(/Max/i)).not.toBeInTheDocument();
-    expect(queryByTestId('chunkTransitionWave')).not.toBeInTheDocument();
+    expect(queryByLabelText('/Wave/i')).not.toBeInTheDocument();
     expect(queryByLabelText(/Steps/i)).not.toBeInTheDocument();
 
     // Change the chunk mode to words
-    fireEvent.click(getByTestId('chunkModeWords'));
+    fireEvent.click(getByLabelText('Words'));
     expect(queryByLabelText(/chunk words/i)).toBeInTheDocument();
     expect(queryByLabelText(/chunk width/i)).not.toBeInTheDocument();
 
     // Change the chunk mode to words
-    fireEvent.click(getByTestId('chunkModeDynamic'));
+    fireEvent.click(getByLabelText('Dynamic'));
     expect(queryByLabelText(/Min/i)).toBeInTheDocument();
     expect(queryByLabelText(/Max/i)).toBeInTheDocument();
-    expect(queryByTestId('chunkTransitionWave')).toBeInTheDocument();
+    expect(queryByLabelText(/Smooth/i)).toBeInTheDocument();
     expect(queryByLabelText(/Steps/i)).toBeInTheDocument();
     expect(queryByLabelText(/chunk words/i)).not.toBeInTheDocument();
 
     // Restore the original chunk mode 
-    fireEvent.click(getByTestId('chunkModeWidth'));
+    fireEvent.click(getByLabelText('Width'));
     // and change the chunk width
     fireEvent.change(getByLabelText(/chunk width/i), { target: { value: '1in' } });
     // should trigger onChange event
@@ -59,7 +59,7 @@ it('allows editing values', async () => {
     });
 
     // Try to tune the chunk mode words
-    fireEvent.click(getByTestId('chunkModeWords'));
+    fireEvent.click(getByLabelText('Words'));
     // and change the number of words
     fireEvent.change(getByLabelText(/chunk words/i), { target: { value: 3 } });
     // should trigger onChange event
@@ -70,19 +70,19 @@ it('allows editing values', async () => {
     });
 
     // Try to tune the chunk mode stops
-    fireEvent.click(getByTestId('chunkModeDynamic'));
+    fireEvent.click(getByLabelText('Dynamic'));
     // and change the options
-    fireEvent.change(getByLabelText(/Min/i), { target: { value: '0.5in' } })
-    fireEvent.change(getByLabelText(/Max/i), { target: { value: '1.75in' } })
-    fireEvent.click(getByTestId('chunkTransitionStep'));
-    fireEvent.change(getByLabelText(/Steps/i), { target: { value: 10 } })
+    fireEvent.change(getByLabelText(/Min/i), { target: { value: '0.5in' } });
+    fireEvent.change(getByLabelText(/Max/i), { target: { value: '1.75in' } });
+    fireEvent.click(getByLabelText(/Smooth/i));
+    fireEvent.change(getByLabelText(/Steps/i), { target: { value: 10 } });
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(10);
     expect(mockFn.mock.calls[9][0]).toMatchObject({
         chunkMode: 'dynamic',
         chunkWidthMin: '0.5in',
         chunkWidthMax: '1.75in',
-        chunkTransition: 'step',
+        chunkTransition: 'wave',
         chunkSteps: 10,
     });
 
@@ -95,7 +95,7 @@ it('allows editing values', async () => {
     });
 
     // Increase the number of lines
-    fireEvent.click(getByTestId('linesPerChunk2'));
+    fireEvent.click(getByAltText(/2 lines per chunk/i));
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(12);
     expect(mockFn.mock.calls[11][0]).toMatchObject({
@@ -103,14 +103,14 @@ it('allows editing values', async () => {
     });
 
     // Show surrounding chunks
-    expect(queryByTestId('neighborChunksPositionVertical')).not.toBeInTheDocument();
+    expect(queryByLabelText('Vertical')).not.toBeInTheDocument();
     fireEvent.click(getByLabelText(/show previous chunk/i));
     fireEvent.change(getByLabelText(/show previous chunk/i), { target: { checked: true } });
-    expect(queryByTestId('neighborChunksPositionVertical')).toBeInTheDocument();
+    expect(queryByLabelText('Vertical')).toBeInTheDocument();
     fireEvent.click(getByLabelText(/show next chunk/i));
     fireEvent.change(getByLabelText(/show next chunk/i), { target: { checked: true } });
-    expect(queryByTestId('neighborChunksPositionVertical')).toBeInTheDocument();
-    fireEvent.click(getByTestId('neighborChunksPositionVertical'));
+    expect(queryByLabelText('Vertical')).toBeInTheDocument();
+    fireEvent.click(queryByLabelText('Vertical'));
     // should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(15);
     expect(mockFn.mock.calls[14][0]).toMatchObject({

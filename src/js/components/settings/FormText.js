@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Styled from '../toolbox/Styled';
+import RadioButtons from '../toolbox/RadioButtons';
 
 const FormText = (props) => {
 
@@ -21,7 +22,7 @@ const FormText = (props) => {
     };
 
     const handleFontFamilyClick = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         if (fontFamily === newValue) return;
         setFontFamily(newValue);
         onChange({
@@ -31,7 +32,7 @@ const FormText = (props) => {
     };
 
     const handleFontStyleClick = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         if (fontStyle === newValue) return;
         setFontStyle(newValue);
         onChange({
@@ -41,7 +42,7 @@ const FormText = (props) => {
     };
 
     const handleFontSizeClick = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         if (fontSize === newValue) return;
         setFontSize(newValue);
         onChange({
@@ -51,7 +52,7 @@ const FormText = (props) => {
     };
 
     const handleThemeClick = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         if (theme === newValue) return;
         setTheme(newValue);
         onChange({
@@ -64,41 +65,61 @@ const FormText = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Typeface:</th>
+                    <th><label>Typeface</label>:</th>
                     <td>
-                        <span onClick={handleFontFamilyClick} className={"GraphicOption Roboto "        + (fontFamily === 'Roboto' ? 'selected' : '')} data-value="Roboto">Roboto</span>
-                        <span onClick={handleFontFamilyClick} className={"GraphicOption SourceCodePro " + (fontFamily === 'SourceCodePro' ? 'selected' : '')} data-value="SourceCodePro">Source Code Pro</span>
-                        <span onClick={handleFontFamilyClick} className={"GraphicOption Slabo "         + (fontFamily === 'Slabo' ? 'selected' : '')} data-value="Slabo">Slabo</span>
-                        <span onClick={handleFontFamilyClick} className={"GraphicOption Sacramento "    + (fontFamily === 'Sacramento' ? 'selected' : '')} data-value="Sacramento">Sacramento</span>
-                        <span onClick={handleFontFamilyClick} className={"GraphicOption FredokaOne "    + (fontFamily === 'FredokaOne' ? 'selected' : '')} data-value="FredokaOne">Fredoka One</span>
+                        <RadioButtons 
+                            options={[
+                                { value: 'Roboto',        label: 'Roboto',          className: 'Roboto'        },
+                                { value: 'SourceCodePro', label: 'Source Code Pro', className: 'SourceCodePro' },
+                                { value: 'Slabo',         label: 'Slabo',           className: 'Slabo'         },
+                                { value: 'Sacramento',    label: 'Sacramento',      className: 'Sacramento'    },
+                                { value: 'FredokaOne',    label: 'Fredoka One',     className: 'FredokaOne'    },
+                            ]} 
+                            onChange={handleFontFamilyClick} 
+                            value={fontFamily} />
                     </td>
                 </tr>
                 <tr>
-                    <th>Variant:</th>
+                    <th><label>Variant</label>:</th>
                     <td>
-                        <span onClick={handleFontStyleClick} className={"GraphicOption Normal "     + (fontStyle === 'normal' ? 'selected' : '')} data-value="normal">Normal</span>
-                        <span onClick={handleFontStyleClick} className={"GraphicOption Italic "     + (fontStyle === 'italic' ? 'selected' : '')} data-value="italic">Italic</span>
-                        <span onClick={handleFontStyleClick} className={"GraphicOption Bold "       + (fontStyle === 'bold' ? 'selected' : '')} data-value="bold">Bold</span>
-                        <span onClick={handleFontStyleClick} className={"GraphicOption BoldItalic " + (fontStyle === 'bold italic' ? 'selected' : '')} data-value="bold italic">Bold Italic</span>
+                        <RadioButtons
+                            options={[
+                                { value: 'normal',      label: 'Normal',      className: 'Normal'     },
+                                { value: 'italic',      label: 'Italic',      className: 'Italic'     },
+                                { value: 'bold',        label: 'Bold',        className: 'Bold'       },
+                                { value: 'bold italic', label: 'Bold Italic', className: 'BoldItalic' },
+                            ]} 
+                            onChange={handleFontStyleClick} 
+                            value={fontStyle} />
                     </td>
                 </tr>
                 <tr>
-                    <th>Size:</th>
+                    <th><label>Size</label>:</th>
                     <td>
-                        <span onClick={handleFontSizeClick} className={"GraphicOption Size10pt " + (fontSize === '10pt' ? 'selected' : '')} data-value="10pt">10 pt</span>
-                        <span onClick={handleFontSizeClick} className={"GraphicOption Size12pt " + (fontSize === '12pt' ? 'selected' : '')} data-value="12pt">12 pt</span>
-                        <span onClick={handleFontSizeClick} className={"GraphicOption Size14pt " + (fontSize === '14pt' ? 'selected' : '')} data-value="14pt">14 pt</span>
-                        <span onClick={handleFontSizeClick} className={"GraphicOption Size16pt " + (fontSize === '16pt' ? 'selected' : '')} data-value="16pt">16 pt</span>
-                        <span onClick={handleFontSizeClick} className={"GraphicOption Size18pt " + (fontSize === '18pt' ? 'selected' : '')} data-value="18pt">18 pt</span>
+                        <RadioButtons 
+                            options={[
+                                { value: '10pt', label: '10 pt', classsName: 'Size10pt' },
+                                { value: '12pt', label: '12 pt', classsName: 'Size12pt' },
+                                { value: '14pt', label: '14 pt', classsName: 'Size14pt' },
+                                { value: '16pt', label: '16 pt', classsName: 'Size16pt' },
+                                { value: '18pt', label: '18 pt', classsName: 'Size18pt' },
+                            ]} 
+                            onChange={handleFontSizeClick} 
+                            value={fontSize} />
                     </td>
                 </tr>
                 <tr>
-                    <th>Theme:</th>
+                    <th><label>Theme</label>:</th>
                     <td>
-                        <span onClick={handleThemeClick} className={"GraphicOption ThemeLight " + (theme === 'Light' ? 'selected' : '')} data-value="Light">Light</span>
-                        <span onClick={handleThemeClick} className={"GraphicOption ThemeSepia " + (theme === 'Sepia' ? 'selected' : '')} data-value="Sepia">Sepia</span>
-                        <span onClick={handleThemeClick} className={"GraphicOption ThemeDark "  + (theme === 'Dark'  ? 'selected' : '')} data-value="Dark">Dark</span>
-                        <span onClick={handleThemeClick} className={"GraphicOption ThemeBlack " + (theme === 'Black' ? 'selected' : '')} data-value="Black">Black</span>
+                        <RadioButtons 
+                            options={[
+                                { value: 'Light', className: 'ThemeLight' },
+                                { value: 'Sepia', className: 'ThemeSepia' },
+                                { value: 'Dark',  className: 'ThemeDark'  },
+                                { value: 'Black', className: 'ThemeBlack' },
+                            ]} 
+                            onChange={handleThemeClick} 
+                            value={theme} />
                     </td>
                 </tr>
             </tbody>

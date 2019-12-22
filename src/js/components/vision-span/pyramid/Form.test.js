@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, wait, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Form from './Form';
 
@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByTestId } = render(
+    const { getByLabelText, getByAltText } = render(
         <Form 
             lines={1} 
             span="0.5in"
@@ -19,16 +19,14 @@ it('allows editing values', async () => {
     // Edit Game settings
 
     // Enable the keyboard 
-    const keyboardSwitch = getByTestId('keyboard');
-    const keyboardCheckbox = keyboardSwitch.querySelector('[type="checkbox"]');
-    keyboardCheckbox.click();
-    fireEvent.change(keyboardCheckbox, { target: { checked: true } });
+    const keyboardSwitch = getByLabelText(/Enable Keyboard/i);
+    keyboardSwitch.click();
+    fireEvent.change(keyboardSwitch, { target: { checked: true } });
 
     // Disable auto-level
-    const autoLevelSwitch = getByTestId('autoLevel');
-    const autoLevelCheckbox = autoLevelSwitch.querySelector('[type="checkbox"]');
-    autoLevelCheckbox.click();
-    fireEvent.change(autoLevelCheckbox, { target: { checked: "" } });
+    const autoLevelSwitch = getByLabelText(/Auto-Level/i);
+    autoLevelSwitch.click();
+    fireEvent.change(autoLevelSwitch, { target: { checked: "" } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(2);
@@ -40,7 +38,7 @@ it('allows editing values', async () => {
     // Edit Drill settings
 
     // Change the span
-    fireEvent.change(getByTestId('span'), { target: { value: '2in' } })
+    fireEvent.change(getByLabelText(/Span/i), { target: { value: '2in' } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(3);
@@ -51,10 +49,10 @@ it('allows editing values', async () => {
     });
 
     // Finally, change the number of lines
-    fireEvent.click(getByTestId('lines5'));
+    fireEvent.click(getByAltText(/5 lines/i));
 
     // Should trigger the last onChange event
-    expect(mockFn.mock.calls.length).toEqual(4)
+    expect(mockFn.mock.calls.length).toEqual(4);
     expect(mockFn.mock.calls[3][0]).toMatchObject({
         keyboard: true,
         autoLevel: false,
