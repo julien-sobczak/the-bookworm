@@ -43,16 +43,16 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th>Size:</th>
                     <td>
-                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 3 ? ' selected' : '')} data-value={3}>3</span>
-                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 5 ? ' selected' : '')} data-value={5}>5</span>
-                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 7 ? ' selected' : '')} data-value={7}>7</span>
-                        <span onClick={handleSizeChange} className={"GraphicOption" + (size === 9 ? ' selected' : '')} data-value={9}>9</span>
+                        <span data-testid="size3" onClick={handleSizeChange} className={"GraphicOption" + (size === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <span data-testid="size5" onClick={handleSizeChange} className={"GraphicOption" + (size === 5 ? ' selected' : '')} data-value={5}>5</span>
+                        <span data-testid="size7" onClick={handleSizeChange} className={"GraphicOption" + (size === 7 ? ' selected' : '')} data-value={7}>7</span>
+                        <span data-testid="size9" onClick={handleSizeChange} className={"GraphicOption" + (size === 9 ? ' selected' : '')} data-value={9}>9</span>
                     </td>
                 </tr>
                 <tr>
                     <th>Span:</th>
                     <td>
-                        <select name="span" onChange={handleSpanChange} value={span}>
+                        <select data-testid="span" name="span" onChange={handleSpanChange} value={span}>
                             {helpers.SPANS.map((s, index) => {
                                 return <option key={index} value={s}>{s}</option>;
                             })}

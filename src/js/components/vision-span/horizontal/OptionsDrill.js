@@ -27,7 +27,7 @@ const OptionsDrill = (props) => {
 
     const handleColumnsChange = (event) => {
         const newColumns = parseInt(event.target.dataset.value);
-        const newSpans = Array(newColumns).fill(helpers.SPANS[1]);
+        const newSpans = Array(newColumns-1).fill(helpers.SPANS[1]);
         setColumns(newColumns);
         setSpans(newSpans);
         onChange({
@@ -74,7 +74,7 @@ const OptionsDrill = (props) => {
         spansElements.push(
             <span key={i}>
                 {i > 0 && <span className="DotSeparator"></span>}
-                <select name="spans" onChange={handleSpansChange} data-span={i} value={spans[i]}>
+                <select data-testid={"span"+i} name="spans" onChange={handleSpansChange} data-span={i} value={spans[i]}>
                     {helpers.SPANS.map((s, index) => {
                         return <option key={index} value={s}>{s}</option>;
                     })}
@@ -89,25 +89,25 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th>Columns:</th>
                     <td>
-                        <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 3 ? ' selected' : '')} data-value={3}>3</span>
-                        <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 5 ? ' selected' : '')} data-value={5}>5</span>
-                        <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 7 ? ' selected' : '')} data-value={7}>7</span>
-                        <span onClick={handleColumnsChange} className={"GraphicOption" + (columns === 9 ? ' selected' : '')} data-value={9}>9</span>
+                        <span data-testid="columns3" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <span data-testid="columns5" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 5 ? ' selected' : '')} data-value={5}>5</span>
+                        <span data-testid="columns7" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 7 ? ' selected' : '')} data-value={7}>7</span>
+                        <span data-testid="columns9" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 9 ? ' selected' : '')} data-value={9}>9</span>
                     </td>
                 </tr>
                 <tr>
                     <th>Series:</th>
                     <td>
-                        <span onClick={handleMultipleChange} className={"GraphicOption" + (multiple === false ? ' selected' : '')} data-value={false}>Unique</span>
-                        <span onClick={handleMultipleChange} className={"GraphicOption" + (multiple === true ? ' selected' : '')} data-value={true}>Multiple</span>
+                        <span data-testid="seriesSingle" onClick={handleMultipleChange} className={"GraphicOption" + (multiple === false ? ' selected' : '')} data-value={false}>Unique</span>
+                        <span data-testid="seriesMultiple" onClick={handleMultipleChange} className={"GraphicOption" + (multiple === true ? ' selected' : '')} data-value={true}>Multiple</span>
                     </td>
                 </tr>
                 {multiple && <tr>
                     <th>Lines:</th>
                     <td>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 1 ? ' selected' : '')} data-value={1}>1</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 2 ? ' selected' : '')} data-value={2}>2</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <span data-testid="lines1" onClick={handleLinesChange} className={"GraphicOption" + (lines === 1 ? ' selected' : '')} data-value={1}>1</span>
+                        <span data-testid="lines2" onClick={handleLinesChange} className={"GraphicOption" + (lines === 2 ? ' selected' : '')} data-value={2}>2</span>
+                        <span data-testid="lines3" onClick={handleLinesChange} className={"GraphicOption" + (lines === 3 ? ' selected' : '')} data-value={3}>3</span>
                     </td>
                 </tr>}
                 <tr>

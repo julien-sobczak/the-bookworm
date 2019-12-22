@@ -32,7 +32,7 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th>Span:</th>
                     <td>
-                        <select name="span" onChange={handleSpanChange} value={span}>
+                        <select data-testid="span" name="span" onChange={handleSpanChange} value={span}>
                             {helpers.SPANS.map((s, index) => {
                                 return <option key={index} value={s}>{s}</option>;
                             })}

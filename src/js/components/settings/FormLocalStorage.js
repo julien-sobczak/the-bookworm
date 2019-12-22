@@ -143,8 +143,11 @@ class FormLocalStorage extends React.Component {
     }
 
     componentDidMount() {
+        if (typeof process === 'object') { // true when running from Node.js
+            // getContext don't work out of the box when running tests with Jest
+            return;
+        }
         const ctx = this.chartRef.current.getContext('2d');
-        if (!ctx) return; // Happens with Jest
         this.chart = new Chart(ctx, {  // eslint-disable-line no-new
             type: 'doughnut',
             data: this.getGraphData(),

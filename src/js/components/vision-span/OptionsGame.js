@@ -42,6 +42,7 @@ const OptionsGame = (props) => {
                     <td>
                         <Switch
                             data-testid="keyboard"
+                            color="primary"
                             checked={keyboard}
                             onChange={handleKeyboardChange} />
                     </td>
@@ -51,6 +52,7 @@ const OptionsGame = (props) => {
                     <td>
                         <Switch
                             data-testid="autoLevel"
+                            color="primary"
                             checked={autoLevel}
                             onChange={handleAutoLevelChange} />
                     </td>
