@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
 import Viewer from './Viewer';
+import RadioButtons from '../../../components/toolbox/RadioButtons';
 
 import * as helpers from '../../../functions/engine';
 
@@ -55,7 +56,7 @@ const Form = (props) => {
     };
 
     const handleLinesPerChunkChange = (event) => {
-        const newValue = parseInt(event.target.dataset.value);
+        const newValue = event.target.value;
         setLinesPerChunk(newValue);
         onChange({
             ...currentState(),
@@ -82,7 +83,7 @@ const Form = (props) => {
     };
 
     const handleNeighborChunksPositionChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         setNeighborChunksPosition(newValue);
         onChange({
             ...currentState(),
@@ -91,7 +92,7 @@ const Form = (props) => {
     };
 
     const handleChunkModeChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         setChunkMode(newValue);
         onChange({
             ...currentState(),
@@ -136,7 +137,7 @@ const Form = (props) => {
     };
 
     const handleChunkTransitionChange = (event) => {
-        const newValue = event.target.dataset.value;
+        const newValue = event.target.value;
         setChunkTransition(newValue);
         onChange({
             ...currentState(),
@@ -164,11 +165,16 @@ const Form = (props) => {
                         </td>
                     </tr>
                     <tr>
-                        <th>Lines per chunk:</th>
+                        <th><label>Lines per chunk</label>:</th>
                         <td>
-                            <span data-testid="linesPerChunk1" onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 1 ? ' selected' : '')} data-value={1}>1</span>
-                            <span data-testid="linesPerChunk2" onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 2 ? ' selected' : '')} data-value={2}>2</span>
-                            <span data-testid="linesPerChunk3" onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 3 ? ' selected' : '')} data-value={3}>3</span>
+                            <RadioButtons 
+                                options={[
+                                    { value: 1, alt: "1 line per chunk"}, 
+                                    { value: 2, alt: "2 lines per chunk"}, 
+                                    { value: 3, alt: "3 lines per chunk"},
+                                ]} 
+                                onChange={handleLinesPerChunkChange} 
+                                value={linesPerChunk} />
                         </td>
                     </tr>
                     <tr>
@@ -192,10 +198,15 @@ const Form = (props) => {
                         </td>
                     </tr>
                     {(showPreviousChunk || showNextChunk) &&<tr>
-                        <th>Flow:</th>
+                        <th><label>Flow</label>:</th>
                         <td>
-                            <span data-testid="neighborChunksPositionVertical"   onClick={handleNeighborChunksPositionChange} className={"GraphicOption" + (neighborChunksPosition === 'vertical' ? ' selected' : '')} data-value="vertical">Vertical</span>
-                            <span data-testid="neighborChunksPositionHorizontal" onClick={handleNeighborChunksPositionChange} className={"GraphicOption" + (neighborChunksPosition === 'horizontal' ? ' selected' : '')} data-value="horizontal">Horizontal</span>
+                            <RadioButtons 
+                                options={[
+                                    { value: 'vertical' }, 
+                                    { value: 'horizontal' },
+                                ]} 
+                                onChange={handleNeighborChunksPositionChange} 
+                                value={neighborChunksPosition} />
                         </td>
                     </tr>}
                 </tbody>
@@ -203,11 +214,16 @@ const Form = (props) => {
             <table className="Setting">
                 <tbody>
                     <tr>
-                        <th>Chunk Mode:</th>
+                        <th><label>Chunk Mode</label>:</th>
                         <td>
-                            <span data-testid="chunkModeWidth"   onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'width' ? ' selected' : '')} data-value="width">Width</span>
-                            <span data-testid="chunkModeWords"   onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'words' ? ' selected' : '')} data-value="words">Words</span>
-                            <span data-testid="chunkModeDynamic" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'dynamic' ? ' selected' : '')} data-value="dynamic">Dynamic</span>
+                            <RadioButtons 
+                                options={[
+                                    { value: "width"}, 
+                                    { value: "words" }, 
+                                    { value: "dynamic" },
+                                ]} 
+                                onChange={handleChunkModeChange} 
+                                value={chunkMode} />
                         </td>
                     </tr>
                     {chunkMode === 'width' && <tr>
@@ -255,10 +271,15 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>
-                        <th>Transition:</th>
+                        <th><label>Transition</label>:</th>
                         <td>
-                            <span data-testid="chunkTransitionWave" onClick={handleChunkTransitionChange} className={"GraphicOption" + (chunkTransition === 'wave' ? ' selected' : '')} data-value="wave">Smooth</span>
-                            <span data-testid="chunkTransitionStep" onClick={handleChunkTransitionChange} className={"GraphicOption" + (chunkTransition === 'step' ? ' selected' : '')} data-value="step">Rough</span>
+                            <RadioButtons 
+                                options={[
+                                    { value: "wave", label: "Smooth" }, 
+                                    { value: "step", label: "Rough" },
+                                ]} 
+                                onChange={handleChunkTransitionChange} 
+                                value={chunkTransition} />
                         </td>
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>

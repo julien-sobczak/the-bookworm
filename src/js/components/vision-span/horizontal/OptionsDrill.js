@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import FlipIcon from '@material-ui/icons/Flip';
 
 import Viewer from './Viewer';
+import RadioButtons from '../../toolbox/RadioButtons';
 
 import * as helpers from '../../../functions/engine';
-
 
 const OptionsDrill = (props) => {
 
@@ -26,7 +26,7 @@ const OptionsDrill = (props) => {
     };
 
     const handleColumnsChange = (event) => {
-        const newColumns = parseInt(event.target.dataset.value);
+        const newColumns = event.target.value;
         const newSpans = Array(newColumns-1).fill(helpers.SPANS[1]);
         setColumns(newColumns);
         setSpans(newSpans);
@@ -38,7 +38,7 @@ const OptionsDrill = (props) => {
     };
 
     const handleMultipleChange = (event) => {
-        const newValue = event.target.dataset.value === 'true';
+        const newValue = event.target.value;
         setMultiple(newValue);
         onChange({
             ...currentState(),
@@ -47,7 +47,7 @@ const OptionsDrill = (props) => {
     };
 
     const handleLinesChange = (event) => {
-        const newValue = parseInt(event.target.dataset.value);
+        const newValue = event.target.value;
         setLines(newValue);
         onChange({
             ...currentState(),
@@ -89,25 +89,40 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th>Columns:</th>
                     <td>
-                        <span data-testid="columns3" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 3 ? ' selected' : '')} data-value={3}>3</span>
-                        <span data-testid="columns5" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 5 ? ' selected' : '')} data-value={5}>5</span>
-                        <span data-testid="columns7" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 7 ? ' selected' : '')} data-value={7}>7</span>
-                        <span data-testid="columns9" onClick={handleColumnsChange} className={"GraphicOption" + (columns === 9 ? ' selected' : '')} data-value={9}>9</span>
+                        <RadioButtons
+                            options={[
+                                { value: 3, alt: "3 columns" },
+                                { value: 5, alt: "5 columns" },
+                                { value: 7, alt: "7 columns" },
+                                { value: 9, alt: "9 columns" },
+                            ]} 
+                            onChange={handleColumnsChange} 
+                            value={columns} />
                     </td>
                 </tr>
                 <tr>
                     <th>Series:</th>
                     <td>
-                        <span data-testid="seriesSingle" onClick={handleMultipleChange} className={"GraphicOption" + (multiple === false ? ' selected' : '')} data-value={false}>Unique</span>
-                        <span data-testid="seriesMultiple" onClick={handleMultipleChange} className={"GraphicOption" + (multiple === true ? ' selected' : '')} data-value={true}>Multiple</span>
+                        <RadioButtons 
+                            options={[
+                                { value: false, label: "Unique"   }, 
+                                { value: true,  label: "Multiple" },
+                            ]} 
+                            onChange={handleMultipleChange} 
+                            value={multiple} />
                     </td>
                 </tr>
                 {multiple && <tr>
                     <th>Lines:</th>
                     <td>
-                        <span data-testid="lines1" onClick={handleLinesChange} className={"GraphicOption" + (lines === 1 ? ' selected' : '')} data-value={1}>1</span>
-                        <span data-testid="lines2" onClick={handleLinesChange} className={"GraphicOption" + (lines === 2 ? ' selected' : '')} data-value={2}>2</span>
-                        <span data-testid="lines3" onClick={handleLinesChange} className={"GraphicOption" + (lines === 3 ? ' selected' : '')} data-value={3}>3</span>
+                        <RadioButtons
+                            options={[
+                                { value: 1, alt: "1 line"  }, 
+                                { value: 2, alt: "2 lines" }, 
+                                { value: 3, alt: "3 lines" },
+                            ]} 
+                            onChange={handleLinesChange} 
+                            value={lines} />
                     </td>
                 </tr>}
                 <tr>

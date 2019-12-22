@@ -10,10 +10,10 @@ it('allows editing values', async () => {
     const { getByTestId } = render(<FormLanguage native="French" onChange={mockFn} />);
 
     // Change the native language
-    fireEvent.change(getByTestId('native'), { target: { value: 'English' } })
+    fireEvent.change(getByTestId('native'), { target: { value: 'English' } });
 
     // Should trigger onChange event
-    expect(mockFn.mock.calls.length).toEqual(1)
+    expect(mockFn.mock.calls.length).toEqual(1);
     expect(mockFn.mock.calls[0][0]).toMatchObject({
         native: "English",
     });

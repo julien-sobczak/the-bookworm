@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
+import RadioButtons from '../toolbox/RadioButtons';
 
 const Form = (props) => {
 
@@ -50,7 +51,7 @@ const Form = (props) => {
     };
 
     const handleTimerChange = (event) => {
-        const newValue = parseInt(event.target.dataset.value);
+        const newValue = event.target.value;
         setTimer(newValue);
         onChange({
             ...currentState(),
@@ -90,10 +91,15 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     { timer > 0 && <tr>
-                        <th>Timer:</th>
+                        <th><label>Timer</label>:</th>
                         <td>
-                            <span data-testid="timer1" onClick={handleTimerChange} className={"GraphicOption" + (timer === 1 ? ' selected' : '')} data-value={1}>1 minute</span>
-                            <span data-testid="timer2" onClick={handleTimerChange} className={"GraphicOption" + (timer === 2 ? ' selected' : '')} data-value={2}>2 minutes</span>
+                            <RadioButtons
+                                options={[
+                                    { value: 1, label: "1 minute" },
+                                    { value: 2, label: "2 minutes" },
+                                ]} 
+                                onChange={handleTimerChange} 
+                                value={timer} />
                         </td>
                     </tr>}
                 </tbody>

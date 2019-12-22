@@ -116,24 +116,25 @@ import '@testing-library/jest-dom/extend-expect';
 ### MUI Switch
 
 ```jsx
+<label htmlFor="keyboard">Keyboard</label>
 <Switch
-  data-testid="keyboard"
+  id="keyboard"
   checked={keyboard}
   onChange={handleChange} />
 ```
 
 ```javascript
-const keyboardSwitch = getByTestId('keyboard');
-const keyboardCheckbox = keyboardSwitch.querySelector('[type="checkbox"]');
-keyboardCheckbox.click();
-fireEvent.change(keyboardCheckbox, { target: { checked: true } }); // enable
-fireEvent.change(keyboardCheckbox, { target: { checked: '' } }); // disable
+const keyboardSwitch = getByLabelText(/Keyboard/i);
+keyboardSwitch.click();
+fireEvent.change(keyboardSwitch, { target: { checked: true } }); // enable
+fireEvent.change(keyboardSwitch, { target: { checked: '' } }); // disable
 ```
 
 ### Select
 
 ```jsx
-<select data-testdi="span" onChange={handleChange} value={spans[i]}>
+<label htmlFor="span">Span</label>
+<select id="span" onChange={handleChange} value={spans[i]}>
   {helpers.SPANS.map((s, index) => {
     return <option key={index} value={s}>{s}</option>;
   })}
@@ -141,7 +142,7 @@ fireEvent.change(keyboardCheckbox, { target: { checked: '' } }); // disable
 ```
 
 ```javascript
-const spanSelect = getByTestId('span');
+const spanSelect = getByLabelText(/Span/i);
 fireEvent.change(spansSelect, { target: { value: '2in' } })
 ```
 
@@ -176,6 +177,25 @@ fireEvent.click(getByTestId('columns5'));
 
 ```javascript
 fireEvent.change(getByLabelText(/wpm/i), { target: { value: 500 } });
+```
+
+### RadioButtons
+
+```jsx
+<RadioButtons 
+  options={[
+      { value: 1, label: "1 line",  alt: "1 line per chunk"  }, 
+      { value: 2, label: "2 lines", alt: "2 lines per chunk" }, 
+      { value: 3, label: "3 lines", alt: "3 lines per chunk" },
+  ]} 
+  onChange={handleLinesChange} 
+  value={lines} />
+```
+
+```javascript
+fireEvent.click(getByAltText(/2 lines per chunk/i));
+// Or    
+fireEvent.click(getByLabelText(/2 lines/i));    
 ```
 
 References:

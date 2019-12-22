@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { OperationCanceledException } from 'typescript';
+
+import * as string from '../../functions/string';
 
 const RadioButtons = (props) => {
 
@@ -9,7 +10,7 @@ const RadioButtons = (props) => {
     const options = props.options;
 
     const parse = (value) => {
-        const v = options[0][0]; // Use the first option value to determine the type to use
+        const v = options[0].value; // Use the first option value to determine the type to use
         if (typeof v === 'boolean') {
             return value === 'true';
         } else if (typeof v === 'number') {
@@ -17,42 +18,59 @@ const RadioButtons = (props) => {
         } else if (typeof v === 'string') {
             return value;
         }
-        throw `${typeof value} ${typeof v} is not supported`;
-    }
+        throw new Error(`${typeof v} is not supported`);
+    };
 
     const handleChange = (event) => {
-        const newValue = parse(event.target.dataset.value);
+        const newValue = parse(event.target.value);
         setValue(newValue);
-        onChange(newValue);
-    }
+        onChange({
+            target: {
+                value: newValue,
+            },
+        });
+    };
 
-    const buttons = [];
+    const radios = [];
     options.forEach((option, index) => {
-        let [optionValue, optionLabel] = option;
-        buttons.push(
-            <span 
-                key={index}
-                onClick={handleChange} 
-                className={"GraphicOption" + (value === optionValue ? ' selected' : '')} 
-                data-value={optionValue}>{optionLabel}</span>
+        const optionLabel = string.capitalize(option.label || option.value);
+        const optionAltText = option.alt || option.label;
+        const optionClassName = option.className || "";
+        radios.push(
+            <span key={index} className={"GraphicOption " + (value === option.value ? ' selected' : '')}>
+                <label className={`Clickable ${optionClassName}`}>
+                    <input 
+                        type="radio" 
+                        value={option.value}
+                        style={{ display: "none" }} 
+                        alt={optionAltText}
+                        checked={value === option.value} 
+                        onChange={handleChange} />
+                    {optionLabel}
+                </label>
+            </span>
         );
     });
     
     return (
         <>
-            {buttons}
+            {radios}
         </>
     );
-}
+};
 
 RadioButtons.propTypes = {
     id: PropTypes.string,
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-    ]),
-    options: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    /**
+     * The value of the component. The DOM API casts this to a string.
+     */
+    value: PropTypes.any,
+    // value: PropTypes.oneOfType([
+    //     PropTypes.string,
+    //     PropTypes.number,
+    //     PropTypes.bool,
+    // ]),
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChange: PropTypes.func,
 };
 

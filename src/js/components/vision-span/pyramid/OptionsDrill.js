@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FlipIcon from '@material-ui/icons/Flip';
 
 import Viewer from './Viewer';
+import RadioButtons from '../../toolbox/RadioButtons';
 
 import * as helpers from '../../../functions/engine';
 
@@ -30,7 +31,7 @@ const OptionsDrill = (props) => {
     };
 
     const handleLinesChange = (event) => {
-        const newValue = parseInt(event.target.dataset.value);
+        const newValue = event.target.value;
         setLines(newValue);
         onChange({
             ...currentState(),
@@ -42,17 +43,22 @@ const OptionsDrill = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Lines:</th>
+                    <th><span>Lines</span>:</th>
                     <td>
-                        <span data-testid="lines5"  onClick={handleLinesChange} className={"GraphicOption" + (lines === 5  ? ' selected' : '')} data-value={5}>5</span>
-                        <span data-testid="lines10" onClick={handleLinesChange} className={"GraphicOption" + (lines === 10 ? ' selected' : '')} data-value={10}>10</span>
-                        <span data-testid="linesN"  onClick={handleLinesChange} className={"GraphicOption" + (lines === 0  ? ' selected' : '')} data-value={0}>Fit Screen</span>
+                        <RadioButtons
+                            options={[
+                                { value: 5,  label: "5",          alt: "5 lines"    },
+                                { value: 10, label: "10",         alt: "10 lines"   },
+                                { value: 0,  label: "Fit Screen", alt: "Fit Screen" },
+                            ]} 
+                            onChange={handleLinesChange} 
+                            value={lines} />
                     </td>
                 </tr>
                 <tr>
-                    <th>Span:</th>
+                    <th><label htmlFor="span">Span</label>:</th>
                     <td>
-                        <select data-testid="span" name="span" onChange={handleSpanChange} value={span}>
+                        <select id="span" name="span" onChange={handleSpanChange} value={span}>
                             {helpers.SPANS.map((s, index) => {
                                 return <option key={index} value={s}>{s}</option>;
                             })}
