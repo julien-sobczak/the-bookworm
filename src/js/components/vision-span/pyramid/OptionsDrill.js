@@ -44,15 +44,15 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th>Lines:</th>
                     <td>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 5  ? ' selected' : '')} data-value={5}>5</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 10 ? ' selected' : '')} data-value={10}>10</span>
-                        <span onClick={handleLinesChange} className={"GraphicOption" + (lines === 0  ? ' selected' : '')} data-value={0}>Fit Screen</span>
+                        <span data-testid="lines5"  onClick={handleLinesChange} className={"GraphicOption" + (lines === 5  ? ' selected' : '')} data-value={5}>5</span>
+                        <span data-testid="lines10" onClick={handleLinesChange} className={"GraphicOption" + (lines === 10 ? ' selected' : '')} data-value={10}>10</span>
+                        <span data-testid="linesN"  onClick={handleLinesChange} className={"GraphicOption" + (lines === 0  ? ' selected' : '')} data-value={0}>Fit Screen</span>
                     </td>
                 </tr>
                 <tr>
                     <th>Span:</th>
                     <td>
-                        <select name="span" onChange={handleSpanChange} value={span}>
+                        <select data-testid="span" name="span" onChange={handleSpanChange} value={span}>
                             {helpers.SPANS.map((s, index) => {
                                 return <option key={index} value={s}>{s}</option>;
                             })}

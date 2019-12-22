@@ -106,6 +106,83 @@ it('allows editing values', async () => {
 });
 ```
 
+## Form
+
+```javascript
+import { render, cleanup, wait, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+```
+
+### MUI Switch
+
+```jsx
+<Switch
+  data-testid="keyboard"
+  checked={keyboard}
+  onChange={handleChange} />
+```
+
+```javascript
+const keyboardSwitch = getByTestId('keyboard');
+const keyboardCheckbox = keyboardSwitch.querySelector('[type="checkbox"]');
+keyboardCheckbox.click();
+fireEvent.change(keyboardCheckbox, { target: { checked: true } }); // enable
+fireEvent.change(keyboardCheckbox, { target: { checked: '' } }); // disable
+```
+
+### Select
+
+```jsx
+<select data-testdi="span" onChange={handleChange} value={spans[i]}>
+  {helpers.SPANS.map((s, index) => {
+    return <option key={index} value={s}>{s}</option>;
+  })}
+</select>
+```
+
+```javascript
+const spanSelect = getByTestId('span');
+fireEvent.change(spansSelect, { target: { value: '2in' } })
+```
+
+### Custom radio button
+
+```jsx
+<tr>
+  <th>Columns:</th>
+  <td>
+    <span data-testid="columns3" onClick={handleChange} className={"GraphicOption" + (columns === 3 ? ' selected' : '')} data-value={3}>3</span>
+    <span data-testid="columns5" onClick={handleChange} className={"GraphicOption" + (columns === 5 ? ' selected' : '')} data-value={5}>5</span>
+    <span data-testid="columns7" onClick={handleChange} className={"GraphicOption" + (columns === 7 ? ' selected' : '')} data-value={7}>7</span>
+    <span data-testid="columns9" onClick={handleChange} className={"GraphicOption" + (columns === 9 ? ' selected' : '')} data-value={9}>9</span>
+  </td>
+</tr>
+```
+
+```javascript
+fireEvent.click(getByTestId('columns5'));
+```
+
+### Input
+
+```jsx
+<tr>
+  <th><label htmlFor="wpm">WPM</label>:</th>
+  <td>
+    <input id="wpm" type="number" min="100" max="5000" onChange={handleChange} value={wpm} />
+  </td>
+</tr>
+```
+
+```javascript
+fireEvent.change(getByLabelText(/wpm/i), { target: { value: 500 } });
+```
+
+References:
+* [More examples](https://github.com/testing-library/react-testing-library#more-examples)
+* [Events](https://github.com/testing-library/dom-testing-library/blob/master/src/events.js)
+* [Test absence/presence](http://testing-library.com/docs/guide-disappearance)
+
 
 ## CLI
 

@@ -23,7 +23,7 @@ const Form = (props) => {
     };
 
     const handlePageTurningDurationChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setPageTurningDuration(newValue);
         onChange({
             ...currentState(),
@@ -41,7 +41,7 @@ const Form = (props) => {
     };
 
     const handlePacerWpmChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setPacerWpm(newValue);
         onChange({
             ...currentState(),
@@ -63,15 +63,15 @@ const Form = (props) => {
             <table className="Setting">
                 <tbody>
                     <tr>
-                        <th>Page turn duration:</th>
+                        <th><label htmlFor="pageTurningDuration">Page turn duration</label>:</th>
                         <td>
-                            <input type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
+                            <input id="pageTurningDuration" type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
                         </td>
                     </tr>
                     <tr>
-                        <th>Paper:</th>
+                        <th><label htmlFor="paperSize">Paper</label>:</th>
                         <td>
-                            <select onChange={handlePaperSizeChange} value={paperSize}>
+                            <select id="paperSize" onChange={handlePaperSizeChange} value={paperSize}>
                                 <option value="extended">Auto</option>
                                 <option value="a4">A4</option>
                                 <option value="a5">A5</option>
@@ -84,16 +84,16 @@ const Form = (props) => {
                         </td>
                     </tr>
                     {pacerWpm > 0 && <tr>
-                        <th>Pacer WPM:</th>
+                        <th><label htmlFor="pacerWpm">Pacer WPM</label>:</th>
                         <td>
-                            <input type="number" min="50" max="5000" onChange={handlePacerWpmChange} value={pacerWpm} />
+                            <input data-testid="pacerWpm" id="pacerWpm" type="number" min="50" max="5000" onChange={handlePacerWpmChange} value={pacerWpm} />
                         </td>
                     </tr>}
                     { timer > 0 && <tr>
                         <th>Timer:</th>
                         <td>
-                            <span onClick={handleTimerChange} className={"GraphicOption" + (timer === 1 ? ' selected' : '')} data-value={1}>1 minute</span>
-                            <span onClick={handleTimerChange} className={"GraphicOption" + (timer === 2 ? ' selected' : '')} data-value={2}>2 minutes</span>
+                            <span data-testid="timer1" onClick={handleTimerChange} className={"GraphicOption" + (timer === 1 ? ' selected' : '')} data-value={1}>1 minute</span>
+                            <span data-testid="timer2" onClick={handleTimerChange} className={"GraphicOption" + (timer === 2 ? ' selected' : '')} data-value={2}>2 minutes</span>
                         </td>
                     </tr>}
                 </tbody>
