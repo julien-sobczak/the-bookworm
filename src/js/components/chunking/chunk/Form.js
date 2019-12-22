@@ -46,7 +46,7 @@ const Form = (props) => {
     };
 
     const handleWpmChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setWpm(newValue);
         onChange({
             ...currentState(),
@@ -109,7 +109,7 @@ const Form = (props) => {
     };
 
     const handleChunkWordsChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setChunkWords(newValue);
         onChange({
             ...currentState(),
@@ -145,7 +145,7 @@ const Form = (props) => {
     };
 
     const handleChunkStepsChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setChunkSteps(newValue);
         onChange({
             ...currentState(),
@@ -158,31 +158,35 @@ const Form = (props) => {
             <table className="Setting">
                 <tbody>
                     <tr>
-                        <th>WPM:</th>
+                        <th><label htmlFor="wpm">WPM</label>:</th>
                         <td>
-                            <input type="number" min="50" max="5000" onChange={handleWpmChange} value={wpm} />
+                            <input id="wpm" type="number" min="50" max="5000" onChange={handleWpmChange} value={wpm} />
                         </td>
                     </tr>
                     <tr>
                         <th>Lines per chunk:</th>
                         <td>
-                            <span onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 1 ? ' selected' : '')} data-value={1}>1</span>
-                            <span onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 2 ? ' selected' : '')} data-value={2}>2</span>
-                            <span onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 3 ? ' selected' : '')} data-value={3}>3</span>
+                            <span data-testid="linesPerChunk1" onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 1 ? ' selected' : '')} data-value={1}>1</span>
+                            <span data-testid="linesPerChunk2" onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 2 ? ' selected' : '')} data-value={2}>2</span>
+                            <span data-testid="linesPerChunk3" onClick={handleLinesPerChunkChange} className={"GraphicOption" + (linesPerChunk === 3 ? ' selected' : '')} data-value={3}>3</span>
                         </td>
                     </tr>
                     <tr>
-                        <th>Show previous chunk:</th>
+                        <th><label htmlFor="showPreviousChunk">Show previous chunk</label>:</th>
                         <td>
                             <Switch
+                                id="showPreviousChunk"
+                                color="primary"
                                 checked={showPreviousChunk}
                                 onChange={handleShowPreviousChunkChange} />
                         </td>
                     </tr>
                     <tr>
-                        <th>Show next chunk:</th>
+                        <th><label htmlFor="showNextChunk">Show next chunk</label>:</th>
                         <td>
                             <Switch
+                                id="showNextChunk"
+                                color="primary"
                                 checked={showNextChunk}
                                 onChange={handleShowNextChunkChange} />
                         </td>
@@ -190,8 +194,8 @@ const Form = (props) => {
                     {(showPreviousChunk || showNextChunk) &&<tr>
                         <th>Flow:</th>
                         <td>
-                            <span onClick={handleNeighborChunksPositionChange} className={"GraphicOption" + (neighborChunksPosition === 'vertical' ? ' selected' : '')} data-value="vertical">Vertical</span>
-                            <span onClick={handleNeighborChunksPositionChange} className={"GraphicOption" + (neighborChunksPosition === 'horizontal' ? ' selected' : '')} data-value="horizontal">Horizontal</span>
+                            <span data-testid="neighborChunksPositionVertical"   onClick={handleNeighborChunksPositionChange} className={"GraphicOption" + (neighborChunksPosition === 'vertical' ? ' selected' : '')} data-value="vertical">Vertical</span>
+                            <span data-testid="neighborChunksPositionHorizontal" onClick={handleNeighborChunksPositionChange} className={"GraphicOption" + (neighborChunksPosition === 'horizontal' ? ' selected' : '')} data-value="horizontal">Horizontal</span>
                         </td>
                     </tr>}
                 </tbody>
@@ -201,15 +205,15 @@ const Form = (props) => {
                     <tr>
                         <th>Chunk Mode:</th>
                         <td>
-                            <span onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'width' ? ' selected' : '')} data-value="width">Width</span>
-                            <span onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'words' ? ' selected' : '')} data-value="words">Words</span>
-                            <span onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'dynamic' ? ' selected' : '')} data-value="dynamic">Dynamic</span>
+                            <span data-testid="chunkModeWidth"   onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'width' ? ' selected' : '')} data-value="width">Width</span>
+                            <span data-testid="chunkModeWords"   onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'words' ? ' selected' : '')} data-value="words">Words</span>
+                            <span data-testid="chunkModeDynamic" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'dynamic' ? ' selected' : '')} data-value="dynamic">Dynamic</span>
                         </td>
                     </tr>
                     {chunkMode === 'width' && <tr>
-                        <th>Chunk Width:</th>
+                        <th><label htmlFor="chunkWidth">Chunk Width</label>:</th>
                         <td>
-                            <select onChange={handleChunkWidthChange} value={chunkWidth}>
+                            <select id="chunkWidth" onChange={handleChunkWidthChange} value={chunkWidth}>
                                 {helpers.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
@@ -217,9 +221,9 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'words' && <tr>
-                        <th>Chunk Words:</th>
+                        <th><label htmlFor="chunkWords">Chunk Words</label>:</th>
                         <td>
-                            <select onChange={handleChunkWordsChange} value={chunkWords}>
+                            <select id="chunkWords" onChange={handleChunkWordsChange} value={chunkWords}>
                                 <option key={1} value={1}>1 word</option>
                                 <option key={2} value={2}>2 words</option>
                                 <option key={3} value={3}>3 words</option>
@@ -231,9 +235,9 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>
-                        <th>Min:</th>
+                        <th><label htmlFor="chunkWidthMin">Min</label>:</th>
                         <td>
-                            <select onChange={handleChunkWidthMinChange} value={chunkWidthMin}>
+                            <select id="chunkWidthMin" onChange={handleChunkWidthMinChange} value={chunkWidthMin}>
                                 {helpers.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
@@ -241,9 +245,9 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>
-                        <th>Max:</th>
+                        <th><label htmlFor="chunkWidthMax">Max</label>:</th>
                         <td>
-                            <select onChange={handleChunkWidthMaxChange} value={chunkWidthMax}>
+                            <select id="chunkWidthMax" onChange={handleChunkWidthMaxChange} value={chunkWidthMax}>
                                 {helpers.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
@@ -253,14 +257,14 @@ const Form = (props) => {
                     {chunkMode === 'dynamic' && <tr>
                         <th>Transition:</th>
                         <td>
-                            <span onClick={handleChunkTransitionChange} className={"GraphicOption" + (chunkTransition === 'wave' ? ' selected' : '')} data-value="wave">Smooth</span>
-                            <span onClick={handleChunkTransitionChange} className={"GraphicOption" + (chunkTransition === 'step' ? ' selected' : '')} data-value="step">Rough</span>
+                            <span data-testid="chunkTransitionWave" onClick={handleChunkTransitionChange} className={"GraphicOption" + (chunkTransition === 'wave' ? ' selected' : '')} data-value="wave">Smooth</span>
+                            <span data-testid="chunkTransitionStep" onClick={handleChunkTransitionChange} className={"GraphicOption" + (chunkTransition === 'step' ? ' selected' : '')} data-value="step">Rough</span>
                         </td>
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>
-                        <th>Steps:</th>
+                        <th><label htmlFor="chunkSteps">Steps</label>:</th>
                         <td>
-                            <input type="number" min="3" max="20" onChange={handleChunkStepsChange} value={chunkSteps} />
+                            <input id="chunkSteps" type="number" min="3" max="20" onChange={handleChunkStepsChange} value={chunkSteps} />
                         </td>
                     </tr>}
                 </tbody>

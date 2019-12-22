@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
@@ -7,13 +7,16 @@ import OptionsGame from '../OptionsGame';
 
 const Form = (props) => {
 
+    const [value, setValue] = useState(props);
     const onChange = props.onChange;
 
     const handleOptionsChange = (settings) => {
-        onChange({
-            ...props,
+        const newValue = {
+            ...value,
             ...settings,
-        });
+        };
+        setValue(newValue);
+        onChange(newValue);
     };
 
     return (

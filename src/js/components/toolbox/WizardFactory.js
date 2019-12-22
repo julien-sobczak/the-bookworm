@@ -111,11 +111,11 @@ class WizardFactory extends React.Component {
         const tabs = [];
         tabs.push(<Tab key={1} icon={<TuneIcon />} label="Options" />);
         tabs.push(<Tab key={2} icon={<StyleIcon />} label="Style" />);
-        if (this.props.history) {
-            tabs.push(<Tab key={3} icon={<HistoryIcon />} label="History" />);
-        }
         if (this.props.predefinedDrills) {
             tabs.push(<Tab key={4} icon={<BookmarksIcon />} label="Favorite" />);
+        }
+        if (this.props.history) {
+            tabs.push(<Tab key={3} icon={<HistoryIcon />} label="History" />);
         }
         return (
             <div className="Wizard FullScreen Scrollbar">
@@ -163,7 +163,7 @@ class WizardFactory extends React.Component {
 
                     {this.state.activeTab === 3 && <div className="TabContent Centered">
                         <section>
-                            <h4>Previous Drills</h4>
+                            <h4>History</h4>
                             <p>Redo one of your previous drill sessions.</p>
                             {React.cloneElement(this.props.history, {
                                 history: this.props.historySessions,

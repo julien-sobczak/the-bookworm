@@ -43,7 +43,7 @@ const Form = (props) => {
     };
 
     const handleWpmChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setWpm(newValue);
         onChange({
             ...currentState(),
@@ -52,7 +52,7 @@ const Form = (props) => {
     };
 
     const handlePageTurningDurationChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setPageTurningDuration(newValue);
         onChange({
             ...currentState(),
@@ -115,7 +115,7 @@ const Form = (props) => {
     };
 
     const handleChunkWordsChange = (event) => {
-        const newValue = event.target.value;
+        const newValue = parseInt(event.target.value);
         setChunkWords(newValue);
         onChange({
             ...currentState(),
@@ -137,21 +137,21 @@ const Form = (props) => {
             <table className="Setting">
                 <tbody>
                     <tr>
-                        <th>WPM:</th>
+                        <th><label htmlFor="wpm">WPM</label>:</th>
                         <td>
-                            <input type="number" min="50" max="5000" onChange={handleWpmChange} value={wpm} />
+                            <input id="wpm" type="number" min="50" max="5000" onChange={handleWpmChange} value={wpm} />
                         </td>
                     </tr>
                     <tr>
-                        <th>Page turn duration:</th>
+                        <th><label htmlFor="pageTurningDuration">Page turn duration</label>:</th>
                         <td>
-                            <input type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
+                            <input id="pageTurningDuration" type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
                         </td>
                     </tr>
                     <tr>
-                        <th>Paper:</th>
+                        <th><label htmlFor="paperSize">Paper</label>:</th>
                         <td>
-                            <select onChange={handlePaperSizeChange} value={paperSize}>
+                            <select id="paperSize" onChange={handlePaperSizeChange} value={paperSize}>
                                 <option value="extended">Auto</option>
                                 <option value="a4">A4</option>
                                 <option value="a5">A5</option>
@@ -164,17 +164,21 @@ const Form = (props) => {
                         </td>
                     </tr>
                     <tr>
-                        <th>Disable visual regression:</th>
+                        <th><label htmlFor="disableVisualRegression">Disable visual regression</label>:</th>
                         <td>
                             <Switch
+                                id="disableVisualRegression"
+                                color="primary"
                                 checked={disableVisualRegression}
                                 onChange={handleDisableVisualRegressionChange} />
                         </td>
                     </tr>
                     <tr>
-                        <th>Disable visual progression:</th>
+                        <th><label htmlFor="disableVisualProgression">Disable visual progression</label>:</th>
                         <td>
                             <Switch
+                                id="disableVisualProgression"
+                                color="primary"
                                 checked={disableVisualProgression}
                                 onChange={handleDisableVisualProgressionChange} />
                         </td>
@@ -182,9 +186,9 @@ const Form = (props) => {
                     {(disableVisualRegression || disableVisualProgression) &&<tr>
                         <th>Style:</th>
                         <td>
-                            <span onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'transparent' ? ' selected' : '')} data-value="transparent">Transparent</span>
-                            <span onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'fade' ? ' selected' : '')} data-value="fade">Fade</span>
-                            <span onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'blur' ? ' selected' : '')} data-value="blur">Blur</span>
+                            <span data-testid="styleTransparent" onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'transparent' ? ' selected' : '')} data-value="transparent">Transparent</span>
+                            <span data-testid="styleFade"        onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'fade' ? ' selected' : '')} data-value="fade">Fade</span>
+                            <span data-testid="styleBlur"        onClick={handleDisableVisualProblemStyleChange} className={"GraphicOption" + (disableVisualProblemStyle === 'blur' ? ' selected' : '')} data-value="blur">Blur</span>
                         </td>
                     </tr>}
                 </tbody>
@@ -194,15 +198,15 @@ const Form = (props) => {
                     <tr>
                         <th>Chunk Mode:</th>
                         <td>
-                            <span onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'width' ? ' selected' : '')} data-value="width">Width</span>
-                            <span onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'words' ? ' selected' : '')} data-value="words">Words</span>
-                            <span onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'stops' ? ' selected' : '')} data-value="stops">Dynamic</span>
+                            <span data-testid="chunkModeWidth" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'width' ? ' selected' : '')} data-value="width">Width</span>
+                            <span data-testid="chunkModeWords" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'words' ? ' selected' : '')} data-value="words">Words</span>
+                            <span data-testid="chunkModeStops" onClick={handleChunkModeChange} className={"GraphicOption" + (chunkMode === 'stops' ? ' selected' : '')} data-value="stops">Dynamic</span>
                         </td>
                     </tr>
                     {chunkMode === 'width' && <tr>
-                        <th>Chunk Width:</th>
+                        <th><label htmlFor="chunkWidth">Chunk Width</label>:</th>
                         <td>
-                            <select onChange={handleChunkWidthChange} value={chunkWidth}>
+                            <select id="chunkWidth" onChange={handleChunkWidthChange} value={chunkWidth}>
                                 {helpers.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
@@ -210,9 +214,9 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'words' && <tr>
-                        <th>Chunk Words:</th>
+                        <th>"<label htmlFor="chunkWords">Chunk Words</label>:</th>
                         <td>
-                            <select onChange={handleChunkWordsChange} value={chunkWords}>
+                            <select id="chunkWords" onChange={handleChunkWordsChange} value={chunkWords}>
                                 <option key={1} value={1}>1 word</option>
                                 <option key={2} value={2}>2 words</option>
                                 <option key={3} value={3}>3 words</option>
@@ -224,12 +228,12 @@ const Form = (props) => {
                         </td>
                     </tr>}
                     {chunkMode === 'stops' && <tr>
-                        <th>Steps:</th>
+                        <th>Stops:</th>
                         <td>
-                            <span onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 1 ? ' selected' : '')} data-value={1}>1 stop</span>
-                            <span onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 2 ? ' selected' : '')} data-value={1}>2 stops</span>
-                            <span onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 3 ? ' selected' : '')} data-value={1}>3 stops</span>
-                            <span onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 4 ? ' selected' : '')} data-value={1}>4 stops</span>
+                            <span data-testid="chunkStops1" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 1 ? ' selected' : '')} data-value={1}>1 stop</span>
+                            <span data-testid="chunkStops2" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 2 ? ' selected' : '')} data-value={2}>2 stops</span>
+                            <span data-testid="chunkStops3" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 3 ? ' selected' : '')} data-value={3}>3 stops</span>
+                            <span data-testid="chunkStops4" onClick={handleChunkStopsChange} className={"GraphicOption" + (chunkStops === 4 ? ' selected' : '')} data-value={4}>4 stops</span>
                         </td>
                     </tr>}
                 </tbody>
