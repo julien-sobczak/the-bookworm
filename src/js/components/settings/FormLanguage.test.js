@@ -7,10 +7,10 @@ afterEach(cleanup);
 
 it('allows editing values', async () => {
     const mockFn = jest.fn();
-    const { getByTestId } = render(<FormLanguage native="French" onChange={mockFn} />);
+    const { getByLabelText } = render(<FormLanguage native="French" onChange={mockFn} />);
 
     // Change the native language
-    fireEvent.change(getByTestId('native'), { target: { value: 'English' } });
+    fireEvent.change(getByLabelText(/Default/i), { target: { value: 'English' } });
 
     // Should trigger onChange event
     expect(mockFn.mock.calls.length).toEqual(1);

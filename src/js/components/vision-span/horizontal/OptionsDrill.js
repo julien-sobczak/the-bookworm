@@ -87,9 +87,10 @@ const OptionsDrill = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Columns:</th>
+                    <th><label htmlFor="columns">Columns</label>:</th>
                     <td>
                         <RadioButtons
+                            id="columns"
                             options={[
                                 { value: 3, alt: "3 columns" },
                                 { value: 5, alt: "5 columns" },
@@ -101,9 +102,10 @@ const OptionsDrill = (props) => {
                     </td>
                 </tr>
                 <tr>
-                    <th>Series:</th>
+                    <th><label htmlFor="series">Series</label>:</th>
                     <td>
                         <RadioButtons 
+                            id="series"
                             options={[
                                 { value: false, label: "Unique"   }, 
                                 { value: true,  label: "Multiple" },
@@ -113,9 +115,10 @@ const OptionsDrill = (props) => {
                     </td>
                 </tr>
                 {multiple && <tr>
-                    <th>Lines:</th>
+                    <th><label htmlFor="lines">Lines</label>:</th>
                     <td>
                         <RadioButtons
+                            id="lines"
                             options={[
                                 { value: 1, alt: "1 line"  }, 
                                 { value: 2, alt: "2 lines" }, 

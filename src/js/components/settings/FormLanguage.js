@@ -19,9 +19,9 @@ const FormLanguage = (props) => {
         <table className="Setting">
             <tbody>
                 <tr>
-                    <th>Default:</th>
+                    <th><label htmlFor="native">Default</label>:</th>
                     <td>
-                        <select data-testid="native" value={native} onChange={handleNativeChange}>
+                        <select id="native" value={native} onChange={handleNativeChange}>
                             <option value='Dutch'>Dutch</option>
                             <option value='English'>English</option>
                             <option value='French'>French</option>
