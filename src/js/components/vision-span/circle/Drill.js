@@ -44,20 +44,23 @@ class Drill extends React.Component {
     /** Increment the span values by one-stop to make the drill more difficult. */
     increaseSpan() {
         if (helpers.isMaxSpan(this.state.span)) return;
-
-        this.setState(state => ({
-            ...state,
-            span: helpers.increaseSpan(state.span),
-        }));
+        this.updateSpan(helpers.increaseSpan(this.state.span));
     }
 
     /** Decrement the span values by one-stop to make the drill easier */
     reduceSpan() {
         if (helpers.isMinSpan(this.state.span)) return;
+        this.updateSpan(helpers.reduceSpan(this.state.span));
+    }
+
+    updateSpan(span) {
+        this.props.onLevelChange({
+            span: span,
+        });
 
         this.setState(state => ({
             ...state,
-            span: helpers.reduceSpan(state.span),
+            span: span,
         }));
     }
 
@@ -65,7 +68,7 @@ class Drill extends React.Component {
     handleDrillFinished(event) {
         // Check to adjust the level
         if (this.props.autoLevel) {
-            if (event.errorCount < 2) {
+            if (event.errorCount === 0) {
                 this.increaseSpan();
             } else if (event.errorCount > 4) {
                 this.reduceSpan();
@@ -75,10 +78,13 @@ class Drill extends React.Component {
     }
 
     newDrill() {
+        const newDrill = this.state.engine.newDrill();
         this.setState(state => ({
             ...state,
-            drill: state.engine.newDrill(),
-        }));
+            drill: newDrill,
+        }), () => {
+            this.props.onNewDrill(this.state.drill);
+        });
     }
 
     stopDrill() {
@@ -95,9 +101,9 @@ class Drill extends React.Component {
 
                     <section className="DrillControls">
                         <ul>
-                            {this.props.spanControls && <li><button onClick={this.reduceSpan}><i className="material-icons">chevron_left</i></button></li>}
-                            {this.props.spanControls && <li><button onClick={this.increaseSpan}><i className="material-icons">chevron_right</i></button></li>}
-                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                            {this.props.spanControls && <li><button onClick={this.reduceSpan}><i title="Reduce span" className="material-icons">chevron_left</i></button></li>}
+                            {this.props.spanControls && <li><button onClick={this.increaseSpan}><i title="Increase span" className="material-icons">chevron_right</i></button></li>}
+                            <li><button onClick={this.stopDrill}><i title="Stop" className="material-icons">stop</i></button></li>
                         </ul>
                     </section>
 
@@ -181,7 +187,9 @@ class Drill extends React.Component {
             ...state,
             engine: engine,
             drill: engine.getDrill(),
-        }));
+        }), () => {
+            this.props.onNewDrill(this.state.drill);
+        });
 
         window.addEventListener("keyup", this.handleKeyUp);
     }
@@ -195,13 +203,20 @@ class Drill extends React.Component {
 Drill.propTypes = {
     ...Viewer.propTypes,
 
+    // Callback when a new drill is generated (for testing purposes)
+    onNewDrill: PropTypes.func,
+    // Callback when the current level is updated
+    onLevelChange: PropTypes.func,
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
 };
 
 Drill.defaultProps = {
     ...Viewer.defaultProps,
-    onComplete: function() {},
+
+    onNewDrill: () => {},
+    onLevelChange: () => {},
+    onComplete: () => {},
 };
 
 export default Drill;

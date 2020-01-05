@@ -37,14 +37,21 @@ function Viewer(props) {
 
     return (
         <Styled className="Viewer Centered" {...props}>
-            {drill && drill.map((serie, index) => {
+            {drill && drill.map((serie, serieIndex) => {
                 return (
-                    <div className="Serie" key={index}>
-                        {serie.lines.map((line, index) => {
+                    <div className="Serie" key={serieIndex}>
+                        {serie.lines.map((line, lineIndex) => {
                             return (
-                                <div className="Line" key={index}>
-                                    {line.columns.map((col, index) => {
-                                        return <span key={index} className={"Cell " + cssSpan(index) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
+                                <div className="Line" key={lineIndex}>
+                                    {line.columns.map((col, columnIndex) => {
+                                        return (
+                                            <span
+                                                key={columnIndex}
+                                                data-testid={'Serie'+serieIndex+'Line'+lineIndex+'Column'+columnIndex}
+                                                className={"Cell " + cssSpan(columnIndex) + " " + (col.valid === true ? 'valid' : '')}>
+                                                    {col.label}
+                                            </span>
+                                        );
                                     })}
                                 </div>
                             );

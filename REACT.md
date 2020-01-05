@@ -81,7 +81,7 @@ function Toggle(props) {
 
 Reference: [React documentation](https://reactjs.org/docs/hooks-intro.html)
 
-Hooks: [useState](https://reactjs.org/docs/hooks-reference.html#usestate), 
+Hooks: [useState](https://reactjs.org/docs/hooks-reference.html#usestate),
 [useEffect](https://reactjs.org/docs/hooks-reference.html#useeffect),
 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext),
 [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer),
@@ -163,9 +163,9 @@ To export components:
 export default Welcome; // import Welcome from './Welcome';
 
 // Several components to export
-export { Welcome as default, Home }; 
+export { Welcome as default, Home };
 // import Welcome from './Welcome';
-// import Welcome, { Home } from './Welcome'; 
+// import Welcome, { Home } from './Welcome';
 
 export { Welcome, Home };
 // import { Welcome, Home } from './Welcome';
@@ -183,20 +183,20 @@ Welcome.propTypes = {
   ...Home.propTypes,                    // inherit from other component
   message: PropTypes.string.isRequired, // isRequired can be applied to any type
   onComplete: PropTypes.func,           // No way to be more specific
-  
+
   // Types: array, bool, func, number, object, string, symbol, node, any
-  
+
   // Examples:
 
   // React
   optionalElement: PropTypes.element,         // A React element.
   optionalElementType: PropTypes.elementType, // A React element type (ie. MyComponent).
-  
+
   // An instance of a class (JS's instanceof operator).
   optionalMessage: PropTypes.instanceOf(Message),
 
   // Enum
-  optionalEnum: PropTypes.oneOf(['News', 'Photos']), 
+  optionalEnum: PropTypes.oneOf(['News', 'Photos']),
 
   // An object that could be one of many types
   optionalUnion: PropTypes.oneOfType([
@@ -278,7 +278,7 @@ function Welcome() {
   // Or  <h2 style={{...styles.styleA, ...styles.styleB}}>Merged styles</h2>;
   // Or  <h2 style={{textAlign: "center"}}>Inline style</h2>;
 }
-``` 
+```
 
 3. Use project [`styled-components`](https://github.com/styled-components/styled-components)
 
@@ -399,7 +399,7 @@ myproject/
     App.js .............. Root React component
     App.test.js
     index.js ............ Entry point when using Create React App
-```  
+```
 
 
 ## Redux

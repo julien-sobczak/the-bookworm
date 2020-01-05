@@ -70,10 +70,48 @@ export function increaseSpan(span) {
 export const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 export const DIGITS = '0123456789';
 
+/**
+ * Returns a random letter from the list of allowed letters.
+ *
+ * @returns {string} A single letter
+ */
 export function randomLetter() {
     return CHARACTERS.charAt(Math.floor(Math.random() * CHARACTERS.length));
 }
 
+/**
+ * Returns a random digit.
+ *
+ * @returns {string} The digit character
+ */
 export function randomDigit() {
     return DIGITS.charAt(Math.floor(Math.random() * DIGITS.length));
+}
+
+/**
+ * Returns a random letter omitting the letters already in use.
+ * This method may be used during testing to simulate errors.
+ *
+ * @param {...any} letters The letter already in use.
+ * @returns {string} A single letter.
+ */
+export function differentLetter(...letters) {
+    const characters = CHARACTERS.split("").sort(() => Math.random() - 0.5); // shuffle CHARACTERS
+
+    // Try each one until find a match
+    for (let i = 0; i < characters.length; i++) {
+        const character = CHARACTERS[i];
+        let inUsed = false;
+        for (let l = 0; l <= letters.length; l++) {
+            if (character == letters[l]) {
+                inUsed = true;
+            }
+        }
+        if (!inUsed) {
+            return character;
+        }
+    }
+
+    // All letters are already in use...
+    return undefined;
 }
