@@ -42,13 +42,13 @@ function Viewer(props) {
 
     return (
         <Styled className="Viewer Centered" {...props}>
-            {drill.lines.map((line, index) => {
+            {drill.lines.map((line, lineIndex) => {
                 if (!currentSpan) {
                     // Fist line: start at 0in
                     currentSpanIndex = 0;
                     currentSpan = helpers.SPANS[currentSpanIndex];
                     countLinesInSpan = 1;
-                } else if (index === drill.lines.length - 1) {
+                } else if (lineIndex === drill.lines.length - 1) {
                     // Last line: end at expected span
                     const end = helpers.SPANS.indexOf(props.span);
                     currentSpan = helpers.SPANS[end];
@@ -64,9 +64,16 @@ function Viewer(props) {
                 }
 
                 return (
-                    <div className="Line" key={index}>
-                        {line.columns.map((col, index) => {
-                            return <span key={index} className={"Cell " + cssSpan(currentSpan) + " " + (col.valid === true ? 'valid' : '')}>{col.label}</span>;
+                    <div className="Line" key={lineIndex}>
+                        {line.columns.map((column, columnIndex) => {
+                            return (
+                                <span
+                                    key={columnIndex}
+                                    data-testid={'Line'+lineIndex+'Column'+columnIndex}
+                                    className={"Cell " + cssSpan(currentSpan) + " " + (column.valid === true ? 'valid' : '')}>
+                                        {column.label}
+                                </span>
+                            );
                         })}
                     </div>
                 );

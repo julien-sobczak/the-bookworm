@@ -29,7 +29,7 @@ import * as strings from './strings';
 describe('random()', () => {
 
   it('should generate random texts', () => {
-    expect(strings.random(10)).toHaveLength(10); 
+    expect(strings.random(10)).toHaveLength(10);
   });
 
 });
@@ -182,20 +182,20 @@ fireEvent.change(getByLabelText(/wpm/i), { target: { value: 500 } });
 ### RadioButtons
 
 ```jsx
-<RadioButtons 
+<RadioButtons
   options={[
-      { value: 1, label: "1 line",  alt: "1 line per chunk"  }, 
-      { value: 2, label: "2 lines", alt: "2 lines per chunk" }, 
+      { value: 1, label: "1 line",  alt: "1 line per chunk"  },
+      { value: 2, label: "2 lines", alt: "2 lines per chunk" },
       { value: 3, label: "3 lines", alt: "3 lines per chunk" },
-  ]} 
-  onChange={handleLinesChange} 
+  ]}
+  onChange={handleLinesChange}
   value={lines} />
 ```
 
 ```javascript
 fireEvent.click(getByAltText(/2 lines per chunk/i));
-// Or    
-fireEvent.click(getByLabelText(/2 lines/i));    
+// Or
+fireEvent.click(getByLabelText(/2 lines/i));
 ```
 
 References:
@@ -203,6 +203,18 @@ References:
 * [Events](https://github.com/testing-library/dom-testing-library/blob/master/src/events.js)
 * [Test absence/presence](http://testing-library.com/docs/guide-disappearance)
 
+
+
+## CSS
+
+```javascript
+expect(container.firstChild).toHaveClass('MyDrill');
+expect(container.firstChild).toHaveAttribute('id', 'my-styled');
+expect(container.firstChild).toHaveStyle(`
+    color: red;
+    background-color: yellow;
+`);
+```
 
 ## CLI
 

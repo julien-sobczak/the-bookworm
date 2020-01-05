@@ -78,6 +78,16 @@ describe('randomDigit', () => {
 
 });
 
+describe('differentLetter', () => {
+
+    it('returns a letter different from the ones in argument', () => {
+        expect(engine.differentLetter()).toHaveLength(1);
+        expect(engine.differentLetter('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', /* Y */ 'Z')).toBe('Y');
+        expect(engine.differentLetter('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',  'Y', 'Z')).toBeUndefined();
+    });
+    
+});
+
 describe('globalSpan', () => {
 
     it('calculates the total width between the left letter and the right letter', () => {

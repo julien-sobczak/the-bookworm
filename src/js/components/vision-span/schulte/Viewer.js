@@ -23,11 +23,18 @@ function Viewer(props) {
         <Styled className="Viewer Centered" {...props}>
             <table className="SchulteTable">
                 <tbody>
-                    {drill && drill.lines.map((line, index) => {
+                    {drill && drill.lines.map((line, lineIndex) => {
                         return (
-                            <tr className="Line" key={index}>
-                                {line.columns.map((col, index) => {
-                                    return <td key={index} className={"Cell " + cssCell + " " + (col.valid === true ? 'valid' : '')}>{col.label}</td>;
+                            <tr className="Line" key={lineIndex}>
+                                {line.columns.map((column, columnIndex) => {
+                                    return (
+                                        <td
+                                            key={columnIndex}
+                                            data-testid={'Line'+lineIndex+'Column'+columnIndex}
+                                            className={"Cell " + cssCell + " " + (column.valid === true ? 'valid' : '')}>
+                                                {column.label}
+                                        </td>
+                                    );
                                 })}
                             </tr>
                         );

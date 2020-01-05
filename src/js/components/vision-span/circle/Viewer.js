@@ -24,31 +24,31 @@ function Viewer(props) {
         <Styled className="Viewer ViewerCircle" {...props}>
             {drill &&
                 <div style={{height: "100%"}}>
-                    <span className={"Cell " + (drill.center.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `50%` }}>
+                    <span data-testid="LetterCenter" className={"Cell " + (drill.center.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `50%` }}>
                         {drill.center.label}
                     </span>
-                    <span className={"Cell " + (drill.top.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `calc(50% - ${props.span})` }}>
+                    <span data-testid="LetterTop" className={"Cell " + (drill.top.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `calc(50% - ${props.span})` }}>
                         {drill.top.label}
                     </span>
-                    <span className={"Cell " + (drill.topRight.valid === true ? 'valid' : '')} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% - ${y}in)` }}>
+                    <span data-testid="LetterTopRight" className={"Cell " + (drill.topRight.valid === true ? 'valid' : '')} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% - ${y}in)` }}>
                         {drill.topRight.label}
                     </span>
-                    <span className={"Cell " + (drill.right.valid === true ? 'valid' : '')} style={{ left: `calc(50% + ${props.span})`, top: `50%` }}>
+                    <span data-testid="LetterRight" className={"Cell " + (drill.right.valid === true ? 'valid' : '')} style={{ left: `calc(50% + ${props.span})`, top: `50%` }}>
                         {drill.right.label}
                     </span>
-                    <span className={"Cell " + (drill.bottomRight.valid === true ? 'valid' : '')} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% + ${y}in)` }}>
+                    <span data-testid="LetterBottomRight" className={"Cell " + (drill.bottomRight.valid === true ? 'valid' : '')} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% + ${y}in)` }}>
                         {drill.bottomRight.label}
                     </span>
-                    <span className={"Cell " + (drill.bottom.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `calc(50% + ${props.span})` }}>
+                    <span data-testid="LetterBottom" className={"Cell " + (drill.bottom.valid === true ? 'valid' : '')} style={{ left: `50%`, top: `calc(50% + ${props.span})` }}>
                         {drill.bottom.label}
                     </span>
-                    <span className={"Cell " + (drill.bottomLeft.valid === true ? 'valid' : '')} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% + ${y}in)` }}>
+                    <span data-testid="LetterBottomLeft" className={"Cell " + (drill.bottomLeft.valid === true ? 'valid' : '')} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% + ${y}in)` }}>
                         {drill.bottomLeft.label}
                     </span>
-                    <span className={"Cell " + (drill.left.valid === true ? 'valid' : '')} style={{ left: `calc(50% - ${props.span})`, top: `50%` }}>
+                    <span data-testid="LetterLeft" className={"Cell " + (drill.left.valid === true ? 'valid' : '')} style={{ left: `calc(50% - ${props.span})`, top: `50%` }}>
                         {drill.left.label}
                     </span>
-                    <span className={"Cell " + (drill.topLeft.valid === true ? 'valid' : '')} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% - ${y}in)` }}>
+                    <span data-testid="LetterTopLeft" className={"Cell " + (drill.topLeft.valid === true ? 'valid' : '')} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% - ${y}in)` }}>
                         {drill.topLeft.label}
                     </span>
                 </div>
