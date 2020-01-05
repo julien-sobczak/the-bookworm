@@ -123,6 +123,7 @@ class Engine {
         if (error) {
             this.errorCount++;
         }
+        console.log(currentLine)
         if (lineFinished) {
             if (this.currentLineIndex < currentSerie.lines.length - 1) {
                 this.currentLineIndex++;

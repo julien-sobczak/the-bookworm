@@ -78,7 +78,9 @@ class Drill extends React.Component {
         this.setState(state => ({
             ...state,
             drill: state.engine.newDrill(),
-        }));
+        }), () => {
+            this.props.onNewDrill(this.state.drill);            
+        });
     }
 
     stopDrill() {
@@ -97,7 +99,7 @@ class Drill extends React.Component {
                     <ul>
                         {this.props.spanControls && <li><button onClick={this.reduceSpan}><i className="material-icons">chevron_left</i></button></li>}
                         {this.props.spanControls && <li><button onClick={this.increaseSpan}><i className="material-icons">chevron_right</i></button></li>}
-                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                        <li><button onClick={this.stopDrill}><i title="Stop" className="material-icons">stop</i></button></li>
                     </ul>
                 </section>
 
@@ -198,7 +200,10 @@ class Drill extends React.Component {
             ...state,
             engine: engine,
             drill: engine.getDrill(), // the drill content
-        }));
+        }), () => {
+            this.props.onNewDrill(this.state.drill);            
+        });
+        
 
         window.addEventListener("keyup", this.handleKeyUp);
     }
@@ -212,6 +217,8 @@ class Drill extends React.Component {
 Drill.propTypes = {
     ...Viewer.propTypes,
 
+    // Callback when a new drill is generated (for testing purposes)
+    onNewDrill: PropTypes.func,
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
 };
@@ -219,6 +226,7 @@ Drill.propTypes = {
 Drill.defaultProps = {
     ...Viewer.defaultProps,
 
+    onNewDrill: function() {},
     onComplete: function() {},
 };
 
