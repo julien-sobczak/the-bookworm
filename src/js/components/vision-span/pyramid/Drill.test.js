@@ -164,9 +164,9 @@ function completeDrillWithNErrors(container, drill, n) {
         // Generate the errors on the first line for code simplicity
         const firstLine = indexLine === 0;
         if (firstLine) {
-            const labels = line.columns.map(column => column.label)
+            const labels = line.columns.map(column => column.label);
             for (let i = 0; i < n; i++) {
-                press(container, engine.differentLetter(...labels))
+                press(container, engine.differentLetter(...labels));
             }
         }
 

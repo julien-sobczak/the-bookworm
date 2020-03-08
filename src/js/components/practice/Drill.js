@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
-import Pager from '../chunking/Pager';
+import Pager, { PagerTest } from '../chunking/Pager';
 
 import ProgressLine from '../toolbox/ProgressLine';
 
@@ -11,6 +11,9 @@ import * as string from '../../functions/string';
 import * as wpm from '../../functions/wpm';
 import * as library from '../../functions/library';
 import * as time from '../../functions/time';
+
+// Values for property pagerMode.
+const pagerModes = ['dom', 'fixed'];
 
 class Drill extends React.Component {
 
@@ -31,14 +34,13 @@ class Drill extends React.Component {
     }
 
     onPagerDone(pages) {
-        console.log('Pages', pages);
         this.setState(state => ({
             ...state,
             pages: pages,
             pageNumber: 1,
             pagesDuration: this.calculateWpm(pages),
             startDate: new Date(),
-            winner: undefined, // use when racing with the pacer
+            winner: undefined, // used when racing with the pacer
         }), this.start);
     }
 
@@ -57,7 +59,7 @@ class Drill extends React.Component {
     /**
      * Estimates on which page the pacer is currently reading.
      * (Based on the pages durations calculated at the start of the drill)
-     * 
+     *
      * @param {Number} elapsedDuration Drill current elapsed duration in ms
      * @return {Number} The page number of the pacer
      */
@@ -78,6 +80,9 @@ class Drill extends React.Component {
             // IMPROVEMENT ask the user to click on the last read block instead of ignore the whole current page
             setTimeout(() => this.reportCompletion(true), this.props.timer * 60 * 1000); // convert minutes -> ms
         }
+        this.props.onStart({
+            pages: this.state.pages.length,
+        });
         if (this.props.pacerWpm > 0) {
             let start = new Date().getTime();
             let loop = () => {
@@ -184,7 +189,8 @@ class Drill extends React.Component {
         return (
             <div className={"FullScreen DrillPractice Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
-                <Pager content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />
+                {this.props.pagerMode === 'dom'   && <Pager     content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />}
+                {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />}
 
                 <section className="DrillControls">
                     <ul>
@@ -245,19 +251,31 @@ class Drill extends React.Component {
 }
 
 Drill.propTypes = {
+    ...Pager.propTypes,
+    ...PagerTest.propTypes,
     ...Viewer.propTypes,
 
     // The content to read
     content: PropTypes.object,
 
+    // Callback triggered when the drill really start
+    onStart: PropTypes.func,
+
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
+
+    // Which pager to use
+    pagerMode: PropTypes.oneOf(pagerModes),
 };
 
 Drill.defaultProps = {
+    ...Pager.defaultProps,
+    ...PagerTest.defaultProps,
     ...Viewer.defaultProps,
 
-    onComplete: function () { },
+    pagerMode: "dom",
+    onStart: () => {},
+    onComplete: () => {},
 };
 
 export default Drill;

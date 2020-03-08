@@ -12,11 +12,11 @@ it('measures the width of inches and texts in pixels', () => {
         </div>);
     // The code considers 1em = 16px when running outside a browser
     expect(mockFn.mock.calls[0][0]).toMatchObject({
-        '0in': { width: 0, height: 16 }, 
-        '1in': { width: 16, height: 16 }, 
-        '2in': { width: 32, height: 16 }, 
-        '3in': { width: 48, height: 16 }, 
-        '4in': { width: 64, height: 16 },
+        '0in': { width:   0, height: 16 },
+        '1in': { width: 100, height: 16 },
+        '2in': { width: 200, height: 16 },
+        '3in': { width: 300, height: 16 },
+        '4in': { width: 400, height: 16 },
     });
 
     // The code considers one letter is equals to 10px

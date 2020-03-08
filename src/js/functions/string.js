@@ -1,6 +1,6 @@
 
 /**
- * Return the input text with the first letter capitalized.
+ * Returns the input text with the first letter capitalized.
  *
  * @param {string} s A text
  * @returns {string} The same text capitalized
@@ -26,7 +26,8 @@ export function uid() {
 }
 
 /**
- * Return a short string containing the beginning of the text
+ * Returns a short string containing the beginning of the text
+ *
  * @param {string} text A text
  */
 export function headline(text, maxCharacters = 20) {
@@ -47,7 +48,7 @@ export function headline(text, maxCharacters = 20) {
 
 
 /**
- * Format a raw date to a more human readable format.
+ * Formats a raw date to a more human readable format.
  * Example:
  * "2019-04-23T18:25:43.511Z" => "6 month ago"
  * "2019-09-23T18:25:43.511Z" => "last week"
@@ -97,7 +98,7 @@ export function humanReadableDate(jsonDate, reference=new Date(), useUTC=false) 
 }
 
 /**
- * Format the number of bytes to the closest logical unit.
+ * Formats the number of bytes to the closest logical unit.
  * Based on https://stackoverflow.com/a/20732091.
  *
  * @param {Number} size A number of bytes
@@ -110,7 +111,7 @@ export function humanReadableSize(size) {
 }
 
 /**
- * Format the number of seconds to the closest logical temporal unit.
+ * Formats the number of seconds to the closest logical temporal unit.
  *
  * @param {Number} durationInSeconds A number of seconds
  * @return {string} The formated duration
@@ -131,7 +132,7 @@ export function humanReadableShortDuration(durationInSeconds) {
 
 
 /**
- * Format the number of seconds to the closest logical temporal unit.
+ * Formats the number of seconds to the closest logical temporal unit.
  *
  * @param {Number} durationInSeconds A number of seconds
  * @return {string} The formated duration
@@ -158,5 +159,130 @@ export function humanReadableLongDuration(durationInSeconds) {
             result += ` ${seconds} seconds`;
         }
     }
+    return result;
+}
+
+/**
+ * Strips HTML tags from the input string and returns the results.
+ *
+ * @param {string} str A string containing optional HTML tags
+ */
+export function stripTags(str) {
+    return str.replace(/(<([^>]+)>)/ig,"");
+}
+
+/** Valid separators between two words. */
+export const WORD_DELIMETERS = [
+    ' ', '\t',      // spaces
+    '--', '—', '–', // em-dash in text files in Gutenberg, em dash, en dash
+];
+
+/**
+ * Returns the start/end indices of each word present in the line.
+ *
+ * @param {string} line A text line
+ */
+export function wordDelims(line) {
+    const words = [];
+    let start = 0;
+    for (let i = 0; i < line.length; i++) {
+        const extract = line.substring(i, i+2); // Separators have maximum 2 characters
+        for (let d = 0; d < WORD_DELIMETERS.length; d++) {
+            const delimiter = WORD_DELIMETERS[d];
+            if (extract.startsWith(delimiter)) {
+                if (i - start >= 1) { // A word must have at least one character
+                    words.push([start, i-1]);
+                }
+                start = i+delimiter.length;
+                break;
+            }
+        }
+    }
+    // Don't forget the last word
+    if (start < line.length) {
+        words.push([start, line.length-1]);
+    }
+    return words;
+}
+
+/**
+ * Split the line into words.
+ * Ex: "This is a test": => [
+ *   { text: "This", start: 0,  end: 3,  word: true  },
+ *   { text: " ",    start: 4,  end: 4,  word: false },
+ *   { text: "is",   start: 5,  end: 6,  word: true  },
+ *   { text: " ",    start: 7,  end: 7,  word: false },
+ *   { text: "a",    start: 8,  end: 8,  word: true  },
+ *   { text: " ",    start: 9,  end: 9,  word: false },
+ *   { text: "test", start: 10, end: 13, word: true  },
+ * ]
+ * @param {string} line The line to parse
+ */
+export function splitWords(line) {
+    const words = wordDelims(line);
+    if (words.length === 0) {
+        return [];
+    }
+
+    const results = [];
+    let lastCharacter = 0;
+    words.forEach(([start, end]) => {
+        if (lastCharacter !== start) {
+            results.push({
+                text: line.substring(lastCharacter, start),
+                start: lastCharacter,
+                end: start-1,
+                word: false,
+            });
+        }
+        results.push({
+            text: line.substring(start, end+1),
+            start: start,
+            end: end,
+            word: true,
+        });
+        lastCharacter = end+1;
+    });
+    if (lastCharacter < line.length - 1) {
+        results.push({
+            text: line.substring(lastCharacter),
+            start: lastCharacter,
+            end: line.length-1,
+            word: false,
+        });
+    }
+
+    return results;
+}
+
+/**
+ * Display the line with the words highlighted with brackets.
+ * Example: "This is a--test" => "[This] [is] [a]--[test]"
+ *
+ * @param {string} line The line to parse
+ */
+export function showWords(line) {
+    const words = wordDelims(line);
+    if (words.length === 0) {
+        return line;
+    }
+
+    let result = "";
+    let currentWordIndex = -1;
+    let lastWordIndex = -1;
+    for (let i = 0; i < line.length; i++) {
+        if (currentWordIndex === -1 && i === words[lastWordIndex+1][0]) {
+            currentWordIndex = lastWordIndex+1;
+            result += "[";
+        }
+        result += line[i];
+        if (currentWordIndex !== -1 && i === words[currentWordIndex][1]) {
+            result += "]";
+            lastWordIndex = currentWordIndex;
+            currentWordIndex = -1;
+        }
+
+    }
+
     return result;
 }

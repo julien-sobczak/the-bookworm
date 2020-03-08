@@ -28,12 +28,12 @@ class Measurer extends React.Component {
             }
         );
         const chunkHTML = ReactDOMServer.renderToStaticMarkup(chunkElement);
-        
+
         const rootMeasurer = document.createElement("DIV");
         rootMeasurer.innerHTML = chunkHTML;
         document.body.appendChild(rootMeasurer);
         //document.getElementById('root-chunker').innerHTML = chunkHTML;
-        
+
         Measurer.element = document.getElementById(this.props.elementId);
         Measurer.element.style.display = "inline-block"; // We want to measure the width (display: block by default)
 
@@ -69,7 +69,8 @@ class Measurer extends React.Component {
 
         Measurer.element.innerHTML = text;
 
-        return Measurer._measure();
+        const dimensions = Measurer._measure();
+        return dimensions;
     }
 
     /**
@@ -89,15 +90,16 @@ class Measurer extends React.Component {
 
     /**
      * Same as _measure but called when testing in Node environment (Jest) where real dimentions cannot be determined.
-     * This method uses a fixed-character formula to determine the value. 
+     * This method uses a fixed-character formula to determine the value.
      */
     static _measureTestMode() {
         const pixelsPerCharacter = 10;
         const pixelsPerEm = 16;
-        
+        const charactersPerInch = 10; // Based on 12pt Courier font
+
         if (Measurer.element.style.width !== "") {
             // We measure the element width
-            const elementWidthPixels = Math.round(parseFloat(Measurer.element.style.width) * pixelsPerEm);
+            const elementWidthPixels = Math.round(parseFloat(Measurer.element.style.width) * charactersPerInch * pixelsPerCharacter);
             return [elementWidthPixels, pixelsPerEm];
         } else {
             // We measure the text width

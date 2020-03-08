@@ -71,7 +71,7 @@ function Viewer(props) {
                                     key={columnIndex}
                                     data-testid={'Line'+lineIndex+'Column'+columnIndex}
                                     className={"Cell " + cssSpan(currentSpan) + " " + (column.valid === true ? 'valid' : '')}>
-                                        {column.label}
+                                    {column.label}
                                 </span>
                             );
                         })}

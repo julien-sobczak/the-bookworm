@@ -8,15 +8,15 @@ afterEach(cleanup);
 
 test('letter positions', async () => {
     const drill = {
-      center:      { label: "A", valid: true, },
-      top:         { label: "B", valid: true, },
-      topRight:    { label: "C", valid: true, },
-      right:       { label: "D", valid: true, },
-      bottomRight: { label: "E", valid: true, },
-      bottom:      { label: "F", },
-      bottomLeft:  { label: "G", },
-      left:        { label: "H", },
-      topLeft:     { label: "I", },
+        center:      { label: "A", valid: true, },
+        top:         { label: "B", valid: true, },
+        topRight:    { label: "C", valid: true, },
+        right:       { label: "D", valid: true, },
+        bottomRight: { label: "E", valid: true, },
+        bottom:      { label: "F", },
+        bottomLeft:  { label: "G", },
+        left:        { label: "H", },
+        topLeft:     { label: "I", },
     };
 
     const { getByTestId } = render(

@@ -44,6 +44,9 @@ function Viewer(props) {
 
 }
 
+// Values for property neighborChunksPosition.
+const neighborChunksPositions = ["vertical", "horizontal"];
+
 Viewer.propTypes = {
     ...Styled.propTypes,
     ...Chunker.propTypes,
@@ -51,11 +54,16 @@ Viewer.propTypes = {
     // WPM
     wpm: PropTypes.number,
 
+    // Chunks
+    previousChunk: PropTypes.object,
+    currentChunk: PropTypes.object,
+    nextChunk: PropTypes.object,
+
     // How many lines per chunk (in practice, pack several chunks into the same chunk)
     linesPerChunk: PropTypes.number,
 
     // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
-    neighborChunksPosition: PropTypes.string,
+    neighborChunksPosition: PropTypes.oneOf(neighborChunksPositions),
 
     // Display the previous chunk
     showPreviousChunk: PropTypes.bool,

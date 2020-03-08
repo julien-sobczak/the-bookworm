@@ -49,7 +49,7 @@ function Viewer(props) {
                                                 key={columnIndex}
                                                 data-testid={'Serie'+serieIndex+'Line'+lineIndex+'Column'+columnIndex}
                                                 className={"Cell " + cssSpan(columnIndex) + " " + (col.valid === true ? 'valid' : '')}>
-                                                    {col.label}
+                                                {col.label}
                                             </span>
                                         );
                                     })}

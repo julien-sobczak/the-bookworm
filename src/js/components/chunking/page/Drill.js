@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
-import Pager from '../Pager';
+import Pager, { PagerTest } from '../Pager';
 
 import ProgressLine from '../../toolbox/ProgressLine';
 
@@ -10,6 +10,9 @@ import * as string from '../../../functions/string';
 import * as wpm from '../../../functions/wpm';
 import * as library from '../../../functions/library';
 import * as time from '../../../functions/time';
+
+// Values for property pagerMode.
+const pagerModes = ['dom', 'fixed'];
 
 class Drill extends React.Component {
 
@@ -31,7 +34,6 @@ class Drill extends React.Component {
     }
 
     onPagerDone(pages) {
-        console.log('Pages', pages);
         this.setState(state => ({
             ...state,
             pages: pages,
@@ -108,7 +110,7 @@ class Drill extends React.Component {
                             pageNumber: state.pageNumber+1,
                             blockPosition: 0,
                             chunkPosition: 0,
-                        }));
+                        }), this.reportChunkChange);
                         return pageTurningDuration + wpm.textDuration(this.currentChunk(), this.state.wpm);
                     }
                 } else {
@@ -117,7 +119,7 @@ class Drill extends React.Component {
                         ...state,
                         blockPosition: state.blockPosition+1,
                         chunkPosition: 0,
-                    }));
+                    }), this.reportChunkChange);
                 }
             } else {
                 // Move to next chunk
@@ -128,7 +130,7 @@ class Drill extends React.Component {
                     this.setState(state => ({ // eslint-disable-line no-loop-func
                         ...state,
                         chunkPosition: indexChunk+1,
-                    }));
+                    }), this.reportChunkChange);
                 }
             }
         } while (retry);
@@ -178,6 +180,14 @@ class Drill extends React.Component {
         }));
     }
 
+    reportChunkChange() {
+        this.props.onChunkChange({
+            pageNumber: this.state.pageNumber,
+            blockPosition: this.state.blockPosition,
+            chunkPosition: this.state.chunkPosition,
+        });
+    }
+
     reportCompletion(stopped) {
         let readContent = this.props.content;
         let readPages = this.state.pages;
@@ -208,8 +218,10 @@ class Drill extends React.Component {
         return (
             <div className={"FullScreen ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
-                <Pager content={this.props.content} onDone={this.onPagerDone}
-                    {...this.props} />
+                {this.props.pagerMode === 'dom' && <Pager content={this.props.content} onDone={this.onPagerDone}
+                    {...this.props} />}
+                {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone}
+                    {...this.props} />}
 
                 <section className="DrillControls">
                     <ul>
@@ -242,20 +254,30 @@ class Drill extends React.Component {
 
 Drill.propTypes = {
     ...Pager.propTypes,
+    ...PagerTest.propTypes,
     ...Viewer.propTypes,
 
     // The content to read
     content: PropTypes.object,
 
+    // Callback when the current chunk is updated
+    onChunkChange: PropTypes.func,
+
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
+
+    // Which pager to use
+    pagerMode: PropTypes.oneOf(pagerModes),
 };
 
 Drill.defaultProps = {
     ...Pager.defaultProps,
+    ...PagerTest.defaultProps,
     ...Viewer.defaultProps,
 
-    onComplete: function() {},
+    pagerMode: "dom",
+    onChunkChange: () => {},
+    onComplete: () => {},
 };
 
 export default Drill;

@@ -103,7 +103,7 @@ export function differentLetter(...letters) {
         const character = CHARACTERS[i];
         let inUsed = false;
         for (let l = 0; l <= letters.length; l++) {
-            if (character == letters[l]) {
+            if (character === letters[l]) {
                 inUsed = true;
             }
         }

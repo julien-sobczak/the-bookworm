@@ -8,42 +8,42 @@ afterEach(cleanup);
 
 test('with two series and two lines', async () => {
     const drill = [
-      {
-        lines: [
-          {
-            columns: [
-              { label: "A", valid: true, },
-              { label: "B", valid: true, },
-              { label: "C", valid: true, },
+        {
+            lines: [
+                {
+                    columns: [
+                        { label: "A", valid: true, },
+                        { label: "B", valid: true, },
+                        { label: "C", valid: true, },
+                    ],
+                },
+                {
+                    columns: [
+                        { label: "D", valid: true, },
+                        { label: "E", },
+                        { label: "F", },
+                    ],
+                }
             ],
-          },
-          {
-            columns: [
-              { label: "D", valid: true, },
-              { label: "E", },
-              { label: "F", },
+        },
+        {
+            lines: [
+                {
+                    columns: [
+                        { label: "G", },
+                        { label: "H", },
+                        { label: "I", },
+                    ],
+                },
+                {
+                    columns: [
+                        { label: "J", },
+                        { label: "K", },
+                        { label: "L", },
+                    ],
+                }
             ],
-          }
-        ],
-      },
-      {
-        lines: [
-          {
-            columns: [
-              { label: "G", },
-              { label: "H", },
-              { label: "I", },
-            ],
-          },
-          {
-            columns: [
-              { label: "J", },
-              { label: "K", },
-              { label: "L", },
-            ],
-          }
-        ],
-      },
+        },
     ];
 
     const { getByTestId } = render(
@@ -74,34 +74,34 @@ test('with two series and two lines', async () => {
 });
 
 test('larger column spans', async () => {
-  const drill = [
-    {
-      lines: [
+    const drill = [
         {
-          columns: [
-            { label: "A", },
-            { label: "B", },
-            { label: "C", },
-            { label: "D", },
-            { label: "E", },
-          ],
+            lines: [
+                {
+                    columns: [
+                        { label: "A", },
+                        { label: "B", },
+                        { label: "C", },
+                        { label: "D", },
+                        { label: "E", },
+                    ],
+                },
+            ],
         },
-      ],
-    },
-  ];
+    ];
 
-  const { getByTestId } = render(
-      <Viewer
-          lines={1}
-          columns={5}
-          spans={["1.75in", "0.5in", "0.5in", "1.75in"]}
-          drill={drill} />
-  );
+    const { getByTestId } = render(
+        <Viewer
+            lines={1}
+            columns={5}
+            spans={["1.75in", "0.5in", "0.5in", "1.75in"]}
+            drill={drill} />
+    );
 
-  // Each span is marked by a CSS class
-  expect(getByTestId('Serie0Line0Column0')).toHaveClass("SpanLeft0in    SpanRight1_75in");
-  expect(getByTestId('Serie0Line0Column1')).toHaveClass("SpanLeft1_75in SpanRight0_5in");
-  expect(getByTestId('Serie0Line0Column2')).toHaveClass("SpanLeft0_5in  SpanRight0_5in");
-  expect(getByTestId('Serie0Line0Column3')).toHaveClass("SpanLeft0_5in  SpanRight1_75in");
-  expect(getByTestId('Serie0Line0Column4')).toHaveClass("SpanLeft1_75in SpanRight0in");
+    // Each span is marked by a CSS class
+    expect(getByTestId('Serie0Line0Column0')).toHaveClass("SpanLeft0in    SpanRight1_75in");
+    expect(getByTestId('Serie0Line0Column1')).toHaveClass("SpanLeft1_75in SpanRight0_5in");
+    expect(getByTestId('Serie0Line0Column2')).toHaveClass("SpanLeft0_5in  SpanRight0_5in");
+    expect(getByTestId('Serie0Line0Column3')).toHaveClass("SpanLeft0_5in  SpanRight1_75in");
+    expect(getByTestId('Serie0Line0Column4')).toHaveClass("SpanLeft1_75in SpanRight0in");
 });
