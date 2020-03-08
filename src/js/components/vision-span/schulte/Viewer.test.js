@@ -8,29 +8,29 @@ afterEach(cleanup);
 
 test('letters', async () => {
     const drill = {
-      lines: [
-        {
-          columns: [
-            { label: "A", valid: true, },
-            { label: "B", valid: true, },
-            { label: "C", valid: true, },
-          ],
-        },
-        {
-          columns: [
-            { label: "D", valid: true, },
-            { label: "E", },
-            { label: "F", },
-          ],
-        },
-        {
-          columns: [
-            { label: "G", },
-            { label: "H", },
-            { label: "I", },
-          ],
-        },
-      ],
+        lines: [
+            {
+                columns: [
+                    { label: "A", valid: true, },
+                    { label: "B", valid: true, },
+                    { label: "C", valid: true, },
+                ],
+            },
+            {
+                columns: [
+                    { label: "D", valid: true, },
+                    { label: "E", },
+                    { label: "F", },
+                ],
+            },
+            {
+                columns: [
+                    { label: "G", },
+                    { label: "H", },
+                    { label: "I", },
+                ],
+            },
+        ],
     };
 
     const { getByTestId } = render(
@@ -57,41 +57,41 @@ test('letters', async () => {
 });
 
 test('larger cell width', async () => {
-  const drill = {
-    lines: [
-      {
-        columns: [
-          { label: "A", valid: true, },
-          { label: "B", valid: true, },
-          { label: "C", valid: true, },
+    const drill = {
+        lines: [
+            {
+                columns: [
+                    { label: "A", valid: true, },
+                    { label: "B", valid: true, },
+                    { label: "C", valid: true, },
+                ],
+            },
+            {
+                columns: [
+                    { label: "D", valid: true, },
+                    { label: "E", },
+                    { label: "F", },
+                ],
+            },
+            {
+                columns: [
+                    { label: "G", },
+                    { label: "H", },
+                    { label: "I", },
+                ],
+            },
         ],
-      },
-      {
-        columns: [
-          { label: "D", valid: true, },
-          { label: "E", },
-          { label: "F", },
-        ],
-      },
-      {
-        columns: [
-          { label: "G", },
-          { label: "H", },
-          { label: "I", },
-        ],
-      },
-    ],
-  };
+    };
 
-  const { getByTestId } = render(
-      <Viewer
-          size={3}
-          span="1.75in"
-          drill={drill} />
-  );
+    const { getByTestId } = render(
+        <Viewer
+            size={3}
+            span="1.75in"
+            drill={drill} />
+    );
 
-  // Each span is marked by a CSS class
-  expect(getByTestId('Line0Column0')).toHaveClass("Width1_75in");
-  expect(getByTestId('Line1Column1')).toHaveClass("Width1_75in");
-  expect(getByTestId('Line2Column2')).toHaveClass("Width1_75in");
+    // Each span is marked by a CSS class
+    expect(getByTestId('Line0Column0')).toHaveClass("Width1_75in");
+    expect(getByTestId('Line1Column1')).toHaveClass("Width1_75in");
+    expect(getByTestId('Line2Column2')).toHaveClass("Width1_75in");
 });

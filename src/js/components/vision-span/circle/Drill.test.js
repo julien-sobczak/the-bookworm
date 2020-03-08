@@ -170,7 +170,7 @@ function completeDrillWithNErrors(container, drill, n) {
 
     // Generate the errors first
     for (let i = 0; i < n; i++) {
-        press(container, engine.differentLetter(...labels))
+        press(container, engine.differentLetter(...labels));
     }
 
     // Validate the drill

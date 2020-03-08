@@ -30,7 +30,6 @@ class Drill extends React.Component {
     }
 
     onChunkerDone(chunks) {
-        console.log('Chunks', chunks);
         this.setState(state => ({
             ...state,
             chunks: Drill.groupChunks(chunks, this.props.linesPerChunk),
@@ -112,7 +111,7 @@ class Drill extends React.Component {
                 previousChunk: previousChunk,
                 currentChunk: currentChunk,
                 nextChunk: nextChunk,
-            }));
+            }), this.reportChunkChange);
             return wpm.textDuration(this.chunkAt(newChunkPosition).text, this.state.wpm);
         }
     }
@@ -174,6 +173,13 @@ class Drill extends React.Component {
 
     stopDrill() {
         this.reportCompletion(true);
+    }
+
+    reportChunkChange() {
+        this.props.onChunkChange({
+            chunkPosition: this.state.chunkPosition,
+            chunk: this.currentChunk(),
+        });
     }
 
     reportCompletion(stopped) {
@@ -253,6 +259,9 @@ Drill.propTypes = {
     // The content to read
     content: PropTypes.object,
 
+    // Callback when the chunk is updated
+    onChunkChange: PropTypes.func,
+
     // Callback when the user finishes the drill
     onComplete: PropTypes.func,
 };
@@ -260,7 +269,8 @@ Drill.propTypes = {
 Drill.defaultProps = {
     ...Viewer.defaultProps,
 
-    onComplete: function() {},
+    onChunkChange: () => {},
+    onComplete: () => {},
 };
 
 export default Drill;

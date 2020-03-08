@@ -249,7 +249,7 @@ class LibraryBooks extends React.Component {
 LibraryBooks.propTypes = {
     // Redux State
     readings: PropTypes.array.isRequired,
-    preferencesLanguage: PropTypes.string.isRequired,
+    preferencesLanguage: PropTypes.object.isRequired,
     // Callbacks
     onSelect: PropTypes.func,
     onCancel: PropTypes.func,

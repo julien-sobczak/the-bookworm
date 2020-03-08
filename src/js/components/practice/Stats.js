@@ -34,7 +34,7 @@ function Stats({ stats, finished, onRestart, onContinue }) {
             <div className="Actions">
                 <Button text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
                 {!finished && <Button text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
-                <Link to="/chunking/"><Button text="Change" colorText="white" colorBackground="#111" /></Link>
+                <Link to="/practice/"><Button text="Change" colorText="white" colorBackground="#111" /></Link>
             </div>
         </div>
     );

@@ -69,3 +69,88 @@ describe('headline', () => {
     });
 
 });
+
+describe('stripTags', () => {
+
+    it('should return the same string without the HTML tags', () => {
+        expect(string.stripTags(`Do not contains HTML tags`)).toEqual("Do not contains HTML tags");
+        expect(string.stripTags(`Contains <i>HTML</i> <b>tags</b>`)).toEqual("Contains HTML tags");
+        expect(string.stripTags(`Contains <i class="abbr">HTML</i> tags with attributes`)).toEqual("Contains HTML tags with attributes");
+    });
+
+});
+
+describe('wordDelims', () => {
+
+    it('returns the indices of each word', () => {
+
+        // With spaces
+        expect(string.wordDelims("This is a \ttest")).
+            toEqual([[0, 3]/* This */, [5, 6]/* is */, [8, 8]/* a */, [11, 14]/* test */]);
+
+        // With dashes
+        expect(string.wordDelims("“Dashes, for example, —em --em–en.”")).
+            toEqual([[0, 7]/* “Dashes, */, [9, 11]/* for */, [13, 20]/* example, */, [23, 24]/* em */, [28, 29]/* em */, [31, 34]/* en */]);
+
+    });
+
+});
+
+describe('showWords', () => {
+
+    it('highlights the words', () => {
+        expect(string.showWords("This is a--test")).toBe("[This] [is] [a]--[test]");
+    });
+
+});
+
+describe('splitWords', () => {
+
+    it('splits the line into words', () => {
+        expect(string.splitWords("This is a--test.")).toEqual([
+            {
+                "text": "This",
+                "start": 0,
+                "end": 3,
+                "word": true,
+            },
+            {
+                "text": " ",
+                "start": 4,
+                "end": 4,
+                "word": false,
+            },
+            {
+                "text": "is",
+                "start": 5,
+                "end": 6,
+                "word": true,
+            },
+            {
+                "text": " ",
+                "start": 7,
+                "end": 7,
+                "word": false,
+            },
+            {
+                "text": "a",
+                "start": 8,
+                "end": 8,
+                "word": true,
+            },
+            {
+                "text": "--",
+                "start": 9,
+                "end": 10,
+                "word": false,
+            },
+            {
+                "text": "test.",
+                "start": 11,
+                "end": 15,
+                "word": true,
+            },
+        ]);
+    });
+
+});

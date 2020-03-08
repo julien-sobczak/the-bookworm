@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
 import Paper from '../toolbox/Paper';
+import * as string from '../../functions/string';
+
+// Values for property chunkMode.
+const chunkModes = ['none', 'width', 'stops', 'words'];
 
 // Check https://stackoverflow.com/questions/39673898/divide-array-into-k-contiguos-partitions-such-that-sum-of-maximum-partition-is-m
 function partition(a, k) {
@@ -73,19 +77,31 @@ function partition(a, k) {
  */
 function trimChunks(chunks) {
     const result = [];
-    chunks.forEach(function(chunk) {
-        if (chunk.startsWith(' ')) {
-            result.push(' ');
-        }
-        let addTrailingSpace = false;
-        if (chunk.endsWith(' ')) {
-            addTrailingSpace = true;
-        }
-        result.push(chunk.trim());
-        if (addTrailingSpace) {
-            result.push(' ');
-        }
+    const delimiters = string.WORD_DELIMETERS;
+
+    chunks.forEach(chunk => {
+
+        let leftSeparator = "";
+        let trimmedChunk = chunk;
+        let rightSeparator = "";
+
+        delimiters.forEach(delimiter => {
+
+            if (trimmedChunk.startsWith(delimiter)) {
+                leftSeparator = leftSeparator + delimiter;
+                trimmedChunk = trimmedChunk.substring(delimiter.length);
+            }
+            if (trimmedChunk.endsWith(delimiter)) {
+                rightSeparator = delimiter + rightSeparator;
+                trimmedChunk = trimmedChunk.substring(0, trimmedChunk.length - delimiter.length);
+            }
+        });
+
+        if (leftSeparator.length > 0) result.push(leftSeparator);
+        result.push(trimmedChunk);
+        if (rightSeparator.length > 0) result.push(rightSeparator);
     });
+
     return result;
 }
 
@@ -188,6 +204,9 @@ class LineStopsChunker {
     }
 }
 
+/**
+ * Split a line so that each chunk contains at most N words.
+ */
 class LineWordsChunker {
 
     /**
@@ -398,8 +417,7 @@ class BlocksPager {
  *   blocks: [
  *     { tag: "h2", content: "Chapter 3" },
  *     { tag: "p", content: "TOM presented himself before Aunt Polly, ..." },
- *     { tag: "p", content: "“What, a'ready? How much have you done?”" },
- *     { tag: "p", content: "“It's all done, aunt.”" },
+ *     { tag: "p", content: "“What, a'ready? How much have you done?” “It's all done, aunt.”" },
  *     { tag: "p", content: "“Tom, don't lie to me--I can't bear it.”" },
  *     { tag: "p", content: "“I ain't, aunt; it <i>is</i> all done.”" },
  *     { tag: "p", content: "Aunt Polly placed small trust in such evidence..." },
@@ -508,9 +526,9 @@ class Pager extends React.Component {
 
     getChunker() {
         if (this.props.chunkMode === 'width') {
-            const [chunkIdealWidth, chunkMaxWidth] = this.rulerWidths();
-            console.log(`Chunk measures ${this.props.chunkWidth}: ${chunkIdealWidth}px (${chunkMaxWidth} with tolerance)`);
-            return new LineWidthChunker(chunkIdealWidth, chunkMaxWidth);
+            const [chunkPerfectWidth, chunkMaxWidth] = this.rulerWidths();
+            console.log(`Chunk measures ${this.props.chunkWidth}: ${chunkPerfectWidth}px (${chunkMaxWidth} with tolerance)`);
+            return new LineWidthChunker(chunkPerfectWidth, chunkMaxWidth);
         } else if (this.props.chunkMode === 'stops') {
             const [paperWidth,] = this.paperDimensions();
             return new LineStopsChunker(this.props.chunkStops, paperWidth);
@@ -575,8 +593,7 @@ Pager.propTypes = {
     onDone: PropTypes.func,
 
     // Calculate chunks based on a specific maximum width or split the line in one or more stops
-    // (Allowed values: 'none', 'width', 'stops', 'words')
-    chunkMode: PropTypes.string,
+    chunkMode: PropTypes.oneOf(chunkModes),
     // chunkMode `width` options
     chunkWidth: PropTypes.string,
     chunkAccuracy: PropTypes.number,
@@ -616,4 +633,277 @@ Pager.defaultProps = {
     },
 };
 
-export { Pager as default, LineWidthChunker, LineStopsChunker, partition };
+
+// How many characters can fit in one inch?
+const CHARACTERS_PER_INCH = 10; // Based on 12pt Courier font
+
+/**
+ * Pager alternative implementation useful for unit testing
+ * (where DOM elements are not really rendered and properties like offsetWidth are not available).
+ *
+ * This implementation simulates a fixed-width font to split the text. It supports the same interface
+ * as the Pager compoment.
+ */
+class PagerTest extends React.Component {
+
+    render() {
+        // Nothing to render
+        // We don't use DOM elements to measure texts.
+        return <></>;
+    }
+
+    componentDidMount() {
+        // Generate pages
+        const pages = this.paginate();
+
+        // Add chunks
+        if (this.props.chunkMode !== 'none') {
+            pages.forEach(page => {
+                page.blocks.forEach(block => {
+                    block.chunks = block.lines.flatMap((line) => this.chunkize(page, line));
+                    // do not delete block.lines for testing purposes
+                });
+            });
+        }
+
+        this.props.onDone(pages);
+    }
+
+    paginate() {
+        const charactersPerLine = this.props.charactersPerLine;
+        const linesPerPage = this.props.linesPerPage;
+
+        const pages = [];
+
+        let pageNumber = 1;
+        let currentPage = {
+            number: pageNumber,
+            blocks: [],
+        };
+        let linesInCurrentPage = 0;
+
+        const addPage = () => {
+            if (currentPage.blocks.length === 0) return; // Nothing to add
+
+            // Adjust block content
+            for (let i = 0; i < currentPage.blocks.length; i++) {
+                const block = currentPage.blocks[i];
+                const firstLine = block.lines[0];
+                const lastLine = block.lines[block.lines.length - 1];
+                const start = block.content.indexOf(firstLine);
+                const end = block.content.lastIndexOf(lastLine);
+                const blockEffectiveContent = block.content.substring(start, end+lastLine.length);
+                block.content = blockEffectiveContent;
+            }
+
+            pages.push(currentPage);
+            pageNumber++;
+            currentPage = {
+                number: pageNumber,
+                blocks: [],
+            };
+        };
+
+        const addLine = ({ tag, block, content, line }) => {
+            if (line.length === 0) return; // Nothing to add
+            line = line.trim();
+
+            // A new line in the current block?
+            if (currentPage.blocks.length > 0 &&
+                currentPage.blocks[currentPage.blocks.length-1].block === block) {
+                currentPage.blocks[currentPage.blocks.length-1].lines.push(line);
+            } else { // The first line of a new block
+                currentPage.blocks.push({
+                    tag: tag,
+                    block: block,
+                    content: content,
+                    lines: [line],
+                });
+            }
+            linesInCurrentPage++;
+            if (linesInCurrentPage === linesPerPage) {
+                addPage();
+                linesInCurrentPage = 0;
+            }
+        };
+
+        // Returns the index of the last word separator found.
+        const lastIndexOfSeparator = str => {
+            const delimiters = string.WORD_DELIMETERS;
+
+            let maxIndex = -1;
+            for (let i = 0; i < delimiters.length; i++) {
+                const delimiter = delimiters[i];
+                let index = str.lastIndexOf(delimiter);
+                if (maxIndex < index) {
+                    maxIndex = index;
+                }
+            }
+            if (maxIndex === -1) {
+                // No separator found on the line... Split the line anyway.
+                maxIndex = str.length - 1;
+            }
+            return maxIndex;
+        };
+
+        this.props.content.blocks.forEach((block, blockNumber) => {
+            let start = 0;
+            let content = string.stripTags(block.content);
+            let eol = false;
+
+            while (!eol) {
+                let len = content.substring(start).length;
+                if (len === 0) {
+                    eol = true;
+                    break;
+                }
+
+                if (len < charactersPerLine) {
+                    addLine({
+                        tag: block.tag,
+                        block: blockNumber,
+                        content: content,
+                        line: content.substring(start),
+                    });
+                    eol = true;
+                    break;
+                }
+
+                let end = start + lastIndexOfSeparator(content.substring(start, start + charactersPerLine));
+                addLine({
+                    tag: block.tag,
+                    block: blockNumber,
+                    content: content,
+                    line: content.substring(start, end),
+                });
+                start = end;
+            }
+        });
+
+        // Don't forget to add the last page
+        addPage();
+
+        return pages;
+    }
+
+    chunkize(page, line) {
+        const words = string.splitWords(line);
+        //console.log("Chunkize", string.showWords(line));
+
+        switch (this.props.chunkMode) {
+        case "width":
+            return trimChunks(this.chunkizeWidth(page, words));
+        case "words":
+            return trimChunks(this.chunkizeWords(page, words));
+        case "stops":
+            return trimChunks(this.chunkizeStops(page, words));
+        default:
+            throw new Error(`${this.props.chunkMode} is not implemented.`);
+        }
+    }
+
+    chunkizeWidth(page, words) {
+        const chunkWidth = this.props.chunkWidth;
+        const maxCharactersPerChunk = Math.floor(parseFloat(chunkWidth) * CHARACTERS_PER_INCH);
+
+        const chunks = [];
+        let chunk = "";
+        words.forEach(word => {
+            if (chunk.length + word.text.length < maxCharactersPerChunk) {
+                chunk += word.text;
+            } else {
+                chunks.push(chunk);
+                chunk = word.text;
+            }
+        });
+        if (chunk.length > 0) {
+            chunks.push(chunk);
+        }
+
+        return chunks;
+    }
+
+    chunkizeWords(page, words) {
+        const chunkWords = this.props.chunkWords;
+
+        const chunks = [];
+        let chunk = "";
+        let wordsCount = 0;
+        words.forEach(word => {
+            chunk += word.text;
+            if (word.word) wordsCount++;
+            if (wordsCount === chunkWords) {
+                chunks.push(chunk);
+                chunk = "";
+                wordsCount = 0;
+            }
+        });
+        // Do not forget the last chunk
+        if (chunk.length > 0) {
+            chunks.push(chunk);
+        }
+
+        return chunks;
+    }
+
+    chunkizeStops(page, words) {
+        const chunkStops = this.props.chunkStops;
+        // Use partition
+
+        // Find the longest line
+        let maxLength = 0;
+        page.blocks.forEach(block => {
+            block.lines.forEach(line => {
+                if (maxLength < line.length) {
+                    maxLength = line.length;
+                }
+            });
+        });
+
+        const columnWidth = maxLength / chunkStops;
+        const stops = [];
+        for (let i = 0; i <= chunkStops; i++) {
+            stops[i] = columnWidth * (i+1);
+        }
+
+        const chunks = [];
+        let i = 0;
+        let chunk = "";
+        words.forEach(word => {
+            const potentialChunkLength = chunk.length + word.text.length;
+            //console.log(chunk, chunk.length, word.text, potentialChunkLength, stops[i])
+            if (potentialChunkLength < stops[i]) {
+                chunk += word.text;
+            } else if (potentialChunkLength - stops[i] < stops[i+1] - potentialChunkLength) { // closer to left stop?
+                chunk += word.text;
+                chunks.push(chunk);
+                chunk = "";
+                i++;
+            } else { // closer to right stop
+                chunks.push(chunk);
+                chunk = word.text;
+                i++;
+            }
+        });
+        if (chunk.length > 0) {
+            chunks.push(chunk);
+        }
+
+        return chunks;
+    }
+
+}
+
+PagerTest.propTypes = {
+    ...Pager.propTypes,
+    charactersPerLine: PropTypes.number,
+    linesPerPage: PropTypes.number,
+};
+
+PagerTest.defaultProps = {
+    ...Pager.defaultProps,
+    charactersPerLine: 70,
+    linesPerPage: 20,
+};
+
+export { Pager as default, PagerTest, LineWidthChunker, LineWordsChunker, LineStopsChunker, partition, trimChunks };

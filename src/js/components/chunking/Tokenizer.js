@@ -13,6 +13,8 @@ class Tokenizer {
         const separators = [
             { characters: ' ', preserve: true },
             { characters: '(?=--)', preserver: false }
+            // TODO merge with string.WORD_DELIMITERS
+            // TODO add an option to filter spaces
         ];
 
         let tokens = [

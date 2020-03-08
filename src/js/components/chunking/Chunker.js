@@ -20,9 +20,8 @@ function getChunkHTML(tokens) {
  */
 class FixedWidthChunker {
 
-    constructor(tokenizer, width, accuracy) {
+    constructor(width, accuracy) {
         const tolerance = (width - width * accuracy);
-        this.tokenizer = tokenizer;
         this.width = width;
         this.widthMax = Math.floor(width + tolerance);
     }
@@ -30,8 +29,10 @@ class FixedWidthChunker {
     chunkenize(text) {
         const chunks = [];
 
+        const tokenizer = new Tokenizer();
+
         text.forEach((block, blockIndex) => {
-            const tokens = this.tokenizer.tokenize(block.content);
+            const tokens = tokenizer.tokenize(block.content);
             let indexCurrent = 0;
             let indexStart = 0;
             let currentChunk = "";
@@ -50,6 +51,7 @@ class FixedWidthChunker {
                         tag: block.tag,
                         block: blockIndex,
                         startingChunk: (indexStart === 0),
+                        endingChunk: (indexCurrent === tokens.length),
                     });
                 }
                 indexCurrent++;
@@ -58,7 +60,7 @@ class FixedWidthChunker {
             // Do not forget the last chunk
             const lastChunk = getChunkHTML(tokens.slice(indexStart));
             chunks.push({
-                text: lastChunk,
+                text: lastChunk.trim(),
                 tag: block.tag,
                 block: blockIndex,
                 startingChunk: (indexStart === 0),
@@ -77,8 +79,7 @@ class FixedWidthChunker {
  */
 class VariedWidthChunker {
 
-    constructor(tokenizer, widthMin, widthMax, chunkTransition, chunkSteps=10, columns=1) {
-        this.tokenizer = tokenizer;
+    constructor(widthMin, widthMax, chunkTransition, chunkSteps=10, columns=1) {
         this.widthMin = widthMin;
         this.widthMax = widthMax;
         this.chunkTransition = chunkTransition;
@@ -107,8 +108,10 @@ class VariedWidthChunker {
         let currentStep = 0;
         let currentColumn = 0;
 
+        const tokenizer = new Tokenizer();
+
         text.forEach((block, blockIndex) => {
-            const tokens = this.tokenizer.tokenize(block.content);
+            const tokens = tokenizer.tokenize(block.content);
             let indexCurrent = 0;
             let indexStart = 0;
             let currentChunk = "";
@@ -131,6 +134,7 @@ class VariedWidthChunker {
                             tag: block.tag,
                             block: blockIndex,
                             startingChunk: (indexStart === 0),
+                            endingChunk: (indexCurrent === tokens.length),
                         });
 
                         currentColumn++;
@@ -181,16 +185,17 @@ class VariedWidthChunker {
  */
 class WordsChunker {
 
-    constructor(tokenizer, words) {
-        this.tokenizer = tokenizer;
+    constructor(words) {
         this.words = words;
     }
 
     chunkenize(text) {
         const chunks = [];
 
+        const tokenizer = new Tokenizer();
+
         text.forEach((block, blockIndex) => {
-            const tokens = this.tokenizer.tokenize(block.content);
+            const tokens = tokenizer.tokenize(block.content);
 
             let i = 0;
             while (i < tokens.length) {
@@ -210,7 +215,7 @@ class WordsChunker {
                 }
 
                 chunks.push({
-                    text: currentChunk,
+                    text: currentChunk.trim(),
                     tag: block.tag,
                     block: blockIndex,
                     startingChunk: (indexStart === 0),
@@ -251,10 +256,10 @@ class WordsChunker {
  *
  * const onChunkerDone = function(chunks) {
  *   // Where chunks = [
- *   //   { tag: "h2", text: "Chapter 3", block: 0 },
- *   //   { tag: "p",  text: "TOM presented", block: 1 },
+ *   //   { tag: "h2", text: "Chapter 3",      block: 0 },
+ *   //   { tag: "p",  text: "TOM presented",  block: 1 },
  *   //   { tag: "p",  text: "himself before", block: 1 },
- *   //   { tag: "p",  text: "Aunt Polly,", block: 1 },
+ *   //   { tag: "p",  text: "Aunt Polly,",    block: 1 },
  *   //   ...
  *   // ];
  * }
@@ -290,17 +295,16 @@ class Chunker extends React.Component {
 
         console.log('Measurer', measurements);
 
-        const tokenizer = new Tokenizer();
         let chunker = undefined;
         if (this.props.chunkMode === 'width') {
             const widthInPixels = measurements[this.props.chunkWidth].width;
-            chunker = new FixedWidthChunker(tokenizer, widthInPixels, this.props.chunkAccuracy);
+            chunker = new FixedWidthChunker(widthInPixels, this.props.chunkAccuracy);
         } else if (this.props.chunkMode === 'dynamic') {
             const widthMinInPixels = measurements[this.props.chunkWidthMin].width;
             const widthMaxInPixels = measurements[this.props.chunkWidthMax].width;
-            chunker = new VariedWidthChunker(tokenizer, widthMinInPixels, widthMaxInPixels, this.props.chunkTransition, this.props.chunkSteps, this.props.columns);
+            chunker = new VariedWidthChunker(widthMinInPixels, widthMaxInPixels, this.props.chunkTransition, this.props.chunkSteps, this.props.columns);
         } else if (this.props.chunkMode === 'words') {
-            chunker = new WordsChunker(tokenizer, this.props.chunkWords);
+            chunker = new WordsChunker(this.props.chunkWords);
         }
 
         const chunks = chunker.chunkenize(this.props.content.blocks);
@@ -355,10 +359,13 @@ Chunker.defaultProps = {
     debug: true,
 
     chunkMode: "width",
+
+    // chunkMode === 'width' options
     chunkWidth: '3in',
     chunkAccuracy: 0.9,
+    // chunkMode === 'words' options
     chunkWords: 1,
-
+    // chunkMode === 'dynamic' options
     chunkWidthMin: '0.25in',
     chunkWidthMax: '4in',
     chunkTransition: 'step',

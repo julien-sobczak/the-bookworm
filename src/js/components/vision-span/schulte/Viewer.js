@@ -32,7 +32,7 @@ function Viewer(props) {
                                             key={columnIndex}
                                             data-testid={'Line'+lineIndex+'Column'+columnIndex}
                                             className={"Cell " + cssCell + " " + (column.valid === true ? 'valid' : '')}>
-                                                {column.label}
+                                            {column.label}
                                         </td>
                                     );
                                 })}
