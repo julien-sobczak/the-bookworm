@@ -36,27 +36,36 @@ function PanelReading(props) {
         <>
             <div className={"PanelCorner " + (collapsed ? "Collapsed" : "Expanded")}>
 
-                <ReactButton variant="contained" disableElevation={true} className="ButtonBrowse" onClick={() => setLibraryActive(true)}>Browse Library</ReactButton>
-
-                {!props.content.type && <div>
-                    No reading in progress.
-                </div>}
-                {props.content.type && <div>
-                    {collapsed ?
+                <div className="PanelCornerMenu">
+                    <div className="PanelCornerText">
+                        {!props.content.type && <>
+                            No reading in progress.
+                        </>}
+                        {props.content.type && <>
+                            {collapsed ?
+                                <ReactButton variant="contained" disableElevation={true}
+                                    className="ButtonLight Clickable ButtonLongText"
+                                    onClick={() => setCollapsed(false)}
+                                    startIcon={<UnfoldLessIcon />}>
+                                    <span style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}>You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em></span>
+                                </ReactButton> :
+                                <ReactButton variant="contained" disableElevation={true}
+                                    className="ButtonDark Clickable"
+                                    onClick={() => setCollapsed(true)}
+                                    startIcon={<UnfoldMoreIcon />}>
+                                    <span style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}>You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em></span>
+                                </ReactButton>
+                            }
+                        </>}
+                    </div>
+                    <div className="PanelCornerButton">
                         <ReactButton variant="contained" disableElevation={true}
-                            className="ButtonLight Clickable"
-                            onClick={() => setCollapsed(false)}
-                            startIcon={<UnfoldLessIcon />}>
-                            You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em>
-                        </ReactButton> :
-                        <ReactButton variant="contained" disableElevation={true}
-                            className="ButtonDark Clickable"
-                            onClick={() => setCollapsed(true)}
-                            startIcon={<UnfoldMoreIcon />}>
-                            You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em>
+                                    className="ButtonBrowse"
+                                    onClick={() => setLibraryActive(true)}>
+                            Browse Library
                         </ReactButton>
-                    }
-                </div>}
+                    </div>
+                </div>
 
                 {!collapsed && <table className="Styled">
                     <tbody>

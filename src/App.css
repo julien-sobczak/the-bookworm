@@ -6,6 +6,7 @@
 
   --drill-vision-span-step: .25in;
 
+  --menu-size: 80px;
   --wide-margin: 1cm;
 }
 
@@ -69,3 +70,40 @@ button:focus {
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* Responsive */
+#ScreenTooSmall {
+  /* Hidden by default */
+  display: none;
+
+  /* Cover the scren */
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* Use SVG to size the text */
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (orientation: landscape) and (max-width: 9in) {
+  #ScreenTooSmall {
+    display: block !important;
+    /* background-image: url(/images/too-small-horizontal.svg); */
+    background-image: url(/images/illustration.svg);
+    background-size: 98hw;
+  }
+}
+
+@media only screen and (orientation: portrait) and (max-height: 9in) {
+  #ScreenTooSmall {
+    display: block !important;
+    /* background-image: url(/images/too-small-vertical.svg); */
+    background-image: url(/images/illustration.svg);
+    background-size: 98vh;
+  }
+}

@@ -8,16 +8,32 @@ nav.menu {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 80px;
+  width: var(--menu-size);
   margin: 0;
   padding: 0;
+  background: white;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   list-style-type: none;
+  z-index: 10;
 }
+
+@media only screen and (orientation: portrait) {
+  nav.menu {
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: auto;
+    height: var(--menu-size);
+    flex-direction: row;
+  }
+}
+
+
 nav.menu a {
   /* Box */
   padding: 20px;
@@ -34,6 +50,14 @@ nav.menu a {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 12px;
 }
+
+@media only screen and (orientation: portrait) {
+  nav.menu a {
+    height: auto;
+    width: 20%;
+  }
+}
+
 nav.menu a.active, nav.menu a:hover {
   color: rgba(255, 255, 255, .7);
 }
@@ -58,8 +82,15 @@ nav.menu a.active i, nav.menu a:hover i {
 }
 
 section#content {
-  margin-left: 80px;
+  margin-left: var(--menu-size);
   min-height: 100%;
+}
+
+@media only screen and (orientation: portrait) {
+  section#content {
+    margin-left: auto;
+    margin-bottom: var(--menu-size);
+  }
 }
 
 section.page > h2 {
@@ -73,6 +104,13 @@ section.page > h2 {
   font-family: 'Arizonia', cursive;
   transform: rotate(-10deg);
   margin: 0;
+}
+
+@media only screen and (orientation: portrait) {
+  section.page > h2 {
+    bottom: var(--menu-size);
+    font-size: 80px;
+  }
 }
 
 section.page {
@@ -112,6 +150,7 @@ section.page h3 {
 
 .InnerContent {
   width: 80%;
+  max-width: 10in;
   margin: 0 auto;
   margin-top: 5em;
 }

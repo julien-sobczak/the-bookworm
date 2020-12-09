@@ -185,14 +185,15 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <ContentContext.Provider value={this.state}>
+          <div id="ScreenTooSmall"></div>
           {this.state.content.content && <Router>
             <nav className="menu">
-              <NavLink to="/home" activeClassName="active" exact><div><i className="material-icons">home</i> Home</div></NavLink>
+              <NavLink to="/home" activeClassName="active" exact><div><i className="material-icons">home</i><br/>Home</div></NavLink>
               {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
-              <NavLink to="/vision-span/" activeClassName="active"><div><i className="material-icons">visibility</i> Vision Span</div></NavLink>
-              <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i> Chunking</div></NavLink>
-              <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i> Practice</div></NavLink>
-              <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i> Settings</div></NavLink>
+              <NavLink to="/vision-span/" activeClassName="active"><div><i className="material-icons">visibility</i><br/>Vision Span</div></NavLink>
+              <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i><br/>Chunking</div></NavLink>
+              <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i><br/>Practice</div></NavLink>
+              <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i><br/>Settings</div></NavLink>
               {/* Uncomment this line to add an "About" page */}
               {/* <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink> */}
             </nav>
