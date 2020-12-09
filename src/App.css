@@ -94,7 +94,7 @@ button:focus {
   #ScreenTooSmall {
     display: block !important;
     /* background-image: url(/images/too-small-horizontal.svg); */
-    background-image: url(/images/illustration.svg);
+    background-image: url(./images/illustration.svg);
     background-size: 98hw;
   }
 }
@@ -103,7 +103,7 @@ button:focus {
   #ScreenTooSmall {
     display: block !important;
     /* background-image: url(/images/too-small-vertical.svg); */
-    background-image: url(/images/illustration.svg);
+    background-image: url(./images/illustration.svg);
     background-size: 98vh;
   }
 }
