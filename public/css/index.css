@@ -46,8 +46,8 @@ html {
     font-size: 100%;
 }
 
-/* 
- * Implementation: Prefix all CSS selectors by #homepage to avoid any conflict with the React application 
+/*
+ * Implementation: Prefix all CSS selectors by #homepage to avoid any conflict with the React application
  */
 
 /* Common ******************************************* */
@@ -70,7 +70,7 @@ html {
     height: 100vh;
 }
 
-#homepage h1 { 
+#homepage h1 {
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 900;
@@ -174,10 +174,10 @@ p#headline .penwritten {
     max-width: 15cm;
 }
 .chat-thread:after {
-    /* CSS Trick to clear the float without inserting a new element */ 
-    content: ""; 
-    display: table; 
-    clear: both; 
+    /* CSS Trick to clear the float without inserting a new element */
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .chat-thread li {
@@ -261,7 +261,7 @@ p#headline .penwritten {
 
 #homepage section#games, #homepage section#library {
     position: relative;
-    height: 75vh; 
+    height: 75vh;
     overflow: hidden;
 }
 
@@ -357,7 +357,7 @@ p#headline .penwritten {
     height: 2cm;
     margin-left: 1cm;
     margin-bottom: 0.5cm;
-    
+
     /* Center text vertically */
     font-size: 0.5cm;
     font-weight: 700;

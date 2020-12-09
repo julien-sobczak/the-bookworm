@@ -43,13 +43,17 @@ function PanelReading(props) {
                         </>}
                         {props.content.type && <>
                             {collapsed ?
-                                <ReactButton variant="contained" disableElevation={true}
+                                <ReactButton
+                                    variant="contained"
+                                    disableElevation={true}
                                     className="ButtonLight Clickable ButtonLongText"
                                     onClick={() => setCollapsed(false)}
                                     startIcon={<UnfoldLessIcon />}>
                                     <span style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}>You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em></span>
                                 </ReactButton> :
-                                <ReactButton variant="contained" disableElevation={true}
+                                <ReactButton
+                                    variant="contained"
+                                    disableElevation={true}
                                     className="ButtonDark Clickable"
                                     onClick={() => setCollapsed(true)}
                                     startIcon={<UnfoldMoreIcon />}>
@@ -59,9 +63,11 @@ function PanelReading(props) {
                         </>}
                     </div>
                     <div className="PanelCornerButton">
-                        <ReactButton variant="contained" disableElevation={true}
-                                    className="ButtonBrowse"
-                                    onClick={() => setLibraryActive(true)}>
+                        <ReactButton
+                            variant="contained"
+                            disableElevation={true}
+                            className="ButtonBrowse"
+                            onClick={() => setLibraryActive(true)}>
                             Browse Library
                         </ReactButton>
                     </div>
