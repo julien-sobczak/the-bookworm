@@ -114,7 +114,7 @@ class WizardFactory extends React.Component {
         if (this.props.predefinedDrills) {
             tabs.push(<Tab key={4} icon={<BookmarksIcon />} label="Favorite" />);
         }
-        if (this.props.history) {
+        if (this.props.history && this.props.history.length > 0) {
             tabs.push(<Tab key={3} icon={<HistoryIcon />} label="History" />);
         }
         return (

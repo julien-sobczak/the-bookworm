@@ -138,6 +138,7 @@ export function humanReadableShortDuration(durationInSeconds) {
  * @return {string} The formated duration
  */
 export function humanReadableLongDuration(durationInSeconds) {
+    if (!durationInSeconds) return "0 second";
     if (durationInSeconds < 60) {
         if (durationInSeconds === 1) {
             return '1 second';
