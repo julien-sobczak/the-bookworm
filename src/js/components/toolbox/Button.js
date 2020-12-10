@@ -24,7 +24,6 @@ function Button({ text, className, colorText, colorBackground, onClick }) {
             display: block;
             border-radius: 28px;
             background: ${colorBackground};
-            opacity: 0.5;
             width: 56px;
             height: 56px;
             transition: all .3s ease;
@@ -32,7 +31,6 @@ function Button({ text, className, colorText, colorBackground, onClick }) {
         :hover:before {
             width: 100%;
             background: ${colorBackground};
-            opacity: 1;
         }
         :active {
             transform: scale(.96);

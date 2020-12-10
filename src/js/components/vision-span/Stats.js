@@ -12,12 +12,16 @@ function Stats({ stats, onRestart }) {
             <table className="Stats">
                 <tbody>
                     <tr>
-                        <td className="Statistic StatisticStroke StatisticShadow">{stats.correctAnswers} &#10003;</td>
-                        <td>in {string.humanReadableShortDuration(stats.durationInSeconds)}</td>
+                        <th>⏱</th>
+                        <td>{string.humanReadableShortDuration(stats.durationInSeconds)}</td>
                     </tr>
                     <tr>
-                        <td className="Statistic StatisticStroke StatisticShadow">{stats.wrongAnswers} &#10799;</td>
-                        <td></td>
+                        <th>👍</th>
+                        <td>{stats.correctAnswers}</td>
+                    </tr>
+                    <tr>
+                        <th>👎</th>
+                        <td>{stats.wrongAnswers}</td>
                     </tr>
                 </tbody>
             </table>

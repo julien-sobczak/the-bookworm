@@ -11,23 +11,28 @@ function Stats({ stats, finished, onRestart, onContinue }) {
             <table className="Stats">
                 <tbody>
                     {Object.prototype.hasOwnProperty.call(stats, 'winner') && <tr>
-                        <td colSpan="4" className="Statistic StatisticStroke StatisticShadow">
-                            {stats.winner === true && <span>You WIN!</span>}
-                            {stats.winner === false && <span>You LOSE!</span>}
-                            {typeof stats.winner === 'undefined' && <span>TIE!</span>}
-                        </td>
+                        {stats.winner === true && <th>💪</th>}
+                        {stats.winner === false && <th>😬</th>}
+                        {typeof stats.winner === 'undefined' && <th>🤏</th>}
+                        {stats.winner === true && <td>You WIN!</td>}
+                        {stats.winner === false && <td>You LOSE!</td>}
+                        {typeof stats.winner === 'undefined' && <td>TIE!</td>}
                     </tr>}
                     <tr>
-                        <td className="Statistic StatisticStroke StatisticShadow">{stats.words}</td>
-                        <td>word(s) in {string.humanReadableShortDuration(stats.durationInSeconds)}</td>
-                        <td className="Statistic StatisticStrokeShadow">&#61; {stats.wpm}</td>
-                        <td>WPM</td>
+                        <th>📖</th>
+                        <td>{stats.words} <small>word(s)</small></td>
                     </tr>
                     <tr>
-                        <td className="Statistic StatisticStroke StatisticShadow">{stats.pages}</td>
-                        <td>page(s)</td>
-                        <td></td>
-                        <td></td>
+                        <th>⏱</th>
+                        <td>{string.humanReadableShortDuration(stats.durationInSeconds)}</td>
+                    </tr>
+                    <tr>
+                        <th>🏃‍♀️</th>
+                        <td>{stats.wpm} <small>WPM</small></td>
+                    </tr>
+                    <tr>
+                        <th>📄</th>
+                        <td>{stats.pages} <small>page(s)</small></td>
                     </tr>
                 </tbody>
             </table>
