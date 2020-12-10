@@ -12,16 +12,20 @@ function Stats({ stats, finished, onRestart, onContinue }) {
             <table className="Stats">
                 <tbody>
                     <tr>
-                        <td className="Statistic StatisticStroke StatisticShadow">{stats.words}</td>
-                        <td>word(s) in {string.humanReadableShortDuration(stats.durationInSeconds)}</td>
-                        <td className="Statistic StatisticStrokeShadow">&#61; {stats.wpm}</td>
-                        <td>WPM</td>
+                        <th>📖</th>
+                        <td>{stats.words} <small>words</small></td>
                     </tr>
                     <tr>
-                        <td className="Statistic StatisticStroke StatisticShadow">{stats.chunks}</td>
-                        <td>chunk(s)</td>
-                        <td></td>
-                        <td></td>
+                        <th>⏱</th>
+                        <td>{string.humanReadableShortDuration(stats.durationInSeconds)}</td>
+                    </tr>
+                    <tr>
+                        <th>🏃‍♀️</th>
+                        <td>{stats.wpm} <small>WPM</small></td>
+                    </tr>
+                    <tr>
+                        <th>🧩</th>
+                        <td>{stats.chunks} <small>chunk(s)</small></td>
                     </tr>
                 </tbody>
             </table>

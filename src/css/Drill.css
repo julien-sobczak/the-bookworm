@@ -334,17 +334,25 @@
 }
 
 table.Stats {
-  font-size: 2.5em;
+  font-size: 1rem;
   font-weight: 600;
-  margin: 1cm;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 4rem;
+  border-radius: 1rem;
+  background-color: black;
+  color: var(--theme-color);
+}
+table.Stats th, table.Stats td {
+  padding: 1rem;
+  font-size: 150%;
+}
+table.Stats th {
+  text-align: center;
 }
 table.Stats td {
-  padding: 0cm 0.25cm;
+  text-align: left;
 }
-table.Stats td.Statistic {
-  text-align: right;
+table.Stats tr {
+  border-bottom: 2px solid var(--theme-color);
 }
 
 .Actions > * {
@@ -353,46 +361,18 @@ table.Stats td.Statistic {
 }
 
 
-
-/* Inspired by https://codepen.io/markmead/pen/YjQKeZ */
-/* How to use? */
-/* <h1 class="Statictic StatisticStroke StatisticShadow">Text with only stroke and a text shadow</h1>  */
-/* <h1 class="Statictic StatisticStrokeShadow">Text with stroke and fill and a text shadow</h1>  */
-.Statistic {
-  font-size: 8rem;
-  letter-spacing: 6px;
-  margin: 2rem 0;
-  font-style: normal;
+/* TODO Not sure about these declarations... */
+.Setting {
+  font-weight: 900;
 }
-.StatisticStroke {
-  -webkit-text-stroke-width: 2px;
-  -moz-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #0d1b1e;
-  -moz-text-stroke-color: #0d1b1e;
-  color: transparent;
+.Setting.LabelsAtRight tr > td {
+  text-align: right;
+  padding: 0 1em;
 }
-.StatisticShadow {
-  text-shadow: 6px 6px rgba(0, 0, 0, 0.5);
+.Setting.LabelsAtRight tr > td.Label {
+  text-align: left;
 }
-.StatisticStrokeShadow {
-  color: var(--theme-color);
-  text-shadow: -2px 0 #0d1b1e, 0 -2px #0d1b1e, 2px 0 #0d1b1e, 0 2px #0d1b1e, 2px 2px #0d1b1e, -2px -2px #0d1b1e, -2px 2px #0d1b1e, 2px -2px #0d1b1e, 6px 6px rgba(0, 0, 0, 0.5);
+.Setting td {
+  height: 3em;
+  vertical-align: middle;
 }
-
-
-
-  /* TODO Not sure about these declarations... */
-  .Setting {
-    font-weight: 900;
-  }
-  .Setting.LabelsAtRight tr > td {
-    text-align: right;
-    padding: 0 1em;
-  }
-  .Setting.LabelsAtRight tr > td.Label {
-    text-align: left;
-  }
-  .Setting td {
-    height: 3em;
-    vertical-align: middle;
-  }
