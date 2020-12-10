@@ -4,7 +4,7 @@ import Switch from '@material-ui/core/Switch';
 
 const OptionsGame = (props) => {
 
-    const [keyboard, setKeyboard] = useState(props.keyboardDetected);
+    const [keyboard, setKeyboard] = useState(props.keyboardDetected && props.keyboard);
     const [autoLevel, setAutoLevel] = useState(props.autoLevel);
 
     const onChange = props.onChange;
@@ -64,12 +64,14 @@ const OptionsGame = (props) => {
 
 OptionsGame.propTypes = {
     keyboardDetected: PropTypes.bool,
+    keyboard: PropTypes.bool,
     autoLevel: PropTypes.bool,
     onChange: PropTypes.func,
 };
 
 OptionsGame.defaultProps = {
     keyboardDetected: false,
+    keyboard: false,
     autoLevel: false,
 };
 

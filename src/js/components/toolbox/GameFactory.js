@@ -186,6 +186,7 @@ class GameFactory extends React.Component {
                 {this.state.state === 'init' &&
                     <WizardFactory
                         category={this.props.category}
+                        name={this.props.name}
                         engine={this.props.engine}
                         drill={this.props.drill}
                         form={this.props.form}

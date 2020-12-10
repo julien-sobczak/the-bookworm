@@ -146,6 +146,18 @@ describe('rootReducer', () => {
         expect(newState.readings[0].lastDate).not.toBe(reading.lastDate);
     });
 
+    it('should handle saveDefaults', () => {
+        const payload = {
+            key: "drillCircle-drillSettings",
+            settings: {
+                span: "1in",
+            },
+        };
+
+        const newState = reducer(initialState, actions.saveDefaults(payload));
+        expect(newState.defaults["drillCircle-drillSettings"].span).toBe("1in");
+    });
+
     it('should handle recordSession', () => {
         const session = {
             type: 'drillChunk',

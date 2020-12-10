@@ -93,7 +93,7 @@ function Profile(props) {
                     </p>}
                     {newUser && <p>
                         <span><em>Welcome!</em></span><br/>
-                        <span>The Bookworm is an online application to practice speed reading techniques like peripheral vision and chunking.</span><br/>
+                        <span>The Bookworm is a web application to practice speed reading techniques like peripheral vision and chunking.</span><br/>
                         <Link to="/chunking/tutorial">Try the tutorial.</Link>
                     </p>}
                 </div>

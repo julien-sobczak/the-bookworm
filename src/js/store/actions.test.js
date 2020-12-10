@@ -81,7 +81,7 @@ describe('actions', () => {
                 "paste": 0,
                 "epub": 0,
                 "readingTime": 0,
-                "wpms": [], 
+                "wpms": [],
                 "wpm": 0,
             },
             lastBackup: null,
@@ -93,7 +93,7 @@ describe('actions', () => {
         };
         expect(actions.restoreBackup(payload)).toEqual(expectedAction);
     });
-    
+
     it('should create an action to register a new backup', () => {
         const payload = {
             date: new Date(),
@@ -104,7 +104,7 @@ describe('actions', () => {
         };
         expect(actions.registerBackup(payload)).toEqual(expectedAction);
     });
-    
+
     it('should create an action to record a new session', () => {
         const payload = {
             type: 'drillChunk',
@@ -120,6 +120,20 @@ describe('actions', () => {
             payload,
         };
         expect(actions.recordSession(payload)).toEqual(expectedAction);
+    });
+
+    it('should create an action to save new defaults', () => {
+        const payload = {
+            key: 'drillCircle-drillSettings',
+            session: {
+                span: "1in",
+            },
+        };
+        const expectedAction = {
+            type: actions.SAVE_DEFAULTS,
+            payload,
+        };
+        expect(actions.saveDefaults(payload)).toEqual(expectedAction);
     });
 
 });

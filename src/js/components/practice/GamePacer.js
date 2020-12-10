@@ -7,6 +7,11 @@ import Form from './Form';
 import Drill from './Drill';
 import Stats from './Stats';
 
+const DEFAULT_DRILL_SETTINGS = {
+    ...defaultDrillSettings,
+    pacerWpm: 200,
+};
+
 const Game = (props) => {
 
     return (
@@ -20,12 +25,9 @@ const Game = (props) => {
             stats={<Stats />}
             contentAware={true}
             countdownDuration={2000}
-            drillSettings={{
-                ...defaultDrillSettings,
-                pacerWpm: 200,
-            }}
+            drillSettings={DEFAULT_DRILL_SETTINGS}
         />
     );
 };
 
-export default Game;
+export { Game as default, DEFAULT_DRILL_SETTINGS };

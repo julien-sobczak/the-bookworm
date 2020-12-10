@@ -96,6 +96,16 @@ function rootReducer(state, action) {
             lastBackup: action.payload.date.toJSON(),
         };
 
+    } else if (action.type === actions.SAVE_DEFAULTS) {
+        const newDefaults = {
+            ...state.defaults,
+        };
+        newDefaults[action.payload.key] = action.payload.settings;
+        return {
+            ...state,
+            defaults: newDefaults,
+        };
+
     } else if (action.type === actions.RECORD_SESSION) {
         const drillType = action.payload.type;
 
