@@ -141,6 +141,12 @@ class LibraryBooks extends React.Component {
                                     return (
                                         <li key={index} className={selected ? 'Selected' : ''}>
                                             <button onClick={this.filterByLanguage} className="Clickable" data-language={language.name}>
+                                                {language.name === 'English' && <>🇬🇧&nbsp;</>}
+                                                {language.name === 'French' && <>🇫🇷&nbsp;</>}
+                                                {language.name === 'German' && <>🇩🇪&nbsp;</>}
+                                                {language.name === 'Italian' && <>🇮🇹&nbsp;</>}
+                                                {language.name === 'Spanish' && <>🇪🇸&nbsp;</>}
+                                                {language.name === 'Portuguese' && <>🇵🇹&nbsp;</>}
                                                 {language.name}&nbsp;
                                                 {!selected && <sup>{language.count}</sup>}
                                                 {selected && <i className="material-icons md-small">backspace</i>}
