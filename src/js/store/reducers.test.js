@@ -16,6 +16,20 @@ describe('rootReducer', () => {
         });
     });
 
+    it('should handle updateLGlobalPreferences', () => {
+        expect(
+            reducer(initialState, actions.updateGlobalPreferences({
+                displayScale: 2,
+            }))
+        ).toMatchObject({
+            preferences: {
+                global: {
+                    displayScale: 2,
+                },
+            },
+        });
+    });
+
     it('should handle updateLanguagePreferences', () => {
         expect(
             reducer(initialState, actions.updateLanguagePreferences({

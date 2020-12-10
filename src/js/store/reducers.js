@@ -46,6 +46,15 @@ function rootReducer(state, action) {
             stats: newStats,
         };
 
+    } else if (action.type === actions.UPDATE_GLOBAL_PREFERENCES) {
+        return {
+            ...state,
+            preferences: {
+                ...state.preferences,
+                global: action.payload,
+            },
+        };
+
     } else if (action.type === actions.UPDATE_LANGUAGE_PREFERENCES) {
         return {
             ...state,

@@ -52,6 +52,7 @@ button:focus {
 @import 'css/Settings.css';
 @import 'css/Library.css';
 @import 'css/Theme.css';
+@import 'css/Tooltip.css';
 
 
 /* https://google.github.io/material-design-icons/#what-are-material-icons- */

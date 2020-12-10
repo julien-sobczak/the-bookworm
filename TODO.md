@@ -5,10 +5,8 @@
 - [ ] Complete `DEVELOPER.md`
 - [ ] Rewrite `README.md`
 - [ ] Write a tutorial for the default content
-- [ ] Add a field `kind`, `plot` in openlibrary and update `LibraryBooks` to reflect these changes
 - [ ] Document side projects `openlibrary` to make it easy to add new books in the catalog
-- [ ] Add more unit tests
-- [ ] Reformat all code and add comments
+- [ ] Add a field `kind`, `plot` in openlibrary and update `LibraryBooks` to reflect these changes
 - [ ] Save custom drill settings configurations in localStorage
 - [ ] Add a pause button
 - [ ] Deploy a proxy as a workaround CORS requests

@@ -1,5 +1,6 @@
 
 export const UPDATE_READING = "UPDATE_READING";
+export const UPDATE_GLOBAL_PREFERENCES = "UPDATE_GLOBAL_PREFERENCES";
 export const UPDATE_LANGUAGE_PREFERENCES = "UPDATE_LANGUAGE_PREFERENCES";
 export const UPDATE_TEXT_PREFERENCES = "UPDATE_TEXT_PREFERENCES";
 export const UPDATE_CHUNK_PREFERENCES = "UPDATE_CHUNK_PREFERENCES";
@@ -9,6 +10,10 @@ export const RECORD_SESSION = "RECORD_SESSION";
 
 export function updateReading(payload) {
     return { type: UPDATE_READING, payload };
+}
+
+export function updateGlobalPreferences(payload) {
+    return { type: UPDATE_GLOBAL_PREFERENCES, payload };
 }
 
 export function updateLanguagePreferences(payload) {
