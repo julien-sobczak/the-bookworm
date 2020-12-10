@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
-import { updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
+import { updateGlobalPreferences, updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
+import FormGlobal from './FormGlobal';
 import FormLanguage from './FormLanguage';
 import FormText from './FormText';
 import FormChunk from './FormChunk';
@@ -24,10 +25,22 @@ class Preferences extends React.Component {
         };
 
         this.handleTabChange = this.handleTabChange.bind(this);
+        this.handleGlobalPreferencesChange = this.handleGlobalPreferencesChange.bind(this);
+        this.handleLanguagePreferencesChange = this.handleLanguagePreferencesChange.bind(this);
+        this.handleTextPreferencesChange = this.handleTextPreferencesChange.bind(this);
+        this.handleChunkPreferencesChange = this.handleChunkPreferencesChange.bind(this);
     }
 
     handleTabChange(event, activeTab) {
         this.setState({ activeTab: activeTab });
+    }
+
+    handleGlobalPreferencesChange(prefs) {
+        console.log('Saving global preferences...', prefs);
+        if (window && window.document) {
+            document.documentElement.style.setProperty('--scale', prefs.displayScale);
+        }
+        this.props.updateGlobalPreferences(prefs);
     }
 
     handleLanguagePreferencesChange(prefs) {
@@ -62,20 +75,26 @@ class Preferences extends React.Component {
                 {this.state.activeTab === 0 && <div className="TabContent Centered">
 
                     <section>
+                        <h4>Global</h4>
+                        <p>Define global settings.</p>
+                        <FormGlobal {...this.props.preferences.global} onChange={this.handleGlobalPreferencesChange} />
+                    </section>
+
+                    <section>
                         <h4>Language</h4>
-                        <p>Control the language selected by default in the library.</p>
+                        <p>Define the default selected language in the library.</p>
                         <FormLanguage {...this.props.preferences.language} onChange={this.handleLanguagePreferencesChange} />
                     </section>
 
                     <section>
                         <h4>Font</h4>
-                        <p>Control how texts are displayed in the drills.</p>
+                        <p>Define how texts are displayed in the drills.</p>
                         <FormText {...this.props.preferences.text} onChange={this.handleTextPreferencesChange} />
                     </section>
 
                     <section>
                         <h4>Chunking</h4>
-                        <p>Control how chunks are displayed during chunking drills.</p>
+                        <p>Define how chunks are displayed in the drills.</p>
                         <FormChunk {...this.props.preferences.chunk} onChange={this.handleChunkPreferencesChange} />
                     </section>
 
@@ -98,6 +117,7 @@ class Preferences extends React.Component {
 Preferences.propTypes = {
     // Redux state
     preferences: PropTypes.object.isRequired,
+    updateGlobalPreferences: PropTypes.func.isRequired,
     updateLanguagePreferences: PropTypes.func.isRequired,
     updateTextPreferences: PropTypes.func.isRequired,
     updateChunkPreferences: PropTypes.func.isRequired,
@@ -111,6 +131,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        updateGlobalPreferences: prefs => dispatch(updateGlobalPreferences(prefs)),
         updateLanguagePreferences: prefs => dispatch(updateLanguagePreferences(prefs)),
         updateTextPreferences: prefs => dispatch(updateTextPreferences(prefs)),
         updateChunkPreferences: prefs => dispatch(updateChunkPreferences(prefs)),

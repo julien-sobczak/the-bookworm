@@ -22,12 +22,12 @@ const FormLanguage = (props) => {
                     <th><label htmlFor="native">Default</label>:</th>
                     <td>
                         <select id="native" value={native} onChange={handleNativeChange}>
-                            <option value='Dutch'>Dutch</option>
-                            <option value='English'>English</option>
-                            <option value='French'>French</option>
-                            <option value='Italian'>Italian</option>
-                            <option value='Portuguese'>Portuguese</option>
-                            <option value='Spanish'>Spanish</option>
+                            <option value="Dutch">Dutch</option>
+                            <option value="English">English</option>
+                            <option value="French">French</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Portuguese">Portuguese</option>
+                            <option value="Spanish">Spanish</option>
                         </select>
                     </td>
                 </tr>

@@ -17,6 +17,9 @@ const defaultState = {
         drillStopWatch: [],
     },
     preferences: {
+        global: {
+            displayScale: 1,
+        },
         language: {
             native: "English",
         },

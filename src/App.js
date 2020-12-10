@@ -195,6 +195,12 @@ class App extends React.Component {
             update: this.updateContent,
             toggle: this.toggleContent,
         };
+
+        // Apply global settings
+        if (window && window.document) {
+            console.log(`Defining length calibration to ${this.props.preferences.global.displayScale}`);
+            document.documentElement.style.setProperty('--scale', this.props.preferences.global.displayScale);
+        }
     }
 
     render() {
@@ -239,11 +245,13 @@ class App extends React.Component {
 }
 App.propTypes = {
     readings: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
+    preferences: PropTypes.objectOf(PropTypes.any),
 };
 
 const mapStateToProps = state => {
     return {
         readings: state.readings,
+        preferences: state.preferences,
     };
 };
 
