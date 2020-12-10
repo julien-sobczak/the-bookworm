@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { saveDefaults } from '../../store/actions';
 
 import Button from './Button';
 
@@ -45,10 +48,24 @@ class WizardFactory extends React.Component {
             activeTab: 0,
             demoActive: false,
 
-            // Copy default settings to make them editable
+            // Copy settings to make them editable
             drillSettings: props.drillSettings,
-            textSettings: props.textSettings,
+            textSettings: {...props.defaults[props.name + '-textSettings'], ...props.textSettings},
         };
+
+        // Merge possible previous saved settings
+        if ((props.name + '-drillSettings') in props.defaults) {
+            this.state.drillSettings = {
+                ...this.state.drillSettings,
+                ...props.defaults[props.name + '-drillSettings'],
+            };
+        }
+        if ((props.name + '-textSettings') in props.defaults) {
+            this.state.drillSettings = {
+                ...this.state.drillSettings,
+                ...props.defaults[props.name + '-textSettings'],
+            };
+        }
 
         this.usePredefinedDrill = this.usePredefinedDrill.bind(this);
         this.useHistoryDrill = this.useHistoryDrill.bind(this);
@@ -193,6 +210,14 @@ class WizardFactory extends React.Component {
     }
 
     handleValidateClick() {
+        this.props.saveDefaults({
+            key: this.props.name + "-drillSettings",
+            settings: this.state.drillSettings,
+        });
+        this.props.saveDefaults({
+            key: this.props.name + "-textSettings",
+            settings: this.state.textSettings,
+        });
         this.props.onValidate({
             drillSettings: this.state.drillSettings,
             textSettings: this.state.textSettings,
@@ -202,11 +227,17 @@ class WizardFactory extends React.Component {
 }
 
 WizardFactory.propTypes = {
+    // The category of the drill (chunking, vision-span, etc.)
     category: PropTypes.string.isRequired,
+    // The name of the drill (drillCircle, drillPractice, etc.)
+    name: PropTypes.string.isRequired,
 
     form: PropTypes.element.isRequired,
     demo: PropTypes.element.isRequired,
     history: PropTypes.element,
+
+    // Previously  used settings.
+    defaults: PropTypes.object,
 
     drillSettings: PropTypes.object,
     textSettings: PropTypes.object,
@@ -216,6 +247,7 @@ WizardFactory.propTypes = {
 
     keyboardDetected: PropTypes.bool,
 
+    saveDefaults: PropTypes.func,
     onValidate: PropTypes.func,
 };
 
@@ -225,4 +257,16 @@ WizardFactory.defaultProps = {
     onValidate: function() {},
 };
 
-export default WizardFactory;
+const mapStateToProps = state => {
+    return {
+        defaults: state.defaults,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        saveDefaults: settings => dispatch(saveDefaults(settings)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WizardFactory);

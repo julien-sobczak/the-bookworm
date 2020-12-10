@@ -6,7 +6,7 @@ import Styled from '../../toolbox/Styled';
 
 import * as string from '../../../functions/string';
 
-const defaultDrillProps = {
+const defaultDrillSettings = {
     ...Chunker.defaultProps,
     neighborChunksPosition: 'vertical',
     showPreviousChunk: false,
@@ -80,7 +80,7 @@ Viewer.defaultProps = {
     // Increase the font size as we are printed few words on the screen
     fontSize: '16pt',
 
-    ...defaultDrillProps,
+    ...defaultDrillSettings,
 };
 
-export { Viewer as default, defaultDrillProps };
+export { Viewer as default, defaultDrillSettings };

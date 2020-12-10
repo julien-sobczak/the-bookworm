@@ -1,6 +1,18 @@
 import { createStore } from "redux";
 import rootReducer from "./reducers";
 
+import { defaultDrillSettings as DEFAULT_DRILL_CIRCLE_SETTINGS } from "../components/vision-span/circle/Viewer";
+import { defaultDrillSettings as DEFAULT_DRILL_HORIZONTAL_SETTINGS } from "../components/vision-span/horizontal/Viewer";
+import { defaultDrillSettings as DEFAULT_DRILL_PYRAMID_SETTINGS } from "../components/vision-span/pyramid/Viewer";
+import { defaultDrillSettings as DEFAULT_DRILL_SCHULTE_SETTINGS } from "../components/vision-span/schulte/Viewer";
+import { defaultDrillSettings as DEFAULT_DRILL_CHUNK_SETTINGS } from "../components/chunking/chunk/Viewer";
+import { defaultDrillSettings as DEFAULT_DRILL_COLUMN_SETTINGS } from "../components/chunking/column/Viewer";
+import { defaultDrillSettings as DEFAULT_DRILL_PAGE_SETTINGS } from "../components/chunking/page/Viewer";
+import { DEFAULT_DRILL_SETTINGS as DEFAULT_DRILL_FREE_SETTINGS } from "../components/practice/GameFree";
+import { DEFAULT_DRILL_SETTINGS as DEFAULT_DRILL_PACER_SETTINGS } from "../components/practice/GamePacer";
+import { DEFAULT_DRILL_SETTINGS as DEFAULT_DRILL_STOPWATCH_SETTINGS } from "../components/practice/GameStopWatch";
+import { DEFAULT_TEXT_SETTINGS } from "../components/toolbox/Styled";
+
 const defaultState = {
     startDate: new Date(),
     readings: [],
@@ -15,6 +27,40 @@ const defaultState = {
         drillFree: [],
         drillPacer: [],
         drillStopWatch: [],
+    },
+    defaults: {
+        // Vision span
+        "drillCircle-drillSettings": DEFAULT_DRILL_CIRCLE_SETTINGS,
+        "drillCircle-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillHorizontal-drillSettings": DEFAULT_DRILL_HORIZONTAL_SETTINGS,
+        "drillHorizontal-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillPyramid-drillSettings": DEFAULT_DRILL_PYRAMID_SETTINGS,
+        "drillPyramid-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillSchulte-drillSettings": DEFAULT_DRILL_SCHULTE_SETTINGS,
+        "drillSchulte-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        // Chunking
+        "drillPage-drillSettings": DEFAULT_DRILL_PAGE_SETTINGS,
+        "drillPage-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillChunk-drillSettings": DEFAULT_DRILL_CHUNK_SETTINGS,
+        "drillChunk-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillColumn-drillSettings": DEFAULT_DRILL_COLUMN_SETTINGS,
+        "drillColumn-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        // Practice
+        "drillFree-drillSettings": DEFAULT_DRILL_FREE_SETTINGS,
+        "drillFree-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillPacer-drillSettings": DEFAULT_DRILL_PACER_SETTINGS,
+        "drillPacer-textSettings": DEFAULT_TEXT_SETTINGS,
+
+        "drillStopWatch-drillSettings": DEFAULT_DRILL_STOPWATCH_SETTINGS,
+        "drillStopWatch-textSettings": DEFAULT_TEXT_SETTINGS,
     },
     preferences: {
         global: {
