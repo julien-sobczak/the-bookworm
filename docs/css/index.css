@@ -1,16 +1,3 @@
-/*
- * HACK: Manage the switch between the index page and the React app
- */
-body #root {
-    display: none;
-}
-body.App #root {
-    display: block;
-}
-body.App #homepage {
-    display: none;
-}
-
 /* Homepage Design */
 
 :root {
@@ -90,7 +77,7 @@ html {
 /* ************************************************** */
 
 #homepage header {
-    background-image: url(/images/illustration.svg);
+    background-image: url(../images/illustration.svg);
     background-position: bottom right;
     background-repeat: no-repeat;
     background-size: 98vh;
@@ -220,7 +207,7 @@ p#headline .penwritten {
 .chat-thread li:nth-child(even):before {
 	right: calc(-1 * var(--chat-thread-offset));
     /* Avatar 1 */
-	background-image: url(/images/face1.svg);
+	background-image: url(../images/face1.svg);
     background-size: cover;
     border: 0.25rem solid black;
 }
@@ -239,7 +226,7 @@ p#headline .penwritten {
 .chat-thread li:nth-child(odd):before {
 	left: calc(-1 * var(--chat-thread-offset));
     /* Avatar 2 */
-	background-image: url(/images/face2.svg);
+	background-image: url(../images/face2.svg);
     background-size: cover;
     border: 0.25rem solid black;
 }
@@ -374,7 +361,7 @@ p#headline .penwritten {
 }
 #homepage footer nav #button-try:after {
     content: '';
-    background: url(/images/try.svg) no-repeat;
+    background: url(../images/try.svg) no-repeat;
     width: 4cm;
     height: 3cm;
     position: absolute;

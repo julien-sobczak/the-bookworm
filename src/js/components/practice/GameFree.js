@@ -9,7 +9,7 @@ import Stats from './Stats';
 
 const DEFAULT_DRILL_SETTINGS = {
     ...defaultDrillSettings,
-}
+};
 
 const Game = (props) => {
 

@@ -292,7 +292,7 @@ export function parseLiterature(rawContent, metadata) {
  * @returns {Promise} a Promise containing the downloaded document.
  */
 export function downloadContent(description) {
-    if (description.type === "literature") {
+    if (description.origin === "gutenberg") {
         const contentUrl = `https://open-library-books.firebaseapp.com/gutenberg/${description.slug}.txt`;
         const metadataUrl = `https://open-library-books.firebaseapp.com/gutenberg/${description.slug}.json`;
         console.log(`Downloading ${contentUrl}...`);
@@ -317,7 +317,7 @@ export function downloadContent(description) {
         });
     }
 
-    throw new Error(`Unsupported type ${description.type}`);
+    throw new Error(`Unsupported origin ${description.origin}`);
 }
 
 /**

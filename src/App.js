@@ -220,6 +220,7 @@ class App extends React.Component {
                             {/* <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink> */}
                         </nav>
                         <section id="content">
+                            <Route path="/"       exact component={IndexPage} />
                             <Route path="/home"   exact component={IndexPage} />
                             <Route path="/vision-span/" component={VisionSpanPage} />
                             <Route path="/chunking/"    component={ChunkingPage} />
