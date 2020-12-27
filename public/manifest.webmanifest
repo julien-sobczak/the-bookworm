@@ -1,0 +1,23 @@
+{
+    "short_name": "The Bookworm",
+    "name": "The Bookworm: Your Speed Reading Training App",
+    "description": "Custom spead reading drills",
+    "icons": [
+      {
+        "src": "/images/favicon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/images/favicon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "black",
+    "display": "standalone",
+    "scope": "/",
+    "orientation": "any",
+    "theme_color": "#000000"
+  }
