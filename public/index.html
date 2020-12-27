@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.webmanifest">
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -61,4 +61,49 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script type="text/javascript">
+    // See https://web.dev/customize-install/ for reference
+
+    let deferredPrompt;
+
+    // Listen for the beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI notify the user they can install the PWA
+      showInstallPromotion();
+    });
+
+    // Detect when the PWA was successfully installed
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('Application successfully installed!');
+    });
+
+    // Detect how the PWA was launched
+    window.addEventListener('DOMContentLoaded', () => {
+      let displayMode = 'browser tab';
+      if (navigator.standalone) {
+        displayMode = 'standalone-ios';
+      }
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        displayMode = 'standalone';
+      }
+      // Log launch display mode to analytics
+      console.log(`Display mode is ${displayMode}`);
+    });
+
+    // Track when the display mode changes
+    window.addEventListener('DOMContentLoaded', () => {
+      window.matchMedia('(display-mode: standalone)').addListener((evt) => {
+        let displayMode = 'browser tab';
+        if (evt.matches) {
+          displayMode = 'standalone';
+        }
+        // Log display mode change to analytics
+        console.log(`Display mode changed to ${displayMode}`);
+      });
+    });
+  </script>
 </html>
