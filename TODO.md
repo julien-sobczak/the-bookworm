@@ -1,7 +1,5 @@
 # TODO
 
-- [ ] Support 'Add to homepage' button
-- [ ] "RWD" for small screens
 - [ ] Complete `DEVELOPER.md`
 - [ ] Rewrite `README.md`
 - [ ] Write a tutorial for the default content

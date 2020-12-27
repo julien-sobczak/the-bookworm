@@ -29,6 +29,8 @@ import { ContentContext } from './content-context';
 
 import SettingsPreferences from './js/components/settings/Preferences';
 
+import ScreenTester from './js/components/toolbox/ScreenTester';
+
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import 'normalize.css';
@@ -207,7 +209,7 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <ContentContext.Provider value={this.state}>
-                    <div id="ScreenTooSmall"></div>
+                    <ScreenTester minWidth="6in" minHeight="6in" />
                     {this.state.content.content && <Router>
                         <nav className="menu">
                             <NavLink to="/home" activeClassName="active" exact><div><i className="material-icons">home</i><br/>Home</div></NavLink>
