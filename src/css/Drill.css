@@ -5,8 +5,8 @@
 .DrillControls {
   position: fixed;
   z-index: 999;
-  right: 20px;
-  top: 20px;
+  right: 1rem;
+  top: 1rem;
   text-align: right;
 }
 .DrillControls ul {
@@ -16,7 +16,7 @@
   display: inline-block;
 }
 .DrillControls .material-icons {
-  font-size: 48px;
+  font-size: 3rem;
   color: white;
   border-radius: 100%;
   background-color: black;

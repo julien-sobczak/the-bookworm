@@ -6,7 +6,7 @@
     right: 0;
     z-index: 500;
     background-color: white;
-    padding: 20px;
+    padding: 1rem;
 }
 
 .Centered {
@@ -24,8 +24,8 @@
 
 .ButtonClose {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 1rem;
+    left: 1rem;
     z-index: 900;
     color: black !important;
 }
