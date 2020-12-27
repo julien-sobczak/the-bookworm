@@ -10,7 +10,7 @@ import Stats from './Stats';
 const DEFAULT_DRILL_SETTINGS = {
     ...defaultDrillSettings,
     timer: 1, // One minute
-}
+};
 
 const Game = (props) => {
 
