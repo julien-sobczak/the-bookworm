@@ -133,7 +133,7 @@ class Drill extends React.Component {
             const fontSize = parseFloat(getComputedStyle(this.drillArea.current).fontSize); // The size in pixel of a character
             const heightSerie = 1.5 * fontSize * this.props.lines + 1 * fontSize; // The height of series (lines + margin)
             const buffer = 50; // Avoid being too narrow at the top and bottom
-            return parseInt((height - buffer) / heightSerie);
+            return Math.min(parseInt((height - buffer) / heightSerie), 10);
         } else {
             return 1;
         }

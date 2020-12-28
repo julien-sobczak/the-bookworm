@@ -12,7 +12,6 @@
 # Bugs
 
 - [ ] Parse Gutenberg text to replace `--` by `—` and `_\w` by `<i>` and `\w_` by `</i>`
-- [ ] Set a maximum number of multiple series.
 - [ ] Add a label under the control buttons
 - [ ] Move favorite in Settings/Style directory
 
