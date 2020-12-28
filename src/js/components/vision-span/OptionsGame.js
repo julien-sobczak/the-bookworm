@@ -37,7 +37,7 @@ const OptionsGame = (props) => {
     return (
         <table className="Setting">
             <tbody>
-                <tr>
+                {props.keyboardDetected && <tr>
                     <th><label htmlFor="keyboard">Enable Keyboard</label>:</th>
                     <td>
                         <Switch
@@ -46,7 +46,7 @@ const OptionsGame = (props) => {
                             checked={keyboard}
                             onChange={handleKeyboardChange} />
                     </td>
-                </tr>
+                </tr>}
                 <tr>
                     <th><label htmlFor="autoLevel">Auto-Level</label>:</th>
                     <td>
