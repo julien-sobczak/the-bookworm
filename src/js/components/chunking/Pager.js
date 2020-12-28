@@ -4,6 +4,7 @@ import Tokenizer from './Tokenizer';
 
 import Paper from '../toolbox/Paper';
 import * as string from '../../functions/string';
+import { DEMO_CONTENT } from '../../../constants';
 
 // Values for property chunkMode.
 const chunkModes = ['none', 'width', 'stops', 'words'];
@@ -621,16 +622,7 @@ Pager.defaultProps = {
     chunkWords: 1,
 
     // Sample content
-    content: {
-        title: "The Adventures of Tom Sawyer",
-        author: "Mark Twain",
-        subtitle: "Chapter 3",
-        blocks: [
-            { tag: "h2", content: "Chapter 3" },
-            { tag: "p", content: "TOM presented himself before Aunt Polly, who was sitting by an open window in a pleasant rearward apartment, which was bedroom, breakfast-room, dining-room, and library, combined. The balmy summer air, the restful quiet, the odor of the flowers, and the drowsing murmur of the bees had had their effect, and she was nodding over her knitting--for she had no company but the cat, and it was asleep in her lap. Her spectacles were propped up on her gray head for safety. She had thought that of course Tom had deserted long ago, and she wondered at seeing him place himself in her power again in this intrepid way. He said: “Mayn't I go and play now, aunt?”" },
-            { tag: "p", content: "“What, a'ready? How much have you done?”" },
-        ]
-    },
+    content: DEMO_CONTENT,
 };
 
 

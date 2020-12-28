@@ -9,6 +9,23 @@ import * as library from "../../functions/library";
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
+function LanguageIcon({name}) {
+    return (
+        <>
+            {name === 'English' && <>🇬🇧&nbsp;</>}
+            {name === 'French' && <>🇫🇷&nbsp;</>}
+            {name === 'German' && <>🇩🇪&nbsp;</>}
+            {name === 'Italian' && <>🇮🇹&nbsp;</>}
+            {name === 'Spanish' && <>🇪🇸&nbsp;</>}
+            {name === 'Portuguese' && <>🇵🇹&nbsp;</>}
+        </>
+    );
+}
+LanguageIcon.propTypes = {
+    name: PropTypes.string.isRequired,
+};
+
+
 class LibraryBooks extends React.Component {
 
     constructor(props) {
@@ -17,7 +34,7 @@ class LibraryBooks extends React.Component {
         this.state = {
             // Does the catalog is currently being downloading?
             loading:  true,
-            // The catalog retrieved from open-library-books.firebaseapp.com
+            // The catalog retrieved from open-library-books.web.app
             catalog: [],
             // The filtered books
             books: [],
@@ -25,12 +42,15 @@ class LibraryBooks extends React.Component {
             filterRegex: "",
             // Which letter is currently selected by the user to filter books?
             filterLetter: "*",
+            // The type of books
+            filterType: "all",
             // Which language is currently selected by the user?
             filterLanguage: props.preferencesLanguage.native,
         };
 
         this.filterByRegex = this.filterByRegex.bind(this);
         this.filterByLanguage = this.filterByLanguage.bind(this);
+        this.filterByType = this.filterByType.bind(this);
         this.filterByLetter = this.filterByLetter.bind(this);
         this.filterByAuthor = this.filterByAuthor.bind(this);
         this.handleBookSelected = this.handleBookSelected.bind(this);
@@ -70,8 +90,11 @@ class LibraryBooks extends React.Component {
                 const regex = new RegExp(this.state.filterRegex, 'g');
                 if (book.title.match(regex)) return true;
                 if (book.author.match(regex)) return true;
-                // TODO add Kind
                 return false;
+            }
+
+            if (this.state.filterType !== 'all') {
+                if (book.type !== this.state.filterType) return false;
             }
 
             const firstLetter = book.title[0].toUpperCase();
@@ -91,6 +114,16 @@ class LibraryBooks extends React.Component {
     filterByRegex(event) {
         this.setState({
             filterRegex: event.target.value,
+        }, this.filterBooks);
+    }
+
+    filterByType(event) {
+        let newType = event.target.dataset.type;
+        if (newType === this.state.filterType) {
+            newType = 'all';
+        }
+        this.setState({
+            filterType: newType,
         }, this.filterBooks);
     }
 
@@ -126,7 +159,6 @@ class LibraryBooks extends React.Component {
                 {!this.state.loading && this.state.catalog.length > 0 &&
                     <>
                         <h3>Choose a book</h3>
-                        {/* TODO Add filters by language, by kind, search box */}
 
                         <div className="LibraryFilters">
 
@@ -141,12 +173,7 @@ class LibraryBooks extends React.Component {
                                     return (
                                         <li key={index} className={selected ? 'Selected' : ''}>
                                             <button onClick={this.filterByLanguage} className="Clickable" data-language={language.name}>
-                                                {language.name === 'English' && <>🇬🇧&nbsp;</>}
-                                                {language.name === 'French' && <>🇫🇷&nbsp;</>}
-                                                {language.name === 'German' && <>🇩🇪&nbsp;</>}
-                                                {language.name === 'Italian' && <>🇮🇹&nbsp;</>}
-                                                {language.name === 'Spanish' && <>🇪🇸&nbsp;</>}
-                                                {language.name === 'Portuguese' && <>🇵🇹&nbsp;</>}
+                                                <LanguageIcon name={language.name} />
                                                 {language.name}&nbsp;
                                                 {!selected && <sup>{language.count}</sup>}
                                                 {selected && <i className="material-icons md-small">backspace</i>}
@@ -154,6 +181,22 @@ class LibraryBooks extends React.Component {
                                         </li>
                                     );
                                 })}
+                            </ul>
+
+                            {/* Filter by type */}
+                            <ul>
+                                <li className={this.state.filterType === 'fiction' ? 'Selected' : ''}>
+                                    <button onClick={this.filterByType} className="Clickable" data-type="fiction">
+                                        Fiction
+                                        {this.state.type === 'fiction' && <i className="material-icons md-small">backspace</i>}
+                                    </button>
+                                </li>
+                                <li className={this.state.filterType === 'nonfiction' ? 'Selected' : ''}>
+                                    <button onClick={this.filterByType} className="Clickable" data-type="nonfiction">
+                                        Nonfiction
+                                        {this.state.type === 'nonfiction' && <i className="material-icons md-small">backspace</i>}
+                                    </button>
+                                </li>
                             </ul>
 
                             {/* Filter by first letter */}
@@ -185,11 +228,14 @@ class LibraryBooks extends React.Component {
                                                         {book.title}
                                                     </button>
                                                 </td>
-                                                <td className="BookAuthor">
+                                                <td className="BookMetadata">
                                                     <button onClick={this.filterByAuthor} data-author={book.author}>{book.author}</button>
                                                 </td>
-                                                <td className="BookAuthor">
-                                                    {book.language}
+                                                <td className="BookMetadata">
+                                                    <LanguageIcon name={book.language} />
+                                                </td>
+                                                <td className="BookMetadata">
+                                                    {book.numberPages} pages
                                                 </td>
                                                 <td>
                                                     {book.slug in this.props.readings &&

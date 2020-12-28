@@ -2,7 +2,7 @@ import * as string from './string';
 import * as wpm from './wpm';
 
 /** URL of the library catalog. */
-const CATALOG_URL = "https://open-library-books.firebaseapp.com/catalog.json";
+const CATALOG_URL = "https://open-library-books.web.app/catalog.json";
 
 // Based on table https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const languagesISO = {
@@ -293,8 +293,8 @@ export function parseLiterature(rawContent, metadata) {
  */
 export function downloadContent(description) {
     if (description.origin === "gutenberg") {
-        const contentUrl = `https://open-library-books.firebaseapp.com/gutenberg/${description.slug}.txt`;
-        const metadataUrl = `https://open-library-books.firebaseapp.com/gutenberg/${description.slug}.json`;
+        const contentUrl = `https://open-library-books.web.app/gutenberg/${description.slug}.txt`;
+        const metadataUrl = `https://open-library-books.web.app/gutenberg/${description.slug}.json`;
         console.log(`Downloading ${contentUrl}...`);
         console.log(`Downloading ${metadataUrl}...`);
 
