@@ -78,8 +78,8 @@ class PreviewBook extends React.Component {
     }
 
     componentDidMount() {
-        const contentUrl = `https://open-library-books.firebaseapp.com/gutenberg/${this.props.entry.slug}.txt`;
-        const metadataUrl = `https://open-library-books.firebaseapp.com/gutenberg/${this.props.entry.slug}.json`;
+        const contentUrl = `https://open-library-books.web.app/gutenberg/${this.props.entry.slug}.txt`;
+        const metadataUrl = `https://open-library-books.web.app/gutenberg/${this.props.entry.slug}.json`;
         console.log(`Downloading ${contentUrl}...`);
         console.log(`Downloading ${metadataUrl}...`);
         fetch(contentUrl)

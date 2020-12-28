@@ -4,4 +4,4 @@ export const DEMO_CONTENT = {
         { tag: "h2", content: "A chapter" },
         { tag: "p", content: "A paragraph" },
     ]
-}
+};
