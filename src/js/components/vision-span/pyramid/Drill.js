@@ -147,7 +147,7 @@ class Drill extends React.Component {
         if (!this.props.lines) {
             return maxLines;
         } else {
-            return Math.min(this.props.lines, maxLines);
+            return Math.min(Math.min(this.props.lines, maxLines), 10);
         }
     }
 
