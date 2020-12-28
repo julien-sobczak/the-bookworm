@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import Button from "../toolbox/Button.js";
 import * as string from '../../functions/string';
 
+import TimerIcon from '@material-ui/icons/Timer';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+
 function Stats({ stats, onRestart }) {
 
     return (
@@ -12,15 +16,15 @@ function Stats({ stats, onRestart }) {
             <table className="Stats">
                 <tbody>
                     <tr>
-                        <th>⏱</th>
+                        <th><TimerIcon/></th>
                         <td>{string.humanReadableShortDuration(stats.durationInSeconds)}</td>
                     </tr>
                     <tr>
-                        <th>👍</th>
+                        <th><ThumbUpIcon/></th>
                         <td>{stats.correctAnswers}</td>
                     </tr>
                     <tr>
-                        <th>👎</th>
+                        <th><ThumbDownIcon/></th>
                         <td>{stats.wrongAnswers}</td>
                     </tr>
                 </tbody>

@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import Button from "../toolbox/Button.js";
 import * as string from '../../functions/string';
 
+import TimerIcon from '@material-ui/icons/Timer';
+import BookIcon from '@material-ui/icons/Book';
+import ExtensionIcon from '@material-ui/icons/Extension';
+import SpeedIcon from '@material-ui/icons/Speed';
+
 function Stats({ stats, finished, onRestart, onContinue }) {
 
     return (
@@ -12,19 +17,19 @@ function Stats({ stats, finished, onRestart, onContinue }) {
             <table className="Stats">
                 <tbody>
                     <tr>
-                        <th>📖</th>
+                        <th><BookIcon/></th>
                         <td>{stats.words} <small>words</small></td>
                     </tr>
                     <tr>
-                        <th>⏱</th>
+                        <th><TimerIcon/></th>
                         <td>{string.humanReadableShortDuration(stats.durationInSeconds)}</td>
                     </tr>
                     <tr>
-                        <th>🏃‍♀️</th>
+                        <th><SpeedIcon/></th>
                         <td>{stats.wpm} <small>WPM</small></td>
                     </tr>
                     <tr>
-                        <th>🧩</th>
+                        <th><ExtensionIcon/></th>
                         <td>{stats.chunks} <small>chunk(s)</small></td>
                     </tr>
                 </tbody>
