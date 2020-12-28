@@ -67,15 +67,15 @@ const FormText = (props) => {
                 <tr>
                     <th><label>Typeface</label>:</th>
                     <td>
-                        <RadioButtons 
+                        <RadioButtons
                             options={[
-                                { value: 'Roboto',        label: 'Roboto',          className: 'Roboto'        },
-                                { value: 'SourceCodePro', label: 'Source Code Pro', className: 'SourceCodePro' },
-                                { value: 'Slabo',         label: 'Slabo',           className: 'Slabo'         },
-                                { value: 'Sacramento',    label: 'Sacramento',      className: 'Sacramento'    },
-                                { value: 'FredokaOne',    label: 'Fredoka One',     className: 'FredokaOne'    },
-                            ]} 
-                            onChange={handleFontFamilyClick} 
+                                { value: 'Roboto',        label: 'Sans-Serif', className: 'Roboto'        },
+                                { value: 'SourceCodePro', label: 'Monospace',  className: 'SourceCodePro' },
+                                { value: 'Slabo',         label: 'Serif',      className: 'Slabo'         },
+                                { value: 'Sacramento',    label: 'Cursive',    className: 'Sacramento'    },
+                                { value: 'FredokaOne',    label: 'Bold',       className: 'FredokaOne'    },
+                            ]}
+                            onChange={handleFontFamilyClick}
                             value={fontFamily} />
                     </td>
                 </tr>
@@ -88,37 +88,37 @@ const FormText = (props) => {
                                 { value: 'italic',      label: 'Italic',      className: 'Italic'     },
                                 { value: 'bold',        label: 'Bold',        className: 'Bold'       },
                                 { value: 'bold italic', label: 'Bold Italic', className: 'BoldItalic' },
-                            ]} 
-                            onChange={handleFontStyleClick} 
+                            ]}
+                            onChange={handleFontStyleClick}
                             value={fontStyle} />
                     </td>
                 </tr>
                 <tr>
                     <th><label>Size</label>:</th>
                     <td>
-                        <RadioButtons 
+                        <RadioButtons
                             options={[
                                 { value: '10pt', label: '10 pt', classsName: 'Size10pt' },
                                 { value: '12pt', label: '12 pt', classsName: 'Size12pt' },
                                 { value: '14pt', label: '14 pt', classsName: 'Size14pt' },
                                 { value: '16pt', label: '16 pt', classsName: 'Size16pt' },
                                 { value: '18pt', label: '18 pt', classsName: 'Size18pt' },
-                            ]} 
-                            onChange={handleFontSizeClick} 
+                            ]}
+                            onChange={handleFontSizeClick}
                             value={fontSize} />
                     </td>
                 </tr>
                 <tr>
                     <th><label>Theme</label>:</th>
                     <td>
-                        <RadioButtons 
+                        <RadioButtons
                             options={[
                                 { value: 'Light', className: 'ThemeLight' },
                                 { value: 'Sepia', className: 'ThemeSepia' },
                                 { value: 'Dark',  className: 'ThemeDark'  },
                                 { value: 'Black', className: 'ThemeBlack' },
-                            ]} 
-                            onChange={handleThemeClick} 
+                            ]}
+                            onChange={handleThemeClick}
                             value={theme} />
                     </td>
                 </tr>
