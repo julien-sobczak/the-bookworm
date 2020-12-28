@@ -11,7 +11,5 @@
 
 # Bugs
 
-- [ ] Add filter about type/gender in book library
-- [ ] Parse Gutenberg text to replace `--` by `—` and `_\w` by `<i>` and `\w_` by `</i>`
 - [ ] Move favorite in Settings/Style directory
 

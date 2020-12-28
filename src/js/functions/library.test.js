@@ -174,3 +174,80 @@ describe('isoLanguage', () => {
         expect(library.isoLanguage("English")).toBe('en');
     });
 });
+
+describe('postProcessLiterature', () => {
+
+    it('replace some special Gutenberg character sequences', () => {
+        let book = {
+            sections: [
+                {
+                    title: "A title",
+                    blocks: [
+                        { tag: "h2", content: "CHAPTER I." },
+
+                        // Example 1: with two successive spaces
+                        { tag: "p", content: `YOU don't know about me without you have read a book by the name of The
+Adventures of Tom Sawyer; but that ain't no matter.  That book was made
+by Mr. Mark Twain, and he told the truth, mainly.  There was things
+which he stretched, but mainly he told the truth.` },
+
+                        // Example 2: with em dash
+                        { tag: "p", content: `Aunt Polly--Tom's Aunt Polly, she
+is--and Mary, and the Widow Douglas is all told about in that book, which
+is mostly a true book, with some stretchers, as I said before.` },
+
+                        // Example 3: italized text
+                        { tag: "p", content: `Some thought it would be good to kill the _families_ of boys that told the secrets.` },
+
+                        // Example 4: mixed
+                        { tag: "p", content: `_Them_ letters.  I be bound, if I have to take a-holt of you I'll--` },
+
+                        // Example 5: more complicated italized text
+                        { tag: "p", content: `Presently she began again. “I wonder if I shall fall right _through_
+the earth! How funny it’ll seem to come out among the people that walk
+with their heads downward! The Antipathies, I think—” (she was rather
+glad there _was_ no one listening, this time, as it didn’t sound at all
+the right word) “—but I shall have to ask them what the name of the
+country is, you know. Please, Ma’am, is this New Zealand or Australia?”
+(and she tried to curtsey as she spoke—fancy _curtseying_ as you’re
+falling through the air! Do you think you could manage it?) “And what
+an ignorant little girl she’ll think me for asking! No, it’ll never do
+to ask: perhaps I shall see it written up somewhere.”` },
+                    ],
+                },
+            ],
+        };
+
+        book = library.postProcessLiterature(book);
+
+        // Example 1
+        expect(book.sections[0].blocks[1].content).toBe(`YOU don't know about me without you have read a book by the name of The
+Adventures of Tom Sawyer; but that ain't no matter. That book was made
+by Mr. Mark Twain, and he told the truth, mainly. There was things
+which he stretched, but mainly he told the truth.`);
+
+        // Example 2
+        expect(book.sections[0].blocks[2].content).toBe(`Aunt Polly—Tom's Aunt Polly, she
+is—and Mary, and the Widow Douglas is all told about in that book, which
+is mostly a true book, with some stretchers, as I said before.`);
+
+        // Example 3
+        expect(book.sections[0].blocks[3].content).toBe(`Some thought it would be good to kill the <i>families</i> of boys that told the secrets.`);
+
+        // Example 4
+        expect(book.sections[0].blocks[4].content).toBe(`<i>Them</i> letters. I be bound, if I have to take a-holt of you I'll—`);
+
+        // Example 5
+        expect(book.sections[0].blocks[5].content).toBe(`Presently she began again. “I wonder if I shall fall right <i>through</i>
+the earth! How funny it’ll seem to come out among the people that walk
+with their heads downward! The Antipathies, I think—” (she was rather
+glad there <i>was</i> no one listening, this time, as it didn’t sound at all
+the right word) “—but I shall have to ask them what the name of the
+country is, you know. Please, Ma’am, is this New Zealand or Australia?”
+(and she tried to curtsey as she spoke—fancy <i>curtseying</i> as you’re
+falling through the air! Do you think you could manage it?) “And what
+an ignorant little girl she’ll think me for asking! No, it’ll never do
+to ask: perhaps I shall see it written up somewhere.”`);
+    });
+
+});

@@ -280,8 +280,29 @@ export function parseLiterature(rawContent, metadata) {
             title: chapterMetadata.title,
             blocks: chapterBlocks,
         });
+
     }
 
+    return postProcessLiterature(content);
+}
+
+/**
+ * Apply some post-processing rules to the book content.
+ *
+ * @param {Object} content The book content.
+ * @returns {Object} The book content.
+ */
+export function postProcessLiterature(content) {
+    content.sections.forEach(section => {
+        section.blocks.forEach(block => {
+            // Replace unusual space character 160 by the commonly found 32
+            block.content = block.content.replace(new RegExp(String.fromCharCode(160), "g"), ' ');
+            block.content = block.content.replace(/\s{2}/g, ' '); // <= Otherwise, this would not work.
+            block.content = block.content.replace(/--/g, '—');
+            block.content = block.content.replace(/_(\w)/g, '<i>$1');
+            block.content = block.content.replace(/(\w)_/g, '$1</i>');
+        });
+    });
     return content;
 }
 
