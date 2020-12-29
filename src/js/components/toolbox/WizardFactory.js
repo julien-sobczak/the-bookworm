@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { saveDefaults } from '../../store/actions';
+import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
 import Button from './Button';
 
@@ -13,31 +13,136 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TuneIcon from '@material-ui/icons/Tune';
 import StyleIcon from '@material-ui/icons/Style';
-import HistoryIcon from '@material-ui/icons/History';
-import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import { withStyles } from '@material-ui/core/styles';
+import ReactButton from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import AddCircle from '@material-ui/icons/AddCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { DefaultPresets } from '../../components/settings/FormText';
 
-const PredefinedDrills = ({drills, onSelect}) => {
+
+
+function PresetsList({ fixedPresets, customPresets, onSelectPreset, onDeletePreset, onNewPreset }) {
+
+    const [saved, setSaved] = useState(false);
+
+    const handleSave = (name) => {
+        setSaved(true);
+        onNewPreset(name);
+    };
+
+    const handleSelect = (event) => {
+        console.log('handleSelect');
+        onSelectPreset(JSON.parse(event.target.dataset.preset));
+    };
+
+    const handleDelete = (event) => {
+        onDeletePreset(event.target.closest('button').dataset.name);
+    };
+
     return (
-        <div className="PredefinedDrills">
-            {drills.map((drill, index) => {
-                return (
-                    <div key={index} className="PredefinedDrill Centered" onClick={onSelect} data-drill={JSON.stringify(drill.settings)}>
-                        <span className="DrillName">{drill.name}</span>
-                        {drill.difficulty === 0 && <span className="DrillTag Easy">easy</span>}
-                        {drill.difficulty === 1 && <span className="DrillTag Intermediate">intermediate</span>}
-                        {drill.difficulty === 2 && <span className="DrillTag Advanced">advanced</span>}
-                        {drill.difficulty === 3 && <span className="DrillTag Hard">hard</span>}
-                    </div>
-                );
-            })}
-        </div>
+        <>
+            <ul className="PresetLabels">
+                {fixedPresets.map((preset, index) => {
+                    return (
+                        <li key={index} className="PresetLabel">
+                            <button onClick={handleSelect} data-preset={JSON.stringify(preset.settings)}>{preset.name}</button>
+                        </li>
+                    );
+                })}
+                {customPresets.map((preset, index) => {
+                    return (
+                        <li key={index} className="PresetLabel">
+                            <button onClick={handleSelect} data-preset={JSON.stringify(preset.settings)}>{preset.name}</button>
+                            <button onClick={handleDelete} data-name={preset.name}>
+                                <CancelIcon fontSize="inherit" />
+                            </button>
+                        </li>
+                    );
+                })}
+                {!saved && <li>
+                    <NewPresetForm onSave={handleSave} />
+                </li>}
+            </ul>
+        </>
     );
+}
+PresetsList.propTypes = {
+    fixedPresets: PropTypes.arrayOf(PropTypes.object),
+    customPresets: PropTypes.arrayOf(PropTypes.object),
+    onSelectPreset: PropTypes.func.isRequired,
+    onDeletePreset: PropTypes.func.isRequired,
+    onNewPreset: PropTypes.func.isRequired,
+};
+PresetsList.defaultProps = {
+    fixedPresets: [],
+    customPresets: [],
 };
 
-PredefinedDrills.propTypes = {
-    drills: PropTypes.array.isRequired,
-    onSelect: PropTypes.func.isRequired,
+function NewPresetForm({ onSave }) {
+
+    const [open, setOpen] = useState(false);
+    const [name, setName] = useState("");
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleNameChanged = event => {
+        setName(event.target.value);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        onSave(name);
+    };
+
+    return (
+        <>
+            <BlackCheckbox icon={<AddCircleOutline />} checkedIcon={<AddCircle />} value={open} onChange={handleOpen} />
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Save new preset</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Name"
+                        value={name}
+                        onChange={handleNameChanged}
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <ReactButton onClick={handleClose} color="primary">
+                        Cancel
+                    </ReactButton>
+                    <ReactButton onClick={handleClose} color="primary">
+                        Save
+                    </ReactButton>
+                </DialogActions>
+            </Dialog>
+        </>
+    );
+}
+NewPresetForm.propTypes = {
+    onSave: PropTypes.func.isRequired,
 };
+
+const BlackCheckbox = withStyles({
+    root: {
+        color: 'black',
+        '&$checked': {
+            color: 'black',
+        },
+    },
+    checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 class WizardFactory extends React.Component {
 
@@ -54,27 +159,28 @@ class WizardFactory extends React.Component {
         };
 
         // Merge possible previous saved settings
-        if ((props.name + '-drillSettings') in props.defaults) {
+        if (props.name in props.defaults) {
             this.state.drillSettings = {
                 ...this.state.drillSettings,
-                ...props.defaults[props.name + '-drillSettings'],
+                ...props.defaults[props.name].drill,
             };
         }
-        if ((props.name + '-textSettings') in props.defaults) {
+        if (props.name in props.defaults) {
             this.state.drillSettings = {
                 ...this.state.drillSettings,
-                ...props.defaults[props.name + '-textSettings'],
+                ...props.defaults[props.name].text,
             };
         }
-
-        this.usePredefinedDrill = this.usePredefinedDrill.bind(this);
-        this.useHistoryDrill = this.useHistoryDrill.bind(this);
-
-        this.handleDrillSettingsChange = this.handleDrillSettingsChange.bind(this);
-        this.handleTextSettingsChange = this.handleTextSettingsChange.bind(this);
 
         this.handleDemoClick = this.handleDemoClick.bind(this);
         this.handleValidateClick = this.handleValidateClick.bind(this);
+
+        this.handleDrillSettingsSave = this.handleDrillSettingsSave.bind(this);
+        this.handleDrillSettingsChange = this.handleDrillSettingsChange.bind(this);
+        this.handleDrillSettingsDelete = this.handleDrillSettingsDelete.bind(this);
+        this.handleTextSettingsSave = this.handleTextSettingsSave.bind(this);
+        this.handleTextSettingsChange = this.handleTextSettingsChange.bind(this);
+        this.handleTextSettingsDelete = this.handleTextSettingsDelete.bind(this);
 
         this.handleTabChange = this.handleTabChange.bind(this);
     }
@@ -105,22 +211,25 @@ class WizardFactory extends React.Component {
         }));
     }
 
-    usePredefinedDrill(event) {
-        const drillSettings = JSON.parse(event.target.dataset.drill);
-        this.setState({
-            ...this.state,
-            activeTab: 0,
-            drillSettings: drillSettings,
+    handleDrillSettingsDelete(presetName) {
+        this.props.deleteDrillPreset(this.props.name, presetName);
+    }
+
+    handleTextSettingsDelete(presetName) {
+        this.props.deleteTextPreset(presetName);
+    }
+
+    handleDrillSettingsSave(presetName) {
+        this.props.saveDrillPreset(this.props.name, {
+            name: presetName,
+            settings: this.state.drillSettings,
         });
     }
 
-    useHistoryDrill(event) {
-        const drill = JSON.parse(event.target.parentNode.dataset.drill);
-        this.setState({
-            ...this.state,
-            activeTab: 0,
-            drillSettings: drill.drillSettings,
-            textSettings: drill.textSettings,
+    handleTextSettingsSave(presetName) {
+        this.props.saveTextPreset({
+            name: presetName,
+            settings: this.state.textSettings,
         });
     }
 
@@ -128,12 +237,6 @@ class WizardFactory extends React.Component {
         const tabs = [];
         tabs.push(<Tab key={1} icon={<TuneIcon />} label="Options" />);
         tabs.push(<Tab key={2} icon={<StyleIcon />} label="Style" />);
-        if (this.props.predefinedDrills) {
-            tabs.push(<Tab key={4} icon={<BookmarksIcon />} label="Favorite" />);
-        }
-        if (this.props.history && this.props.history.length > 0) {
-            tabs.push(<Tab key={3} icon={<HistoryIcon />} label="History" />);
-        }
         return (
             <div className="Wizard FullScreen Scrollbar">
 
@@ -153,7 +256,16 @@ class WizardFactory extends React.Component {
                     {this.state.activeTab === 0 && <div className="TabContent Centered">
                         <section>
                             <h4>Drill options</h4>
-                            <p>Customize the drill.</p>
+                            {this.props.predefinedDrills.length > 0 && <>
+                                <p>Use an existing preset:</p>
+                                <PresetsList
+                                    fixedPresets={this.props.predefinedDrills}
+                                    customPresets={this.props.customPresets.drill[this.props.name]}
+                                    onSelectPreset={this.handleDrillSettingsChange}
+                                    onDeletePreset={this.handleDrillSettingsDelete}
+                                    onNewPreset={this.handleDrillSettingsSave} />
+                            </>}
+                            <p>Or customize a new drill:</p>
                             {React.cloneElement(this.props.form, {
                                 ...this.state.drillSettings,
                                 keyboardDetected: this.props.keyboardDetected,
@@ -164,28 +276,18 @@ class WizardFactory extends React.Component {
 
                     {this.state.activeTab === 1 && <div className="TabContent Centered">
                         <section>
-                            <h4>Font</h4>
-                            <p>Control how texts are displayed in the drills.</p>
+                            <h4>Style</h4>
+                            {DefaultPresets.length > 0 && <>
+                                <p>Use an existing preset:</p>
+                                <PresetsList
+                                    fixedPresets={DefaultPresets}
+                                    customPresets={this.props.customPresets.text}
+                                    onSelectPreset={this.handleTextSettingsChange}
+                                    onDeletePreset={this.handleTextSettingsDelete}
+                                    onNewPreset={this.handleTextSettingsSave} />
+                            </>}
+                            <p>Or customize how text is displayed:</p>
                             <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
-                        </section>
-                    </div>}
-
-                    {this.state.activeTab === 2 && <div className="TabContent Centered">
-                        <section>
-                            <h4>Predefined Drills</h4>
-                            <p>Practice with these ready-to-go drills.</p>
-                            <PredefinedDrills drills={this.props.predefinedDrills} onSelect={this.usePredefinedDrill} />
-                        </section>
-                    </div>}
-
-                    {this.state.activeTab === 3 && <div className="TabContent Centered">
-                        <section>
-                            <h4>History</h4>
-                            <p>Redo one of your previous drill sessions.</p>
-                            {React.cloneElement(this.props.history, {
-                                history: this.props.historySessions,
-                                onSelect: this.useHistoryDrill,
-                            })}
                         </section>
                     </div>}
 
@@ -211,12 +313,11 @@ class WizardFactory extends React.Component {
 
     handleValidateClick() {
         this.props.saveDefaults({
-            key: this.props.name + "-drillSettings",
-            settings: this.state.drillSettings,
-        });
-        this.props.saveDefaults({
-            key: this.props.name + "-textSettings",
-            settings: this.state.textSettings,
+            drill: this.props.name,
+            defaults: {
+                drill: this.state.drillSettings,
+                text: this.state.textSettings,
+            },
         });
         this.props.onValidate({
             drillSettings: this.state.drillSettings,
@@ -236,9 +337,6 @@ WizardFactory.propTypes = {
     demo: PropTypes.element.isRequired,
     history: PropTypes.element,
 
-    // Previously  used settings.
-    defaults: PropTypes.object,
-
     drillSettings: PropTypes.object,
     textSettings: PropTypes.object,
 
@@ -247,7 +345,16 @@ WizardFactory.propTypes = {
 
     keyboardDetected: PropTypes.bool,
 
+    // Redux
+    defaults: PropTypes.object,
+    customPresets: PropTypes.object,
     saveDefaults: PropTypes.func,
+    saveDrillPreset: PropTypes.func,
+    saveTextPreset: PropTypes.func,
+    deleteDrillPreset: PropTypes.func,
+    deleteTextPreset: PropTypes.func,
+
+    // Events
     onValidate: PropTypes.func,
 };
 
@@ -260,12 +367,17 @@ WizardFactory.defaultProps = {
 const mapStateToProps = state => {
     return {
         defaults: state.defaults,
+        customPresets: state.customPresets,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         saveDefaults: settings => dispatch(saveDefaults(settings)),
+        saveDrillPreset: (drillName, preset) => dispatch(saveDrillPreset(drillName, preset)),
+        saveTextPreset: preset => dispatch(saveTextPreset(preset)),
+        deleteDrillPreset: (drillName, presetName) => dispatch(deleteDrillPreset(drillName, presetName)),
+        deleteTextPreset: presetName => dispatch(deleteTextPreset(presetName)),
     };
 };
 

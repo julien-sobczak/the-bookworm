@@ -9,6 +9,10 @@ const RadioButtons = (props) => {
     const onChange = props.onChange;
     const options = props.options;
 
+    React.useEffect(() => {
+        setValue(props.value);
+    }, [props]);
+
     const parse = (value) => {
         const v = options[0].value; // Use the first option value to determine the type to use
         if (typeof v === 'boolean') {
@@ -39,19 +43,19 @@ const RadioButtons = (props) => {
         radios.push(
             <span key={index} className={"GraphicOption " + (value === option.value ? ' selected' : '')}>
                 <label className={`Clickable ${optionClassName}`}>
-                    <input 
-                        type="radio" 
+                    <input
+                        type="radio"
                         value={option.value}
-                        style={{ display: "none" }} 
+                        style={{ display: "none" }}
                         alt={optionAltText}
-                        checked={value === option.value} 
+                        checked={value === option.value}
                         onChange={handleChange} />
                     {optionLabel}
                 </label>
             </span>
         );
     });
-    
+
     return (
         <>
             {radios}

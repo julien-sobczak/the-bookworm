@@ -20,9 +20,23 @@ const Form = (props) => {
     // Chunk
     const [chunkMode, setChunkMode] = useState(props.chunkMode);
     const [chunkWidth, setChunkWidth] = useState(props.chunkWidth);
-    const [chunkAccuracy,] = useState(props.chunkAccuracy); // TODO
+    const [chunkAccuracy, setChunkAccuracy] = useState(props.chunkAccuracy);
     const [chunkWords, setChunkWords] = useState(props.chunkWords);
     const [chunkStops, setChunkStops] = useState(props.chunkStops);
+
+    React.useEffect(() => {
+        setWpm(props.wpm);
+        setPageTurningDuration(props.pageTurningDuration);
+        setPaperSize(props.paperSize);
+        setDisableVisualRegression(props.disableVisualRegression);
+        setDisableVisualProgression(props.disableVisualProgression);
+        setDisableVisualProblemStyle(props.disableVisualProblemStyle);
+        setChunkMode(props.chunkMode);
+        setChunkWidth(props.chunkWidth);
+        setChunkAccuracy(props.chunkAccuracy);
+        setChunkWords(props.chunkWords);
+        setChunkStops(props.chunkStops);
+    }, [props]);
 
     const onChange = props.onChange;
 
@@ -191,8 +205,8 @@ const Form = (props) => {
                                     { value: "transparent" },
                                     { value: "fade" },
                                     { value: "blur" },
-                                ]} 
-                                onChange={handleDisableVisualProblemStyleChange} 
+                                ]}
+                                onChange={handleDisableVisualProblemStyleChange}
                                 value={disableVisualProblemStyle} />
                         </td>
                     </tr>}
@@ -208,8 +222,8 @@ const Form = (props) => {
                                     { value: "width" },
                                     { value: "words" },
                                     { value: "stops" },
-                                ]} 
-                                onChange={handleChunkModeChange} 
+                                ]}
+                                onChange={handleChunkModeChange}
                                 value={chunkMode} />
                         </td>
                     </tr>
@@ -240,14 +254,14 @@ const Form = (props) => {
                     {chunkMode === 'stops' && <tr>
                         <th><label>Stops</label>:</th>
                         <td>
-                            <RadioButtons 
+                            <RadioButtons
                                 options={[
                                     { value: 1, label: "1 stop" },
                                     { value: 2, label: "2 stops" },
                                     { value: 3, label: "3 stops" },
                                     { value: 4, label: "4 stops" },
-                                ]} 
-                                onChange={handleChunkStopsChange} 
+                                ]}
+                                onChange={handleChunkStopsChange}
                                 value={chunkStops} />
                         </td>
                     </tr>}

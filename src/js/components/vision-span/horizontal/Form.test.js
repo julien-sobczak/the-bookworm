@@ -8,19 +8,20 @@ afterEach(cleanup);
 it('allows editing values', async () => {
     const mockFn = jest.fn();
     const { getByLabelText, queryByAltText, getByTestId, getByAltText } = render(
-        <Form 
-            lines={1} 
-            columns={3} 
+        <Form
+            lines={1}
+            columns={3}
             spans={["0.5in", "0.5in"]}
             multiple={false}
             autoLevel={true}
-            keyboardDetected={false}
+            keyboard={false}
+            keyboardDetected={true}
             onChange={mockFn} />
     );
 
     // Edit Game settings
 
-    // Enable the keyboard 
+    // Enable the keyboard
     const keyboardSwitch = getByLabelText(/Enable Keyboard/i);
     keyboardSwitch.click();
     fireEvent.change(keyboardSwitch, { target: { checked: true } });

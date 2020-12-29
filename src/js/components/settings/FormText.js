@@ -4,6 +4,27 @@ import PropTypes from 'prop-types';
 import Styled from '../toolbox/Styled';
 import RadioButtons from '../toolbox/RadioButtons';
 
+const DefaultPresets = [
+    {
+        name: "Standard",
+        settings: {
+            fontFamily: "Roboto",
+            fontSize: "12pt",
+            fontStyle: "normal",
+            theme: "Light",
+        },
+    },
+    {
+        name: "Large",
+        settings: {
+            fontFamily: "FredokaOne",
+            fontSize: "16pt",
+            fontStyle: "bold",
+            theme: "Light",
+        },
+    },
+];
+
 const FormText = (props) => {
 
     const [fontFamily, setFontFamily] = useState(props.fontFamily);
@@ -11,6 +32,13 @@ const FormText = (props) => {
     const [fontStyle, setFontStyle] = useState(props.fontStyle);
     const [theme, setTheme] = useState(props.theme);
     const onChange = props.onChange;
+
+    React.useEffect(() => {
+        setFontFamily(props.fontFamily);
+        setFontSize(props.fontSize);
+        setFontStyle(props.fontStyle);
+        setTheme(props.theme);
+    }, [props]);
 
     const currentState = () => {
         return {
@@ -136,4 +164,4 @@ FormText.defaultProps = {
     ...Styled.defaultProps,
 };
 
-export default FormText;
+export { FormText as default, DefaultPresets };

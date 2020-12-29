@@ -209,7 +209,7 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <ContentContext.Provider value={this.state}>
-                    <ScreenTester minWidth="6in" minHeight="6in" />
+                    <ScreenTester minWidth="5in" minHeight="5in" />
                     {this.state.content.content && <Router>
                         <nav className="menu">
                             <NavLink to="/home" activeClassName="active" exact><div><i className="material-icons">home</i><br/>Home</div></NavLink>

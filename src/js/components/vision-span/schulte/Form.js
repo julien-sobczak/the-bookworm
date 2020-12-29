@@ -21,8 +21,8 @@ const Form = (props) => {
 
     return (
         <>
-            <OptionsDrill {...props} onChange={handleOptionsChange } />
-            <OptionsGame {...props} onChange={handleOptionsChange } />
+            <OptionsDrill {...value} onChange={handleOptionsChange } />
+            <OptionsGame {...value} onChange={handleOptionsChange } />
         </>
     );
 };

@@ -17,6 +17,14 @@ export const RESTORE_BACKUP = "RESTORE_BACKUP";
 export const RECORD_SESSION = "RECORD_SESSION";
 // Save the settings for a drill.
 export const SAVE_DEFAULTS = "SAVE_DEFAULTS";
+// Save a new drill preset.
+export const SAVE_DRILL_PRESET = "SAVE_DRILL_PRESET";
+// Save a new text preset.
+export const SAVE_TEXT_PRESET = "SAVE_TEXT_PRESET";
+// Delete a drill preset.
+export const DELETE_DRILL_PRESET = "DELETE_DRILL_PRESET";
+// Delete a text preset.
+export const DELETE_TEXT_PRESET = "DELETE_TEXT_PRESET";
 
 export function updateReading(payload) {
     return { type: UPDATE_READING, payload };
@@ -52,4 +60,46 @@ export function recordSession(payload) {
 
 export function saveDefaults(payload) {
     return { type: SAVE_DEFAULTS, payload };
+}
+
+export function saveDrillPreset(drillName, preset) {
+    console.debug('saveDrillPreset()', drillName, preset);
+    return {
+        type: SAVE_DRILL_PRESET,
+        payload: {
+            drill: drillName,
+            preset: preset,
+        },
+    };
+}
+
+export function saveTextPreset(preset) {
+    console.debug('saveTextPreset()', preset);
+    return {
+        type: SAVE_TEXT_PRESET,
+        payload: {
+            preset: preset,
+        },
+    };
+}
+
+export function deleteDrillPreset(drillName, presetName) {
+    console.debug('deleteDrillPreset()', drillName, presetName);
+    return {
+        type: DELETE_DRILL_PRESET,
+        payload: {
+            drill: drillName,
+            name: presetName,
+        },
+    };
+}
+
+export function deleteTextPreset(presetName) {
+    console.debug('deleteTextPreset()', presetName);
+    return {
+        type: DELETE_TEXT_PRESET,
+        payload: {
+            name: presetName,
+        },
+    };
 }

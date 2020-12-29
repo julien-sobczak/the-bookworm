@@ -100,10 +100,64 @@ function rootReducer(state, action) {
         const newDefaults = {
             ...state.defaults,
         };
-        newDefaults[action.payload.key] = action.payload.settings;
+        newDefaults[action.payload.drill] = action.payload.defaults;
         return {
             ...state,
             defaults: newDefaults,
+        };
+
+    } else if (action.type === actions.SAVE_DRILL_PRESET) {
+        const newDrillPresets = {
+            ...state.customPresets.drill
+        };
+        newDrillPresets[action.payload.drill] = [
+            ...newDrillPresets[action.payload.drill],
+            action.payload.preset,
+        ];
+        return {
+            ...state,
+            customPresets: {
+                ...state.customPresets,
+                drill: newDrillPresets,
+            },
+        };
+
+    } else if (action.type === actions.SAVE_TEXT_PRESET) {
+        const newTextPresets = [
+            ...state.customPresets.text,
+            action.payload.preset,
+        ];
+        return {
+            ...state,
+            customPresets: {
+                ...state.customPresets,
+                text: newTextPresets,
+            },
+        };
+
+    } else if (action.type === actions.DELETE_DRILL_PRESET) {
+        const newDrillPresets = {
+            ...state.customPresets.drill
+        };
+        newDrillPresets[action.payload.drill] = newDrillPresets[action.payload.drill].
+            filter(preset => preset.name !== action.payload.name);
+        return {
+            ...state,
+            customPresets: {
+                ...state.customPresets,
+                drill: newDrillPresets,
+            },
+        };
+
+    } else if (action.type === actions.DELETE_TEXT_PRESET) {
+        const newTextPresets = state.customPresets.text.
+            filter(preset => preset.name !== action.payload.name);
+        return {
+            ...state,
+            customPresets: {
+                ...state.customPresets,
+                text: newTextPresets,
+            },
         };
 
     } else if (action.type === actions.RECORD_SESSION) {

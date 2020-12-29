@@ -9,6 +9,10 @@ const OptionsDrill = (props) => {
 
     const [span, setSpan] = useState(props.span);
 
+    React.useEffect(() => {
+        setSpan(props.span);
+    }, [props]);
+
     const onChange = props.onChange;
 
     const currentState = () => {

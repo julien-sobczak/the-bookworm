@@ -11,6 +11,11 @@ const OptionsDrill = (props) => {
     const [size, setSize] = useState(props.size);
     const [span, setSpan] = useState(props.span);
 
+    React.useEffect(() => {
+        setSize(props.size);
+        setSpan(props.span);
+    }, [props]);
+
     const onChange = props.onChange;
 
     const currentState = () => {
@@ -51,8 +56,8 @@ const OptionsDrill = (props) => {
                                 { value: 5, alt: "width 5" },
                                 { value: 7, alt: "width 7" },
                                 { value: 9, alt: "width 9" },
-                            ]} 
-                            onChange={handleSizeChange} 
+                            ]}
+                            onChange={handleSizeChange}
                             value={size} />
                     </td>
                 </tr>
