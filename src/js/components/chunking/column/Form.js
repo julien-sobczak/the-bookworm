@@ -17,12 +17,27 @@ const Form = (props) => {
     // Chunk
     const [chunkMode, setChunkMode] = useState(props.chunkMode);
     const [chunkWidth, setChunkWidth] = useState(props.chunkWidth);
-    const [chunkAccuracy, ] = useState(props.chunkAccuracy); // TODO
+    const [chunkAccuracy, setChunkAccuracy] = useState(props.chunkAccuracy);
     const [chunkWords, setChunkWords] = useState(props.chunkWords);
     const [chunkWidthMin, setChunkWidthMin] = useState(props.chunkWidthMin);
     const [chunkWidthMax, setChunkWidthMax] = useState(props.chunkWidthMax);
     const [chunkTransition, setChunkTransition] = useState(props.chunkTransition);
     const [chunkSteps, setChunkSteps] = useState(props.chunkSteps);
+
+    React.useEffect(() => {
+        setWpm(props.wpm);
+        setColumns(props.columns);
+        setColumnWidth(props.columnWidth);
+        setLinesMax(props.linesMax);
+        setChunkMode(props.chunkMode);
+        setChunkWidth(props.chunkWidth);
+        setChunkAccuracy(props.chunkAccuracy);
+        setChunkWords(props.chunkWords);
+        setChunkWidthMin(props.chunkWidthMin);
+        setChunkWidthMax(props.chunkWidthMax);
+        setChunkTransition(props.chunkTransition);
+        setChunkSteps(props.chunkSteps);
+    }, [props]);
 
     const onChange = props.onChange;
 
@@ -155,14 +170,14 @@ const Form = (props) => {
                     <tr>
                         <th><label>Columns</label>:</th>
                         <td>
-                            <RadioButtons 
+                            <RadioButtons
                                 options={[
-                                    { value: 1, alt: "One column" }, 
-                                    { value: 2, alt: "Two columns" }, 
-                                    { value: 3, alt: "Three columns" }, 
-                                    { value: 4, alt: "Four columns" }, 
-                                ]} 
-                                onChange={handleColumnsChange} 
+                                    { value: 1, alt: "One column" },
+                                    { value: 2, alt: "Two columns" },
+                                    { value: 3, alt: "Three columns" },
+                                    { value: 4, alt: "Four columns" },
+                                ]}
+                                onChange={handleColumnsChange}
                                 value={columns} />
                         </td>
                     </tr>
@@ -179,15 +194,15 @@ const Form = (props) => {
                     <tr>
                         <th><label>Lines</label>:</th>
                         <td>
-                            <RadioButtons 
+                            <RadioButtons
                                 options={[
                                     { value: 5,  alt: "5 lines maximum" },
                                     { value: 10, alt: "10 lines maximum" },
                                     { value: 15, alt: "15 lines maximum" },
                                     { value: 20, alt: "20 lines maximum" },
                                     { value: 0,  alt: "No lines maximum" },
-                                ]} 
-                                onChange={handleLinesMaxChange} 
+                                ]}
+                                onChange={handleLinesMaxChange}
                                 value={linesMax} />
                         </td>
                     </tr>
@@ -200,11 +215,11 @@ const Form = (props) => {
                         <td>
                             <RadioButtons
                                 options={[
-                                    { value: "width" },   
-                                    { value: "words" },   
-                                    { value: "dynamic" },   
-                                ]} 
-                                onChange={handleChunkModeChange} 
+                                    { value: "width" },
+                                    { value: "words" },
+                                    { value: "dynamic" },
+                                ]}
+                                onChange={handleChunkModeChange}
                                 value={chunkMode} />
                         </td>
                     </tr>
@@ -259,8 +274,8 @@ const Form = (props) => {
                                 options={[
                                     { value: "wave", label: "Smooth" },
                                     { value: "step", label: "Rough" },
-                                ]} 
-                                onChange={handleChunkTransitionChange} 
+                                ]}
+                                onChange={handleChunkTransitionChange}
                                 value={chunkTransition} />
                         </td>
                     </tr>}

@@ -8,11 +8,17 @@ import RadioButtons from '../../toolbox/RadioButtons';
 import * as helpers from '../../../functions/engine';
 
 const OptionsDrill = (props) => {
-
     const [multiple, setMultiple] = useState(props.multiple);
     const [lines, setLines] = useState(props.lines);
     const [columns, setColumns] = useState(props.columns);
     const [spans, setSpans] = useState(props.spans);
+
+    React.useEffect(() => {
+        setMultiple(props.multiple);
+        setLines(props.lines);
+        setColumns(props.columns);
+        setSpans(props.spans);
+    }, [props]);
 
     const onChange = props.onChange;
 
@@ -84,59 +90,61 @@ const OptionsDrill = (props) => {
     }
 
     return (
-        <table className="Setting">
-            <tbody>
-                <tr>
-                    <th><label htmlFor="columns">Columns</label>:</th>
-                    <td>
-                        <RadioButtons
-                            id="columns"
-                            options={[
-                                { value: 3, alt: "3 columns" },
-                                { value: 5, alt: "5 columns" },
-                                { value: 7, alt: "7 columns" },
-                                { value: 9, alt: "9 columns" },
-                            ]} 
-                            onChange={handleColumnsChange} 
-                            value={columns} />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label htmlFor="series">Series</label>:</th>
-                    <td>
-                        <RadioButtons 
-                            id="series"
-                            options={[
-                                { value: false, label: "Unique"   }, 
-                                { value: true,  label: "Multiple" },
-                            ]} 
-                            onChange={handleMultipleChange} 
-                            value={multiple} />
-                    </td>
-                </tr>
-                {multiple && <tr>
-                    <th><label htmlFor="lines">Lines</label>:</th>
-                    <td>
-                        <RadioButtons
-                            id="lines"
-                            options={[
-                                { value: 1, alt: "1 line"  }, 
-                                { value: 2, alt: "2 lines" }, 
-                                { value: 3, alt: "3 lines" },
-                            ]} 
-                            onChange={handleLinesChange} 
-                            value={lines} />
-                    </td>
-                </tr>}
-                <tr>
-                    <th>Span:</th>
-                    <td>
-                        {spansElements}
-                        <FlipIcon />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <>
+            <table className="Setting">
+                <tbody>
+                    <tr>
+                        <th><label htmlFor="columns">Columns</label>:</th>
+                        <td>
+                            <RadioButtons
+                                id="columns"
+                                options={[
+                                    { value: 3, alt: "3 columns" },
+                                    { value: 5, alt: "5 columns" },
+                                    { value: 7, alt: "7 columns" },
+                                    { value: 9, alt: "9 columns" },
+                                ]}
+                                onChange={handleColumnsChange}
+                                value={columns} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label htmlFor="series">Series</label>:</th>
+                        <td>
+                            <RadioButtons
+                                id="series"
+                                options={[
+                                    { value: false, label: "Unique"   },
+                                    { value: true,  label: "Multiple" },
+                                ]}
+                                onChange={handleMultipleChange}
+                                value={multiple} />
+                        </td>
+                    </tr>
+                    {multiple && <tr>
+                        <th><label htmlFor="lines">Lines</label>:</th>
+                        <td>
+                            <RadioButtons
+                                id="lines"
+                                options={[
+                                    { value: 1, alt: "1 line"  },
+                                    { value: 2, alt: "2 lines" },
+                                    { value: 3, alt: "3 lines" },
+                                ]}
+                                onChange={handleLinesChange}
+                                value={lines} />
+                        </td>
+                    </tr>}
+                    <tr>
+                        <th>Span:</th>
+                        <td>
+                            {spansElements}
+                            <FlipIcon />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </>
     );
 };
 

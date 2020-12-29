@@ -7,6 +7,11 @@ const OptionsGame = (props) => {
     const [keyboard, setKeyboard] = useState(props.keyboardDetected && props.keyboard);
     const [autoLevel, setAutoLevel] = useState(props.autoLevel);
 
+    React.useEffect(() => {
+        setKeyboard(props.keyboard);
+        setAutoLevel(props.autoLevel);
+    }, [props]);
+
     const onChange = props.onChange;
 
     const currentState = () => {

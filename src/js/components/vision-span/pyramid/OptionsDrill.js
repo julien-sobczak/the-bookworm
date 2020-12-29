@@ -12,6 +12,11 @@ const OptionsDrill = (props) => {
     const [lines, setLines] = useState(props.lines);
     const [span, setSpan] = useState(props.span);
 
+    React.useEffect(() => {
+        setLines(props.lines);
+        setSpan(props.span);
+    }, [props]);
+
     const onChange = props.onChange;
 
     const currentState = () => {
@@ -50,8 +55,8 @@ const OptionsDrill = (props) => {
                                 { value: 5,  label: "5",          alt: "5 lines"    },
                                 { value: 10, label: "10",         alt: "10 lines"   },
                                 { value: 0,  label: "Fit Screen", alt: "Fit Screen" },
-                            ]} 
-                            onChange={handleLinesChange} 
+                            ]}
+                            onChange={handleLinesChange}
                             value={lines} />
                     </td>
                 </tr>

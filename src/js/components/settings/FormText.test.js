@@ -12,7 +12,7 @@ it('allows editing values', async () => {
     );
 
     // Change the font family
-    fireEvent.click(getByLabelText("Source Code Pro"));
+    fireEvent.click(getByLabelText("Monospace"));
     expect(mockFn.mock.calls[0][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "12pt",
@@ -21,20 +21,20 @@ it('allows editing values', async () => {
     });
 
     // Change the font size
-    fireEvent.click(getByLabelText("Bold"));
+    fireEvent.click(getByLabelText("Bold Italic"));
     expect(mockFn.mock.calls[1][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "12pt",
-        fontStyle: "bold",
+        fontStyle: "bold italic",
         theme: "Light",
     });
 
-    // Change the font style 
+    // Change the font style
     fireEvent.click(getByLabelText("14 pt"));
     expect(mockFn.mock.calls[2][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "14pt",
-        fontStyle: "bold",
+        fontStyle: "bold italic",
         theme: "Light",
     });
 
@@ -43,7 +43,7 @@ it('allows editing values', async () => {
     expect(mockFn.mock.calls[3][0]).toMatchObject({
         fontFamily: "SourceCodePro",
         fontSize: "14pt",
-        fontStyle: "bold",
+        fontStyle: "bold italic",
         theme: "Dark",
     });
 });

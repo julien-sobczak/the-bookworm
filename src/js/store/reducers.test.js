@@ -148,14 +148,16 @@ describe('rootReducer', () => {
 
     it('should handle saveDefaults', () => {
         const payload = {
-            key: "drillCircle-drillSettings",
-            settings: {
-                span: "1in",
+            drill: "drillCircle",
+            defaults: {
+                drill: {
+                    span: "1in",
+                },
             },
         };
 
         const newState = reducer(initialState, actions.saveDefaults(payload));
-        expect(newState.defaults["drillCircle-drillSettings"].span).toBe("1in");
+        expect(newState.defaults.drillCircle.drill.span).toBe("1in");
     });
 
     it('should handle recordSession', () => {
@@ -174,4 +176,60 @@ describe('rootReducer', () => {
             }
         });
     });
+
+    it('should handle saveDrillPreset & deleteDrillPreset', () => {
+        let preset = {
+            name: "Custom",
+            settings: {
+                span: "1in",
+            },
+        };
+
+        let newState = reducer(initialState, actions.saveDrillPreset("drillCircle", preset));
+        expect(newState.customPresets.drill.drillHorizontal.length).toBe(0);
+        expect(newState.customPresets.drill.drillCircle.length).toBe(1);
+        expect(newState.customPresets.drill.drillCircle[0]).toMatchObject(preset);
+
+        preset = {
+            name: "Custom",
+            settings: {
+                span: "1in",
+            },
+        };
+
+        newState = reducer(newState, actions.saveDrillPreset("drillHorizontal", preset));
+        expect(newState.customPresets.drill.drillHorizontal.length).toBe(1);
+        expect(newState.customPresets.drill.drillCircle.length).toBe(1);
+
+        newState = reducer(newState, actions.deleteDrillPreset("drillHorizontal", "Custom"));
+        expect(newState.customPresets.drill.drillHorizontal.length).toBe(0);
+        expect(newState.customPresets.drill.drillCircle.length).toBe(1);
+    });
+
+    it('should handle saveTextPreset & deleteTextPreset', () => {
+        let preset = {
+            name: "Large",
+            settings: {
+                fontSize: "16pt",
+            },
+        };
+
+        let newState = reducer(initialState, actions.saveTextPreset(preset));
+        expect(newState.customPresets.text.length).toBe(1);
+        expect(newState.customPresets.text[0]).toMatchObject(preset);
+
+        preset = {
+            name: "Small",
+            settings: {
+                fontSize: "12pt",
+            },
+        };
+
+        newState = reducer(newState, actions.saveTextPreset(preset));
+        expect(newState.customPresets.text.length).toBe(2);
+
+        newState = reducer(newState, actions.deleteTextPreset("Small"));
+        expect(newState.customPresets.text.length).toBe(1);
+    });
+
 });

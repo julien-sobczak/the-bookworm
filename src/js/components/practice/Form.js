@@ -12,6 +12,13 @@ const Form = (props) => {
     const [pacerWpm, setPacerWpm] = useState(props.pacerWpm);
     const [timer, setTimer] = useState(props.timer);
 
+    React.useEffect(() => {
+        setPageTurningDuration(props.pageTurningDuration);
+        setPaperSize(props.paperSize);
+        setPacerWpm(props.pacerWpm);
+        setTimer(props.timer);
+    }, [props]);
+
     const onChange = props.onChange;
 
     const currentState = () => {
@@ -97,8 +104,8 @@ const Form = (props) => {
                                 options={[
                                     { value: 1, label: "1 minute" },
                                     { value: 2, label: "2 minutes" },
-                                ]} 
-                                onChange={handleTimerChange} 
+                                ]}
+                                onChange={handleTimerChange}
                                 value={timer} />
                         </td>
                     </tr>}
