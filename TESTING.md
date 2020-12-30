@@ -135,7 +135,7 @@ fireEvent.change(keyboardSwitch, { target: { checked: '' } }); // disable
 ```jsx
 <label htmlFor="span">Span</label>
 <select id="span" onChange={handleChange} value={spans[i]}>
-  {helpers.SPANS.map((s, index) => {
+  {engine.SPANS.map((s, index) => {
     return <option key={index} value={s}>{s}</option>;
   })}
 </select>

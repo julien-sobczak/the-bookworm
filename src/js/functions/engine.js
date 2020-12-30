@@ -115,3 +115,117 @@ export function differentLetter(...letters) {
     // All letters are already in use...
     return undefined;
 }
+
+export class Timer {
+
+    constructor() {
+        this.reset();
+    }
+
+    reset() {
+        this._intervals = [];
+        this._started = false;
+        this._paused = false;
+        this._ended = false;
+    }
+
+    start(t = new Date()) {
+        if (this.started()) {
+            throw new Error('Timer is already started.');
+        }
+        this._intervals.push({
+            startTime: t,
+            endTime: undefined,
+        });
+        this._started = true;
+    }
+
+    pause(t = new Date()) {
+        if (!this.started()) {
+            throw new Error('Timer is not started.');
+        }
+        if (this.ended()) {
+            throw new Error('Timer is already finished.');
+        }
+        this._lastInterval().endTime = t;
+        this._paused = true;
+    }
+
+    resume(t = new Date()) {
+        if (!this.started()) {
+            throw new Error('Timer is not started.');
+        }
+        if (!this.paused()) {
+            throw new Error('Timer is not paused.');
+        }
+        this._intervals.push({
+            startTime: t,
+            endTime: undefined,
+        });
+        this._started = true;
+        this._paused = false;
+    }
+
+    stop(t = new Date()) {
+        if (!this.started()) {
+            throw new Error('Timer is not started.');
+        }
+        this._lastInterval().endTime = t;
+        this._started = false;
+        this._ended = true;
+    }
+
+    _lastInterval() {
+        return this._intervals[this._intervals.length - 1];
+    }
+
+    elapsedDurationInMs() {
+        let totalInMs = 0;
+        this._intervals.forEach(interval => {
+            if (interval.endTime) {
+                totalInMs += interval.endTime.getTime() - interval.startTime.getTime();
+            } else {
+                totalInMs += new Date().getTime() - interval.startTime.getTime();
+            }
+        });
+        return totalInMs;
+    }
+
+    elapsedDurationInSeconds() {
+        return parseInt(this.elapsedDurationInMs() / 1000);
+    }
+
+    durationInMs() {
+        if (!this.ended()) {
+            throw new Error("Timer is not finished.");
+        }
+        let totalInMs = 0;
+        this._intervals.forEach(interval => {
+            totalInMs += interval.endTime.getTime() - interval.startTime.getTime();
+        });
+        return totalInMs;
+    }
+
+    durationInSeconds() {
+        return parseInt(this.durationInMs() / 1000);
+    }
+
+    pauseCount() {
+        if (!this.ended()) {
+            throw new Error("Timer is not finished.");
+        }
+        return this._intervals.length - 1;
+    }
+
+    started() {
+        return this._started === true;
+    }
+
+    paused() {
+        return this._paused === true;
+    }
+
+    ended() {
+        return this._ended === true;
+    }
+}

@@ -5,12 +5,12 @@ import Viewer from './Viewer';
 import Chunker from '../Chunker';
 
 import ProgressLine from '../../toolbox/ProgressLine';
+import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as wpm from '../../../functions/wpm';
+import * as engine from '../../../functions/engine';
 import * as string from '../../../functions/string';
 import * as library from '../../../functions/library';
-import * as time from '../../../functions/time';
-
 
 class Drill extends React.Component {
 
@@ -21,12 +21,20 @@ class Drill extends React.Component {
             wpm: this.props.wpm,
             chunks: undefined,
             chunkPosition: -1,
+            timer: new engine.Timer(),
+            paused: false,
         };
 
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
-        this.stopDrill = this.stopDrill.bind(this);
         this.onChunkerDone = this.onChunkerDone.bind(this);
+
+        // State
+        this.pauseDrill = this.pauseDrill.bind(this);
+        this.resumeDrill = this.resumeDrill.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
+
+        this.state.timer.start();
     }
 
     onChunkerDone(chunks) {
@@ -146,7 +154,6 @@ class Drill extends React.Component {
 
         this.setState(state => ({
             ...state,
-            startDate: new Date(),
         }));
     }
 
@@ -171,6 +178,22 @@ class Drill extends React.Component {
         }));
     }
 
+    pauseDrill() {
+        this.setState({
+            paused: true,
+        });
+        this.state.timer.pause();
+        this.clear();
+    }
+
+    resumeDrill() {
+        this.setState({
+            paused: false,
+        });
+        this.state.timer.resume();
+        this.start();
+    }
+
     stopDrill() {
         this.reportCompletion(true);
     }
@@ -182,24 +205,25 @@ class Drill extends React.Component {
         });
     }
 
-    reportCompletion(stopped) {
+    reportCompletion(stoppedPrematurely) {
+        this.state.timer.stop();
         const blockPosition = this.currentChunk().block;
 
         let readContent = this.props.content;
         let readChunks = this.state.chunks;
-        if (stopped) {
+        if (stoppedPrematurely) {
             // Need to stop where the reader has stop
             readContent = library.extractContent(readContent, 0, blockPosition);
             readChunks = readChunks.slice(0, this.state.chunkPosition);
         }
 
         const stats = {
-            ...library.statsContent(readContent, time.duration(this.state.startDate)),
+            ...library.statsContent(readContent, this.state.timer.durationInSeconds()),
             ...library.statsChunks(readChunks),
         };
 
         this.props.onComplete({
-            stopped: stopped,
+            stopped: stoppedPrematurely,
             position: blockPosition,
             stats: stats,
         });
@@ -208,35 +232,39 @@ class Drill extends React.Component {
     render() {
         let i = 0;
         return (
-            <div className={"FullScreen DrillChunk Centered Theme" + string.capitalize(this.props.theme)}>
+            <>
+                {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
+                <div className={"FullScreen DrillChunk Centered Theme" + string.capitalize(this.props.theme)}>
 
-                <Chunker content={this.props.content} onDone={this.onChunkerDone}
-                    {...this.props}
-                />
+                    <Chunker content={this.props.content} onDone={this.onChunkerDone}
+                        {...this.props}
+                    />
 
-                <section className="DrillControls">
-                    <ul>
-                        <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
-                        <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
-                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
-                    </ul>
-                </section>
+                    <section className="DrillControls">
+                        <ul>
+                            <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
+                            <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
+                            <li><button onClick={this.pauseDrill}><i className="material-icons">pause</i></button></li>
+                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                        </ul>
+                    </section>
 
-                <section className="DrillArea">
+                    <section className="DrillArea">
 
-                    {this.state.currentChunk &&
-                        <>
-                            <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
-                            <Viewer {...this.props}
-                                previousChunk={this.state.previousChunk}
-                                currentChunk={this.state.currentChunk}
-                                nextChunk={this.state.nextChunk} />
-                        </>
-                    }
+                        {this.state.currentChunk &&
+                            <>
+                                <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
+                                <Viewer {...this.props}
+                                    previousChunk={this.state.previousChunk}
+                                    currentChunk={this.state.currentChunk}
+                                    nextChunk={this.state.nextChunk} />
+                            </>
+                        }
 
-                </section>
+                    </section>
 
-            </div>
+                </div>
+            </>
         );
     }
 

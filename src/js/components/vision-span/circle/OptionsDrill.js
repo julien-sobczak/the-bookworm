@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 const OptionsDrill = (props) => {
 
@@ -37,7 +37,7 @@ const OptionsDrill = (props) => {
                     <th><label htmlFor="span">Span</label>:</th>
                     <td>
                         <select id="span" name="span" onChange={handleSpanChange} value={span}>
-                            {helpers.SPANS.map((s, index) => {
+                            {engine.SPANS.map((s, index) => {
                                 return <option key={index} value={s}>{s}</option>;
                             })}
                         </select>

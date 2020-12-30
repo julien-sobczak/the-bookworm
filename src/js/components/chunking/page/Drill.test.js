@@ -24,7 +24,6 @@ describe('Drill', () => {
             { tag: "p", content: "“What, a'ready? How much have you done?” “It's all done, aunt.”" },
             { tag: "p", content: "“Tom, don't lie to me--I can't bear it.”" },
             { tag: "p", content: "“I ain't, aunt; it <i>is</i> all done.”" },
-            { tag: "p", content: "Aunt Polly placed small trust in such evidence. She went out to see for herself; and she would have been content to find twenty per cent. of Tom's statement true." },
         ]
     };
 
@@ -38,7 +37,7 @@ describe('Drill', () => {
                 content={content}
                 charactersPerLine={60}
                 linesPerPage={5}
-                wpm={1500}
+                wpm={2000}
                 onChunkChange={mockChunkFn}
                 onComplete={mockCompleteFn} />
         );

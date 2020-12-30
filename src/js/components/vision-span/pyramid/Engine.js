@@ -1,5 +1,4 @@
-import * as helpers from '../../../functions/engine';
-import * as time from '../../../functions/time';
+import * as engine from '../../../functions/engine';
 
 class Engine {
 
@@ -18,7 +17,7 @@ class Engine {
         this.totalWrongAnswers = 0;
         this.totalCorrectAnswers = 0;
         this.totalAnswers = 0;
-        this.startDate = undefined;
+        this.timer = new engine.Timer();
 
         // Generate drill
         this.shuffle();
@@ -57,15 +56,15 @@ class Engine {
             drill.lines.push({
                 columns: [
                     {
-                        label: helpers.randomLetter(),
+                        label: engine.randomLetter(),
                         valid: null,
                     },
                     {
-                        label: helpers.CHARACTERS[i % helpers.CHARACTERS.length], // Cycle over the alphabet for the middle column
+                        label: engine.CHARACTERS[i % engine.CHARACTERS.length], // Cycle over the alphabet for the middle column
                         valid: null,
                     },
                     {
-                        label: helpers.randomLetter(),
+                        label: engine.randomLetter(),
                         valid: null,
                     },
                 ]
@@ -75,7 +74,22 @@ class Engine {
         this.currentLineIndex = 0;
         this.errorCount = 0;
         this.inputCount = 0;
-        if (!this.startDate) this.startDate = new Date();
+    }
+
+    start() {
+        this.timer.start();
+    }
+
+    pause() {
+        this.timer.pause();
+    }
+
+    resume() {
+        this.timer.resume();
+    }
+
+    stop() {
+        this.timer.stop();
     }
 
     /**
@@ -97,7 +111,7 @@ class Engine {
             wrongAnswers: this.totalWrongAnswers,
             correctAnswers: this.totalCorrectAnswers,
             totalAnswers: this.totalAnswers,
-            durationInSeconds: time.duration(this.startDate),
+            durationInSeconds: this.timer.durationInSeconds(),
         };
     }
 

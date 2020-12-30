@@ -5,7 +5,7 @@ import Switch from '@material-ui/core/Switch';
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
 
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 const Form = (props) => {
 
@@ -231,7 +231,7 @@ const Form = (props) => {
                         <th><label htmlFor="chunkWidth">Chunk Width</label>:</th>
                         <td>
                             <select id="chunkWidth" onChange={handleChunkWidthChange} value={chunkWidth}>
-                                {helpers.SPANS.map((s, index) => {
+                                {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>

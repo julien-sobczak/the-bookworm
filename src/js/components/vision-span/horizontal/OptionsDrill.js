@@ -5,7 +5,7 @@ import FlipIcon from '@material-ui/icons/Flip';
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
 
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 const OptionsDrill = (props) => {
     const [multiple, setMultiple] = useState(props.multiple);
@@ -33,7 +33,7 @@ const OptionsDrill = (props) => {
 
     const handleColumnsChange = (event) => {
         const newColumns = event.target.value;
-        const newSpans = Array(newColumns-1).fill(helpers.SPANS[1]);
+        const newSpans = Array(newColumns-1).fill(engine.SPANS[1]);
         setColumns(newColumns);
         setSpans(newSpans);
         onChange({
@@ -81,7 +81,7 @@ const OptionsDrill = (props) => {
             <span key={i}>
                 {i > 0 && <span className="DotSeparator"></span>}
                 <select data-testid={"span"+i} name="spans" onChange={handleSpansChange} data-span={i} value={spans[i]}>
-                    {helpers.SPANS.map((s, index) => {
+                    {engine.SPANS.map((s, index) => {
                         return <option key={index} value={s}>{s}</option>;
                     })}
                 </select>

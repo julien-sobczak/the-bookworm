@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Viewer from './Viewer';
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 const generateChunks = (newState) => {
     const chunks = function(text) {
@@ -36,13 +36,13 @@ const generateChunks = (newState) => {
     };
 
     if (newState.chunkMode === "width") {
-        const length = helpers.SPANS.indexOf(newState.chunkWidth);
+        const length = engine.SPANS.indexOf(newState.chunkWidth);
         const subtext = 'o'.repeat(length);
         return chunks(`l${subtext}ng`);
     } else if (newState.chunkMode === "dynamic") {
         return chunks(["A", "text", "becoming", "larger as we", "progress on the column"]);
     }
-    
+
     throw new Error(`${newState.chunkMode} is not implemented.`);
 };
 
