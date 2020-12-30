@@ -193,8 +193,8 @@ class GameFactory extends React.Component {
                         demo={this.props.demo}
                         history={this.props.history}
                         historySessions={historySessions}
-                        predefinedDrills={this.props.predefinedDrills}
                         drillSettings={this.state.drillSettings}
+                        drillPresets={this.props.drillPresets}
                         textSettings={this.props.preferences.text}
                         onValidate={this.handleWizardValidation}
                         keyboardDetected={this.state.keyboardDetected}
@@ -266,8 +266,8 @@ GameFactory.propTypes = {
     // Default settings
     drillSettings: PropTypes.object,
 
-    // List of ready-to-go examples
-    predefinedDrills: PropTypes.arrayOf(PropTypes.object),
+    // List of presets
+    drillPresets: PropTypes.arrayOf(PropTypes.object),
 
     // Display a countdown counter before starting the drill (0 to disable it)
     countdownDuration: PropTypes.number,
@@ -281,7 +281,7 @@ GameFactory.defaultProps = {
     history: null,
     configurable: true,
     countdownDuration: 0,
-    predefinedDrills: [],
+    drillPresets: [],
     contentAware: false,
     content: undefined,
 };

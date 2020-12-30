@@ -5,7 +5,7 @@ import Paper from '../toolbox/Paper';
 import PageContent from '../toolbox/PageContent';
 import Styled from '../toolbox/Styled';
 
-const defaultDrillSettings = {
+const defaultViewerSettings = {
     pageTurningDuration: 300,
 
     // Disable timer by default
@@ -45,7 +45,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...defaultDrillSettings,
+    ...defaultViewerSettings,
 };
 
-export { Viewer as default, defaultDrillSettings };
+export { Viewer as default, defaultViewerSettings };

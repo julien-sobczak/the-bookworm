@@ -78,52 +78,6 @@
 }
 
 
-.PredefinedDrills {
-  display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	align-items: center;
-	align-content: center;
-}
-
-.PredefinedDrill {
-  position: relative;
-  width: 3cm;
-  height: 3cm;
-  border-radius: 50%;
-  margin: 0.5cm;
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  cursor: pointer;
-}
-.PredefinedDrill:hover {
-  background-color: rgba(0,0,0,1);
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-}
-.PredefinedDrill > * {
-  pointer-events: none;
-}
-
-.PredefinedDrill .DrillName {
-  font-size: 1.25em;
-  width: 80%;
-  text-align: center;
-}
-.PredefinedDrill .DrillTag {
-  position: absolute;
-  top: 70%;
-  width: 100%;
-  text-align: center;
-  background: rgba(0,0,0,0.5);
-  color: black;
-  font-weight: 400;
-  font-size: 0.8em;
-  padding: 0.25em 0.5em;
-  border-radius: 0.2em;
-  background-color: var(--theme-color);
-}
-
 .Setting .GraphicOption {
   display: inline-block;
   height: 40px;

@@ -8,7 +8,7 @@ import Styled from '../../toolbox/Styled';
 
 import * as string from '../../../functions/string';
 
-const defaultDrillSettings = {
+const defaultViewerSettings = {
     ...Pager.defaultProps,
     blockPosition: 0,
     chunkPosition: 0,
@@ -76,7 +76,7 @@ Viewer.propTypes = {
 Viewer.defaultProps = {
     ...Styled.defaultProps,
     ...Pager.defaultProps,
-    ...defaultDrillSettings,
+    ...defaultViewerSettings,
 };
 
-export { Viewer as default, defaultDrillSettings };
+export { Viewer as default, defaultViewerSettings };

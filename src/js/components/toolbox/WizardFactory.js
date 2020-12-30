@@ -26,8 +26,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DefaultPresets } from '../../components/settings/FormText';
 
-
-
 function PresetsList({ fixedPresets, customPresets, onSelectPreset, onDeletePreset, onNewPreset }) {
 
     const [saved, setSaved] = useState(false);
@@ -38,7 +36,6 @@ function PresetsList({ fixedPresets, customPresets, onSelectPreset, onDeletePres
     };
 
     const handleSelect = (event) => {
-        console.log('handleSelect');
         onSelectPreset(JSON.parse(event.target.dataset.preset));
     };
 
@@ -202,6 +199,7 @@ class WizardFactory extends React.Component {
             ...state,
             drillSettings: drillSettings,
         }));
+        this.forceUpdate();
     }
 
     handleTextSettingsChange(textSettings) {
@@ -209,6 +207,7 @@ class WizardFactory extends React.Component {
             ...state,
             textSettings: textSettings,
         }));
+        this.forceUpdate();
     }
 
     handleDrillSettingsDelete(presetName) {
@@ -256,10 +255,10 @@ class WizardFactory extends React.Component {
                     {this.state.activeTab === 0 && <div className="TabContent Centered">
                         <section>
                             <h4>Drill options</h4>
-                            {this.props.predefinedDrills.length > 0 && <>
+                            {this.props.drillPresets.length > 0 && <>
                                 <p>Use an existing preset:</p>
                                 <PresetsList
-                                    fixedPresets={this.props.predefinedDrills}
+                                    fixedPresets={this.props.drillPresets}
                                     customPresets={this.props.customPresets.drill[this.props.name]}
                                     onSelectPreset={this.handleDrillSettingsChange}
                                     onDeletePreset={this.handleDrillSettingsDelete}
@@ -340,7 +339,7 @@ WizardFactory.propTypes = {
     drillSettings: PropTypes.object,
     textSettings: PropTypes.object,
 
-    predefinedDrills: PropTypes.arrayOf(PropTypes.object),
+    drillPresets: PropTypes.arrayOf(PropTypes.object),
     historySessions: PropTypes.arrayOf(PropTypes.object),
 
     keyboardDetected: PropTypes.bool,
