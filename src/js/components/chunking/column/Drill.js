@@ -6,13 +6,12 @@ import Chunker from '../Chunker';
 
 import ProgressLine from '../../toolbox/ProgressLine';
 import Measurer from '../../toolbox/Measurer';
+import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as string from '../../../functions/string';
 import * as wpm from '../../../functions/wpm';
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 import * as library from '../../../functions/library';
-import * as time from '../../../functions/time';
-
 
 class Drill extends React.Component {
 
@@ -23,6 +22,8 @@ class Drill extends React.Component {
             wpm: this.props.wpm,
             chunks: undefined,
             chunkPosition: -1,
+            timer: new engine.Timer(),
+            paused: false,
         };
 
         this.columnsElement = React.createRef();
@@ -30,8 +31,14 @@ class Drill extends React.Component {
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
         this.onChunkerDone = this.onChunkerDone.bind(this);
-        this.stopDrill = this.stopDrill.bind(this);
         this.onMeasurementsChange = this.onMeasurementsChange.bind(this);
+
+        // State
+        this.pauseDrill = this.pauseDrill.bind(this);
+        this.resumeDrill = this.resumeDrill.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
+
+        this.state.timer.start();
     }
 
     onChunkerDone(chunks) {
@@ -59,7 +66,6 @@ class Drill extends React.Component {
             lines: lines,
             chunksOnScreen: chunksOnScreen,
             chunksOnScreenCount: chunksOnScreenCount,
-            startDate: new Date(),
         }));
 
         this.clear();
@@ -154,6 +160,22 @@ class Drill extends React.Component {
         }));
     }
 
+    pauseDrill() {
+        this.setState({
+            paused: true,
+        });
+        this.state.timer.pause();
+        this.clear();
+    }
+
+    resumeDrill() {
+        this.setState({
+            paused: false,
+        });
+        this.state.timer.resume();
+        this.start();
+    }
+
     stopDrill() {
         this.reportCompletion(true);
     }
@@ -167,6 +189,7 @@ class Drill extends React.Component {
     }
 
     reportCompletion(stopped) {
+        this.state.timer.stop();
         const blockPosition = this.currentChunk().block;
 
         let readContent = this.props.content;
@@ -178,7 +201,7 @@ class Drill extends React.Component {
         }
 
         const stats = {
-            ...library.statsContent(readContent, time.duration(this.state.startDate)),
+            ...library.statsContent(readContent, this.state.timer.durationInSeconds()),
             ...library.statsChunks(readChunks),
         };
 
@@ -209,42 +232,46 @@ class Drill extends React.Component {
 
     render() {
         const columnWidthOnScreen = (this.props.chunkMode === 'dynamic') ?
-            helpers.increaseSpan(this.props.chunkWidthMax) :
-            helpers.increaseSpan(this.props.columnWidth);
+            engine.increaseSpan(this.props.chunkWidthMax) :
+            engine.increaseSpan(this.props.columnWidth);
 
         return (
-            <div className={"FullScreen DrillColumn Centered Theme" + string.capitalize(this.props.theme)}>
+            <>
+                {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
+                <div className={"FullScreen DrillColumn Centered Theme" + string.capitalize(this.props.theme)}>
 
-                <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
+                    <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
 
-                <Chunker content={this.props.content} onDone={this.onChunkerDone}
-                    {...this.props}
-                />
+                    <Chunker content={this.props.content} onDone={this.onChunkerDone}
+                        {...this.props}
+                    />
 
-                <section className="DrillControls">
-                    <ul>
-                        <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
-                        <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
-                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
-                    </ul>
-                </section>
+                    <section className="DrillControls">
+                        <ul>
+                            <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
+                            <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
+                            <li><button onClick={this.pauseDrill}><i className="material-icons">pause</i></button></li>
+                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                        </ul>
+                    </section>
 
-                <section className="DrillArea" ref={this.columnsElement}>
+                    <section className="DrillArea" ref={this.columnsElement}>
 
-                    {this.state.chunksOnScreen &&
-                        <>
-                            <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
-                            <Viewer {...this.props}
-                                chunks={this.state.chunksOnScreen}
-                                chunkPosition={this.state.chunkPositionOnScreen}
-                                columns={this.props.columns}
-                                columnWidth={columnWidthOnScreen} />
-                        </>
-                    }
+                        {this.state.chunksOnScreen &&
+                            <>
+                                <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
+                                <Viewer {...this.props}
+                                    chunks={this.state.chunksOnScreen}
+                                    chunkPosition={this.state.chunkPositionOnScreen}
+                                    columns={this.props.columns}
+                                    columnWidth={columnWidthOnScreen} />
+                            </>
+                        }
 
-                </section>
+                    </section>
 
-            </div>
+                </div>
+            </>
         );
     }
 

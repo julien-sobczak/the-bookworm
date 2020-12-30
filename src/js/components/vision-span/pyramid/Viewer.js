@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Styled from '../../toolbox/Styled';
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 const defaultViewerSettings = {
     span: "2in",
@@ -26,7 +26,7 @@ function Viewer(props) {
     };
 
     let startSpanIndex = 0;
-    let endSpanIndex = helpers.SPANS.indexOf(props.span);
+    let endSpanIndex = engine.SPANS.indexOf(props.span);
     let linesPerSpan = Math.floor(props.drill.lines.length / (endSpanIndex - startSpanIndex));
     let increment = 1;
     if (linesPerSpan === 0) {
@@ -46,17 +46,17 @@ function Viewer(props) {
                 if (!currentSpan) {
                     // Fist line: start at 0in
                     currentSpanIndex = 0;
-                    currentSpan = helpers.SPANS[currentSpanIndex];
+                    currentSpan = engine.SPANS[currentSpanIndex];
                     countLinesInSpan = 1;
                 } else if (lineIndex === drill.lines.length - 1) {
                     // Last line: end at expected span
-                    const end = helpers.SPANS.indexOf(props.span);
-                    currentSpan = helpers.SPANS[end];
+                    const end = engine.SPANS.indexOf(props.span);
+                    currentSpan = engine.SPANS[end];
                     countLinesInSpan = 1;
                 } else if (countLinesInSpan === linesPerSpan) {
                     // Intermediate line requiring span increment
                     currentSpanIndex += increment;
-                    currentSpan = helpers.SPANS[currentSpanIndex];
+                    currentSpan = engine.SPANS[currentSpanIndex];
                     countLinesInSpan = 1;
                 } else {
                     // Intermediate line still using the same span

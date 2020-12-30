@@ -85,7 +85,7 @@ describe('differentLetter', () => {
         expect(engine.differentLetter('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', /* Y */ 'Z')).toBe('Y');
         expect(engine.differentLetter('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',  'Y', 'Z')).toBeUndefined();
     });
-    
+
 });
 
 describe('globalSpan', () => {
@@ -95,3 +95,32 @@ describe('globalSpan', () => {
         expect(engine.globalSpan(["0.5in", "0.5in"])).toBe("1.75in");
     });
 });
+
+describe('Timer', () => {
+    const timer = new engine.Timer();
+
+    let t = new Date("2021-01-01 12:00:00.000");
+    timer.start(t);
+
+    t = new Date(t.getTime() + 50);
+    timer.pause(t);// 50ms
+
+    t = new Date(t.getTime() + 1000);
+    timer.resume(t); // 1s
+
+    t = new Date(t.getTime() + 150);
+    timer.pause(t);// 150ms
+
+    expect(timer.elapsedDurationInMs()).toBe(200);
+    expect(timer.elapsedDurationInSeconds()).toBe(0);
+
+    t = new Date(t.getTime() + 10000);
+    timer.resume(t); // 10s
+
+    t = new Date(t.getTime() + 1000);
+    timer.stop(t); // 100ms
+
+    expect(timer.durationInMs()).toBe(1200);
+    expect(timer.durationInSeconds()).toBe(1);
+    expect(timer.pauseCount()).toBe(2);
+})

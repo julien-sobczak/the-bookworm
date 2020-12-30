@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
 
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 const Form = (props) => {
 
@@ -185,7 +185,7 @@ const Form = (props) => {
                         <th><label htmlFor="columnWidth">Column width</label>:</th>
                         <td>
                             <select id="columnWidth" onChange={handleColumnWidthChange} value={columnWidth}>
-                                {helpers.SPANS.map((s, index) => {
+                                {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
@@ -227,7 +227,7 @@ const Form = (props) => {
                         <th><label htmlFor="chunkWidth">Chunk Width</label>:</th>
                         <td>
                             <select id="chunkWidth" onChange={handleChunkWidthChange} value={chunkWidth}>
-                                {helpers.SPANS.map((s, index) => {
+                                {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
@@ -251,7 +251,7 @@ const Form = (props) => {
                         <th><label htmlFor="chunkWidthMin">Min</label>:</th>
                         <td>
                             <select id="chunkWidthMin" onChange={handleChunkWidthMinChange} value={chunkWidthMin}>
-                                {helpers.SPANS.map((s, index) => {
+                                {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>
@@ -261,7 +261,7 @@ const Form = (props) => {
                         <th><label htmlFor="chunkWidthMax">Max</label>:</th>
                         <td>
                             <select id="chunkWidthMax" onChange={handleChunkWidthMaxChange} value={chunkWidthMax}>
-                                {helpers.SPANS.map((s, index) => {
+                                {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
                                 })}
                             </select>

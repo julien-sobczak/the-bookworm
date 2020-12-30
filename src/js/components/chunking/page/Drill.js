@@ -5,11 +5,12 @@ import Viewer from './Viewer';
 import Pager, { PagerTest } from '../Pager';
 
 import ProgressLine from '../../toolbox/ProgressLine';
+import PauseOverlay from '../../toolbox/PauseOverlay';
 
+import * as engine from '../../../functions/engine';
 import * as string from '../../../functions/string';
 import * as wpm from '../../../functions/wpm';
 import * as library from '../../../functions/library';
-import * as time from '../../../functions/time';
 
 // Values for property pagerMode.
 const pagerModes = ['dom', 'fixed'];
@@ -25,12 +26,20 @@ class Drill extends React.Component {
             pageNumber: 0,
             blockPosition: 0,
             chunkPosition: 0,
+            timer: new engine.Timer(),
+            paused: false,
         };
 
         this.increaseWpm = this.increaseWpm.bind(this);
         this.reduceWpm = this.reduceWpm.bind(this);
-        this.stopDrill = this.stopDrill.bind(this);
         this.onPagerDone = this.onPagerDone.bind(this);
+
+        // State
+        this.pauseDrill = this.pauseDrill.bind(this);
+        this.resumeDrill = this.resumeDrill.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
+
+        this.state.timer.start();
     }
 
     onPagerDone(pages) {
@@ -67,7 +76,6 @@ class Drill extends React.Component {
 
         this.setState(state => ({
             ...state,
-            startDate: new Date(),
         }));
     }
 
@@ -189,6 +197,7 @@ class Drill extends React.Component {
     }
 
     reportCompletion(stopped) {
+        this.state.timer.stop();
         let readContent = this.props.content;
         let readPages = this.state.pages;
         const blockPosition = this.currentBlock().block;
@@ -199,7 +208,7 @@ class Drill extends React.Component {
             readPages = readPages.slice(0, this.state.pageNumber);
         }
         const stats = {
-            ...library.statsContent(readContent, time.duration(this.state.startDate)),
+            ...library.statsContent(readContent, this.state.timer.durationInSeconds()),
             ...library.statsPages(readPages),
         };
 
@@ -210,43 +219,63 @@ class Drill extends React.Component {
         });
     }
 
+    pauseDrill() {
+        this.setState({
+            paused: true,
+        });
+        this.state.timer.pause();
+        this.clear();
+    }
+
+    resumeDrill() {
+        this.setState({
+            paused: false,
+        });
+        this.state.timer.resume();
+        this.start();
+    }
+
     stopDrill() {
         this.reportCompletion(true);
     }
 
     render() {
         return (
-            <div className={"FullScreen ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
+            <>
+                {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
+                <div className={"FullScreen ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
-                {this.props.pagerMode === 'dom' && <Pager content={this.props.content} onDone={this.onPagerDone}
-                    {...this.props} />}
-                {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone}
-                    {...this.props} />}
+                    {this.props.pagerMode === 'dom' && <Pager content={this.props.content} onDone={this.onPagerDone}
+                        {...this.props} />}
+                    {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone}
+                        {...this.props} />}
 
-                <section className="DrillControls">
-                    <ul>
-                        <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
-                        <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
-                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
-                    </ul>
-                </section>
+                    <section className="DrillControls">
+                        <ul>
+                            <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
+                            <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
+                            <li><button onClick={this.pauseDrill}><i className="material-icons">pause</i></button></li>
+                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                        </ul>
+                    </section>
 
-                <section className="DrillArea">
-                    {this.state.pageNumber > 0 &&
-                        <>
-                            <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
-                            <Viewer {...this.props}
-                                page={this.state.pages[this.state.pageNumber - 1]}
-                                blockPosition={this.state.blockPosition}
-                                chunkPosition={this.state.chunkPosition}
-                                disableVisualRegression={this.props.disableVisualRegression}
-                                disableVisualProgression={this.props.disableVisualProgression}
-                                disableVisualProblemStyle={this.props.disableVisualProblemStyle}
-                            />
-                        </>
-                    }
-                </section>
-            </div>
+                    <section className="DrillArea">
+                        {this.state.pageNumber > 0 &&
+                            <>
+                                <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
+                                <Viewer {...this.props}
+                                    page={this.state.pages[this.state.pageNumber - 1]}
+                                    blockPosition={this.state.blockPosition}
+                                    chunkPosition={this.state.chunkPosition}
+                                    disableVisualRegression={this.props.disableVisualRegression}
+                                    disableVisualProgression={this.props.disableVisualProgression}
+                                    disableVisualProblemStyle={this.props.disableVisualProblemStyle}
+                                />
+                            </>
+                        }
+                    </section>
+                </div>
+            </>
         );
     }
 

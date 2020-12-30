@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Viewer from './Viewer';
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 // Generate "basic" text according the various selected chunk options
 const generateChunks = (props) => {
@@ -17,7 +17,7 @@ const generateChunks = (props) => {
     };
 
     if (props.chunkMode === "width") {
-        const length = helpers.SPANS.indexOf(props.chunkWidth);
+        const length = engine.SPANS.indexOf(props.chunkWidth);
         const subtext = 'o'.repeat(length);
         return {
             previousChunk: chunk("A"),

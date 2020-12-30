@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import Engine from './Engine';
+import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as interaction from '../../../functions/interaction';
 import * as string from '../../../functions/string';
-import * as helpers from '../../../functions/engine';
+import * as engine from '../../../functions/engine';
 
 class Drill extends React.Component {
 
@@ -21,6 +22,7 @@ class Drill extends React.Component {
 
             // The engine
             engine: undefined,
+            paused: false,
 
             // The Drill content
             drill: undefined, // We create the drill lazily (after component mount)
@@ -38,19 +40,23 @@ class Drill extends React.Component {
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleDrillFinished = this.handleDrillFinished.bind(this);
+
+        // State
+        this.pauseDrill = this.pauseDrill.bind(this);
+        this.resumeDrill = this.resumeDrill.bind(this);
         this.stopDrill = this.stopDrill.bind(this);
     }
 
     /** Increment the span values by one-stop to make the drill more difficult. */
     increaseSpan() {
-        if (helpers.isMaxSpan(this.state.span)) return;
-        this.updateSpan(helpers.increaseSpan(this.state.span));
+        if (engine.isMaxSpan(this.state.span)) return;
+        this.updateSpan(engine.increaseSpan(this.state.span));
     }
 
     /** Decrement the span values by one-stop to make the drill easier */
     reduceSpan() {
-        if (helpers.isMinSpan(this.state.span)) return;
-        this.updateSpan(helpers.reduceSpan(this.state.span));
+        if (engine.isMinSpan(this.state.span)) return;
+        this.updateSpan(engine.reduceSpan(this.state.span));
     }
 
     updateSpan(span) {
@@ -87,44 +93,64 @@ class Drill extends React.Component {
         });
     }
 
+    pauseDrill() {
+        this.setState({
+            paused: true,
+        });
+        this.state.engine.pause();
+    }
+
+    resumeDrill() {
+        this.setState({
+            paused: false,
+        });
+        this.state.engine.resume();
+    }
+
     stopDrill() {
-        this.props.onComplete({
+        this.state.engine.stop();
+        const result = {
             stopped: true,
             stats: this.state.engine.getStats(),
-        });
+        };
+        this.props.onComplete(result);
     }
 
     render() {
         return (
-            <div>
-                <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
+            <>
+                {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
+                <div>
+                    <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
-                    <section className="DrillControls">
-                        <ul>
-                            {this.props.spanControls && <li><button onClick={this.reduceSpan}><i title="Reduce span" className="material-icons">chevron_left</i></button></li>}
-                            {this.props.spanControls && <li><button onClick={this.increaseSpan}><i title="Increase span" className="material-icons">chevron_right</i></button></li>}
-                            <li><button onClick={this.stopDrill}><i title="Stop" className="material-icons">stop</i></button></li>
-                        </ul>
-                    </section>
+                        <section className="DrillControls">
+                            <ul>
+                                {this.props.spanControls && <li><button onClick={this.reduceSpan}><i title="Reduce span" className="material-icons">chevron_left</i></button></li>}
+                                {this.props.spanControls && <li><button onClick={this.increaseSpan}><i title="Increase span" className="material-icons">chevron_right</i></button></li>}
+                                <li><button onClick={this.pauseDrill}><i title="Pause" className="material-icons">pause</i></button></li>
+                                <li><button onClick={this.stopDrill}><i title="Stop" className="material-icons">stop</i></button></li>
+                            </ul>
+                        </section>
 
-                    <section className="DrillArea"
-                        ref={this.drillArea}
-                        style={{fontSize: this.state.fontSize}}
-                    >
-                        {/* Important to fix the font size to determine the number of available lines */}
+                        <section className="DrillArea"
+                            ref={this.drillArea}
+                            style={{fontSize: this.state.fontSize}}
+                        >
+                            {/* Important to fix the font size to determine the number of available lines */}
 
-                        <Viewer
-                            drill={this.state.drill}
-                            span={this.state.span}
-                            fontFamily={this.props.fontFamily}
-                            fontSize={this.props.fontSize}
-                            fontStyle={this.props.fontStyle}
-                            theme={this.props.theme} />
+                            <Viewer
+                                drill={this.state.drill}
+                                span={this.state.span}
+                                fontFamily={this.props.fontFamily}
+                                fontSize={this.props.fontSize}
+                                fontStyle={this.props.fontStyle}
+                                theme={this.props.theme} />
 
-                    </section>
+                        </section>
 
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
@@ -183,6 +209,7 @@ class Drill extends React.Component {
 
     componentDidMount() {
         const engine = new Engine(this.handleDrillFinished);
+        engine.start();
         this.setState(state => ({
             ...state,
             engine: engine,

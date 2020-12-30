@@ -5,12 +5,13 @@ import Viewer from './Viewer';
 import Pager, { PagerTest } from '../chunking/Pager';
 
 import ProgressLine from '../toolbox/ProgressLine';
+import PauseOverlay from '../toolbox/PauseOverlay';
 
 import * as interaction from '../../functions/interaction';
 import * as string from '../../functions/string';
 import * as wpm from '../../functions/wpm';
 import * as library from '../../functions/library';
-import * as time from '../../functions/time';
+import * as engine from '../../functions/engine';
 
 // Values for property pagerMode.
 const pagerModes = ['dom', 'fixed'];
@@ -23,14 +24,24 @@ class Drill extends React.Component {
         this.state = {
             pages: undefined,
             pageNumber: 0,
+            timer: new engine.Timer(),
+            paused: false,
         };
 
         this.turnPage = this.turnPage.bind(this);
         this.turnPageBack = this.turnPageBack.bind(this);
-        this.stopDrill = this.stopDrill.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.onPagerDone = this.onPagerDone.bind(this);
+
+        // State
+        this.pauseDrill = this.pauseDrill.bind(this);
+        this.resumeDrill = this.resumeDrill.bind(this);
+        this.stopDrill = this.stopDrill.bind(this);
+
+        this.start = this.start.bind(this);
+        this.restart = this.restart.bind(this);
+        this.reportCompletion = this.reportCompletion.bind(this);
     }
 
     onPagerDone(pages) {
@@ -39,9 +50,13 @@ class Drill extends React.Component {
             pages: pages,
             pageNumber: 1,
             pagesDuration: this.calculateWpm(pages),
-            startDate: new Date(),
             winner: undefined, // used when racing with the pacer
         }), this.start);
+    }
+
+    start() {
+        this.restart(); // Start the game
+        this.state.timer.start();
     }
 
     calculateWpm(pages) {
@@ -75,26 +90,38 @@ class Drill extends React.Component {
         return this.state.pagesDuration.length;
     }
 
-    start() {
-        if (this.props.timer > 0) {
-            // IMPROVEMENT ask the user to click on the last read block instead of ignore the whole current page
-            setTimeout(() => this.reportCompletion(true), this.props.timer * 60 * 1000); // convert minutes -> ms
-        }
+    restart() {
         this.props.onStart({
             pages: this.state.pages.length,
         });
-        if (this.props.pacerWpm > 0) {
-            let start = new Date().getTime();
+
+        // GameStopWatch
+        if (this.props.timer > 0) {
             let loop = () => {
                 if (!this.handle) return;
-                const current = new Date().getTime();
-                const elapsedDuration = current - start;
 
-                // [60s, 45s, 30s, 60s, 70s]
-                // Elapsed time 200s and 3rd page
+                // Check for timer expiration
+                if (this.state.timer.started() && this.props.timer > 0) {
+                    // IMPROVEMENT ask the user to click on the last read block instead of ignore the whole current page
+                    if (this.state.timer.elapsedDurationInMs() > this.props.timer * 60 * 1000) { // min => ms
+                        this.reportCompletion(true);
+                        return;
+                    }
+                }
+                this.handle = window.requestAnimationFrame(loop);
+            };
+            this.handle = window.requestAnimationFrame(loop);
+
+            return;
+        }
+
+        // GamePacer
+        if (this.props.pacerWpm > 0) {
+            let loop = () => {
+                if (!this.handle) return;
 
                 const userPageNumber = this.state.pageNumber;
-                const pacerPageNumber = this.getPacerPageNumber(elapsedDuration);
+                const pacerPageNumber = this.getPacerPageNumber(this.state.timer.elapsedDurationInMs());
 
                 const difference = userPageNumber - pacerPageNumber;
                 if (difference >= 2) {
@@ -117,6 +144,7 @@ class Drill extends React.Component {
             };
             this.handle = window.requestAnimationFrame(loop);
         }
+        return;
     }
 
     currentPage() {
@@ -153,6 +181,7 @@ class Drill extends React.Component {
 
     reportCompletion(stopped) {
         this.clear();
+        this.state.timer.stop();
 
         let readContent = this.props.content;
         let readPages = this.state.pages;
@@ -164,7 +193,7 @@ class Drill extends React.Component {
             readPages = readPages.slice(0, this.state.pageNumber);
         }
         const stats = {
-            ...library.statsContent(readContent, time.duration(this.state.startDate)),
+            ...library.statsContent(readContent, parseInt(this.state.timer.durationInMs() / 1000)),
             ...library.statsPages(readPages),
         };
 
@@ -181,34 +210,57 @@ class Drill extends React.Component {
         this.props.onComplete(result);
     }
 
-    stopDrill() {
+    pauseDrill(event) {
+        event.stopPropagation();
+        this.setState({
+            paused: true,
+        });
+        this.clear();
+        this.state.timer.pause();
+    }
+
+    resumeDrill(event) {
+        event.stopPropagation();
+        this.setState({
+            paused: false,
+        });
+        this.restart();
+        this.state.timer.resume();
+    }
+
+    stopDrill(event) {
+        event.stopPropagation();
         this.reportCompletion(true);
     }
 
     render() {
         return (
-            <div className={"FullScreen DrillPractice Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
+            <>
+                {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
+                <div className={"FullScreen DrillPractice Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
-                {this.props.pagerMode === 'dom'   && <Pager     content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />}
-                {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />}
+                    {this.props.pagerMode === 'dom'   && <Pager     content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />}
+                    {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone} chunkMode="none" />}
 
-                <section className="DrillControls">
-                    <ul>
-                        <li><button onClick={this.turnPageBack}><i className="material-icons">chevron_left</i></button></li>
-                        <li><button onClick={this.turnPage}><i className="material-icons">chevron_right</i></button></li>
-                        <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
-                    </ul>
-                </section>
+                    <section className="DrillControls">
+                        <ul>
+                            <li><button onClick={this.turnPageBack}><i className="material-icons">chevron_left</i></button></li>
+                            <li><button onClick={this.turnPage}><i className="material-icons">chevron_right</i></button></li>
+                            <li><button onClick={this.pauseDrill}><i className="material-icons">pause</i></button></li>
+                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                        </ul>
+                    </section>
 
-                <section className="DrillArea">
-                    {this.state.pageNumber > 0 &&
-                        <>
-                            <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
-                            <Viewer {...this.props} page={this.state.pages[this.state.pageNumber - 1]} />
-                        </>
-                    }
-                </section>
-            </div>
+                    <section className="DrillArea">
+                        {this.state.pageNumber > 0 &&
+                            <>
+                                <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
+                                <Viewer {...this.props} page={this.state.pages[this.state.pageNumber - 1]} />
+                            </>
+                        }
+                    </section>
+                </div>
+            </>
         );
     }
 
