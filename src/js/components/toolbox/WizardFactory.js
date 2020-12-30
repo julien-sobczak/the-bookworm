@@ -100,6 +100,10 @@ function NewPresetForm({ onSave }) {
         onSave(name);
     };
 
+    const handleCancel = () => {
+        setOpen(false);
+    };
+
     return (
         <>
             <BlackCheckbox icon={<AddCircleOutline />} checkedIcon={<AddCircle />} value={open} onChange={handleOpen} />
@@ -116,7 +120,7 @@ function NewPresetForm({ onSave }) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <ReactButton onClick={handleClose} color="primary">
+                    <ReactButton onClick={handleCancel} color="primary">
                         Cancel
                     </ReactButton>
                     <ReactButton onClick={handleClose} color="primary">
