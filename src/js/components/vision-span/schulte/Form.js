@@ -10,6 +10,10 @@ const Form = (props) => {
     const [value, setValue] = useState(props);
     const onChange = props.onChange;
 
+    React.useEffect(() => {
+        setValue(props);
+    }, [props]);
+
     const handleOptionsChange = (settings) => {
         const newValue = {
             ...value,

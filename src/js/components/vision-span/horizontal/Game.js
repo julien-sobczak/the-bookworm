@@ -2,63 +2,57 @@ import React from 'react';
 
 import GameFactory from '../../toolbox/GameFactory';
 import History from './History';
-import { defaultDrillSettings } from './Viewer';
+import { defaultViewerSettings } from './Viewer';
 import Demo from './Demo';
 import Form from './Form';
 import Drill from './Drill';
 import Stats from '../Stats';
 
+const defaultDrillSettings = {
+    ...defaultViewerSettings,
+};
+
 const Game = (props) => {
 
-    const examples = [
+    const presets = [
         {
-            name: "Drill A",
-            difficulty: 0,
+            name: "A",
             settings: { multiple: true, lines: 1, columns: 3, spans: ["1.25in", "1.25in"] },
         },
         {
-            name: "Drill B",
-            difficulty: 0,
+            name: "B",
             settings: { multiple: true, lines: 1, columns: 5, spans: ["1.25in", "0", "0", "1.25in"] },
         },
         {
-            name: "Drill C",
-            difficulty: 1,
+            name: "C",
             settings: { multiple: true, lines: 1, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
         },
         {
-            name: "Drill D",
-            difficulty: 1,
+            name: "D",
             settings: { multiple: true, lines: 1, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
         },
         {
-            name: "Drill E",
-            difficulty: 2,
+            name: "E",
             settings: { multiple: true, lines: 1, columns: 9, spans: ["0.75in", "0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in", "0.75in"] },
         },
         {
-            name: "Drill F",
-            difficulty: 0,
+            name: "F",
             settings: { multiple: true, lines: 2, columns: 3, spans: ["1in", "1in"] },
         },
         {
-            name: "Drill G",
-            difficulty: 1,
+            name: "G",
             settings: { multiple: true, lines: 3, columns: 7, spans: ["0.5in", "0.5in", "0in", "0in", "0.5in", "0.5in"] },
         },
         {
-            name: "Drill H",
-            difficulty: 1,
+            name: "H",
             settings: { multiple: true, lines: 3, columns: 5, spans: ["0.75in", "0.75in", "0.75in", "0.75in"] },
         },
         {
-            name: "Drill I",
-            difficulty: 1,
+            name: "I",
             settings: { multiple: false, lines: 5, columns: 7, spans: ["0.75in", "0.75in", "0in", "0in", "0.75in", "0.75in"] },
         },
         {
-            name: "Drill J",
-            difficulty: 2,
+            name: "J",
             settings: { multiple: true, lines: 3, columns: 7, spans: ["0.75in", "0.75in", "0.75in", "0.75in", "0.75in", "0.75in"] },
         },
     ];
@@ -74,8 +68,8 @@ const Game = (props) => {
             history={<History />}
             stats={<Stats />}
             drillSettings={defaultDrillSettings}
-            predefinedDrills={examples} />
+            drillPresets={presets} />
     );
 };
 
-export default Game;
+export { Game as default, defaultDrillSettings };

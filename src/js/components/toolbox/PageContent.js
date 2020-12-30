@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DEFAULT_PAGE = {
+const defaultPage = {
     blocks: [
         {
             tag: "h2",
@@ -56,7 +56,7 @@ class PageContent extends React.Component {
                         return React.createElement(
                             block.tag,
                             {
-                                key: indexBlock, 
+                                key: indexBlock,
                                 className: (block.continuation ? 'Continuation' : (block.continued ? 'Continued' : 'Entire')),
                                 dangerouslySetInnerHTML: {__html: block.content}
                             });
@@ -67,7 +67,7 @@ class PageContent extends React.Component {
     }
 
 }
-    
+
 PageContent.propTypes = {
     page: PropTypes.object,
     blockPosition: PropTypes.number,
@@ -75,7 +75,7 @@ PageContent.propTypes = {
 };
 
 PageContent.defaultProps = {
-    page: DEFAULT_PAGE,
+    page: defaultPage,
     blockPosition: null,
     chunkPosition: null,
 };

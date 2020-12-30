@@ -1,17 +1,17 @@
 import { createStore } from "redux";
 import rootReducer from "./reducers";
 
-import { defaultDrillSettings as DEFAULT_DRILL_CIRCLE_SETTINGS } from "../components/vision-span/circle/Viewer";
-import { defaultDrillSettings as DEFAULT_DRILL_HORIZONTAL_SETTINGS } from "../components/vision-span/horizontal/Viewer";
-import { defaultDrillSettings as DEFAULT_DRILL_PYRAMID_SETTINGS } from "../components/vision-span/pyramid/Viewer";
-import { defaultDrillSettings as DEFAULT_DRILL_SCHULTE_SETTINGS } from "../components/vision-span/schulte/Viewer";
-import { defaultDrillSettings as DEFAULT_DRILL_CHUNK_SETTINGS } from "../components/chunking/chunk/Viewer";
-import { defaultDrillSettings as DEFAULT_DRILL_COLUMN_SETTINGS } from "../components/chunking/column/Viewer";
-import { defaultDrillSettings as DEFAULT_DRILL_PAGE_SETTINGS } from "../components/chunking/page/Viewer";
-import { DEFAULT_DRILL_SETTINGS as DEFAULT_DRILL_FREE_SETTINGS } from "../components/practice/GameFree";
-import { DEFAULT_DRILL_SETTINGS as DEFAULT_DRILL_PACER_SETTINGS } from "../components/practice/GamePacer";
-import { DEFAULT_DRILL_SETTINGS as DEFAULT_DRILL_STOPWATCH_SETTINGS } from "../components/practice/GameStopWatch";
-import { DEFAULT_TEXT_SETTINGS } from "../components/toolbox/Styled";
+import { defaultDrillSettings as defaultDrillCircleSettings } from "../components/vision-span/circle/Game";
+import { defaultDrillSettings as defaultDrillHorizontalSettings } from "../components/vision-span/horizontal/Game";
+import { defaultDrillSettings as defaultDrillPyramidSettings } from "../components/vision-span/pyramid/Game";
+import { defaultDrillSettings as defaultDrillSchulteSettings } from "../components/vision-span/schulte/Game";
+import { defaultDrillSettings as defaultDrillChunkSettings } from "../components/chunking/chunk/Game";
+import { defaultDrillSettings as defaultDrillColumnSettings } from "../components/chunking/column/Game";
+import { defaultDrillSettings as defaultDrillPageSettings } from "../components/chunking/page/Game";
+import { defaultDrillSettings as defaultDrillFreeSettings } from "../components/practice/GameFree";
+import { defaultDrillSettings as defaultDrillPacerSettings } from "../components/practice/GamePacer";
+import { defaultDrillSettings as defaultDrillStopWatchSettings } from "../components/practice/GameStopWatch";
+import { defaultTextSettings } from "../components/toolbox/Styled";
 
 const defaultState = {
     startDate: new Date().toDateString(),
@@ -46,48 +46,48 @@ const defaultState = {
     defaults: {
         // Vision span
         "drillCircle": {
-            drill: DEFAULT_DRILL_CIRCLE_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillCircleSettings,
+            text: defaultTextSettings,
         },
         "drillHorizontal": {
-            drill: DEFAULT_DRILL_HORIZONTAL_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillHorizontalSettings,
+            text: defaultTextSettings,
         },
         "drillPyramid": {
-            drill: DEFAULT_DRILL_PYRAMID_SETTINGS,
-            text:  DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillPyramidSettings,
+            text:  defaultTextSettings,
         },
         "drillSchulte": {
-            drill: DEFAULT_DRILL_SCHULTE_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillSchulteSettings,
+            text: defaultTextSettings,
         },
 
         // Chunking
         "drillPage": {
-            drill: DEFAULT_DRILL_PAGE_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillPageSettings,
+            text: defaultTextSettings,
         },
         "drillChunk": {
-            drill: DEFAULT_DRILL_CHUNK_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillChunkSettings,
+            text: defaultTextSettings,
         },
         "drillColumn": {
-            drill: DEFAULT_DRILL_COLUMN_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillColumnSettings,
+            text: defaultTextSettings,
         },
 
         // Practice
         "drillFree": {
-            drill: DEFAULT_DRILL_FREE_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillFreeSettings,
+            text: defaultTextSettings,
         },
         "drillPacer": {
-            drill: DEFAULT_DRILL_PACER_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillPacerSettings,
+            text: defaultTextSettings,
         },
         "drillStopWatch": {
-            drill: DEFAULT_DRILL_STOPWATCH_SETTINGS,
-            text: DEFAULT_TEXT_SETTINGS,
+            drill: defaultDrillStopWatchSettings,
+            text: defaultTextSettings,
         },
     },
     preferences: {

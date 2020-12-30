@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Chunker from '../Chunker';
 import Styled from '../../toolbox/Styled';
 
-const defaultDrillSettings = {
+const defaultViewerSettings = {
     ...Chunker.defaultProps,
     chunks: [],
     chunkPosition: 0,
@@ -68,7 +68,7 @@ Viewer.propTypes = {
 Viewer.defaultProps = {
     ...Styled.defaultProps,
     ...Chunker.defaultProps,
-    ...defaultDrillSettings,
+    ...defaultViewerSettings,
 };
 
-export { Viewer as default, defaultDrillSettings };
+export { Viewer as default, defaultViewerSettings };

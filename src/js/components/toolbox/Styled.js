@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as string from "../../functions/string";
 
-const DEFAULT_TEXT_SETTINGS = {
+const defaultTextSettings = {
     fontFamily: 'Roboto',
     fontSize: '14pt',
     fontStyle: 'normal',
@@ -65,4 +65,4 @@ Styled.defaultProps = {
     chunkStyle: "highlight",
 };
 
-export { Styled as default, DEFAULT_TEXT_SETTINGS };
+export { Styled as default, defaultTextSettings };

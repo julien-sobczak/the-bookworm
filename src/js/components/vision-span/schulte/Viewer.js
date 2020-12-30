@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
 
-const defaultDrillSettings = {
+const defaultViewerSettings = {
     span: "1in",
     size: 5,
     autoLevel: true,
@@ -60,7 +60,7 @@ Viewer.propTypes = {
 
 Viewer.defaultProps = {
     ...Styled.defaultProps,
-    ...defaultDrillSettings,
+    ...defaultViewerSettings,
 };
 
-export { Viewer as default, defaultDrillSettings };
+export { Viewer as default, defaultViewerSettings };
