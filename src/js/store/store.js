@@ -48,46 +48,56 @@ const defaultState = {
         "drillCircle": {
             drill: defaultDrillCircleSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
         "drillHorizontal": {
             drill: defaultDrillHorizontalSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
         "drillPyramid": {
             drill: defaultDrillPyramidSettings,
             text:  defaultTextSettings,
+            showInstructions: true,
         },
         "drillSchulte": {
             drill: defaultDrillSchulteSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
 
         // Chunking
         "drillPage": {
             drill: defaultDrillPageSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
         "drillChunk": {
             drill: defaultDrillChunkSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
         "drillColumn": {
             drill: defaultDrillColumnSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
 
         // Practice
         "drillFree": {
             drill: defaultDrillFreeSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
         "drillPacer": {
             drill: defaultDrillPacerSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
         "drillStopWatch": {
             drill: defaultDrillStopWatchSettings,
             text: defaultTextSettings,
+            showInstructions: true,
         },
     },
     preferences: {

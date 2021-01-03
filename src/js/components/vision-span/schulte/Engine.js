@@ -53,11 +53,13 @@ class Engine {
      */
     shuffle() {
         const drill = { lines: [] };
+        const uniqueLetters = this.size <= 5; // Not enough letters in the alphabet otherwise
+        const letters = engine.randomLetters(this.size * this.size, uniqueLetters);
         for (let i = 0; i < this.size; i++) {
             const line = { columns: [] };
             for (let j = 0; j < this.size; j++) {
                 const column = {
-                    label: engine.randomLetter(),
+                    label: letters[i * this.size + j],
                     valid: null,
                 };
                 line.columns.push(column);

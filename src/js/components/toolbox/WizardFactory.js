@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
 import Button from './Button';
-
+import Screen from './Screen';
 import FormText from '../settings/FormText';
 
 import Tabs from '@material-ui/core/Tabs';
@@ -16,6 +16,7 @@ import StyleIcon from '@material-ui/icons/Style';
 import { withStyles } from '@material-ui/core/styles';
 import ReactButton from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import AddCircle from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -150,28 +151,16 @@ class WizardFactory extends React.Component {
     constructor(props) {
         super(props);
 
+        const defaults = props.defaults[props.name];
         this.state = {
             activeTab: 0,
-            demoActive: false,
+            demoActive: defaults.showInstructions,
 
             // Copy settings to make them editable
-            drillSettings: props.drillSettings,
-            textSettings: {...props.defaults[props.name + '-textSettings'], ...props.textSettings},
+            drillSettings: {...defaults.drillSettings, ...props.drillSettings},
+            textSettings: {...defaults.textSettings, ...props.textSettings},
+            showInstructions: defaults.showInstructions,
         };
-
-        // Merge possible previous saved settings
-        if (props.name in props.defaults) {
-            this.state.drillSettings = {
-                ...this.state.drillSettings,
-                ...props.defaults[props.name].drill,
-            };
-        }
-        if (props.name in props.defaults) {
-            this.state.drillSettings = {
-                ...this.state.drillSettings,
-                ...props.defaults[props.name].text,
-            };
-        }
 
         this.handleDemoClick = this.handleDemoClick.bind(this);
         this.handleValidateClick = this.handleValidateClick.bind(this);
@@ -182,6 +171,7 @@ class WizardFactory extends React.Component {
         this.handleTextSettingsSave = this.handleTextSettingsSave.bind(this);
         this.handleTextSettingsChange = this.handleTextSettingsChange.bind(this);
         this.handleTextSettingsDelete = this.handleTextSettingsDelete.bind(this);
+        this.handleShowInstructions = this.handleShowInstructions.bind(this);
 
         this.handleTabChange = this.handleTabChange.bind(this);
     }
@@ -236,6 +226,12 @@ class WizardFactory extends React.Component {
         });
     }
 
+    handleShowInstructions(event) {
+        this.setState({
+            showInstructions: event.target.checked,
+        });
+    }
+
     render() {
         const tabs = [];
         tabs.push(<Tab key={1} icon={<TuneIcon />} label="Options" />);
@@ -244,6 +240,23 @@ class WizardFactory extends React.Component {
             <div className="Wizard FullScreen Scrollbar">
 
                 <Link to={`/${this.props.category}/`} className="ButtonClose"><i className="material-icons">close</i></Link>
+
+                {this.state.demoActive && <Screen className="Demo" scrollable={true} onClose={this.handleDemoClick}>
+                    <div>
+                        {this.props.demo}
+                    </div>
+                    <div className="InstructionsCheckbox">
+                        <FormControlLabel
+                            control={<BlackCheckbox checked={this.state.showInstructions} onChange={this.handleShowInstructions} name="doNotShowInstructions" />}
+                            label="Always show instructions"
+                        />
+                    </div>
+                    <div className="Centered">
+                        <div className="Actions">
+                            <Button text="I understand" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
+                        </div>
+                    </div>
+                </Screen>}
 
                 <div className="Preferences InnerContent">
 
@@ -294,19 +307,11 @@ class WizardFactory extends React.Component {
                         </section>
                     </div>}
 
-                    {this.state.demoActive && <div className="Demo FullScreen Centered">
-                        <button className="CornerTopLeft" onClick={this.handleDemoClick}><i className="material-icons">close</i></button>
-                        {React.cloneElement(this.props.demo, {
-                            ...this.state.drillSettings,
-                            ...this.state.styleSettings,
-                        })}
-                    </div>}
-
                 </div>
 
                 <div className="Centered">
                     <div className="Actions">
-                        <Button text="Demo" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
+                        <Button text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
                         <Button text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
                     </div>
                 </div>
@@ -320,6 +325,7 @@ class WizardFactory extends React.Component {
             defaults: {
                 drill: this.state.drillSettings,
                 text: this.state.textSettings,
+                showInstructions: this.state.showInstructions,
             },
         });
         this.props.onValidate({
@@ -337,7 +343,7 @@ WizardFactory.propTypes = {
     name: PropTypes.string.isRequired,
 
     form: PropTypes.element.isRequired,
-    demo: PropTypes.element.isRequired,
+    demo: PropTypes.node.isRequired,
     history: PropTypes.element,
 
     drillSettings: PropTypes.object,

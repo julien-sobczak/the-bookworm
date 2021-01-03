@@ -73,6 +73,10 @@
     left: 2em;
   }
 
+  .PaperDemo {
+    width: 25rem;
+    height: 15rem;
+  }
   /* See https://www.papersizes.org/a-paper-sizes.htm */
   .PaperA4 {
     width: 210mm;

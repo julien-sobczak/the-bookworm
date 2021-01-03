@@ -53,18 +53,20 @@ class Engine {
         };
 
         for (let i = 0; i < this.lines; i++) {
+            const middleLetter = engine.CHARACTERS[i % engine.CHARACTERS.length]; // Cycle over the alphabet for the middle column
+            const letters = engine.randomLetters(2, true, middleLetter);
             drill.lines.push({
                 columns: [
                     {
-                        label: engine.randomLetter(),
+                        label: letters[0],
                         valid: null,
                     },
                     {
-                        label: engine.CHARACTERS[i % engine.CHARACTERS.length], // Cycle over the alphabet for the middle column
+                        label: middleLetter,
                         valid: null,
                     },
                     {
-                        label: engine.randomLetter(),
+                        label: letters[1],
                         valid: null,
                     },
                 ]

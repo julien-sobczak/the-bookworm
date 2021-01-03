@@ -34,6 +34,9 @@
 /* https://scotch.io/tutorials/customize-the-browsers-scrollbar-with-css */
 
 .Scrollbar {
+    padding: 1rem;
+    width: 100vw;
+    min-height: 100vh;
     overflow-y: scroll;
 }
 

@@ -41,9 +41,10 @@ class Engine {
      */
     shuffle() {
         const drill = {};
-        POSITIONS.forEach((p) => {
+        const letters = engine.randomLetters(POSITIONS.length);
+        POSITIONS.forEach((p, i) => {
             drill[p] = {
-                label: engine.randomLetter(),
+                label: letters[i],
                 valid: null,
             };
         });

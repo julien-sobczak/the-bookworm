@@ -35,5 +35,6 @@ it('supports new drill', () => {
     const engine = new Engine();
     const initialDrill = engine.getDrill();
     const newDrill = engine.newDrill();
+    console.log(initialDrill, newDrill);
     expect(newDrill).not.toEqual(initialDrill);
 });

@@ -1,62 +1,32 @@
 import React from 'react';
 
+import InfoIcon from '@material-ui/icons/Info';
+
 import Viewer from './Viewer';
-import * as engine from '../../../functions/engine';
+import Window from '../../toolbox/Window';
 
-const generateChunks = (newState) => {
-    const chunks = function(text) {
-        // Only 5 lines on screen
-        const linesMax = 5;
+const chunks = [
+    { text: "A", startingChunk: false, endingChunk: false, },
+    { text: "text", startingChunk: false, endingChunk: false, },
+    { text: "becoming", startingChunk: false, endingChunk: false, },
+    { text: "larger as we", startingChunk: false, endingChunk: false, },
+    { text: "continue the reading.", startingChunk: false, endingChunk: false, },
+];
 
-        // If it is only one word, duplicate the word on all lines
-        if (!Array.isArray(text)) {
-            const arr = new Array(linesMax);
-            arr.fill(text);
-            text = arr;
-        }
+function Demo() {
 
-        // Repeat the same column
-        const texts = [];
-        for (let l = 0; l < linesMax; l++) {
-            for (let c = 0; c < newState.columns; c++) {
-                texts.push(text[l]);
-            }
-        }
+    const viewer = <Viewer chunkPosition={2} columns={1} chunks={chunks} fontStyle={"bold"} />;
 
-        // Convert to chunk format
-        const results = [];
-        for (let t = 0; t < texts.length; t++) {
-            results.push({
-                text: texts[t],
-                startingChunk: false,
-                endingChunk: false,
-            });
-        }
-        return results;
-    };
+    return (
+        <div>
+            <h1>Column Drill</h1>
+            <div className="Text">
+                <p><InfoIcon className="Icon" /> Focus on each column successively, and read each chunk by doing a single fixation. Read the text line per line.</p>
+            </div>
+            <Window content={viewer} />
+        </div>
+    );
 
-    if (newState.chunkMode === "width") {
-        const length = engine.SPANS.indexOf(newState.chunkWidth);
-        const subtext = 'o'.repeat(length);
-        return chunks(`l${subtext}ng`);
-    } else if (newState.chunkMode === "dynamic") {
-        return chunks(["A", "text", "becoming", "larger as we", "progress on the column"]);
-    }
-
-    throw new Error(`${newState.chunkMode} is not implemented.`);
-};
-
-function Demo(props) {
-    const chunks = generateChunks();
-    return <Viewer {...props} chunks={chunks} />;
 }
-
-Demo.propTypes = {
-    ...Viewer.propTypes,
-};
-
-Demo.defaultProps = {
-    ...Viewer.defaultProps,
-};
 
 export default Demo;

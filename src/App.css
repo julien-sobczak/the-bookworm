@@ -67,6 +67,10 @@ button:focus {
   outline: none;
 }
 
+small {
+  font-size: smaller;
+}
+
 @import 'css/Common.css';
 @import 'css/Core.css';
 @import 'css/Layout.css';
