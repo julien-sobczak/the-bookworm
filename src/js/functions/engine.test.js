@@ -88,6 +88,43 @@ describe('differentLetter', () => {
 
 });
 
+describe('randomLetters', () => {
+
+    it('returns a specific number of random letters', () => {
+        const letters = engine.randomLetters(10);
+        expect(letters).toHaveLength(10);
+
+        // count the number of occurrences in an array
+        const count = (search) => letters.reduce((n, val) => {
+            return n + (val === search);
+        }, 0);
+
+        letters.forEach(l => {
+            expect(count(l)).toBe(1); // unique by default
+        });
+    });
+
+    it('reports an error if the number of requested letters is too large', () => {
+        expect(() => {
+            engine.randomLetters(100, true);
+        }).toThrow(/cannot generate/i);
+    });
+
+    it('allows to drop the unicity constraint', () => {
+        const letters = engine.randomLetters(1000, false);
+        expect(letters).toHaveLength(1000);
+    });
+
+    it('allows to exclude some letters', () => {
+        const letters = engine.randomLetters(10, true, "A", "B", "C");
+        expect(letters).toHaveLength(10);
+        expect(letters.includes("A")).not.toBeTruthy();
+        expect(letters.includes("B")).not.toBeTruthy();
+        expect(letters.includes("C")).not.toBeTruthy();
+    });
+
+});
+
 describe('globalSpan', () => {
 
     it('calculates the total width between the left letter and the right letter', () => {

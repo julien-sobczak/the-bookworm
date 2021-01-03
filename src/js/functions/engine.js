@@ -89,10 +89,44 @@ export function randomDigit() {
 }
 
 /**
- * Returns a random letter omitting the letters already in use.
- * This method may be used during testing to simulate errors.
+ * Returns random letters.
  *
- * @param {...any} letters The letter already in use.
+ * @returns {number} The number of letters to return.
+ * @returns {boolean} The letters must all be different.
+ * @returns {string} The letters.
+ */
+export function randomLetters(n, unique=true, ...excludedLetters) {
+    if (unique && n > 26) { // letters in the alphabet
+        throw new Error('Cannot generate more than the number of unique characters in the alphabet.');
+    }
+    const result = [];
+    for (let i = 0; i < n; i++) {
+        const letter = unique ? randomUniqueLetter(...result, ...excludedLetters) : randomLetter();
+        result.push(letter);
+    }
+    return result;
+}
+
+/**
+ * Returns a random letter omitting the letters already in use.
+ *
+ * @param {...any} letters The letters already in use.
+ * @returns {string} A single letter.
+ */
+export function randomUniqueLetter(...letters) {
+    let haystack = CHARACTERS;
+    letters.forEach(l => {
+        haystack = haystack.replace(l, '');
+    });
+
+    return haystack.charAt(Math.floor(Math.random() * haystack.length));
+}
+
+/**
+ * Returns a random letter omitting the letters already in use.
+ * This method may be used only in tests to simulate errors.
+ *
+ * @param {...any} letters The letters already in use.
  * @returns {string} A single letter.
  */
 export function differentLetter(...letters) {

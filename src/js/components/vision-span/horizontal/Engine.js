@@ -45,11 +45,11 @@ class Engine {
      *                        valid: true,
      *                    },
      *                    {
-     *                        label: "A",
+     *                        label: "B",
      *                        valid: null,
      *                    },
      *                    {
-     *                        label: "A",
+     *                        label: "C",
      *                        valid: null,
      *                    },
      *                ]
@@ -69,9 +69,10 @@ class Engine {
                 const line = {
                     columns: []
                 };
+                const letters = engine.randomLetters(this.columns);
                 for (let k = 0; k < this.columns; k++) {
                     line.columns.push({
-                        label: engine.randomLetter(),
+                        label: letters[k],
                         valid: null,
                         center: (k === this.columns / 2),
                     });

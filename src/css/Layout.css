@@ -169,10 +169,51 @@ section.page h3 {
 
 .Demo {
   z-index: 1000;
+  background-color: var(--theme-color);
+  --chunk-color: black;
+}
+.Demo h1 {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.Demo .Text {
+  max-width: 50rem;
+  background: black;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  margin: 2rem auto;
+  font: 1.5rem;
+  line-height: 1.8;
+  text-align: center;
+}
+.Demo .Text p {
+  margin: 1rem 0;
+}
+.Demo .Text .Label {
+  background: var(--theme-color);
+  color: black;
+  padding: 0.25rem;
+  border-radius: 0.125em;
+}
+.Demo .Icon {
+  color: var(--theme-color);
+  margin-right: 0.5rem;
+  margin-top: -2rem;
+}
+.Demo .InstructionsCheckbox {
+  text-align: center;
+  margin: 1rem auto;
 }
 
 .CornerTopLeft {
   position: fixed;
-  top: 2em;
-  left: 2em;
+  top: 1rem;
+  left: 1rem;
 }

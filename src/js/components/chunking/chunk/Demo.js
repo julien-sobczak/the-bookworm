@@ -1,69 +1,47 @@
 import React from 'react';
 
+import InfoIcon from '@material-ui/icons/Info';
+
 import Viewer from './Viewer';
-import * as engine from '../../../functions/engine';
+import Window from '../../toolbox/Window';
 
-// Generate "basic" text according the various selected chunk options
-const generateChunks = (props) => {
-    const chunk = function(text) {
-        if (props.linesPerChunk > 1) {
-            text = Array.fill(text).join('<br/>');
-        }
-        return {
-            text: text,
-            startingChunk: false,
-            endingChunk: false,
-        };
-    };
-
-    if (props.chunkMode === "width") {
-        const length = engine.SPANS.indexOf(props.chunkWidth);
-        const subtext = 'o'.repeat(length);
-        return {
-            previousChunk: chunk("A"),
-            currentChunk: chunk(`l${subtext}ng`),
-            nextChunk: chunk("chunk"),
-        };
-    } else if (props.chunkMode === "words") {
-        const previousWords = ["a", "about", "after", "all", "also", "an", "and", "any", "as", "at"];
-        const currentWords = ["than", "that", "the", "their", "them", "then", "there", "these", "they", "this", "to"];
-        const nextWords = ["we", "well", "what", "when", "which", "who", "whose", "why", "will", "would",];
-        return {
-            previousChunk: chunk(previousWords.slice(0, props.chunkWords).join(' ')),
-            currentChunk: chunk(currentWords.slice(0, props.chunkWords).join(' ')),
-            nextChunk: chunk(nextWords.slice(0, props.chunkWords).join(' ')),
-        };
-    } else if (props.chunkMode === "dynamic") {
-        return {
-            previousChunk: chunk("Tiny"),
-            currentChunk: chunk("Medium"),
-            nextChunk: chunk("Laaaaarge"),
-        };
-    }
-    throw new Error(`${props.chunkMode} is not implemented.`);
+const previousChunk = {
+    text: "Chunking",
+    startingChunk: false,
+    endingChunk: false,
+};
+const currentChunk = {
+    text: "means reading",
+    startingChunk: false,
+    endingChunk: false,
+};
+const nextChunk = {
+    text: "groups of words.",
+    startingChunk: false,
+    endingChunk: false,
 };
 
-function Demo(props) {
 
-    const chunks = generateChunks(props);
-    const previousChunk = chunks.previousChunk;
-    const currentChunk = chunks.currentChunk;
-    const nextChunk = chunks.nextChunk;
+function Demo() {
+
+    const viewer = <Viewer neighborChunksPosition={'vertical'}
+        showPreviousChunk={true}
+        showNextChunk={true}
+        fontStyle={"bold"}
+        previousChunk={previousChunk}
+        currentChunk={currentChunk}
+        nextChunk={nextChunk} />;
 
     return (
-        <Viewer {...props}
-            previousChunk={previousChunk}
-            currentChunk={currentChunk}
-            nextChunk={nextChunk} />
+        <div>
+            <h1>Chunk Drill</h1>
+            <div className="Text">
+                <p><InfoIcon className="Icon" /> Focus on the highlighted chunk, and read the chunks that appear, one chunk at a time. Make only one fixation per chunk.</p>
+            </div>
+            <Window content={viewer} />
+        </div>
     );
+
 }
-
-Demo.propTypes = {
-    ...Viewer.propTypes,
-};
-
-Demo.defaultProps = {
-    ...Viewer.defaultProps,
-};
 
 export default Demo;
