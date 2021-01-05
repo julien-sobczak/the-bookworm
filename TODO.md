@@ -8,6 +8,10 @@
 
 - [ ]
 
+# Refactor
+
+- [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar
+
 # Features
 
 - [ ] Deploy a proxy as a workaround CORS requests

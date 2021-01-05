@@ -2,8 +2,8 @@ import React from 'react';
 
 import InfoIcon from '@material-ui/icons/Info';
 
-import Viewer from './Viewer';
-import Window from '../toolbox/Window';
+import Viewer from '../Viewer';
+import Window from '../../toolbox/Window';
 
 const page = {
     "number": 1,
@@ -18,15 +18,15 @@ const page = {
     ],
 };
 
-function InstructionsPacer() {
+function InstructionsStopWatch() {
 
     const viewer = <Viewer paperSize={"Instructions"} chunkPosition={0} page={page} fontStyle={"bold"} />;
 
     return (
         <div>
-            <h1>Run the Pacer</h1>
+            <h1>Free Practice</h1>
             <div className="Text">
-                <p><InfoIcon className="Icon" /> Determine a target WPM. Read the text freely but do not slow down. The drill will end if the pacer finishes the next page before you.</p>
+                <p><InfoIcon className="Icon" /> Read freely for a specific time duration. The drill will measure your current WPM.</p>
             </div>
             <Window content={viewer} showPanes={true} callouts={[ { text: "1", top: "50%", left: "8%", description: "Click on the left side to turn to the previous page." }, { text: "2", top: "50%", right: "10%", description: "Click on the right side to move to the next page." } ]} />
         </div>
@@ -34,4 +34,4 @@ function InstructionsPacer() {
 
 }
 
-export default InstructionsPacer;
+export default InstructionsStopWatch;
