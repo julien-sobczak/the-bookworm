@@ -190,7 +190,7 @@ class GameFactory extends React.Component {
                         engine={this.props.engine}
                         drill={this.props.drill}
                         form={this.props.form}
-                        demo={this.props.demo}
+                        instructions={this.props.instructions}
                         history={this.props.history}
                         historySessions={historySessions}
                         drillSettings={this.state.drillSettings}
@@ -259,7 +259,7 @@ GameFactory.propTypes = {
     engine: PropTypes.object, // For vision-span drills
     drill: PropTypes.element.isRequired,
     form: PropTypes.element.isRequired,
-    demo: PropTypes.element.isRequired,
+    instructions: PropTypes.element.isRequired,
     history: PropTypes.element, // There are no history for chunking sessions
     stats: PropTypes.element,
 

@@ -8,18 +8,19 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 import Window from '../../toolbox/Window';
 
-const lines = 5;
-const drill = new Engine(lines).getDrill();
+const columns = 5;
+const lines = 3;
+const drill = new Engine(lines, columns).getDrill();
 
-function Demo() {
+function Instructions() {
 
     const md = new MobileDetect(window.navigator.userAgent);
     const keyboardDetected = md.mobile() == null;
 
-    const viewer = <Viewer lines={lines} span={"1in"} drill={drill} />;
+    const viewer = <Viewer columns={columns} lines={lines} spans={["0.25in", "0.25in", "0.25in", "0.25in"]} drill={drill} />;
     return (
         <div>
-            <h1>Pyramid Drill</h1>
+            <h1>Horizontal Drill</h1>
             <div className="Text">
                 <p><InfoIcon className="Icon" /> Focus on the middle column, and read alternatively the left and right columns from the inside out, one line at a time. Make only one fixation per line.</p>
                 {keyboardDetected && <p><KeyboardIcon className="Icon" /> When the option <span className="Label">Enable Keyboard</span> is selected, you must enter each letter successively to validate a drill.</p>}
@@ -30,4 +31,4 @@ function Demo() {
 
 }
 
-export default Demo;
+export default Instructions;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import GameFactory from '../toolbox/GameFactory';
 import { defaultViewerSettings } from './Viewer';
-import DemoStopWatch from './DemoStopWatch';
+import InstructionsStopWatch from './InstructionsStopWatch';
 import Form from './Form';
 import Drill from './Drill';
 import Stats from './Stats';
@@ -20,7 +20,7 @@ const Game = (props) => {
             name="drillStopWatch"
             category="practice"
             drill={<Drill />}
-            demo={<DemoStopWatch />}
+            instructions={<InstructionsStopWatch />}
             form={<Form />}
             stats={<Stats />}
             contentAware={true}

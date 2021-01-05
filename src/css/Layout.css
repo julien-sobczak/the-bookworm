@@ -167,12 +167,12 @@ section.page h3 {
 }
 
 
-.Demo {
+.Instructions {
   z-index: 1000;
   background-color: var(--theme-color);
   --chunk-color: black;
 }
-.Demo h1 {
+.Instructions h1 {
   margin-bottom: 2rem;
   text-align: center;
   font-size: 3rem;
@@ -181,7 +181,7 @@ section.page h3 {
   text-transform: uppercase;
   vertical-align: middle;
 }
-.Demo .Text {
+.Instructions .Text {
   max-width: 50rem;
   background: black;
   border-radius: 0.5rem;
@@ -193,21 +193,21 @@ section.page h3 {
   line-height: 1.8;
   text-align: center;
 }
-.Demo .Text p {
+.Instructions .Text p {
   margin: 1rem 0;
 }
-.Demo .Text .Label {
+.Instructions .Text .Label {
   background: var(--theme-color);
   color: black;
   padding: 0.25rem;
   border-radius: 0.125em;
 }
-.Demo .Icon {
+.Instructions .Icon {
   color: var(--theme-color);
   margin-right: 0.5rem;
   margin-top: -2rem;
 }
-.Demo .InstructionsCheckbox {
+.Instructions .InstructionsCheckbox {
   text-align: center;
   margin: 1rem auto;
 }

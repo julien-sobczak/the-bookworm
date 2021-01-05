@@ -13,7 +13,7 @@ const chunks = [
     { text: "continue the reading.", startingChunk: false, endingChunk: false, },
 ];
 
-function Demo() {
+function Instructions() {
 
     const viewer = <Viewer chunkPosition={2} columns={1} chunks={chunks} fontStyle={"bold"} />;
 
@@ -29,4 +29,4 @@ function Demo() {
 
 }
 
-export default Demo;
+export default Instructions;

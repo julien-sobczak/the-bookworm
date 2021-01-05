@@ -18,9 +18,9 @@ const page = {
     ],
 };
 
-function DemoFree() {
+function InstructionsFree() {
 
-    const viewer = <Viewer paperSize={"Demo"} chunkPosition={0} page={page} fontStyle={"bold"} />;
+    const viewer = <Viewer paperSize={"Instructions"} chunkPosition={0} page={page} fontStyle={"bold"} />;
 
     return (
         <div>
@@ -34,4 +34,4 @@ function DemoFree() {
 
 }
 
-export default DemoFree;
+export default InstructionsFree;
