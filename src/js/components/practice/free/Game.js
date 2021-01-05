@@ -1,15 +1,14 @@
 import React from 'react';
 
-import GameFactory from '../toolbox/GameFactory';
-import { defaultViewerSettings } from './Viewer';
-import InstructionsPacer from './InstructionsPacer';
-import Form from './Form';
-import Drill from './Drill';
-import Stats from './Stats';
+import GameFactory from '../../toolbox/GameFactory';
+import { defaultViewerSettings } from '../Viewer';
+import InstructionsFree from './Instructions';
+import Form from '../Form';
+import Drill from '../Drill';
+import Stats from '../Stats';
 
 const defaultDrillSettings = {
     ...defaultViewerSettings,
-    pacerWpm: 200,
 };
 
 const Game = (props) => {
@@ -17,16 +16,15 @@ const Game = (props) => {
     return (
         <GameFactory
             {...props}
-            name="drillPacer"
+            name="drillFree"
             category="practice"
             drill={<Drill />}
-            instructions={<InstructionsPacer />}
+            instructions={<InstructionsFree />}
             form={<Form />}
             stats={<Stats />}
             contentAware={true}
             countdownDuration={2000}
-            drillSettings={defaultDrillSettings}
-        />
+            drillSettings={defaultDrillSettings} />
     );
 };
 

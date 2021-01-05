@@ -8,9 +8,9 @@ import { defaultDrillSettings as defaultDrillSchulteSettings } from "../componen
 import { defaultDrillSettings as defaultDrillChunkSettings } from "../components/chunking/chunk/Game";
 import { defaultDrillSettings as defaultDrillColumnSettings } from "../components/chunking/column/Game";
 import { defaultDrillSettings as defaultDrillPageSettings } from "../components/chunking/page/Game";
-import { defaultDrillSettings as defaultDrillFreeSettings } from "../components/practice/GameFree";
-import { defaultDrillSettings as defaultDrillPacerSettings } from "../components/practice/GamePacer";
-import { defaultDrillSettings as defaultDrillStopWatchSettings } from "../components/practice/GameStopWatch";
+import { defaultDrillSettings as defaultDrillFreeSettings } from "../components/practice/free/Game";
+import { defaultDrillSettings as defaultDrillPacerSettings } from "../components/practice/pacer/Game";
+import { defaultDrillSettings as defaultDrillStopWatchSettings } from "../components/practice/stopwatch/Game";
 import { defaultTextSettings } from "../components/toolbox/Styled";
 
 const defaultState = {
