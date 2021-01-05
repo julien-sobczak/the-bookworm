@@ -22,7 +22,7 @@ const nextChunk = {
 };
 
 
-function Demo() {
+function Instructions() {
 
     const viewer = <Viewer neighborChunksPosition={'vertical'}
         showPreviousChunk={true}
@@ -44,4 +44,4 @@ function Demo() {
 
 }
 
-export default Demo;
+export default Instructions;

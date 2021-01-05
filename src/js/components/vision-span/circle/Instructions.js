@@ -10,7 +10,7 @@ import Window from '../../toolbox/Window';
 
 const drill = new Engine().getDrill();
 
-function Demo() {
+function Instructions() {
 
     const md = new MobileDetect(window.navigator.userAgent);
     const keyboardDetected = md.mobile() == null;
@@ -29,4 +29,4 @@ function Demo() {
 
 }
 
-export default Demo;
+export default Instructions;

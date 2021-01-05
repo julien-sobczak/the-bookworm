@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import GameFactory from '../../toolbox/GameFactory';
 import { defaultViewerSettings } from './Viewer';
-import Demo from './Demo';
+import Instructions from './Instructions';
 import Form from './Form';
 import Drill from './Drill';
 import Stats from '../Stats';
@@ -51,7 +51,7 @@ const Game = (props) => {
             name="drillPage"
             category="chunking"
             drill={<Drill />}
-            demo={<Demo />}
+            instructions={<Instructions />}
             form={<Form />}
             stats={<Stats />}
             contentAware={true}

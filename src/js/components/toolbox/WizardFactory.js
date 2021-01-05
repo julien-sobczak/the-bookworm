@@ -154,7 +154,7 @@ class WizardFactory extends React.Component {
         const defaults = props.defaults[props.name];
         this.state = {
             activeTab: 0,
-            demoActive: defaults.showInstructions,
+            instructionsActive: defaults.showInstructions,
 
             // Copy settings to make them editable
             drillSettings: {...defaults.drillSettings, ...props.drillSettings},
@@ -162,7 +162,7 @@ class WizardFactory extends React.Component {
             showInstructions: defaults.showInstructions,
         };
 
-        this.handleDemoClick = this.handleDemoClick.bind(this);
+        this.handleInstructionsClick = this.handleInstructionsClick.bind(this);
         this.handleValidateClick = this.handleValidateClick.bind(this);
 
         this.handleDrillSettingsSave = this.handleDrillSettingsSave.bind(this);
@@ -182,9 +182,9 @@ class WizardFactory extends React.Component {
         });
     }
 
-    handleDemoClick()  {
+    handleInstructionsClick()  {
         this.setState({
-            demoActive: !this.state.demoActive,
+            instructionsActive: !this.state.instructionsActive,
         });
     }
 
@@ -241,9 +241,9 @@ class WizardFactory extends React.Component {
 
                 <Link to={`/${this.props.category}/`} className="ButtonClose"><i className="material-icons">close</i></Link>
 
-                {this.state.demoActive && <Screen className="Demo" scrollable={true} onClose={this.handleDemoClick}>
+                {this.state.instructionsActive && <Screen className="Instructions" scrollable={true} onClose={this.handleInstructionsClick}>
                     <div>
-                        {this.props.demo}
+                        {this.props.instructions}
                     </div>
                     <div className="InstructionsCheckbox">
                         <FormControlLabel
@@ -253,7 +253,7 @@ class WizardFactory extends React.Component {
                     </div>
                     <div className="Centered">
                         <div className="Actions">
-                            <Button text="I understand" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
+                            <Button text="I understand" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
                         </div>
                     </div>
                 </Screen>}
@@ -311,7 +311,7 @@ class WizardFactory extends React.Component {
 
                 <div className="Centered">
                     <div className="Actions">
-                        <Button text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleDemoClick} />
+                        <Button text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
                         <Button text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
                     </div>
                 </div>
@@ -343,7 +343,7 @@ WizardFactory.propTypes = {
     name: PropTypes.string.isRequired,
 
     form: PropTypes.element.isRequired,
-    demo: PropTypes.node.isRequired,
+    instructions: PropTypes.node.isRequired,
     history: PropTypes.element,
 
     drillSettings: PropTypes.object,
