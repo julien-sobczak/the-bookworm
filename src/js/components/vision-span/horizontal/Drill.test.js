@@ -54,7 +54,6 @@ it('allows the user to change the span', async () => {
             columns={3}
             spans={["0.5in", "0.5in"]}
             multiple={false}
-            spanControls={true}
             onLevelChange={mockLevelFn} />
     );
 

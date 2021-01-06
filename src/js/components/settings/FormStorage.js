@@ -2,16 +2,75 @@ import React from 'react';
 
 import Chart from 'chart.js';
 
+import { Info } from '../toolbox/Text';
 import * as string from '../../functions/string';
 import * as storage from '../../functions/storage';
 
-class FormLocalStorage extends React.Component {
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import AttachmentIcon from '@material-ui/icons/Attachment';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
+function getChartData(contents) {
+    const MB = 1024 * 1024;
+    const localStorageCapacity = 10 * MB; // Current value in popular browsers
+    const localStorageWarningCapacity = 1 * MB; // Alert when available space becomes critical
+
+    const typeIndices = ["book", "paste", "epub", "misc", "remaining"];
+    const indexRemaining = typeIndices.indexOf("remaining");
+
+    const values = [0, 0, 0, 0, 100];
+    const labels = ["Books", "Copy/Paste texts", "ePubs", "Others", "Free space"];
+    const colorFree = 'rgba(0, 0, 0, 0.1)';
+    const colorUsed = 'rgba(0, 0, 0, 0.4)';
+    const colorWarning = 'rgba(255, 0, 0, 0.4)';
+    const colors = [colorUsed, colorUsed, colorUsed, colorUsed, colorFree];
+
+    // Group items per category
+    let totalSize = 0;
+    for (let c = 0; c < contents.length; c++) {
+        const content = contents[c];
+        let index = typeIndices.indexOf(content.type);
+        if (index === -1) {
+            console.log(`Unsupported content type ${content.type} while rendering localStorage graph.`);
+            index = typeIndices.indexOf("misc");
+        }
+        values[index] += content.size;
+        totalSize += content.size;
+    }
+    values[typeIndices.indexOf("remaining")] = localStorageCapacity - totalSize;
+
+    // Check available space to display a warning
+    if (values[indexRemaining] < localStorageWarningCapacity) {
+        colors[indexRemaining] = colorWarning;
+    }
+
+    // Remove empty categories
+    const filteredValues = [];
+    const filteredLabels = [];
+    const filteredColors = [];
+    for (let i = 0; i < typeIndices.length - 1; i++) { // Always add remaining
+        if (values[i] > 0) {
+            filteredValues.push(values[i]);
+            filteredLabels.push(labels[i]);
+            filteredColors.push(colors[i]);
+        }
+    }
+    // Add available space category
+    filteredValues.push(values[indexRemaining]);
+    filteredLabels.push(labels[indexRemaining]);
+    filteredColors.push(colors[indexRemaining]);
+
+    return [filteredValues, filteredLabels, filteredColors];
+}
+
+class FormStorage extends React.Component {
 
     constructor(props) {
         super(props);
 
         const contents = storage.getContentsMetadata();
-        const [ values, labels, colors ] = FormLocalStorage.getChartData(contents);
+        const [ values, labels, colors ] = getChartData(contents);
 
         this.state = {
             contents: contents,
@@ -25,59 +84,6 @@ class FormLocalStorage extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
-    static getChartData(contents) {
-        const MB = 1024 * 1024;
-        const localStorageCapacity = 10 * MB; // Current value in popular browsers
-        const localStorageWarningCapacity = 1 * MB; // Alert when available space becomes critical
-
-        const typeIndices = ["book", "paste", "epub", "misc", "remaining"];
-        const indexRemaining = typeIndices.indexOf("remaining");
-
-        const values = [0, 0, 0, 0, 100];
-        const labels = ["Books", "Copy/Paste texts", "ePubs", "Others", "Free space"];
-        const colorFree = 'rgba(0, 0, 0, 0.1)';
-        const colorUsed = 'rgba(0, 0, 0, 0.4)';
-        const colorWarning = 'rgba(255, 0, 0, 0.4)';
-        const colors = [colorUsed, colorUsed, colorUsed, colorUsed, colorFree];
-
-        // Group items per category
-        let totalSize = 0;
-        for (let c = 0; c < contents.length; c++) {
-            const content = contents[c];
-            let index = typeIndices.indexOf(content.type);
-            if (index === -1) {
-                console.log(`Unsupported content type ${content.type} while rendering localStorage graph.`);
-                index = typeIndices.indexOf("misc");
-            }
-            values[index] += content.size;
-            totalSize += content.size;
-        }
-        values[typeIndices.indexOf("remaining")] = localStorageCapacity - totalSize;
-
-        // Check available space to display a warning
-        if (values[indexRemaining] < localStorageWarningCapacity) {
-            colors[indexRemaining] = colorWarning;
-        }
-
-        // Remove empty categories
-        const filteredValues = [];
-        const filteredLabels = [];
-        const filteredColors = [];
-        for (let i = 0; i < typeIndices.length - 1; i++) { // Always add remaining
-            if (values[i] > 0) {
-                filteredValues.push(values[i]);
-                filteredLabels.push(labels[i]);
-                filteredColors.push(colors[i]);
-            }
-        }
-        // Add available space category
-        filteredValues.push(values[indexRemaining]);
-        filteredLabels.push(labels[indexRemaining]);
-        filteredColors.push(colors[indexRemaining]);
-
-        return [filteredValues, filteredLabels, filteredColors];
-    }
-
     handleDelete(event) {
         const key = event.target.dataset.key;
         const index = event.target.dataset.index;
@@ -86,7 +92,7 @@ class FormLocalStorage extends React.Component {
         console.log(`Deleted ${key} from localStorage`);
 
         const newContents = [...this.state.contents.slice(0, index), ...this.state.contents.slice(index + 1)];
-        const [ newValues, newLabels, newColors ] = FormLocalStorage.getChartData(newContents);
+        const [ newValues, newLabels, newColors ] = getChartData(newContents);
 
         this.setState(state => ({
             ...state,
@@ -99,32 +105,33 @@ class FormLocalStorage extends React.Component {
 
     render() {
         return (
-            <div className="Flex">
+            <>
+                {this.state.contents.length === 0 && <p><Info>No content in <code>localStorage</code>.</Info></p>}
                 <div style={{ height: "10cm", width: "7cm" }}>
                     <canvas ref={this.chartRef} />
                 </div>
-                <div>
+                {this.state.contents.length > 0 && <div>
                     <table data-testid="table" className="Styled">
                         <tbody>
                             {this.state.contents.map((content, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>
-                                            {content.type === 'book' && <i className="material-icons">menu_book</i>}
-                                            {content.type === 'paste' && <i className="material-icons">attachment</i>}
-                                            {content.type === 'epub' && <i className="material-icons">cloud_download</i>}
+                                            {content.type === 'book' && <MenuBookIcon />}
+                                            {content.type === 'paste' && <AttachmentIcon />}
+                                            {content.type === 'epub' && <CloudDownloadIcon />}
                                         </td>
                                         <td><em>{content.title}</em></td>
                                         <td>{content.author}</td>
                                         <td>{string.humanReadableSize(content.size)}</td>
-                                        <td><button className="Clickable" onClick={this.handleDelete} data-key={content.key} data-index={index}><i className="material-icons md-36">delete_forever</i></button></td>
+                                        <td><button className="Clickable" onClick={this.handleDelete} data-key={content.key} data-index={index}><DeleteForeverIcon /></button></td>
                                     </tr>
                                 );
                             })}
                         </tbody>
                     </table>
-                </div>
-            </div>
+                </div>}
+            </>
         );
     }
 
@@ -143,10 +150,7 @@ class FormLocalStorage extends React.Component {
     }
 
     componentDidMount() {
-        if (typeof process === 'object') { // true when running from Node.js
-            // getContext don't work out of the box when running tests with Jest
-            return;
-        }
+        if (areWeTestingWithJest()) return;
         const ctx = this.chartRef.current.getContext('2d');
         this.chart = new Chart(ctx, {  // eslint-disable-line no-new
             type: 'doughnut',
@@ -186,4 +190,8 @@ class FormLocalStorage extends React.Component {
     }
 }
 
-export default FormLocalStorage;
+function areWeTestingWithJest() {
+    return process.env.JEST_WORKER_ID !== undefined;
+}
+
+export default FormStorage;

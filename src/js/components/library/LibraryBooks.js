@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
+import ClearIcon from '@material-ui/icons/Backspace';
+
 import Button from "../toolbox/Button";
 import Loader from "../toolbox/Loader";
 
@@ -176,7 +178,7 @@ class LibraryBooks extends React.Component {
                                                 <LanguageIcon name={language.name} />
                                                 {language.name}&nbsp;
                                                 {!selected && <sup>{language.count}</sup>}
-                                                {selected && <i className="material-icons md-small">backspace</i>}
+                                                {selected && <ClearIcon size="small" />}
                                             </button>
                                         </li>
                                     );
@@ -188,13 +190,13 @@ class LibraryBooks extends React.Component {
                                 <li className={this.state.filterType === 'fiction' ? 'Selected' : ''}>
                                     <button onClick={this.filterByType} className="Clickable" data-type="fiction">
                                         Fiction
-                                        {this.state.type === 'fiction' && <i className="material-icons md-small">backspace</i>}
+                                        {this.state.type === 'fiction' && <ClearIcon size="small" />}
                                     </button>
                                 </li>
                                 <li className={this.state.filterType === 'nonfiction' ? 'Selected' : ''}>
                                     <button onClick={this.filterByType} className="Clickable" data-type="nonfiction">
                                         Nonfiction
-                                        {this.state.type === 'nonfiction' && <i className="material-icons md-small">backspace</i>}
+                                        {this.state.type === 'nonfiction' && <ClearIcon size="small" />}
                                     </button>
                                 </li>
                             </ul>

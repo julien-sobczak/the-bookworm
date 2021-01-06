@@ -24,7 +24,7 @@ const StepVisualizer = () => {
     );
 };
 
-const FormGlobal = (props) => {
+const FormCalibration = (props) => {
 
     const [displayScale, setDisplayScale] = useState(props.displayScale);
     const onChange = props.onChange;
@@ -56,9 +56,9 @@ const FormGlobal = (props) => {
     );
 };
 
-FormGlobal.propTypes = {
+FormCalibration.propTypes = {
     displayScale: PropTypes.number,
     onChange: PropTypes.func,
 };
 
-export default FormGlobal;
+export default FormCalibration;

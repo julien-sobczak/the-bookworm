@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ReduceIcon from '@material-ui/icons/ChevronLeft';
+import IncreaseIcon from '@material-ui/icons/ChevronRight';
+import PauseIcon from '@material-ui/icons/Pause';
+import StopIcon from '@material-ui/icons/Stop';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
 import Viewer from './Viewer';
 import Pager, { PagerTest } from '../Pager';
 
@@ -252,10 +259,10 @@ class Drill extends React.Component {
 
                     <section className="DrillControls">
                         <ul>
-                            <li><button onClick={this.increaseWpm}><i className="material-icons">chevron_left</i></button></li>
-                            <li><button onClick={this.reduceWpm}><i className="material-icons">chevron_right</i></button></li>
-                            <li><button onClick={this.pauseDrill}><i className="material-icons">pause</i></button></li>
-                            <li><button onClick={this.stopDrill}><i className="material-icons">stop</i></button></li>
+                            <li><Tooltip title="Reduce WPM"><Button onClick={this.reduceWpm}><ReduceIcon /></Button></Tooltip></li>
+                            <li><Tooltip title="Increase WPM"><Button onClick={this.increaseWpm}><IncreaseIcon /></Button></Tooltip></li>
+                            <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
+                            <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
                         </ul>
                     </section>
 

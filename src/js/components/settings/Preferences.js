@@ -1,116 +1,155 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
+import { makeStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
+
+import AspectRatioIcon from '@material-ui/icons/AspectRatio';
+import LanguageIcon from '@material-ui/icons/Language';
+import StyleIcon from '@material-ui/icons/Style';
+import StorageIcon from '@material-ui/icons/Storage';
+import ExtensionIcon from '@material-ui/icons/Extension';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { updateGlobalPreferences, updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
-import FormGlobal from './FormGlobal';
+
+import Screen from '../toolbox/Screen';
+import FormCalibration from './FormCalibration';
 import FormLanguage from './FormLanguage';
 import FormText from './FormText';
 import FormChunk from './FormChunk';
-import FormLocalStorage from './FormLocalStorage';
+import FormStorage from './FormStorage';
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import StyleIcon from '@material-ui/icons/Style';
-import StorageIcon from '@material-ui/icons/Storage';
+function Preference({ settings, form, onClose }) {
+    const [currentSettings, setCurrentSettings] = useState(settings);
+    const onChange = (settings) => {
+        setCurrentSettings(settings);
+    };
+    return (
+        <Screen colored={true} scrollable={true} onClose={() => onClose(currentSettings)}>
+            {React.cloneElement(form, {
+                ...currentSettings,
+                onChange: onChange,
+            })}
+        </Screen>
+    );
+}
+Preference.propTypes = {
+    settings: PropTypes.object.isRequired,
+    form: PropTypes.node.isRequired,
+    onClose: PropTypes.func,
+};
+Preference.defaultProps = {
+    settings: {},
+};
 
-class Preferences extends React.Component {
+function Preferences(props) {
 
-    constructor(props) {
-        super(props);
+    const [setting, setSetting] = useState(undefined);
 
-        this.state = {
-            activeTab: 0,
-        };
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            '& > *': {
+                margin: theme.spacing(0.5),
+            },
+        },
+    }));
 
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleGlobalPreferencesChange = this.handleGlobalPreferencesChange.bind(this);
-        this.handleLanguagePreferencesChange = this.handleLanguagePreferencesChange.bind(this);
-        this.handleTextPreferencesChange = this.handleTextPreferencesChange.bind(this);
-        this.handleChunkPreferencesChange = this.handleChunkPreferencesChange.bind(this);
-    }
-
-    handleTabChange(event, activeTab) {
-        this.setState({ activeTab: activeTab });
-    }
-
-    handleGlobalPreferencesChange(prefs) {
-        console.log('Saving global preferences...', prefs);
+    const saveCalibrationPreferences = (settings) => {
         if (window && window.document) {
-            document.documentElement.style.setProperty('--scale', prefs.displayScale);
+            document.documentElement.style.setProperty('--scale', settings.displayScale);
         }
-        this.props.updateGlobalPreferences(prefs);
-    }
+        props.updateGlobalPreferences(settings);
+        setSetting(undefined);
+    };
 
-    handleLanguagePreferencesChange(prefs) {
-        console.log('Saving language preferences...', prefs);
-        this.props.updateLanguagePreferences(prefs);
-    }
+    const saveLanguagePreferences = (settings) => {
+        this.props.updateLanguagePreferences(settings);
+        setSetting(undefined);
+    };
 
-    handleTextPreferencesChange(prefs) {
-        console.log('Saving text preferences...', prefs);
-        this.props.updateTextPreferences(prefs);
-    }
+    const saveTextPreferences = (settings) => {
+        this.props.updateTextPreferences(settings);
+        setSetting(undefined);
+    };
 
-    handleChunkPreferencesChange(prefs) {
-        console.log('Saving chunk preferences...', prefs);
-        this.props.updateChunkPreferences(prefs);
-    }
+    const saveChunkPreferences = (settings) => {
+        this.props.updateChunkPreferences(settings);
+        setSetting(undefined);
+    };
 
-    render() {
-        return (
-            <div className="Preferences InnerContent">
+    const saveStoragePreferences = () => {
+        // Nothing to save in Redux
+        setSetting(undefined);
+    };
 
-                <Tabs
-                    value={this.state.activeTab}
-                    onChange={this.handleTabChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered>
-                    <Tab icon={<StyleIcon />} label="Style" />
-                    <Tab icon={<StorageIcon />} label="Storage" />
-                </Tabs>
+    const classes = useStyles();
 
-                {this.state.activeTab === 0 && <div className="TabContent Centered">
+    return (
+        <div className="Preferences InnerContent">
 
-                    <section>
-                        <h4>Global</h4>
-                        <p>Define global settings.</p>
-                        <FormGlobal {...this.props.preferences.global} onChange={this.handleGlobalPreferencesChange} />
-                    </section>
+            {setting === 'calibration' && <Preference settings={props.preferences.global} form={<FormCalibration />} onClose={saveCalibrationPreferences} />}
+            {setting === 'language'    && <Preference settings={props.preferences.language} form={<FormLanguage />} onClose={saveLanguagePreferences} />}
+            {setting === 'text'        && <Preference settings={props.preferences.text} form={<FormText />} onClose={saveTextPreferences} />}
+            {setting === 'chunk'       && <Preference settings={props.preferences.chunk} form={<FormChunk />} onClose={saveChunkPreferences} />}
+            {setting === 'storage'     && <Preference form={<FormStorage />} onClose={saveStoragePreferences} />}
 
-                    <section>
-                        <h4>Language</h4>
-                        <p>Define the default selected language in the library.</p>
-                        <FormLanguage {...this.props.preferences.language} onChange={this.handleLanguagePreferencesChange} />
-                    </section>
-
-                    <section>
-                        <h4>Font</h4>
-                        <p>Define how texts are displayed in the drills.</p>
-                        <FormText {...this.props.preferences.text} onChange={this.handleTextPreferencesChange} />
-                    </section>
-
-                    <section>
-                        <h4>Chunking</h4>
-                        <p>Define how chunks are displayed in the drills.</p>
-                        <FormChunk {...this.props.preferences.chunk} onChange={this.handleChunkPreferencesChange} />
-                    </section>
-
-                </div>}
-
-                {this.state.activeTab === 1 && <div className="TabContent Centered">
-                    <section>
-                        <h4>localStorage</h4>
-                        <p>Manage locally saved contents.</p>
-                        <FormLocalStorage />
-                    </section>
-                </div>}
+            <div className={classes.root}>
+                <Chip
+                    icon={<AspectRatioIcon fontSize="small" />}
+                    label="Calibration"
+                    clickable
+                    color="primary"
+                    onClick={() => setSetting("calibration")}
+                    onDelete={() => setSetting("calibration")}
+                    deleteIcon={<EditIcon />}
+                />
+                <Chip
+                    icon={<LanguageIcon fontSize="small" />}
+                    label="Language"
+                    clickable
+                    color="primary"
+                    onClick={() => setSetting("language")}
+                    onDelete={() => setSetting("language")}
+                    deleteIcon={<EditIcon />}
+                />
+                <Chip
+                    icon={<StyleIcon fontSize="small" />}
+                    label="Text"
+                    clickable
+                    color="primary"
+                    onClick={() => setSetting("text")}
+                    onDelete={() => setSetting("text")}
+                    deleteIcon={<EditIcon />}
+                />
+                <Chip
+                    icon={<ExtensionIcon fontSize="small" />}
+                    label="Chunk"
+                    clickable
+                    color="primary"
+                    onClick={() => setSetting("chunk")}
+                    onDelete={() => setSetting("chunk")}
+                    deleteIcon={<EditIcon />}
+                />
+                <Chip
+                    icon={<StorageIcon fontSize="small" />}
+                    label="Storage"
+                    clickable
+                    color="primary"
+                    onClick={() => setSetting("storage")}
+                    onDelete={() => setSetting("storage")}
+                    deleteIcon={<EditIcon />}
+                />
 
             </div>
-        );
-    }
+
+        </div>
+    );
 
 }
 

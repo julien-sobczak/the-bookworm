@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ReduceIcon from '@material-ui/icons/ChevronLeft';
+import IncreaseIcon from '@material-ui/icons/ChevronRight';
+import PauseIcon from '@material-ui/icons/Pause';
+import StopIcon from '@material-ui/icons/Stop';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
 import Viewer from './Viewer';
 import Engine from './Engine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
@@ -125,10 +132,10 @@ class Drill extends React.Component {
 
                         <section className="DrillControls">
                             <ul>
-                                {this.props.spanControls && <li><button onClick={this.reduceSpan}><i title="Reduce span" className="material-icons">chevron_left</i></button></li>}
-                                {this.props.spanControls && <li><button onClick={this.increaseSpan}><i title="Increase span" className="material-icons">chevron_right</i></button></li>}
-                                <li><button onClick={this.pauseDrill}><i title="Pause" className="material-icons">pause</i></button></li>
-                                <li><button onClick={this.stopDrill}><i title="Stop" className="material-icons">stop</i></button></li>
+                                {this.props.autoLevel && <li><Tooltip title="Reduce span"><Button onClick={this.reduceSpan}><ReduceIcon /></Button></Tooltip></li>}
+                                {this.props.autoLevel && <li><Tooltip title="Increase span"><Button onClick={this.increaseSpan}><IncreaseIcon /></Button></Tooltip></li>}
+                                <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
+                                <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
                             </ul>
                         </section>
 

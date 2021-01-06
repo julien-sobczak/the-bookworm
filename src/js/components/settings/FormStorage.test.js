@@ -1,30 +1,30 @@
 import React from 'react';
 import { render, cleanup, within } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import FormLocalStorage from './FormLocalStorage';
+import FormStorage from './FormStorage';
 
 class LocalStorageMock {
     constructor() {
         this.store = {};
     }
-  
+
     clear() {
         this.store = {};
     }
-  
+
     getItem(key) {
         return this.store[key] || null;
     }
-  
+
     setItem(key, value) {
         this.store[key] = value.toString();
     }
-  
+
     removeItem(key) {
         delete this.store[key];
     }
 }
-  
+
 beforeEach(() => {
     global.localStorage = new LocalStorageMock();
 });
@@ -85,14 +85,14 @@ it('retrieves books from the localStorage', () => {
     }
 }`);
 
-    const { getByTestId } = render(<FormLocalStorage />);
+    const { getByTestId } = render(<FormStorage />);
     const table = getByTestId('table');
     let utils = within(table);
 
-    // Check all books are present 
+    // Check all books are present
     expect(utils.getByText("Pride and Prejudice")).toBeInTheDocument();
     expect(utils.getByText("The Adventures of Sherlock Holmes")).toBeInTheDocument();
-    
+
     // Check properties for a given book
     const trSherlock = utils.getByText("The Adventures of Sherlock Holmes").closest("tr");
     utils = within(trSherlock);

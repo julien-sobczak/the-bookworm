@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
+import CloseIcon from '@material-ui/icons/Close';
+
 import LibraryBooks from './LibraryBooks';
 import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
@@ -74,7 +76,7 @@ class Library extends React.Component {
         return (
             <div className="Library FullScreen Centered">
 
-                <button className="ButtonClose" onClick={() => this.props.onClose()}><i className="material-icons">close</i></button>
+                <button className="ButtonClose" onClick={() => this.props.onClose()}><CloseIcon /></button>
 
                 {!this.state.category &&
                     <div className="LibraryWelcome Centered">

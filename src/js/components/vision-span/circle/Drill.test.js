@@ -47,7 +47,7 @@ it('allows the user to change the span', async () => {
     const { getByTitle } = render(
         <Drill
             span="0.5in"
-            spanControls={true}
+            autoLevel={true}
             onLevelChange={mockLevelFn} />
     );
 

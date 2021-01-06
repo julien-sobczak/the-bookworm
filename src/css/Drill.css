@@ -15,12 +15,6 @@
 .DrillControls li {
   display: inline-block;
 }
-.DrillControls .material-icons {
-  font-size: 3rem;
-  color: white;
-  border-radius: 100%;
-  background-color: black;
-}
 
 .DrillArea {
   position: fixed;

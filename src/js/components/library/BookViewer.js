@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import PreviousIcon from '@material-ui/icons/ChevronLeft';
+import NextIcon from '@material-ui/icons/ChevronRight';
+
 import Pager from '../chunking/Pager';
 import Paper from "../toolbox/Paper";
 import PageContent from "../toolbox/PageContent";
@@ -62,8 +65,8 @@ class BookViewer extends React.Component {
 
                 <section className="DrillControls">
                     <ul>
-                        <li><button onClick={this.previousPage}><i className="material-icons">chevron_left</i></button></li>
-                        <li><button onClick={this.nextPage}><i className="material-icons">chevron_right</i></button></li>
+                        <li><button onClick={this.previousPage}><PreviousIcon /></button></li>
+                        <li><button onClick={this.nextPage}><NextIcon /></button></li>
                     </ul>
                 </section>
 

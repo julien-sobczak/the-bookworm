@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CloseIcon from '@material-ui/icons/Close';
+
 function PanelError({ message, onClear }) {
 
     const showError = message && message.trim().length > 0;
@@ -8,7 +10,7 @@ function PanelError({ message, onClear }) {
         <>
             {showError && <div data-testid="panel" className="PanelError Clickable" onClick={onClear}>
                 {message}
-                <button><i className="material-icons">close</i></button>
+                <button><CloseIcon /></button>
             </div>}
         </>
     );
