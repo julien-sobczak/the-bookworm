@@ -49,7 +49,6 @@ it('allows the user to change the spans', async () => {
         <Drill
             size={3}
             span="1in"
-            spanControls={true}
             onLevelChange={mockLevelFn} />
     );
 

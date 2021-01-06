@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import HomeIcon from '@material-ui/icons/Home';
+import ExportIcon from '@material-ui/icons/Archive';
+import ImportIcon from '@material-ui/icons/Unarchive';
+
 import { ContentContext } from "../../../content-context";
 import { restoreBackup, registerBackup } from '../../store/actions';
 
@@ -85,7 +89,7 @@ function Profile(props) {
             <div className="Profile">
                 <div className="ProfileHi Centered">
                     <span>Hi,</span>
-                    <button onClick={goToHomePage} title="Home Page"><i className="material-icons md-36">home</i></button>
+                    <button onClick={goToHomePage} title="Home Page"><HomeIcon size="large" /></button>
                 </div>
                 <div className="ProfileStats Centered">
                     {!newUser && <p>
@@ -122,8 +126,8 @@ function Profile(props) {
                         {!props.lastBackup && <span>No previous backup</span>}
                     </p>
                     <p>
-                        <button onClick={createBackup} title="Export"><i className="material-icons md-36">archive</i></button>
-                        <button onClick={() => inputRef.current.click()} title="Import"><i className="material-icons md-36">unarchive</i></button>
+                        <button onClick={createBackup} title="Export"><ExportIcon /></button>
+                        <button onClick={() => inputRef.current.click()} title="Import"><ImportIcon /></button>
                         <input type="file" ref={inputRef} onChange={handleBackupSelected} style={{display: "none"}} accept="application/json" />
                     </p>
                 </div>

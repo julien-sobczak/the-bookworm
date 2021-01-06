@@ -71,6 +71,10 @@ small {
   font-size: smaller;
 }
 
+code {
+  font-family: monospace;
+}
+
 @import 'css/Common.css';
 @import 'css/Core.css';
 @import 'css/Layout.css';
@@ -82,21 +86,8 @@ small {
 @import 'css/Library.css';
 @import 'css/Theme.css';
 @import 'css/Tooltip.css';
+@import 'css/Mui.css';
 
-
-/* https://google.github.io/material-design-icons/#what-are-material-icons- */
-/* Rules for sizing the icon. */
-.material-icons.md-xsmall { font-size: 0.6em; }
-.material-icons.md-small { font-size: 0.8em; }
-.material-icons.md-18 { font-size: 1.2em; }
-.material-icons.md-24 { font-size: 2em; }
-.material-icons.md-36 { font-size: 3em; }
-.material-icons.md-48 { font-size: 4em; }
-
-/* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-
-/* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.Colored {
+  background-color: var(--theme-color);
+}

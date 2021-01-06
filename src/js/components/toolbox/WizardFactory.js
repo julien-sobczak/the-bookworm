@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import AddCircle from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
+import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -239,7 +240,7 @@ class WizardFactory extends React.Component {
         return (
             <div className="Wizard FullScreen Scrollbar">
 
-                <Link to={`/${this.props.category}/`} className="ButtonClose"><i className="material-icons">close</i></Link>
+                <Link to={`/${this.props.category}/`} className="ButtonClose"><CloseIcon /></Link>
 
                 {this.state.instructionsActive && <Screen className="Instructions" scrollable={true} onClose={this.handleInstructionsClick}>
                     <div>

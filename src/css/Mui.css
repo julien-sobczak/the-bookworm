@@ -1,0 +1,4 @@
+/* Double the selector to make it important without using !important */
+.MuiChip-icon.MuiChip-icon {
+    margin-left: 10px;
+}

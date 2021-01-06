@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import classnames from 'classnames';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-function Screen({ className, onClose, scrollable, children }) {
+function Screen({ className, onClose, centered, colored, scrollable, children }) {
 
-    const FullScreen = css`
+    const fullScreen = css`
         position: fixed;
         top: 0;
         bottom: 0;
@@ -17,7 +18,7 @@ function Screen({ className, onClose, scrollable, children }) {
         padding: 1rem;
     `;
 
-    const Centered = css`
+    const center = css`
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -43,8 +44,8 @@ function Screen({ className, onClose, scrollable, children }) {
     `;
 
     const Container = styled.div`
-        ${FullScreen}
-        ${Centered}
+        ${fullScreen}
+        ${center}
     `;
 
     const CloseButton = styled.button`
@@ -53,17 +54,27 @@ function Screen({ className, onClose, scrollable, children }) {
         left: 1rem;
     `;
 
-    return (
-        <Container className={className}>
-            {scrollable && <Scrollable>
-                <CloseButton onClick={onClose}><CloseIcon /></CloseButton>
-                {children}
-            </Scrollable>}
+    const Centered = styled.div`
+        ${center}
+        height: 100%;
+    `;
 
-            {!scrollable && <>
-                <CloseButton onClick={onClose}><CloseIcon /></CloseButton>
-                {children}
-            </>}
+    let content = (
+        <>
+            <CloseButton onClick={onClose}><CloseIcon /></CloseButton>
+            {children}
+        </>
+    );
+    if (centered) {
+        content = <Centered>{content}</Centered>;
+    }
+    if (scrollable) {
+        content = <Scrollable>{content}</Scrollable>;
+    }
+
+    return (
+        <Container className={classnames(className, { 'Colored': colored })}>
+            {content}
         </Container>
     );
 }
@@ -72,11 +83,15 @@ Screen.propTypes = {
     className: PropTypes.string,
     onClose: PropTypes.func,
     scrollable: PropTypes.bool,
+    colored: PropTypes.bool,
+    centered: PropTypes.bool,
     children: PropTypes.node,
 };
 
 Screen.defaultProps = {
     onClose: undefined,
+    colored: false,
+    centered: true,
     scrollable: true,
 };
 

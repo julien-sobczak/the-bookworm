@@ -33,6 +33,12 @@ import ScreenTester from './js/components/toolbox/ScreenTester';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+import HomeIcon from '@material-ui/icons/Home';
+import VisionSpanIcon from '@material-ui/icons/Visibility';
+import ChunkingIcon from '@material-ui/icons/ViewModule';
+import PracticeIcon from '@material-ui/icons/FitnessCenter';
+import PreferencesIcon from '@material-ui/icons/Settings';
+
 import 'normalize.css';
 import './App.css';
 
@@ -212,14 +218,13 @@ class App extends React.Component {
                     <ScreenTester minWidth="5in" minHeight="5in" />
                     {this.state.content.content && <Router>
                         <nav className="menu">
-                            <NavLink to="/home" activeClassName="active" exact><div><i className="material-icons">home</i><br/>Home</div></NavLink>
+                            <NavLink to="/home" activeClassName="active" exact><div><HomeIcon /><br/>Home</div></NavLink>
                             {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
-                            <NavLink to="/vision-span/" activeClassName="active"><div><i className="material-icons">visibility</i><br/>Vision Span</div></NavLink>
-                            <NavLink to="/chunking/"    activeClassName="active"><div><i className="material-icons">view_module</i><br/>Chunking</div></NavLink>
-                            <NavLink to="/practice/"    activeClassName="active"><div><i className="material-icons">fitness_center</i><br/>Practice</div></NavLink>
-                            <NavLink to="/settings/"    activeClassName="active"><div><i className="material-icons">build</i><br/>Settings</div></NavLink>
-                            {/* Uncomment this line to add an "About" page */}
-                            {/* <NavLink to="/about/"       activeClassName="active"><div><i className="material-icons">info</i> About</div></NavLink> */}
+                            <NavLink to="/vision-span/" activeClassName="active"><div><VisionSpanIcon /><br/>Vision Span</div></NavLink>
+                            <NavLink to="/chunking/"    activeClassName="active"><div><ChunkingIcon /><br/>Chunking</div></NavLink>
+                            <NavLink to="/practice/"    activeClassName="active"><div><PracticeIcon /><br/>Practice</div></NavLink>
+                            <NavLink to="/settings/"    activeClassName="active"><div><PreferencesIcon /><br/>Settings</div></NavLink>
+                            {/* <NavLink to="/about/"       activeClassName="active"><div><AboutIcon /><br/>About</div></NavLink> */}
                         </nav>
                         <section id="content">
                             <Route path="/"       exact component={IndexPage} />
