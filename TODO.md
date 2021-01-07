@@ -10,8 +10,8 @@
 
 # Refactor
 
+- [ ] Review CSS declarations to clean up
 - [ ] Create enum for PropType string properties
-- [ ] Use Chip for presets
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar
 
 # Features
