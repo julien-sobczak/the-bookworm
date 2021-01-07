@@ -9,7 +9,13 @@ const MAX_WPMS = 10;
 
 function rootReducer(state, action) {
 
-    if (action.type === actions.UPDATE_READING) {
+    if (action.type === actions.COMPLETE_TUTORIAL) {
+        return {
+            ...state,
+            tutorialCompleted: true,
+        };
+
+    } else if (action.type === actions.UPDATE_READING) {
         // Update existing reading
         const newReadings = [...state.readings];
         let found = false;

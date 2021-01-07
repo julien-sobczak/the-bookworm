@@ -15,6 +15,7 @@ import { defaultTextSettings } from "../components/toolbox/Styled";
 
 const defaultState = {
     startDate: new Date().toDateString(),
+    tutorialCompleted: false,
     readings: [],
     history: {
         drillHorizontal: [],

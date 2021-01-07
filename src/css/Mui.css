@@ -1,4 +1,5 @@
 /* Double the selector to make it important without using !important */
+
 .MuiChip-icon.MuiChip-icon {
     margin-left: 10px;
 }
@@ -6,4 +7,12 @@
 .MuiTooltip-tooltip.MuiTooltip-tooltip {
     background: black;
     font-size: 0.75rem;
+}
+
+.MuiStepper-root.MuiStepper-root {
+    width: 90%;
+    background-color: inherit;
+}
+.MuiStepConnector-line.MuiStepConnector-line {
+    border-color: white;
 }

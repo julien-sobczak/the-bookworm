@@ -37,7 +37,8 @@
     padding: var(--default-padding);
 }
 .ProfileHi button {
-    margin: 0.5cm;
+    margin: 1em;
+    color: white;
 }
 
 .ProfileStats {

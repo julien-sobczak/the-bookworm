@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, useHistory } from "react-router-dom";
 
-import { updateReading } from './js/store/actions';
+import { updateReading, updateGlobalPreferences, completeTutorial } from './js/store/actions';
 
+import Tutorial from './js/components/home/Tutorial';
 import Profile from './js/components/home/Profile';
 
 import VisionSpanCatalog from './js/components/vision-span/Catalog';
@@ -52,6 +53,13 @@ const theme = createMuiTheme({
         },
     },
 });
+
+function TutorialPage() {
+    let history = useHistory();
+    return (
+        <Tutorial onDone={() => history.push('/home')} />
+    );
+}
 
 function IndexPage() {
     return (
@@ -209,6 +217,13 @@ class App extends React.Component {
             console.log(`Defining length calibration to ${this.props.preferences.global.displayScale}`);
             document.documentElement.style.setProperty('--scale', this.props.preferences.global.displayScale);
         }
+
+        this.handleTutorialCompleted = this.handleTutorialCompleted.bind(this);
+    }
+
+    handleTutorialCompleted() {
+        this.props.completeTutorial();
+        // TODO save Global preferences
     }
 
     render() {
@@ -216,7 +231,8 @@ class App extends React.Component {
             <ThemeProvider theme={theme}>
                 <ContentContext.Provider value={this.state}>
                     <ScreenTester minWidth="5in" minHeight="5in" />
-                    {this.state.content.content && <Router>
+                    {!this.props.tutorialCompleted && <Tutorial onDone={this.handleTutorialCompleted} />}
+                    {this.props.tutorialCompleted && this.state.content.content && <Router>
                         <nav className="menu">
                             <NavLink to="/home" activeClassName="active" exact><div><HomeIcon /><br/>Home</div></NavLink>
                             {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
@@ -227,13 +243,14 @@ class App extends React.Component {
                             {/* <NavLink to="/about/"       activeClassName="active"><div><AboutIcon /><br/>About</div></NavLink> */}
                         </nav>
                         <section id="content">
-                            <Route path="/"       exact component={IndexPage} />
-                            <Route path="/home"   exact component={IndexPage} />
-                            <Route path="/vision-span/" component={VisionSpanPage} />
-                            <Route path="/chunking/"    component={ChunkingPage} />
-                            <Route path="/practice/"    component={PracticePage} />
-                            <Route path="/settings/"    component={SettingsPage} />
-                            <Route path="/about/"       component={AboutPage} />
+                            <Route path="/"         exact component={IndexPage} />
+                            <Route path="/tutorial" exact component={TutorialPage} />
+                            <Route path="/home"     exact component={IndexPage} />
+                            <Route path="/vision-span/"   component={VisionSpanPage} />
+                            <Route path="/chunking/"      component={ChunkingPage} />
+                            <Route path="/practice/"      component={PracticePage} />
+                            <Route path="/settings/"      component={SettingsPage} />
+                            <Route path="/about/"         component={AboutPage} />
                         </section>
                     </Router>}
                 </ContentContext.Provider>
@@ -252,12 +269,18 @@ class App extends React.Component {
 
 }
 App.propTypes = {
+    // Redux
+    tutorialCompleted: PropTypes.bool,
     readings: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
     preferences: PropTypes.objectOf(PropTypes.any),
+    updateReading: PropTypes.func,
+    updateGlobalPreferences: PropTypes.func,
+    completeTutorial: PropTypes.func,
 };
 
 const mapStateToProps = state => {
     return {
+        tutorialCompleted: state.tutorialCompleted,
         readings: state.readings,
         preferences: state.preferences,
     };
@@ -266,6 +289,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateReading: reading => dispatch(updateReading(reading)),
+        updateGlobalPreferences: prefs => dispatch(updateGlobalPreferences(prefs)),
+        completeTutorial: () => dispatch(completeTutorial({})),
     };
 };
 
