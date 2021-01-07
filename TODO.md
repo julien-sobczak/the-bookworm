@@ -10,8 +10,8 @@
 
 # Refactor
 
+- [ ] Create enum for PropType string properties
 - [ ] Use Chip for presets
-- [ ] Replace existing Tooltip component by MUI
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar
 
 # Features
