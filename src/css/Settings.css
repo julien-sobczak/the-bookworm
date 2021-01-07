@@ -116,13 +116,9 @@ table.Setting td {
 }
 table.Setting th {
   text-align: right;
-  padding-right: 1em;
   vertical-align: middle;
   color: black;
 }
-table.Setting td {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
+table.Setting th, table.Setting td {
+  padding: 0.25rem;
 }

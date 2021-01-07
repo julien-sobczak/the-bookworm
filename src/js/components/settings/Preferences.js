@@ -69,17 +69,17 @@ function Preferences(props) {
     };
 
     const saveLanguagePreferences = (settings) => {
-        this.props.updateLanguagePreferences(settings);
+        props.updateLanguagePreferences(settings);
         setSetting(undefined);
     };
 
     const saveTextPreferences = (settings) => {
-        this.props.updateTextPreferences(settings);
+        props.updateTextPreferences(settings);
         setSetting(undefined);
     };
 
     const saveChunkPreferences = (settings) => {
-        this.props.updateChunkPreferences(settings);
+        props.updateChunkPreferences(settings);
         setSetting(undefined);
     };
 

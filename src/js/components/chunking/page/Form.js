@@ -4,6 +4,7 @@ import Switch from '@material-ui/core/Switch';
 
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
+import Help from '../../toolbox/Help';
 
 import * as engine from '../../../functions/engine';
 
@@ -153,17 +154,26 @@ const Form = (props) => {
                     <tr>
                         <th><label htmlFor="wpm">WPM</label>:</th>
                         <td>
+                            <Help title="Determine indirectly the duration of a single chunk on screen." />
+                        </td>
+                        <td>
                             <input id="wpm" type="number" min="50" max="5000" onChange={handleWpmChange} value={wpm} />
                         </td>
                     </tr>
                     <tr>
                         <th><label htmlFor="pageTurningDuration">Page turn duration</label>:</th>
                         <td>
+                            <Help title="Add a pause after each page simulating the interruption when reading a paper book" />
+                        </td>
+                        <td>
                             <input id="pageTurningDuration" type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
                         </td>
                     </tr>
                     <tr>
                         <th><label htmlFor="paperSize">Paper</label>:</th>
+                        <td>
+                            <Help title="Determine the page format." />
+                        </td>
                         <td>
                             <select id="paperSize" onChange={handlePaperSizeChange} value={paperSize}>
                                 <option value="extended">Auto</option>
@@ -180,6 +190,9 @@ const Form = (props) => {
                     <tr>
                         <th><label htmlFor="disableVisualRegression">Disable visual regression</label>:</th>
                         <td>
+                            <Help title="Determine how previous chunks are displayed." />
+                        </td>
+                        <td>
                             <Switch
                                 id="disableVisualRegression"
                                 color="primary"
@@ -190,6 +203,9 @@ const Form = (props) => {
                     <tr>
                         <th><label htmlFor="disableVisualProgression">Disable visual progression</label>:</th>
                         <td>
+                            <Help title="Determine how next chunks are displayed." />
+                        </td>
+                        <td>
                             <Switch
                                 id="disableVisualProgression"
                                 color="primary"
@@ -199,6 +215,9 @@ const Form = (props) => {
                     </tr>
                     {(disableVisualRegression || disableVisualProgression) &&<tr>
                         <th><label>Style</label>:</th>
+                        <td>
+                            <Help title="Determine the effect to apply to previous/next chunks." />
+                        </td>
                         <td>
                             <RadioButtons
                                 options={[
@@ -217,6 +236,9 @@ const Form = (props) => {
                     <tr>
                         <th><label>Chunk Mode</label>:</th>
                         <td>
+                            <Help title="Determine the strategy to form chunks." />
+                        </td>
+                        <td>
                             <RadioButtons
                                 options={[
                                     { value: "width" },
@@ -230,6 +252,9 @@ const Form = (props) => {
                     {chunkMode === 'width' && <tr>
                         <th><label htmlFor="chunkWidth">Chunk Width</label>:</th>
                         <td>
+                            <Help title="Determine the maximum width for a chunk." />
+                        </td>
+                        <td>
                             <select id="chunkWidth" onChange={handleChunkWidthChange} value={chunkWidth}>
                                 {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
@@ -239,6 +264,9 @@ const Form = (props) => {
                     </tr>}
                     {chunkMode === 'words' && <tr>
                         <th><label htmlFor="chunkWords">Chunk Words</label>:</th>
+                        <td>
+                            <Help title="Determine the number of words to include in a single chunk." />
+                        </td>
                         <td>
                             <select id="chunkWords" onChange={handleChunkWordsChange} value={chunkWords}>
                                 <option key={1} value={1}>1 word</option>
@@ -253,6 +281,9 @@ const Form = (props) => {
                     </tr>}
                     {chunkMode === 'stops' && <tr>
                         <th><label>Stops</label>:</th>
+                        <td>
+                            <Help title="Determine the number of chunks per line." />
+                        </td>
                         <td>
                             <RadioButtons
                                 options={[

@@ -1,13 +1,12 @@
 # TODO
 
-- [ ] Add a tooltip for every form label
 - [ ] Write a tutorial for the default content
 - [ ] Rewrite `README.md`
 - [ ] Complete `DEVELOPER.md`
 
 # Bugs
 
-- [ ]
+- [ ] Fix drill pyramid (Fit Screen prints a blank screen and columns have no space for other options)
 
 # Refactor
 

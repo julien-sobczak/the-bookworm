@@ -4,6 +4,7 @@ import FlipIcon from '@material-ui/icons/Flip';
 
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
+import Help from '../../toolbox/Help';
 
 import * as engine from '../../../functions/engine';
 
@@ -94,7 +95,12 @@ const OptionsDrill = (props) => {
             <table className="Setting">
                 <tbody>
                     <tr>
-                        <th><label htmlFor="columns">Columns</label>:</th>
+                        <th>
+                            <label htmlFor="columns">Columns</label>:
+                        </th>
+                        <td>
+                            <Help title="Determine how many columns to use. The number is even as you will always focus on the middle column." />
+                        </td>
                         <td>
                             <RadioButtons
                                 id="columns"
@@ -109,7 +115,12 @@ const OptionsDrill = (props) => {
                         </td>
                     </tr>
                     <tr>
-                        <th><label htmlFor="series">Series</label>:</th>
+                        <th>
+                            <label htmlFor="series">Series</label>:
+                        </th>
+                        <td>
+                            <Help title="One fixation per line or one fixation per group of lines." />
+                        </td>
                         <td>
                             <RadioButtons
                                 id="series"
@@ -122,7 +133,12 @@ const OptionsDrill = (props) => {
                         </td>
                     </tr>
                     {multiple && <tr>
-                        <th><label htmlFor="lines">Lines</label>:</th>
+                        <th>
+                            <label htmlFor="lines">Lines</label>:
+                        </th>
+                        <td>
+                            <Help title="Determine the number of lines per group." />
+                        </td>
                         <td>
                             <RadioButtons
                                 id="lines"
@@ -136,7 +152,12 @@ const OptionsDrill = (props) => {
                         </td>
                     </tr>}
                     <tr>
-                        <th>Span:</th>
+                        <th>
+                            Span:
+                        </th>
+                        <td>
+                            <Help title="Determine the space between each column." />
+                        </td>
                         <td>
                             {spansElements}
                             <FlipIcon />

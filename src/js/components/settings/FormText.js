@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Styled from '../toolbox/Styled';
+import Help from '../toolbox/Help';
 import RadioButtons from '../toolbox/RadioButtons';
 
 const DefaultPresets = [
@@ -95,6 +96,9 @@ const FormText = (props) => {
                 <tr>
                     <th><label>Typeface</label>:</th>
                     <td>
+                        <Help title="Determine the default font family in drills." />
+                    </td>
+                    <td>
                         <RadioButtons
                             options={[
                                 { value: 'Roboto',        label: 'Sans-Serif', className: 'Roboto'        },
@@ -110,6 +114,9 @@ const FormText = (props) => {
                 <tr>
                     <th><label>Variant</label>:</th>
                     <td>
+                        <Help title="Determine the default font variant in drills." />
+                    </td>
+                    <td>
                         <RadioButtons
                             options={[
                                 { value: 'normal',      label: 'Normal',      className: 'Normal'     },
@@ -123,6 +130,9 @@ const FormText = (props) => {
                 </tr>
                 <tr>
                     <th><label>Size</label>:</th>
+                    <td>
+                        <Help title="Determine the default font size in drills." />
+                    </td>
                     <td>
                         <RadioButtons
                             options={[
@@ -138,6 +148,9 @@ const FormText = (props) => {
                 </tr>
                 <tr>
                     <th><label>Theme</label>:</th>
+                    <td>
+                        <Help title="Determine the default theme in drills." />
+                    </td>
                     <td>
                         <RadioButtons
                             options={[
