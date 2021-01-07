@@ -354,24 +354,6 @@ table.Stats tr {
   margin: 0 0.5cm;
 }
 
-/*
- * Presets
- */
-
-.PresetLabels {
-  list-style-type: none;
-}
-.PresetLabels li {
-  display: inline-block;
-  margin: 0.25em;
-}
-.PresetLabels li.PresetLabel {
-  background: black;
-  color: white;
-  padding: 0.25em 0.5em;
-  border-radius: 4px;
-}
-
 /* TODO Not sure about these declarations... */
 .Setting {
   font-weight: 900;

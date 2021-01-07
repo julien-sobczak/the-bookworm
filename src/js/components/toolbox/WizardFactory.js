@@ -10,18 +10,19 @@ import Screen from './Screen';
 import { Manuscript } from './Text';
 import FormText from '../settings/FormText';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TuneIcon from '@material-ui/icons/Tune';
 import StyleIcon from '@material-ui/icons/Style';
+import CloseIcon from '@material-ui/icons/Close';
+import NewIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import ReactButton from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
-import AddCircle from '@material-ui/icons/AddCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
-import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -33,43 +34,62 @@ function PresetsList({ fixedPresets, customPresets, onSelectPreset, onDeletePres
 
     const [saved, setSaved] = useState(false);
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginBottom: "3rem",
+            '& > *': {
+                margin: theme.spacing(0.5),
+            },
+        },
+    }));
+
     const handleSave = (name) => {
         setSaved(true);
         onNewPreset(name);
     };
 
-    const handleSelect = (event) => {
-        onSelectPreset(JSON.parse(event.target.dataset.preset));
+    const handleSelect = (settings) => {
+        onSelectPreset(settings);
     };
 
-    const handleDelete = (event) => {
-        onDeletePreset(event.target.closest('button').dataset.name);
+    const handleDelete = (name) => {
+        onDeletePreset(name);
     };
+
+    const classes = useStyles();
 
     return (
         <>
-            <ul className="PresetLabels">
+            <div className={classes.root}>
                 {fixedPresets.map((preset, index) => {
                     return (
-                        <li key={index} className="PresetLabel">
-                            <button onClick={handleSelect} data-preset={JSON.stringify(preset.settings)}>{preset.name}</button>
-                        </li>
+                        <Chip
+                            key={index}
+                            label={preset.name}
+                            clickable
+                            color="primary"
+                            onClick={() => handleSelect(preset.settings)}
+                        />
                     );
                 })}
                 {customPresets.map((preset, index) => {
                     return (
-                        <li key={index} className="PresetLabel">
-                            <button onClick={handleSelect} data-preset={JSON.stringify(preset.settings)}>{preset.name}</button>
-                            <button onClick={handleDelete} data-name={preset.name}>
-                                <CancelIcon fontSize="inherit" />
-                            </button>
-                        </li>
+                        <Chip
+                            key={index}
+                            label={preset.name}
+                            clickable
+                            color="primary"
+                            onClick={() => handleSelect(preset.settings)}
+                            onDelete={() => handleDelete(preset.name)}
+                            deleteIcon={<DeleteIcon />}
+                        />
                     );
                 })}
-                {!saved && <li>
-                    <NewPresetForm onSave={handleSave} />
-                </li>}
-            </ul>
+                {!saved && <NewPresetForm onSave={handleSave} />}
+            </div>
         </>
     );
 }
@@ -109,7 +129,13 @@ function NewPresetForm({ onSave }) {
 
     return (
         <>
-            <BlackCheckbox icon={<AddCircleOutline />} checkedIcon={<AddCircle />} value={open} onChange={handleOpen} />
+            <Chip
+                icon={<NewIcon/>}
+                label="New"
+                clickable
+                color="primary"
+                onClick={handleOpen}
+            />
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Save new preset</DialogTitle>
                 <DialogContent>
