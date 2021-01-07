@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Slider from '../toolbox/Slider';
 import Help from '../toolbox/Help';
+import Slider from '../toolbox/Slider';
 
 const StepVisualizer = () => {
     const stylesBar = {
@@ -44,7 +44,7 @@ const FormCalibration = (props) => {
                 <tr>
                     <th>
                         <label htmlFor="displayScale">Length calibration</label>
-                        <Help tip="Determine the increment in space for every drill level"/>:
+                        <Help title="Determine the increment in space for every drill level" />:
                     </th>
                     <td>
                         <Slider id="displayScale" min={0.5} value={displayScale} max={2} onChange={handleDisplayScaleChange} />

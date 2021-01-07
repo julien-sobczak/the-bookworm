@@ -11,6 +11,7 @@
 
 # Refactor
 
+- [ ] Use Chip for presets
 - [ ] Replace existing Tooltip component by MUI
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar
 
