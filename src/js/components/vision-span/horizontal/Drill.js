@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ReduceIcon from '@material-ui/icons/ChevronLeft';
-import IncreaseIcon from '@material-ui/icons/ChevronRight';
+import ReduceIcon from '@material-ui/icons/Remove';
+import IncreaseIcon from '@material-ui/icons/Add';
 import PauseIcon from '@material-ui/icons/Pause';
 import StopIcon from '@material-ui/icons/Stop';
 import Tooltip from '@material-ui/core/Tooltip';

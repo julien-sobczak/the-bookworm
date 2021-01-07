@@ -1,6 +1,5 @@
 # TODO
 
-- [ ] Change icons for "Increase/Reduce" buttons
 - [ ] Add a tooltip for every form label
 - [ ] Write a tutorial for the default content
 - [ ] Rewrite `README.md`
