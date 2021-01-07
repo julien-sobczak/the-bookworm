@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Loader from "../toolbox/Loader.js";
-import Button from "../toolbox/Button";
+import LargeButton from "../toolbox/LargeButton";
 import PanelError from "../toolbox/PanelError";
 
 import { readEpub } from './EpubReader';
 
-const ButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
+const LargeButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
 
     const maxFileSizeInMb = 5;
     const maxFileSizeInBytes = 1024 * 1024 * maxFileSizeInMb;
@@ -43,23 +43,23 @@ const ButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
         <>
             {errorMessage.length > 0 && <PanelError message={errorMessage} onClear={() => setErrorMessage("")}/>}
             <input type="file" ref={inputRef} onChange={handleFileSelected} style={{display: "none"}} accept="application/epub+zip" />
-            <Button text={text} colorText={colorText} colorBackground={colorBackground} onClick={() => inputRef.current.click()} />
+            <LargeButton text={text} colorText={colorText} colorBackground={colorBackground} onClick={() => inputRef.current.click()} />
             {loading && <Loader />}
         </>
     );
 };
 
-ButtonUpload.propTypes = {
+LargeButtonUpload.propTypes = {
     text: PropTypes.string.isRequired,
     colorText: PropTypes.string,
     colorBackground: PropTypes.string,
     onClick: PropTypes.func.isRequired,
 };
 
-ButtonUpload.defaultProps = {
+LargeButtonUpload.defaultProps = {
     colorText: 'black',
     colorBackground: 'white',
 };
 
 
-export default ButtonUpload;
+export default LargeButtonUpload;

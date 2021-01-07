@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { DEMO_CONTENT } from '../../../constants';
-import Button from "../toolbox/Button.js";
+import LargeButton from "../toolbox/LargeButton.js";
 
 class ContentSelector extends React.Component {
 
@@ -76,7 +76,7 @@ class ContentSelector extends React.Component {
                     })}
                 </div>
                 <div className="ButtonValidate">
-                    <Button text="Read" colorText="black" colorBackground="var(--theme-color)" onClick={this.handleValidation} />
+                    <LargeButton text="Read" colorText="black" colorBackground="var(--theme-color)" onClick={this.handleValidation} />
                 </div>
             </>
         );

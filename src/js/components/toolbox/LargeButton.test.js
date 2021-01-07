@@ -1,18 +1,18 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Button from './Button';
+import LargeButton from './LargeButton';
 
 
 it('allows text customization', () => {
-    const { queryByText } = render(<Button text="Click" />);
+    const { queryByText } = render(<LargeButton text="Click" />);
     expect(queryByText('Click')).toBeTruthy();
 });
 
 test('notifies on click', () => {
     const handleClick = jest.fn();
     const { container } = render(
-        <Button onClick={handleClick} />
+        <LargeButton onClick={handleClick} />
     );
     const button = container.firstChild;
     fireEvent.click(button);
