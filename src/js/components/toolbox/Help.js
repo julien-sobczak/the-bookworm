@@ -1,30 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-function Help({ tip }) {
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import HelpIcon from '@material-ui/icons/Help';
 
-    const Icon = styled.span `
-        display: inline-block;
-        background-color: black;
-        color: white;
-        text-align: center;
-        width: 2rem;
-        height: 2rem;
-        padding: 0.5rem;
-        margin: 0 0.5rem;
-        border-radius: 50%;
-        font-weight: bold;
-    `;
+function Help({ title }) {
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleTooltipClose = () => {
+        setOpen(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setOpen(true);
+    };
 
     return (
-        // Check Tooltip.css
-        <Icon className="tool" data-tip={tip}>?</Icon>
+        <>
+            <ClickAwayListener onClickAway={handleTooltipClose}>
+                <div>
+                    <Tooltip
+                        PopperProps={{
+                            disablePortal: true,
+                        }}
+                        onClose={handleTooltipClose}
+                        open={open}
+                        disableFocusListener
+                        title={title}
+                    >
+                        <Button onClick={handleTooltipOpen}><HelpIcon /></Button>
+                    </Tooltip>
+                </div>
+            </ClickAwayListener>
+        </>
     );
 }
 
 Help.propTypes = {
-    tip: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
 };
 
 export default Help;
