@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
+import Help from '../toolbox/Help';
+
 const OptionsGame = (props) => {
 
     const [keyboard, setKeyboard] = useState(props.keyboardDetected && props.keyboard);
@@ -43,7 +45,12 @@ const OptionsGame = (props) => {
         <table className="Setting">
             <tbody>
                 {props.keyboardDetected && <tr>
-                    <th><label htmlFor="keyboard">Enable Keyboard</label>:</th>
+                    <th>
+                        <label htmlFor="keyboard">Enable Keyboard</label>:
+                    </th>
+                    <td>
+                        <Help title="Enable to check your answers using your keyboard. Otherwise, simply answer mentally to click to move on next drill." />
+                    </td>
                     <td>
                         <Switch
                             id="keyboard"
@@ -53,7 +60,12 @@ const OptionsGame = (props) => {
                     </td>
                 </tr>}
                 <tr>
-                    <th><label htmlFor="autoLevel">Auto-Level</label>:</th>
+                    <th>
+                        <label htmlFor="autoLevel">Auto-Level</label>:
+                    </th>
+                    <td>
+                        <Help title="Automatically adjust the spaces between columns based on the number of correct answers." />
+                    </td>
                     <td>
                         <Switch
                             id="autoLevel"

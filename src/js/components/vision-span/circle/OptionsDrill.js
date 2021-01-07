@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import Help from '../../toolbox/Help';
 import Viewer from './Viewer';
 
 import * as engine from '../../../functions/engine';
@@ -35,6 +36,9 @@ const OptionsDrill = (props) => {
             <tbody>
                 <tr>
                     <th><label htmlFor="span">Span</label>:</th>
+                    <td>
+                        <Help title="Determine the radius of the circle separating the center letter from other letters to read." />
+                    </td>
                     <td>
                         <select id="span" name="span" onChange={handleSpanChange} value={span}>
                             {engine.SPANS.map((s, index) => {

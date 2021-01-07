@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
+import Help from '../../toolbox/Help';
 
 import * as engine from '../../../functions/engine';
 
@@ -164,11 +165,17 @@ const Form = (props) => {
                     <tr>
                         <th><label htmlFor="wpm">WPM</label>:</th>
                         <td>
+                            <Help title="Determine indirectly the duration of a single chunk on screen." />
+                        </td>
+                        <td>
                             <input id="wpm" type="number" min="50" max="5000" onChange={handleWpmChange} value={wpm} />
                         </td>
                     </tr>
                     <tr>
                         <th><label>Columns</label>:</th>
+                        <td>
+                            <Help title="Determine the number of columns to use to display the text." />
+                        </td>
                         <td>
                             <RadioButtons
                                 options={[
@@ -184,6 +191,9 @@ const Form = (props) => {
                     <tr>
                         <th><label htmlFor="columnWidth">Column width</label>:</th>
                         <td>
+                            <Help title="Determine the width of each column." />
+                        </td>
+                        <td>
                             <select id="columnWidth" onChange={handleColumnWidthChange} value={columnWidth}>
                                 {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
@@ -193,6 +203,9 @@ const Form = (props) => {
                     </tr>
                     <tr>
                         <th><label>Lines</label>:</th>
+                        <td>
+                            <Help title="Determine the maximum number of lines per page." />
+                        </td>
                         <td>
                             <RadioButtons
                                 options={[
@@ -213,6 +226,9 @@ const Form = (props) => {
                     <tr>
                         <th><label>Chunk Mode</label>:</th>
                         <td>
+                            <Help title="Determine the strategy to form chunks." />
+                        </td>
+                        <td>
                             <RadioButtons
                                 options={[
                                     { value: "width" },
@@ -226,6 +242,9 @@ const Form = (props) => {
                     {chunkMode === 'width' && <tr>
                         <th><label htmlFor="chunkWidth">Chunk Width</label>:</th>
                         <td>
+                            <Help title="Determine the maximum width for a chunk." />
+                        </td>
+                        <td>
                             <select id="chunkWidth" onChange={handleChunkWidthChange} value={chunkWidth}>
                                 {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
@@ -235,6 +254,9 @@ const Form = (props) => {
                     </tr>}
                     {chunkMode === 'words' && <tr>
                         <th><label htmlFor="chunkWords">Chunk Words</label>:</th>
+                        <td>
+                            <Help title="Determine the number of words to include in a single chunk." />
+                        </td>
                         <td>
                             <select id="chunkWords" onChange={handleChunkWordsChange} value={chunkWords}>
                                 <option key={1} value={1}>1 word</option>
@@ -250,6 +272,9 @@ const Form = (props) => {
                     {chunkMode === 'dynamic' && <tr>
                         <th><label htmlFor="chunkWidthMin">Min</label>:</th>
                         <td>
+                            <Help title="Determine the minimum width for a chunk." />
+                        </td>
+                        <td>
                             <select id="chunkWidthMin" onChange={handleChunkWidthMinChange} value={chunkWidthMin}>
                                 {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
@@ -260,6 +285,9 @@ const Form = (props) => {
                     {chunkMode === 'dynamic' && <tr>
                         <th><label htmlFor="chunkWidthMax">Max</label>:</th>
                         <td>
+                            <Help title="Determine the maximum width for a chunk." />
+                        </td>
+                        <td>
                             <select id="chunkWidthMax" onChange={handleChunkWidthMaxChange} value={chunkWidthMax}>
                                 {engine.SPANS.map((s, index) => {
                                     return <option key={index} value={s}>{s}</option>;
@@ -269,6 +297,9 @@ const Form = (props) => {
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>
                         <th><label>Transition</label>:</th>
+                        <td>
+                            <Help title="Determine the transition between the minimum and maximum chunk widths." />
+                        </td>
                         <td>
                             <RadioButtons
                                 options={[
@@ -281,6 +312,9 @@ const Form = (props) => {
                     </tr>}
                     {chunkMode === 'dynamic' && <tr>
                         <th><label htmlFor="chunkSteps">Steps</label>:</th>
+                        <td>
+                            <Help title="Determine how many chunks are necessary between the minimum and maximum chunk widths." />
+                        </td>
                         <td>
                             <input id="chunkSteps" type="number" min="3" max="20" onChange={handleChunkStepsChange} value={chunkSteps} />
                         </td>

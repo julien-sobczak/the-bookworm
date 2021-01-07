@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
 import RadioButtons from '../toolbox/RadioButtons';
+import Help from '../toolbox/Help';
 
 const Form = (props) => {
 
@@ -73,11 +74,17 @@ const Form = (props) => {
                     <tr>
                         <th><label htmlFor="pageTurningDuration">Page turn duration</label>:</th>
                         <td>
+                            <Help title="Add a pause after each page to simulate the interruption when reading a paper book." />
+                        </td>
+                        <td>
                             <input id="pageTurningDuration" type="number" min="100" max="5000" onChange={handlePageTurningDurationChange} value={pageTurningDuration} /> ms
                         </td>
                     </tr>
                     <tr>
                         <th><label htmlFor="paperSize">Paper</label>:</th>
+                        <td>
+                            <Help title="Determine the format of the page." />
+                        </td>
                         <td>
                             <select id="paperSize" onChange={handlePaperSizeChange} value={paperSize}>
                                 <option value="extended">Auto</option>
@@ -94,11 +101,17 @@ const Form = (props) => {
                     {pacerWpm > 0 && <tr>
                         <th><label htmlFor="pacerWpm">Pacer WPM</label>:</th>
                         <td>
+                            <Help title="Determine the target WPM for the pacer. You must read faster to win the game." />
+                        </td>
+                        <td>
                             <input data-testid="pacerWpm" id="pacerWpm" type="number" min="50" max="5000" onChange={handlePacerWpmChange} value={pacerWpm} />
                         </td>
                     </tr>}
                     { timer > 0 && <tr>
                         <th><label>Timer</label>:</th>
+                        <td>
+                            <Help title="Determine the drill duration." />
+                        </td>
                         <td>
                             <RadioButtons
                                 options={[

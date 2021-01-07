@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import Help from '../toolbox/Help';
 import RadioButtons from '../toolbox/RadioButtons';
 
 const FormChunk = (props) => {
@@ -23,13 +24,16 @@ const FormChunk = (props) => {
                 <tr>
                     <th><label>Style</label>:</th>
                     <td>
-                        <RadioButtons 
+                        <Help title="Determine the visual style for chunks." />
+                    </td>
+                    <td>
+                        <RadioButtons
                             options={[
                                 { value: 'highlight', className: 'ChunkHighlight' },
                                 { value: 'color', className: 'ChunkColor' },
                                 { value: 'underline', className: 'ChunkUnderline' },
-                            ]} 
-                            onChange={handleChunkStyleClick} 
+                            ]}
+                            onChange={handleChunkStyleClick}
                             value={chunkStyle} />
                     </td>
                 </tr>

@@ -43,9 +43,11 @@ const FormCalibration = (props) => {
             <tbody>
                 <tr>
                     <th>
-                        <label htmlFor="displayScale">Length calibration</label>
-                        <Help title="Determine the increment in space for every drill level" />:
+                        <label htmlFor="displayScale">Length calibration</label>:
                     </th>
+                    <td>
+                        <Help title="Determine the increment in space for every drill level" />
+                    </td>
                     <td>
                         <Slider id="displayScale" min={0.5} value={displayScale} max={2} onChange={handleDisplayScaleChange} />
                         <StepVisualizer/>

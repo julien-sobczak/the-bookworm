@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import FlipIcon from '@material-ui/icons/Flip';
 
+import Help from '../../toolbox/Help';
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
 
@@ -50,6 +51,9 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th><span>Lines</span>:</th>
                     <td>
+                        <Help title="Determine the number of lines to form the pyramid." />
+                    </td>
+                    <td>
                         <RadioButtons
                             options={[
                                 { value: 5,  label: "5",          alt: "5 lines"    },
@@ -62,6 +66,9 @@ const OptionsDrill = (props) => {
                 </tr>
                 <tr>
                     <th><label htmlFor="span">Span</label>:</th>
+                    <td>
+                        <Help title="Determine the maximum space between columns on the last line of the pyramid." />
+                    </td>
                     <td>
                         <select id="span" name="span" onChange={handleSpanChange} value={span}>
                             {engine.SPANS.map((s, index) => {

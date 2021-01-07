@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import Help from '../../toolbox/Help';
 import Viewer from './Viewer';
 import RadioButtons from '../../toolbox/RadioButtons';
 
@@ -49,6 +50,9 @@ const OptionsDrill = (props) => {
                 <tr>
                     <th><label htmlFor="size">Size</label>:</th>
                     <td>
+                        <Help title="Determine the number of columns and rows." />
+                    </td>
+                    <td>
                         <RadioButtons
                             id="size"
                             options={[
@@ -63,6 +67,9 @@ const OptionsDrill = (props) => {
                 </tr>
                 <tr>
                     <th><label htmlFor="span">Span</label>:</th>
+                    <td>
+                        <Help title="Determine the width and height of a single cell." />
+                    </td>
                     <td>
                         <select id="span" name="span" onChange={handleSpanChange} value={span}>
                             {engine.SPANS.map((s, index) => {

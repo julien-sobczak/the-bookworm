@@ -2,3 +2,8 @@
 .MuiChip-icon.MuiChip-icon {
     margin-left: 10px;
 }
+
+.MuiTooltip-tooltip.MuiTooltip-tooltip {
+    background: black;
+    font-size: 0.75rem;
+}

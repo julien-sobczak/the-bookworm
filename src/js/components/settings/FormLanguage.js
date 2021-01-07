@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import Help from '../toolbox/Help';
+
 const FormLanguage = (props) => {
 
     const [native, setNative] = useState(props.native);
@@ -20,6 +22,9 @@ const FormLanguage = (props) => {
             <tbody>
                 <tr>
                     <th><label htmlFor="native">Default</label>:</th>
+                    <td>
+                        <Help title="Select your native language to filter books in the library." />
+                    </td>
                     <td>
                         <select id="native" value={native} onChange={handleNativeChange}>
                             <option value="Dutch">Dutch</option>
