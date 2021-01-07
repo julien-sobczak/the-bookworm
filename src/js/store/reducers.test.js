@@ -16,6 +16,14 @@ describe('rootReducer', () => {
         });
     });
 
+    it('should handle completeTutorial', () => {
+        expect(
+            reducer(initialState, actions.completeTutorial({}))
+        ).toMatchObject({
+            tutorialCompleted: true,
+        });
+    });
+
     it('should handle updateLGlobalPreferences', () => {
         expect(
             reducer(initialState, actions.updateGlobalPreferences({

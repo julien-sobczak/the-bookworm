@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import HelpIcon from '@material-ui/icons/HelpOutlined';
 import HomeIcon from '@material-ui/icons/Home';
 import ExportIcon from '@material-ui/icons/Archive';
 import ImportIcon from '@material-ui/icons/Unarchive';
@@ -75,8 +78,8 @@ function Profile(props) {
         fileReader.readAsText(file);
     };
 
-    const goToHomePage = () => {
-        document.location.pathname = "/";
+    const goToProjectHomePage = () => {
+        document.location = "https://julien-sobczak.github.io/the-bookworm/"; // TODO put in env
     };
 
     const readAtLeastOneContent = (props.stats.books + props.stats.pastes + props.stats.epubs) > 0;
@@ -89,7 +92,8 @@ function Profile(props) {
             <div className="Profile">
                 <div className="ProfileHi Centered">
                     <span>Hi,</span>
-                    <button onClick={goToHomePage} title="Home Page"><HomeIcon size="large" /></button>
+                    <Tooltip title="Homepage"><Button onClick={goToProjectHomePage}><HomeIcon size="large" /></Button></Tooltip>
+                    <Tooltip title="Tutorial"><Button component={Link} to="/tutorial"><HelpIcon size="large" /></Button></Tooltip>
                 </div>
                 <div className="ProfileStats Centered">
                     {!newUser && <p>

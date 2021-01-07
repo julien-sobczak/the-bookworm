@@ -5,7 +5,16 @@ import classnames from 'classnames';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-function Screen({ className, onClose, centered, colored, scrollable, children }) {
+function Screen({ className, onClose, centered, color, colored, scrollable, children }) {
+
+    // Determine the background color
+    let backgroundColor = 'white';
+    if (colored) {
+        if (color !== 'inherit') {
+            backgroundColor = color;
+        } else
+            backgroundColor = 'var(--theme-color)';
+    }
 
     const fullScreen = css`
         position: fixed;
@@ -14,7 +23,7 @@ function Screen({ className, onClose, centered, colored, scrollable, children })
         left: 0;
         right: 0;
         z-index: 500;
-        background-color: white;
+        background-color: ${backgroundColor};
         padding: 1rem;
     `;
 
@@ -33,7 +42,7 @@ function Screen({ className, onClose, centered, colored, scrollable, children })
 
         ::-webkit-scrollbar {
             width: 0;
-            background-color: var(--theme-color);
+            background-color: ${backgroundColor};
             width: 0.5em;
         }
 
@@ -72,8 +81,9 @@ function Screen({ className, onClose, centered, colored, scrollable, children })
         content = <Scrollable>{content}</Scrollable>;
     }
 
+
     return (
-        <Container className={classnames(className, { 'Colored': colored })}>
+        <Container className={classnames(className)}>
             {content}
         </Container>
     );
@@ -83,6 +93,7 @@ Screen.propTypes = {
     className: PropTypes.string,
     onClose: PropTypes.func,
     scrollable: PropTypes.bool,
+    color: PropTypes.string,
     colored: PropTypes.bool,
     centered: PropTypes.bool,
     children: PropTypes.node,
@@ -90,6 +101,7 @@ Screen.propTypes = {
 
 Screen.defaultProps = {
     onClose: undefined,
+    color: 'inherit',
     colored: false,
     centered: true,
     scrollable: true,

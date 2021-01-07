@@ -25,6 +25,8 @@ export const SAVE_TEXT_PRESET = "SAVE_TEXT_PRESET";
 export const DELETE_DRILL_PRESET = "DELETE_DRILL_PRESET";
 // Delete a text preset.
 export const DELETE_TEXT_PRESET = "DELETE_TEXT_PRESET";
+// Marks the tutorial as completed
+export const COMPLETE_TUTORIAL = "COMPLETE_TUTORIAL";
 
 export function updateReading(payload) {
     return { type: UPDATE_READING, payload };
@@ -102,4 +104,8 @@ export function deleteTextPreset(presetName) {
             name: presetName,
         },
     };
+}
+
+export function completeTutorial(payload) {
+    return { type: COMPLETE_TUTORIAL, payload };
 }
