@@ -7,6 +7,7 @@ import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, delete
 
 import Button from './Button';
 import Screen from './Screen';
+import { Note } from './Text';
 import FormText from '../settings/FormText';
 
 import Tabs from '@material-ui/core/Tabs';
@@ -272,9 +273,8 @@ class WizardFactory extends React.Component {
 
                     {this.state.activeTab === 0 && <div className="TabContent Centered">
                         <section>
-                            <h4>Drill options</h4>
                             {this.props.drillPresets.length > 0 && <>
-                                <p>Use an existing preset:</p>
+                                <p><Note>Use an existing preset</Note></p>
                                 <PresetsList
                                     fixedPresets={this.props.drillPresets}
                                     customPresets={this.props.customPresets.drill[this.props.name]}
@@ -282,7 +282,7 @@ class WizardFactory extends React.Component {
                                     onDeletePreset={this.handleDrillSettingsDelete}
                                     onNewPreset={this.handleDrillSettingsSave} />
                             </>}
-                            <p>Or customize a new drill:</p>
+                            <p><Note>Customize a new drill</Note></p>
                             {React.cloneElement(this.props.form, {
                                 ...this.state.drillSettings,
                                 keyboardDetected: this.props.keyboardDetected,
@@ -293,9 +293,8 @@ class WizardFactory extends React.Component {
 
                     {this.state.activeTab === 1 && <div className="TabContent Centered">
                         <section>
-                            <h4>Style</h4>
                             {DefaultPresets.length > 0 && <>
-                                <p>Use an existing preset:</p>
+                                <p><Note>Use an existing preset:</Note></p>
                                 <PresetsList
                                     fixedPresets={DefaultPresets}
                                     customPresets={this.props.customPresets.text}
@@ -303,7 +302,7 @@ class WizardFactory extends React.Component {
                                     onDeletePreset={this.handleTextSettingsDelete}
                                     onNewPreset={this.handleTextSettingsSave} />
                             </>}
-                            <p>Or customize how text is displayed:</p>
+                            <p><Note>Or customize how text is displayed:</Note></p>
                             <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
                         </section>
                     </div>}

@@ -20,6 +20,12 @@ const Error = styled(Text)`
     padding: 0.5rem;
 `;
 
+const Manuscript = styled(Text)`
+    font-family: 'Sriracha', cursive;
+    font-size: 120%;
+    font-weight: bold;
+`;
+
 const Info = ({ children }) => {
     return (
         <>
@@ -31,4 +37,14 @@ Info.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export { Text as default, Error, Info };
+const Note = styled(Text)`
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    font-family: 'Sriracha', cursive;
+`;
+
+export { Text as default, Error, Info, Manuscript, Note };
