@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import ReactButton from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import UnfoldLessIcon from '@material-ui/icons/UnfoldLess';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 
@@ -43,33 +43,33 @@ function PanelReading(props) {
                         </>}
                         {props.content.type && <>
                             {collapsed ?
-                                <ReactButton
+                                <Button
                                     variant="contained"
                                     disableElevation={true}
                                     className="ButtonLight Clickable ButtonLongText"
                                     onClick={() => setCollapsed(false)}
                                     startIcon={<UnfoldLessIcon />}>
                                     <span style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}>You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em></span>
-                                </ReactButton> :
-                                <ReactButton
+                                </Button> :
+                                <Button
                                     variant="contained"
                                     disableElevation={true}
                                     className="ButtonDark Clickable"
                                     onClick={() => setCollapsed(true)}
                                     startIcon={<UnfoldMoreIcon />}>
                                     <span style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}>You are reading <em>{props.content.description.title}</em> by <em>{props.content.description.author}</em></span>
-                                </ReactButton>
+                                </Button>
                             }
                         </>}
                     </div>
                     <div className="PanelCornerButton">
-                        <ReactButton
+                        <Button
                             variant="contained"
                             disableElevation={true}
                             className="ButtonBrowse"
                             onClick={() => setLibraryActive(true)}>
                             Browse Library
-                        </ReactButton>
+                        </Button>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@ function PanelReading(props) {
                                     <td><small>{reading.description.author}</small></td>
                                     <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                     <td><Progress value={reading.position.progress} showText={true} /></td>
-                                    <td><ReactButton variant="contained" disableElevation={true} onClick={handleReadingSwitch} data-index={index} className="ButtonLight Clickable">Switch</ReactButton></td>
+                                    <td><Button variant="contained" disableElevation={true} onClick={handleReadingSwitch} data-index={index} className="ButtonLight Clickable">Switch</Button></td>
                                 </tr>
                             );
                         })}

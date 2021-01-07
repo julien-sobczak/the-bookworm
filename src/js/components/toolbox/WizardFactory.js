@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
-import Button from './Button';
+import LargeButton from './LargeButton';
 import Screen from './Screen';
 import { Manuscript } from './Text';
 import FormText from '../settings/FormText';
@@ -20,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import NewIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
-import ReactButton from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
@@ -149,12 +149,12 @@ function NewPresetForm({ onSave }) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <ReactButton onClick={handleCancel} color="primary">
+                    <Button onClick={handleCancel} color="primary">
                         Cancel
-                    </ReactButton>
-                    <ReactButton onClick={handleClose} color="primary">
+                    </Button>
+                    <Button onClick={handleClose} color="primary">
                         Save
-                    </ReactButton>
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>
@@ -281,12 +281,12 @@ class WizardFactory extends React.Component {
                     </div>
                     <div className="Centered">
                         <div className="Actions">
-                            <Button text="I understand" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
+                            <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
                         </div>
                     </div>
                 </Screen>}
 
-                <div className="Preferences InnerContent">
+                <div className="Form InnerContent">
 
                     <Tabs
                         value={this.state.activeTab}
@@ -337,8 +337,8 @@ class WizardFactory extends React.Component {
 
                 <div className="Centered">
                     <div className="Actions">
-                        <Button text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
-                        <Button text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
+                        <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
+                        <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
                     </div>
                 </div>
             </div>

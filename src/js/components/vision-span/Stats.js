@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-import Button from "../toolbox/Button.js";
+import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
 import TimerIcon from '@material-ui/icons/Timer';
@@ -30,8 +30,8 @@ function Stats({ stats, onRestart }) {
                 </tbody>
             </table>
             <div className="Actions">
-                <Button text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
-                <Link to="/vision-span/"><Button text="Change" colorText="white" colorBackground="#111" /></Link>
+                <LargeButton text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
+                <Link to="/vision-span/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
             </div>
         </div>
     );

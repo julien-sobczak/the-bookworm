@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] Create a Component <LargeButtonGroup>
+- [ ] Remove PanelError
 - [ ] Write a tutorial for the default content
 - [ ] Rewrite `README.md`
 - [ ] Complete `DEVELOPER.md`
@@ -10,7 +12,6 @@
 
 # Refactor
 
-- [ ] Rename Button to ActionButton and ReactButton to Button
 - [ ] Review CSS declarations to clean up
 - [ ] Create enum for PropType string properties
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar

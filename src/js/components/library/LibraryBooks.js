@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import ClearIcon from '@material-ui/icons/Backspace';
 
-import Button from "../toolbox/Button";
+import LargeButton from "../toolbox/LargeButton";
 import Loader from "../toolbox/Loader";
 
 import * as library from "../../functions/library";
@@ -251,7 +251,7 @@ class LibraryBooks extends React.Component {
                             </table>
                         </div>
                         <div className="Buttons">
-                            <Button text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
+                            <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
                         </div>
                     </>
                 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import PanelReading from "../library/PanelReading.js";
-import Button from "../toolbox/Button.js";
+import LargeButton from "../toolbox/LargeButton.js";
 import { ContentContext } from "../../../content-context";
 
 function DrawingPage() {
@@ -59,7 +59,7 @@ function Entry({ name, children, slug }) {
             </div>
             <div className="Actions">
                 <Link to={slug}>
-                    <Button text={name} colorText="white" colorBackground="#111" />
+                    <LargeButton text={name} colorText="white" colorBackground="#111" />
                 </Link>
             </div>
         </div>

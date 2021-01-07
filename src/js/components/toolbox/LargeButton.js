@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 // We use https://www.styled-components.com/docs/basics to scope CSS declarations and animations!
 // Inspired by https://codepen.io/andreasstorm/pen/oqKbLq
-function Button({ text, className, colorText, colorBackground, onClick }) {
+function LargeButton({ text, className, colorText, colorBackground, onClick }) {
 
     // font-family: Avenir, sans-serif
     // https://fonts.google.com/?query=Avenir
@@ -55,7 +55,7 @@ function Button({ text, className, colorText, colorBackground, onClick }) {
     );
 }
 
-Button.propTypes = {
+LargeButton.propTypes = {
     text: PropTypes.string,
     className: PropTypes.string,
     onClick: PropTypes.func,
@@ -63,7 +63,7 @@ Button.propTypes = {
     colorBackground: PropTypes.string,
 };
 
-Button.defaultProps = {
+LargeButton.defaultProps = {
     className: "",
     text: 'Click me',
     colorText: '#111',
@@ -71,4 +71,4 @@ Button.defaultProps = {
     onClick: function() {},
 };
 
-export default Button;
+export default LargeButton;

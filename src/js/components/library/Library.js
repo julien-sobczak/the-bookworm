@@ -9,10 +9,10 @@ import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
 
 import Progress from '../toolbox/Progress';
-import Button from "../toolbox/Button";
-import ButtonUpload from "./ButtonUpload";
+import LargeButton from "../toolbox/LargeButton";
+import ButtonUpload from "./LargeButtonUpload";
 
-import ReactButton from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 
 import { updateReading } from '../../store/actions';
 
@@ -94,7 +94,7 @@ class Library extends React.Component {
                                                         <td><small>{reading.description.author}</small></td>
                                                         <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                                         <td><Progress value={reading.position.progress} showText={true} /></td>
-                                                        <td><ReactButton variant="contained" disableElevation={true} onClick={this.handleReadingSelected} data-index={index} className="ButtonDark Clickable">Read</ReactButton></td>
+                                                        <td><Button variant="contained" disableElevation={true} onClick={this.handleReadingSelected} data-index={index} className="ButtonDark Clickable">Read</Button></td>
                                                     </tr>
                                                 );
                                             })}
@@ -106,7 +106,7 @@ class Library extends React.Component {
 
                         <section className="LibraryCategories">
                             <div className="LibraryCategory">
-                                <Button text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
+                                <LargeButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
                             </div>
 
                             {/*
@@ -118,7 +118,7 @@ class Library extends React.Component {
                             */}
 
                             <div className="LibraryCategory">
-                                <Button text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
+                                <LargeButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
                             </div>
 
                             <div className="LibraryCategory">

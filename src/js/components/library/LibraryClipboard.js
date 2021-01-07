@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as string from '../../functions/string';
 import * as library from '../../functions/library';
 
-import Button from "../toolbox/Button";
+import LargeButton from "../toolbox/LargeButton";
 
 function LibraryClipboard({ onSelect, onCancel }) {
 
@@ -32,8 +32,8 @@ function LibraryClipboard({ onSelect, onCancel }) {
             <textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)}>
             </textarea>
             <div className="Buttons">
-                <Button text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
-                <Button text="Read" colorText="white" colorBackground="#111" onClick={() => onValidate()} />
+                <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
+                <LargeButton text="Read" colorText="white" colorBackground="#111" onClick={() => onValidate()} />
             </div>
         </div>
     );
