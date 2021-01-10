@@ -14,7 +14,6 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { updateGlobalPreferences, updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
-
 import Screen from '../toolbox/Screen';
 import FormCalibration from './FormCalibration';
 import FormLanguage from './FormLanguage';
@@ -27,6 +26,7 @@ function Preference({ settings, form, onClose }) {
     const onChange = (settings) => {
         setCurrentSettings(settings);
     };
+    console.log('Cloning form with settings', currentSettings);
     return (
         <Screen colored={true} scrollable={true} onClose={() => onClose(currentSettings)}>
             {React.cloneElement(form, {

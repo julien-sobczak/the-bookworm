@@ -6,13 +6,13 @@ import { ReactComponent as ArrowManuscriptSecondaryImage } from '../../../images
 import InfoIcon from '@material-ui/icons/Info';
 
 const defaults = css`
-    font-size: 1rem;
+    font-size: 1em;
     color: black;
 `;
 
 const Text = styled.span`
     ${defaults}
-    font-size: ${props => props.size === "small" ? '80%' : (props.size === "large" ? '1.5rem' : '1rem') };
+    font-size: ${props => props.size === "small" ? '80%' : (props.size === "large" ? '1.5em' : '1em') };
     background: ${props => props.background ? 'black' : 'inherit' };
     padding: ${props => props.background ? '0.5em' : 'initial' };
     color: ${props => props.background ? 'white' : 'inherit' };
@@ -22,13 +22,13 @@ const Text = styled.span`
 const Error = styled(Text)`
     color: red;
     background: black;
-    padding: 0.5rem;
+    padding: 0.5em;
 `;
 
-const Manuscript = ({ children, arrow, arrowDirection, arrowPosition, arrowVariant }) => {
+const Manuscript = ({ children, size, arrow, arrowDirection, arrowPosition, arrowVariant }) => {
     const ManuscriptText = styled(Text)`
+        font-size: ${size === "small" ? '0.8em' : (size === "large" ? '1.5em' : '1em') };
         font-family: 'Sriracha', cursive;
-        font-size: 120%;
         font-weight: bold;
     `;
 
@@ -53,6 +53,11 @@ const Manuscript = ({ children, arrow, arrowDirection, arrowPosition, arrowVaria
             top: "0em",
             left: "-3em",
         },
+        'right-top': {
+            transform: 'rotate(270deg)',
+            top: "-1em",
+            right: "-3.5em",
+        }
         // TODO complete
     };
     const styles = {
@@ -82,12 +87,14 @@ const Manuscript = ({ children, arrow, arrowDirection, arrowPosition, arrowVaria
 };
 Manuscript.propTypes = {
     children: PropTypes.node.isRequired,
+    size: PropTypes.string,
     arrow: PropTypes.bool,
     arrowDirection: PropTypes.oneOf(['top', 'bottom']),
     arrowPosition: PropTypes.oneOf(['left', 'right']),
     arrowVariant: PropTypes.oneOf(['primary', 'secondary']),
 };
 Manuscript.defaultProps = {
+    size: "medium",
     arrow: false,
     arrowDirection: 'top',
     arrowPosition: 'left',
@@ -109,9 +116,9 @@ const Note = styled(Text)`
     display: inline-block;
     background: black;
     color: white;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
-    border-radius: 0.5rem;
+    padding: 0.5em 1em;
+    margin: 0.5em;
+    border-radius: 0.5em;
     font-family: 'Sriracha', cursive;
 `;
 

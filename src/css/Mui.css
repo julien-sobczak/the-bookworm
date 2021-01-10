@@ -16,3 +16,9 @@
 .MuiStepConnector-line.MuiStepConnector-line {
     border-color: white;
 }
+
+/* Used in Tutorial */
+.MuiToggleButton-root.Mui-selected.MuiToggleButton-root.Mui-selected {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}

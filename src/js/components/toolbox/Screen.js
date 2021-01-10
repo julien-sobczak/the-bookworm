@@ -12,8 +12,9 @@ function Screen({ className, onClose, centered, color, colored, scrollable, chil
     if (colored) {
         if (color !== 'inherit') {
             backgroundColor = color;
-        } else
+        } else {
             backgroundColor = 'var(--theme-color)';
+        }
     }
 
     const fullScreen = css`
