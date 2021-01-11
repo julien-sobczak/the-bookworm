@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+import styled from 'styled-components';
 
 import PanelReading from "../library/PanelReading.js";
 import LargeButton from "../toolbox/LargeButton.js";
+import { Manuscript } from '../toolbox/Text';
 import { ContentContext } from "../../../content-context";
 
 function DrawingPage() {
@@ -51,7 +53,7 @@ function DrawingColumn() {
     );
 }
 
-function Entry({ name, children, slug }) {
+function Entry({ name, disabled, children, slug }) {
     return (
         <div className="Entry">
             <div className="Preview">
@@ -59,7 +61,7 @@ function Entry({ name, children, slug }) {
             </div>
             <div className="Actions">
                 <Link to={slug}>
-                    <LargeButton text={name} colorText="white" colorBackground="#111" />
+                    <LargeButton disabled={disabled} text={name} colorText="white" colorBackground="#111" />
                 </Link>
             </div>
         </div>
@@ -69,33 +71,36 @@ function Entry({ name, children, slug }) {
 Entry.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired,
     children: PropTypes.any,
 };
 
 function Catalog({match}) {
-
+    const Notice = styled.div`
+        position: absolute;
+        top: 5rem;
+        right: 5rem;
+    `;
     return (
-        <div className="Catalog">
-
-            <ContentContext.Consumer>
-                {({content, update, toggle}) => (
+        <ContentContext.Consumer>
+            {({content, update, toggle}) => (
+                <div className="Catalog">
                     <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                )}
-            </ContentContext.Consumer>
+                    {content.id == undefined && <Notice><Manuscript arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Manuscript></Notice>}
+                    <Entry name="Page Reader" slug="drill-page" match={match} disabled={content.id == undefined}>
+                        <DrawingPage />
+                    </Entry>
 
-            <Entry name="Page Reader" slug="drill-page" match={match}>
-                <DrawingPage />
-            </Entry>
+                    <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={content.id == undefined}>
+                        <DrawingChunk />
+                    </Entry>
 
-            <Entry name="Chunk Reader" slug="drill-chunk" match={match}>
-                <DrawingChunk />
-            </Entry>
-
-            <Entry name="Column Reader" slug="drill-column" match={match}>
-                <DrawingColumn />
-            </Entry>
-
-        </div>
+                    <Entry name="Column Reader" slug="drill-column" match={match} disabled={content.id == undefined}>
+                        <DrawingColumn />
+                    </Entry>
+                </div>
+            )}
+        </ContentContext.Consumer>
     );
 }
 
