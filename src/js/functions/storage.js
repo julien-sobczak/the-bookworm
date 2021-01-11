@@ -1,36 +1,5 @@
 import * as library from './library';
 
-// TODO export to a JSON file and load dynamically
-export const tutorial = {
-    id: 'content-static-tutorial',
-    type: "static",
-    description: {
-        title: `The Bookworm Manual`,
-        author: "Julien Sobczak",
-    },
-    content: {
-        sections: [
-            {
-                title: "Presentation",
-                blocks: [
-                    { tag: "h2", content: "Presentation" },
-                    { tag: "p", content: "The Bookworm was created to help you practice speed reading." },
-                ],
-            },
-            {
-                title: "How it works?",
-                blocks: [
-                    { tag: "h2", content: "How it works?" },
-                    { tag: "p", content: "The Bookworm works in your browser. It is regularly testing with Chrome and Firefox, and should work with your tablet or your computer. Phones are not supported as the screen is too small for most drills." },
-                ],
-            }
-            // TODO complete
-        ],
-    },
-    reloadable: false,
-    saveOnLocalStorage: false,
-};
-
 /**
  * Store a new content.
  *
@@ -74,8 +43,6 @@ export function reloadContent(reading) {
                     storeContent(content);
                     resolve(content);
                 });
-            } else if (reading.id === 'content-static-tutorial') {
-                resolve(tutorial);
             } else {
                 console.error("Unable to reload the previous reading");
             }

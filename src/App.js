@@ -119,7 +119,6 @@ function ChunkingSelector({ match }) {
         'drill-page': <GamePage />,
         'drill-chunk': <GameChunk />,
         'drill-column': <GameColumn />,
-        'tutorial': <GamePage content={storage.tutorial} configurable={false} />
     };
 
     if (match.params.drill in drills) {
@@ -232,7 +231,7 @@ class App extends React.Component {
                 <ContentContext.Provider value={this.state}>
                     <ScreenTester minWidth="5in" minHeight="5in" />
                     {!this.props.tutorialCompleted && <Tutorial onDone={this.handleTutorialCompleted} />}
-                    {this.props.tutorialCompleted && this.state.content.content && <Router>
+                    {this.props.tutorialCompleted && <Router>
                         <nav className="menu">
                             <NavLink to="/home" activeClassName="active" exact><div><HomeIcon /><br/>Home</div></NavLink>
                             {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
@@ -262,8 +261,6 @@ class App extends React.Component {
         if (this.props.readings.length > 0) {
             const currentReading = this.props.readings[0];
             storage.reloadContent(currentReading).then((content) => this.updateContent(content));
-        } else {
-            this.updateContent(storage.tutorial);
         }
     }
 

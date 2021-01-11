@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 // We use https://www.styled-components.com/docs/basics to scope CSS declarations and animations!
 // Inspired by https://codepen.io/andreasstorm/pen/oqKbLq
-function LargeButton({ text, className, colorText, colorBackground, onClick }) {
+function LargeButton({ text, className, disabled, colorText, colorBackground, onClick }) {
 
     // font-family: Avenir, sans-serif
     // https://fonts.google.com/?query=Avenir
 
-    const Button = styled.button `
+    const Button = styled.button`
         color: ${colorText};
         position: relative;
         margin: 1em auto;
@@ -28,6 +28,9 @@ function LargeButton({ text, className, colorText, colorBackground, onClick }) {
             height: 56px;
             transition: all .3s ease;
         }
+    `;
+
+    const ActiveButton = styled(Button)`
         :hover:before {
             width: 100%;
             background: ${colorBackground};
@@ -35,6 +38,11 @@ function LargeButton({ text, className, colorText, colorBackground, onClick }) {
         :active {
             transform: scale(.96);
         }
+    `;
+
+    const InactiveButton = styled(Button)`
+        opacity: 0.5;
+        cursor: default !important;
     `;
 
     const Text = styled.span `
@@ -45,13 +53,22 @@ function LargeButton({ text, className, colorText, colorBackground, onClick }) {
         letter-spacing: .25em;
         text-transform: uppercase;
         vertical-align: middle;
-    }
     `;
 
+    const innerText = <Text>{text}</Text>;
+
+    if (disabled) {
+        return (
+            <InactiveButton>
+                {innerText}
+            </InactiveButton>
+        );
+    }
+
     return (
-        <Button className={className} onClick={ () => onClick() }>
-            <Text>{text}</Text>
-        </Button>
+        <ActiveButton className={className} onClick={onClick}>
+            {innerText}
+        </ActiveButton>
     );
 }
 
@@ -59,6 +76,7 @@ LargeButton.propTypes = {
     text: PropTypes.string,
     className: PropTypes.string,
     onClick: PropTypes.func,
+    disabled: PropTypes.bool,
     colorText: PropTypes.string,
     colorBackground: PropTypes.string,
 };
@@ -66,6 +84,7 @@ LargeButton.propTypes = {
 LargeButton.defaultProps = {
     className: "",
     text: 'Click me',
+    disabled: false,
     colorText: '#111',
     colorBackground: 'var(--mdc-theme-background)',
     onClick: function() {},
