@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, NavLink, useHistory } from "react-route
 
 import { updateReading, updateGlobalPreferences, completeTutorial } from './js/store/actions';
 
-import Tutorial from './js/components/home/Tutorial';
+import Tutorial from './js/components/tutorial/Tutorial';
 import Profile from './js/components/home/Profile';
 
 import VisionSpanCatalog from './js/components/vision-span/Catalog';
@@ -215,7 +215,7 @@ class App extends React.Component {
         // Apply global settings
         if (window && window.document) {
             console.log(`Defining length calibration to ${this.props.preferences.global.displayScale}`);
-            document.documentElement.style.setProperty('--scale', this.props.preferences.global.displayScale);
+            document.documentElement.style.setProperty('--scale', this.props.preferences.global.displayScale / 100.0);
         }
 
         this.handleTutorialCompleted = this.handleTutorialCompleted.bind(this);

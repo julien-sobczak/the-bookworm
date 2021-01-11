@@ -62,7 +62,7 @@ function Preferences(props) {
 
     const saveCalibrationPreferences = (settings) => {
         if (window && window.document) {
-            document.documentElement.style.setProperty('--scale', settings.displayScale);
+            document.documentElement.style.setProperty('--scale', settings.displayScale / 100.0);
         }
         props.updateGlobalPreferences(settings);
         setSetting(undefined);
