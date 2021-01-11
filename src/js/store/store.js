@@ -103,7 +103,7 @@ const defaultState = {
     },
     preferences: {
         global: {
-            displayScale: 1,
+            displayScale: 100, // pecent
         },
         language: {
             native: "English",

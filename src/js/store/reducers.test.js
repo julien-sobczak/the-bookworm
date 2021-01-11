@@ -27,12 +27,12 @@ describe('rootReducer', () => {
     it('should handle updateLGlobalPreferences', () => {
         expect(
             reducer(initialState, actions.updateGlobalPreferences({
-                displayScale: 2,
+                displayScale: 110,
             }))
         ).toMatchObject({
             preferences: {
                 global: {
-                    displayScale: 2,
+                    displayScale: 110,
                 },
             },
         });

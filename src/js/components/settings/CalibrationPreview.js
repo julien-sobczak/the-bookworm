@@ -11,13 +11,13 @@ import { Manuscript } from '../../components/toolbox/Text';
 
 function CalibrationPreview(props) {
 
-    const [value, setValue] = useState(props.value * 100); // We work with percent only in this component
+    const [value, setValue] = useState(props.value);
     const onChange = props.onChange;
 
     const increment = (step) => {
         const newValue = Math.min(Math.max(value + step, 0), 200);
         setValue(newValue);
-        onChange(newValue/100.0);
+        onChange(newValue);
     };
 
     const handleEnlarge = () => increment(1);

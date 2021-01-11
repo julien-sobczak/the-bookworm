@@ -93,7 +93,7 @@ function Profile(props) {
                 <div className="ProfileHi Centered">
                     <span>Hi,</span>
                     <Tooltip title="Homepage"><Button onClick={goToProjectHomePage}><HomeIcon size="large" /></Button></Tooltip>
-                    <Tooltip title="Tutorial"><Button component={Link} to="/tutorial"><HelpIcon size="large" /></Button></Tooltip>
+                    <Tooltip title="Read the tutorial"><Button component={Link} to="/tutorial"><HelpIcon size="large" />&nbsp;Tutorial</Button></Tooltip>
                 </div>
                 <div className="ProfileStats Centered">
                     {!newUser && <p>

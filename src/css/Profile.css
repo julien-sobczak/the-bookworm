@@ -18,7 +18,7 @@
 
 @media only screen and (orientation: portrait) {
     .Profile {
-        grid-template-columns: 3.5cm auto 3.5cm;
+        grid-template-columns: 6cm auto 3.5cm;
         grid-template-rows: auto auto auto auto;
         grid-template-areas:
             "hi backup wpm"
