@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Help from '../../toolbox/Help';
@@ -12,7 +12,7 @@ const OptionsDrill = (props) => {
     const [size, setSize] = useState(props.size);
     const [span, setSpan] = useState(props.span);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setSize(props.size);
         setSpan(props.span);
     }, [props]);

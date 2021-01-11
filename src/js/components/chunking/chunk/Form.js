@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
@@ -27,7 +27,7 @@ const Form = (props) => {
     const [chunkTransition, setChunkTransition] = useState(props.chunkTransition);
     const [chunkSteps, setChunkSteps] = useState(props.chunkSteps);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setWpm(props.wpm);
         setLinesPerChunk(props.linesPerChunk);
         setNeighborChunksPosition(props.neighborChunksPosition);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import * as string from '../../functions/string';
@@ -9,7 +9,7 @@ const RadioButtons = (props) => {
     const onChange = props.onChange;
     const options = props.options;
 
-    React.useEffect(() => {
+    useEffect(() => {
         setValue(props.value);
     }, [props]);
 

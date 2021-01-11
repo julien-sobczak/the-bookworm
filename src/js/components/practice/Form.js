@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
@@ -13,7 +13,7 @@ const Form = (props) => {
     const [pacerWpm, setPacerWpm] = useState(props.pacerWpm);
     const [timer, setTimer] = useState(props.timer);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setPageTurningDuration(props.pageTurningDuration);
         setPaperSize(props.paperSize);
         setPacerWpm(props.pacerWpm);

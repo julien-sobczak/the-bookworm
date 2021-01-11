@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FlipIcon from '@material-ui/icons/Flip';
 
@@ -13,7 +13,7 @@ const OptionsDrill = (props) => {
     const [lines, setLines] = useState(props.lines);
     const [span, setSpan] = useState(props.span);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLines(props.lines);
         setSpan(props.span);
     }, [props]);

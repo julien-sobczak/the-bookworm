@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
@@ -9,7 +9,7 @@ const OptionsGame = (props) => {
     const [keyboard, setKeyboard] = useState(props.keyboardDetected && props.keyboard);
     const [autoLevel, setAutoLevel] = useState(props.autoLevel);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setKeyboard(props.keyboard);
         setAutoLevel(props.autoLevel);
     }, [props]);
