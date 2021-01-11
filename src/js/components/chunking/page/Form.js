@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
@@ -25,7 +25,7 @@ const Form = (props) => {
     const [chunkWords, setChunkWords] = useState(props.chunkWords);
     const [chunkStops, setChunkStops] = useState(props.chunkStops);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setWpm(props.wpm);
         setPageTurningDuration(props.pageTurningDuration);
         setPaperSize(props.paperSize);

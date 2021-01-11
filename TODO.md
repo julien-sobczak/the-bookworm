@@ -3,7 +3,7 @@
 - [ ] Create the image `logo-outlined.svg`
 - [ ] Create a Component <LargeButtonGroup>
 - [ ] Remove PanelError
-- [ ] Write a tutorial for the default content
+- [ ] Remove old tutorial used as the default content
 - [ ] Rewrite `README.md`
 - [ ] Complete `DEVELOPER.md`
 
@@ -13,7 +13,6 @@
 
 # Refactor
 
-- [ ] Rename React.useEffect into useEffect + import { useEffect }
 - [ ] Review CSS declarations to clean up
 - [ ] Create enum for PropType string properties
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar

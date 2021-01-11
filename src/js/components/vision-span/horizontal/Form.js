@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
@@ -10,7 +10,7 @@ const Form = (props) => {
     const [value, setValue] = useState(props);
     const onChange = props.onChange;
 
-    React.useEffect(() => {
+    useEffect(() => {
         setValue(props);
     }, [props]);
 

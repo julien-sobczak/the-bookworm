@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Viewer from './Viewer';
@@ -25,7 +25,7 @@ const Form = (props) => {
     const [chunkTransition, setChunkTransition] = useState(props.chunkTransition);
     const [chunkSteps, setChunkSteps] = useState(props.chunkSteps);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setWpm(props.wpm);
         setColumns(props.columns);
         setColumnWidth(props.columnWidth);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Styled from '../toolbox/Styled';
@@ -34,7 +34,7 @@ const FormText = (props) => {
     const [theme, setTheme] = useState(props.theme);
     const onChange = props.onChange;
 
-    React.useEffect(() => {
+    useEffect(() => {
         setFontFamily(props.fontFamily);
         setFontSize(props.fontSize);
         setFontStyle(props.fontStyle);
