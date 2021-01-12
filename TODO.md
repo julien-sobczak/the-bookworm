@@ -2,7 +2,6 @@
 
 - [ ] Create the image `logo-outlined.svg`
 - [ ] Create a Component <LargeButtonGroup>
-- [ ] Remove PanelError
 - [ ] Rewrite `README.md`
 - [ ] Complete `DEVELOPER.md`
 

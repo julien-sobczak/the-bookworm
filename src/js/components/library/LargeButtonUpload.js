@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Loader from "../toolbox/Loader.js";
 import LargeButton from "../toolbox/LargeButton";
-import PanelError from "../toolbox/PanelError";
+import ErrorSnackbar from "../toolbox/ErrorSnackbar";
 
 import { readEpub } from './EpubReader';
 
@@ -41,7 +41,7 @@ const LargeButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
     };
     return (
         <>
-            {errorMessage.length > 0 && <PanelError message={errorMessage} onClear={() => setErrorMessage("")}/>}
+            <ErrorSnackbar message={errorMessage} onClose={() => setErrorMessage("")} />
             <input type="file" ref={inputRef} onChange={handleFileSelected} style={{display: "none"}} accept="application/epub+zip" />
             <LargeButton text={text} colorText={colorText} colorBackground={colorBackground} onClick={() => inputRef.current.click()} />
             {loading && <Loader />}

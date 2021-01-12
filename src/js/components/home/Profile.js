@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
@@ -17,12 +18,15 @@ import * as information from '../../functions/information';
 import * as storage from '../../functions/storage';
 import * as string from '../../functions/string';
 
-import PanelError from "../toolbox/PanelError";
 import BarWpm from "../toolbox/BarWpm";
+import ErrorSnackbar from "../toolbox/ErrorSnackbar";
 
 const messageToday = information.getMessageOfTheDay();
 
 function Profile(props) {
+
+    const Container = styled.div`
+    `;
 
     const maxFileSizeInMb = 11;
     const maxFileSizeInBytes = 1024 * 1024 * maxFileSizeInMb;
@@ -58,6 +62,8 @@ function Profile(props) {
     const handleBackupSelected = () => {
         const file = inputRef.current.files[0];
 
+        if (file) return;
+
         // Protection against invalid files
         if (file.type !== "application/json") { // Should not happen as enforce by input[file] component
             setErrorMessage("Sorry. Only JSON files are supported.");
@@ -88,8 +94,8 @@ function Profile(props) {
 
     return (
         <>
-            {errorMessage.length > 0 && <PanelError message={errorMessage} onClear={() => setErrorMessage("")}/>}
-            <div className="Profile">
+            <ErrorSnackbar message={errorMessage} onClose={() => setErrorMessage("")} />
+            <Container className="Profile">
                 <div className="ProfileHi Centered">
                     <span>Hi,</span>
                     <Tooltip title="Homepage"><Button onClick={goToProjectHomePage}><HomeIcon size="large" /></Button></Tooltip>
@@ -130,12 +136,12 @@ function Profile(props) {
                         {!props.lastBackup && <span>No previous backup</span>}
                     </p>
                     <p>
-                        <button onClick={createBackup} title="Export"><ExportIcon /></button>
-                        <button onClick={() => inputRef.current.click()} title="Import"><ImportIcon /></button>
-                        <input type="file" ref={inputRef} onChange={handleBackupSelected} style={{display: "none"}} accept="application/json" />
+                        <Tooltip title="Export"><Button onClick={createBackup}><ExportIcon /></Button></Tooltip>
+                        <Tooltip title="Import"><Button onClick={() => inputRef.current.click()}><ImportIcon /></Button></Tooltip>
+                        <input type="file" ref={inputRef} onChange={handleBackupSelected} style={{ display: "none" }} accept="application/json" />
                     </p>
                 </div>
-            </div>
+            </Container>
         </>
     );
 }
@@ -145,7 +151,7 @@ Profile.propTypes = {
     reduxState: PropTypes.object.isRequired,
     readings: PropTypes.array.isRequired,
     stats: PropTypes.object.isRequired,
-    lastBackup: PropTypes.object,
+    lastBackup: PropTypes.string, // See Date.toDateString()
     startDate: PropTypes.string.isRequired, // See Date.toDateString()
     registerBackup: PropTypes.func.isRequired,
     restoreBackup: PropTypes.func.isRequired,
