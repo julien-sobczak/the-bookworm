@@ -9,6 +9,7 @@ import Paper from "../toolbox/Paper";
 import PageContent from "../toolbox/PageContent";
 
 import * as string from "../../functions/string";
+import { SPANS } from '../../functions/engine';
 
 class BookViewer extends React.Component {
 
@@ -88,7 +89,7 @@ BookViewer.propTypes = {
 
     content: PropTypes.object,
 
-    chunkWidth: PropTypes.string,
+    chunkWidth: PropTypes.oneOf(SPANS),
     chunkAccuracy: PropTypes.number,
 };
 

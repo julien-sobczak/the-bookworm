@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
+import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {
     lines: 1,
@@ -73,7 +74,7 @@ Viewer.propTypes = {
     // How many columns?
     columns: PropTypes.number,
     // Negative space between two adjacent columns (should contains columns.length - 1 values)
-    spans: PropTypes.arrayOf(PropTypes.string),
+    spans: PropTypes.arrayOf(PropTypes.oneOf(SPANS)),
 
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,

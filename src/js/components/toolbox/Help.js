@@ -14,6 +14,9 @@ function Help({ title }) {
 }
 
 Help.propTypes = {
+    /**
+     * The title to show on hover or click.
+     */
     title: PropTypes.string.isRequired,
 };
 

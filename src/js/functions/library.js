@@ -2,7 +2,10 @@ import * as string from './string';
 import * as wpm from './wpm';
 
 /** URL of the library catalog. */
-const CATALOG_URL = "https://open-library-books.web.app/catalog.json";
+export const CATALOG_URL = "https://open-library-books.web.app/catalog.json";
+
+/** List of languages present in the library. */
+export const SUPPORTED_LANGUAGES = ['English', 'French', 'German', 'Italian', 'Spanish', 'Portuguese'];
 
 // Based on table https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const languagesISO = {

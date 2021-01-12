@@ -14,7 +14,7 @@
 
 - [ ] Move CSS special declaration in their components using `styled components`
 - [ ] Review CSS declarations to clean up
-- [ ] Create enum for PropType string properties
+- [ ] Use /** */ comment on every component property
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar
 
 # Features

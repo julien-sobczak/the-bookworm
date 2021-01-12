@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Chunker from '../Chunker';
 import Styled from '../../toolbox/Styled';
+import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {
     ...Chunker.defaultProps,
@@ -62,7 +63,7 @@ Viewer.propTypes = {
     columns: PropTypes.number,
 
     // The width of every column
-    columnWidth: PropTypes.string,
+    columnWidth: PropTypes.oneOf(SPANS),
 };
 
 Viewer.defaultProps = {

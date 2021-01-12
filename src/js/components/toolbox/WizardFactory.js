@@ -363,8 +363,8 @@ class WizardFactory extends React.Component {
 }
 
 WizardFactory.propTypes = {
-    // The category of the drill (chunking, vision-span, etc.)
-    category: PropTypes.string.isRequired,
+    // The category of the drill
+    category: PropTypes.oneOf(['vision-span', 'chunking', 'practice']).isRequired,
     // The name of the drill (drillCircle, drillPractice, etc.)
     name: PropTypes.string.isRequired,
 

@@ -64,7 +64,7 @@ Viewer.propTypes = {
 
     // How the hidden text controlled by `disableVisualRegression`
     // and `disableVisualProgression` should be displayed
-    disableVisualProblemStyle: PropTypes.string,
+    disableVisualProblemStyle: PropTypes.oneOf(["transparent", "fade", "blur"]),
 
     // WPM
     wpm: PropTypes.number,

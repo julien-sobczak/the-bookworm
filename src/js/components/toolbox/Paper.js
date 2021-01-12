@@ -24,7 +24,7 @@ const Paper = React.forwardRef((props, ref) => {
 
 Paper.propTypes = {
     ...Styled.propTypes,
-    paperSize: PropTypes.string,
+    paperSize: PropTypes.oneOf(["extended", "A4", "A5", "A6", "pocket", "digest", "paperback", "hardcover"]),
 };
 
 Paper.defaultProps = {

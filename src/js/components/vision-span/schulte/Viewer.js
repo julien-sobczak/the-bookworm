@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Engine from './Engine';
 import Styled from '../../toolbox/Styled';
+import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {
     span: "1in",
@@ -51,7 +52,7 @@ Viewer.propTypes = {
     // How many lines/columns in the table?
     size: PropTypes.number,
     // Cell size
-    span: PropTypes.string,
+    span: PropTypes.oneOf(SPANS),
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
     // Drill to display

@@ -43,7 +43,7 @@ const FormChunk = (props) => {
 };
 
 FormChunk.propTypes = {
-    chunkStyle: PropTypes.string,
+    chunkStyle: PropTypes.oneOf(['highlight', 'color', 'underline']),
     onChange: PropTypes.func,
 };
 
