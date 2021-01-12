@@ -3,7 +3,6 @@
 - [ ] Create the image `logo-outlined.svg`
 - [ ] Create a Component <LargeButtonGroup>
 - [ ] Remove PanelError
-- [ ] Remove old tutorial used as the default content
 - [ ] Rewrite `README.md`
 - [ ] Complete `DEVELOPER.md`
 
@@ -13,6 +12,7 @@
 
 # Refactor
 
+- [ ] Move CSS special declaration in their components using `styled components`
 - [ ] Review CSS declarations to clean up
 - [ ] Create enum for PropType string properties
 - [ ] Use Screen everywhere and remove CSS classes .FullScreen, .Scrollbar

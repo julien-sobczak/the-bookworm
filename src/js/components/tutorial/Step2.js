@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Manuscript } from '../toolbox/Text';
+import Text from '../toolbox/Text';
 
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -65,7 +65,7 @@ function Step2() {
             </DeviceList>
 
             <p className="alignCenter">
-                <Manuscript arrow={true} arrowDirection="top" arrowPosition="right"><InfoIcon/> The application can be installed on your home screen<br/>to practice in a more focused way!</Manuscript>
+                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right"><InfoIcon/> The application can be installed on your home screen<br/>to practice in a more focused way!</Text>
             </p>
         </>
     );

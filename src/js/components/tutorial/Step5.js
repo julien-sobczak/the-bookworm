@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Manuscript } from '../toolbox/Text';
+import Text from '../toolbox/Text';
 
 import CircleEngine from '../vision-span/circle/Engine';
 import CircleViewer from '../vision-span/circle/Viewer';
@@ -46,7 +46,7 @@ function Step5() {
             </DrillViewport>
 
             <p className="alignCenter">
-                <Manuscript arrow={true} arrowDirection="top" arrowPosition="left">Peripheral vision is essential to the next technique: chunking.</Manuscript>
+                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="left">Peripheral vision is essential to the next technique: chunking.</Text>
             </p>
         </>
     );

@@ -1,38 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { ReactComponent as ArrowManuscriptPrimaryImage } from '../../../images/arrow-scribble-1.svg';
 import { ReactComponent as ArrowManuscriptSecondaryImage } from '../../../images/arrow-scribble-2.svg';
 import InfoIcon from '@material-ui/icons/Info';
 
-const defaults = css`
-    font-size: 1em;
-    color: black;
-`;
+const Text = ({ manuscript, background, size, arrow, arrowDirection, arrowPosition, arrowVariant, children }) => {
 
-const Text = styled.span`
-    ${defaults}
-    font-size: ${props => props.size === "small" ? '80%' : (props.size === "large" ? '1.5em' : '1em') };
-    background: ${props => props.background ? 'black' : 'inherit' };
-    padding: ${props => props.background ? '0.5em' : 'initial' };
-    color: ${props => props.background ? 'white' : 'inherit' };
-    border-radius: ${props => props.background ? '50vh' : 'initial' };
-`;
+    const DefaultText = styled.span`
+        font-size: 1em;
+        color: black;
+        font-size: ${size === "small" ? '80%' : (size === "large" ? '1.5em' : '1em') };
+        background: ${background ? 'black' : 'inherit' };
+        padding: ${background ? '0.5em' : 'initial' };
+        color: ${background ? 'white' : 'inherit' };
+        border-radius: ${background ? '50vh' : 'initial' };
+    `;
 
-const Error = styled(Text)`
-    color: red;
-    background: black;
-    padding: 0.5em;
-`;
-
-const Manuscript = ({ children, size, arrow, arrowDirection, arrowPosition, arrowVariant }) => {
-    const ManuscriptText = styled(Text)`
-        font-size: ${size === "small" ? '0.8em' : (size === "large" ? '1.5em' : '1em') };
+    const ManuscriptText = styled(DefaultText)`
         font-family: 'Sriracha', cursive;
         font-weight: bold;
     `;
 
-    const textContent = <ManuscriptText>{children}</ManuscriptText>;
+    const textContent = manuscript ?
+        <ManuscriptText>{children}</ManuscriptText> :
+        <DefaultText>{children}</DefaultText>;
+
     if (!arrow) {
         return textContent;
     }
@@ -57,8 +50,7 @@ const Manuscript = ({ children, size, arrow, arrowDirection, arrowPosition, arro
             transform: 'rotate(270deg)',
             top: "-1em",
             right: "-3.5em",
-        }
-        // TODO complete
+        },
     };
     const styles = {
         container: {
@@ -85,15 +77,27 @@ const Manuscript = ({ children, size, arrow, arrowDirection, arrowPosition, arro
         </span>
     );
 };
-Manuscript.propTypes = {
-    children: PropTypes.node.isRequired,
-    size: PropTypes.string,
+Text.propTypes = {
+    // Enable to format using a Cursive font
+    manuscript: PropTypes.bool,
+    // Enable to print the text on a black background
+    background: PropTypes.bool,
+    // Relative size of the text.
+    size: PropTypes.oneOf(["small", "medium", "large"]),
+    // Show an arrow.
     arrow: PropTypes.bool,
+    // Determine if the arrow points upward or downward.
     arrowDirection: PropTypes.oneOf(['top', 'bottom']),
+    // Determine if the array is positioned at the left or right of the text.
     arrowPosition: PropTypes.oneOf(['left', 'right']),
+    // Determine the style for the arrow.
     arrowVariant: PropTypes.oneOf(['primary', 'secondary']),
+    // Text is passed as children elements.
+    children: PropTypes.node.isRequired,
 };
-Manuscript.defaultProps = {
+Text.defaultProps = {
+    manuscript: false,
+    background: false,
     size: "medium",
     arrow: false,
     arrowDirection: 'top',
@@ -101,25 +105,16 @@ Manuscript.defaultProps = {
     arrowVariant: 'primary',
 };
 
-const Info = ({ children }) => {
+const Info = (props) => {
     return (
         <>
-            <Text><InfoIcon size="small" /> {children}</Text>
+            <Text {...props}><InfoIcon size="small" /> {props.children}</Text>
         </>
     );
 };
 Info.propTypes = {
+    ...Text.propTypes,
     children: PropTypes.node.isRequired,
 };
 
-const Note = styled(Text)`
-    display: inline-block;
-    background: black;
-    color: white;
-    padding: 0.5em 1em;
-    margin: 0.5em;
-    border-radius: 0.5em;
-    font-family: 'Sriracha', cursive;
-`;
-
-export { Text as default, Error, Info, Manuscript, Note };
+export { Text as default, Info };

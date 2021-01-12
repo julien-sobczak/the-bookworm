@@ -7,7 +7,7 @@ import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, delete
 
 import LargeButton from './LargeButton';
 import Screen from './Screen';
-import { Manuscript } from './Text';
+import Text from './Text';
 import FormText from '../settings/FormText';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -300,7 +300,7 @@ class WizardFactory extends React.Component {
                     {this.state.activeTab === 0 && <div className="TabContent Centered">
                         <section>
                             {this.props.drillPresets.length > 0 && <>
-                                <p><Manuscript arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Manuscript></p>
+                                <p><Text manuscript={true} arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
                                 <PresetsList
                                     fixedPresets={this.props.drillPresets}
                                     customPresets={this.props.customPresets.drill[this.props.name]}
@@ -308,7 +308,7 @@ class WizardFactory extends React.Component {
                                     onDeletePreset={this.handleDrillSettingsDelete}
                                     onNewPreset={this.handleDrillSettingsSave} />
                             </>}
-                            <p><Manuscript arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize a new drill</Manuscript></p>
+                            <p><Text manuscript={true} arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize a new drill</Text></p>
                             {React.cloneElement(this.props.form, {
                                 ...this.state.drillSettings,
                                 keyboardDetected: this.props.keyboardDetected,
@@ -320,7 +320,7 @@ class WizardFactory extends React.Component {
                     {this.state.activeTab === 1 && <div className="TabContent Centered">
                         <section>
                             {DefaultPresets.length > 0 && <>
-                                <p><Manuscript arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Manuscript></p>
+                                <p><Text manuscript={true} arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
                                 <PresetsList
                                     fixedPresets={DefaultPresets}
                                     customPresets={this.props.customPresets.text}
@@ -328,7 +328,7 @@ class WizardFactory extends React.Component {
                                     onDeletePreset={this.handleTextSettingsDelete}
                                     onNewPreset={this.handleTextSettingsSave} />
                             </>}
-                            <p><Manuscript arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize how the text is displayed</Manuscript></p>
+                            <p><Text manuscript={true} arrow={true} arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize how the text is displayed</Text></p>
                             <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
                         </section>
                     </div>}
