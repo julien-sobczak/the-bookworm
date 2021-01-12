@@ -31,7 +31,7 @@ function Step0() {
             </p>
 
             <p className="alignCenter">
-                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right">This application focuses on a few of these techniques.</Text>
+                <Text manuscript arrow arrowDirection="top" arrowPosition="right">This application focuses on a few of these techniques.</Text>
             </p>
 
             <p><em>The Bookworm</em> will let you perfect your <strong>peripheral vision</strong> and practice <strong>chunk reading</strong> to minimize eye movements and thus read faster. It does not mean other techniques are less important. It&apos;s simply that you can practice them freely every time you read.</p>

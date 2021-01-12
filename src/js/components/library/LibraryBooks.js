@@ -211,7 +211,7 @@ class LibraryBooks extends React.Component {
                                     return (
                                         <li key={index+1} className={this.state.filterLetter === letter ? 'Selected' : ''}>
                                             {countLetter > 0 && <button onClick={this.filterByLetter} data-letter={letter}>{letter}</button>}
-                                            {countLetter === 0 && <button disabled={true}>{letter}</button>}
+                                            {countLetter === 0 && <button disabled>{letter}</button>}
                                         </li>
                                     );
                                 })}

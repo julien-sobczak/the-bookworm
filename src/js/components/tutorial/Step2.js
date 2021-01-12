@@ -59,13 +59,13 @@ function Step2() {
             <p><em>The Bookworm</em> is a web application meaning <strong>you only need a web browser to use it</strong>. The application has been tested on Google Chrome running on Android, MacOs, and Windows but web standards make it likely that the application will work great on other modern browsers.</p>
 
             <DeviceList>
-                <Device title="Desktop" icon={<DesktopIcon fontSize="large" />} compatible={true} />
-                <Device title="Tablet"  icon={<TabletIcon fontSize="large" />} compatible={true} />
+                <Device title="Desktop" icon={<DesktopIcon fontSize="large" />} compatible />
+                <Device title="Tablet"  icon={<TabletIcon fontSize="large" />} compatible />
                 <Device title="Phone"   icon={<PhoneIcon fontSize="large" />} compatible={false} />
             </DeviceList>
 
             <p className="alignCenter">
-                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right"><InfoIcon/> The application can be installed on your home screen<br/>to practice in a more focused way!</Text>
+                <Text manuscript arrow arrowDirection="top" arrowPosition="right"><InfoIcon/> The application can be installed on your home screen<br/>to practice in a more focused way!</Text>
             </p>
         </>
     );

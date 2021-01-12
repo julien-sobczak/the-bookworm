@@ -293,9 +293,9 @@ function Tutorial({ onDone }) {
     return (
         <Screen
             centered={false}
-            colored={true}
+            colored
             color={color}
-            scrollable={true}
+            scrollable
             onClose={handleDone}
             style={{ textAlign: "center" }}>
             <Centered>

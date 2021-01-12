@@ -114,7 +114,7 @@ function CalibrationPreview(props) {
                 </Tooltip>
             </Buttons>
             <p>
-                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="secondary">Adjust the size.</Text>
+                <Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="secondary">Adjust the size.</Text>
             </p>
         </Center>
     );

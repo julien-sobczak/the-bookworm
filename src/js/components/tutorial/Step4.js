@@ -16,7 +16,7 @@ function Step4() {
             </ul>
 
             <p className="alignCenter">
-                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="left">All drills are entirely configurable.</Text>
+                <Text manuscript arrow arrowDirection="top" arrowPosition="left">All drills are entirely configurable.</Text>
             </p>
 
             <p>All drills come with ready-to-use presets to help you get started, but expose all settings so that <strong>you can create your own drills</strong>.</p>

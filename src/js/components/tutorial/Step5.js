@@ -46,7 +46,7 @@ function Step5() {
             </DrillViewport>
 
             <p className="alignCenter">
-                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="left">Peripheral vision is essential to the next technique: chunking.</Text>
+                <Text manuscript arrow arrowDirection="top" arrowPosition="left">Peripheral vision is essential to the next technique: chunking.</Text>
             </p>
         </>
     );

@@ -11,8 +11,8 @@ it('allows editing values', async () => {
         <Form
             size={3}
             span="1in"
-            autoLevel={true}
-            keyboardDetected={true}
+            autoLevel
+            keyboardDetected
             keyboard={false}
             onChange={mockFn} />
     );

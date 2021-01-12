@@ -23,7 +23,7 @@ const Game = (props) => {
             instructions={<InstructionsPacer />}
             form={<Form />}
             stats={<Stats />}
-            contentAware={true}
+            contentAware
             countdownDuration={2000}
             drillSettings={defaultDrillSettings}
         />

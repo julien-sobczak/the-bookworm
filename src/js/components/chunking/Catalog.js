@@ -86,7 +86,7 @@ function Catalog({match}) {
             {({content, update, toggle}) => (
                 <div className="Catalog">
                     <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                    {content.id == undefined && <Notice><Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
+                    {content.id == undefined && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
                     <Entry name="Page Reader" slug="drill-page" match={match} disabled={content.id == undefined}>
                         <DrawingPage />
                     </Entry>
