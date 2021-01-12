@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
-import { Manuscript } from '../../components/toolbox/Text';
+import Text from '../../components/toolbox/Text';
 
 function CalibrationPreview(props) {
 
@@ -114,7 +114,7 @@ function CalibrationPreview(props) {
                 </Tooltip>
             </Buttons>
             <p>
-                <Manuscript arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="secondary">Adjust the size.</Manuscript>
+                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="secondary">Adjust the size.</Text>
             </p>
         </Center>
     );

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import PanelReading from "../library/PanelReading.js";
 import LargeButton from "../toolbox/LargeButton.js";
-import { Manuscript } from '../toolbox/Text';
+import Text from '../toolbox/Text';
 import { ContentContext } from "../../../content-context";
 
 function DrawingPage() {
@@ -86,7 +86,7 @@ function Catalog({match}) {
             {({content, update, toggle}) => (
                 <div className="Catalog">
                     <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                    {content.id == undefined && <Notice><Manuscript arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Manuscript></Notice>}
+                    {content.id == undefined && <Notice><Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
                     <Entry name="Page Reader" slug="drill-page" match={match} disabled={content.id == undefined}>
                         <DrawingPage />
                     </Entry>

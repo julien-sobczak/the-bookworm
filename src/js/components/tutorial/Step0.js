@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Manuscript } from '../toolbox/Text';
+import Text from '../toolbox/Text';
 
 import { ReactComponent as Logo } from '../../../images/logo-outlined.svg';
 
@@ -12,7 +12,7 @@ import ExternalLinkIcon from '@material-ui/icons/ExitToAppOutlined';
 function Step0() {
     return (
         <>
-            <h1><Manuscript>Welcome to</Manuscript></h1>
+            <h1><Text manuscript>Welcome to</Text></h1>
             <p className="alignCenter"><Logo style={{ width: "30rem", margin: "-1rem auto 1rem" }} /></p>
 
             <p><em>The Bookworm</em> will help you become a <a href="https://en.wikipedia.org/wiki/Speed_reading" target="_blank" rel="noreferrer">speed reader <ExternalLinkIcon size="small" /></a>.</p>
@@ -31,7 +31,7 @@ function Step0() {
             </p>
 
             <p className="alignCenter">
-                <Manuscript arrow={true} arrowDirection="top" arrowPosition="right">This application focuses on a few of these techniques.</Manuscript>
+                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="right">This application focuses on a few of these techniques.</Text>
             </p>
 
             <p><em>The Bookworm</em> will let you perfect your <strong>peripheral vision</strong> and practice <strong>chunk reading</strong> to minimize eye movements and thus read faster. It does not mean other techniques are less important. It&apos;s simply that you can practice them freely every time you read.</p>

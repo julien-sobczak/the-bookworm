@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Manuscript } from '../toolbox/Text';
+import Text from '../toolbox/Text';
 
 import FormCalibration from '../settings/FormCalibration';
 
@@ -22,7 +22,7 @@ function Step8({ onChange }) {
 
             <FormCalibration displayScale={displayScale} onChange={handleChange} />
 
-            <p><Manuscript>Congratulations!</Manuscript> You have finished the tutorial. <strong>Ready to start?</strong></p>
+            <p><Text manuscript>Congratulations!</Text> You have finished the tutorial. <strong>Ready to start?</strong></p>
         </>
     );
 }

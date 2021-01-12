@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Manuscript } from '../toolbox/Text';
+import Text from '../toolbox/Text';
 
 function Step4() {
     return (
@@ -16,7 +16,7 @@ function Step4() {
             </ul>
 
             <p className="alignCenter">
-                <Manuscript arrow={true} arrowDirection="top" arrowPosition="left">All drills are entirely configurable.</Manuscript>
+                <Text manuscript={true} arrow={true} arrowDirection="top" arrowPosition="left">All drills are entirely configurable.</Text>
             </p>
 
             <p>All drills come with ready-to-use presets to help you get started, but expose all settings so that <strong>you can create your own drills</strong>.</p>
