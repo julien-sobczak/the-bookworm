@@ -37,9 +37,9 @@
     font-weight: 900;
     padding: var(--default-padding);
 }
-.ProfileHi button {
-    margin: 1em;
+.Profile button {
     color: white;
+    min-width: auto;
 }
 
 .ProfileStats {
@@ -120,6 +120,7 @@
 .Profile p {
     margin: 0.3cm 0;
     line-height: 2em;
+    text-align: center;
 }
 
 .Profile q {
