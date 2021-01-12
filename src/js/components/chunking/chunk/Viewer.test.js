@@ -18,8 +18,8 @@ describe('Viewer', () => {
         const { getByText } = render(
             <Viewer
                 {...chunks}
-                showPreviousChunk={true}
-                showNextChunk={true} />
+                showPreviousChunk
+                showNextChunk />
         );
 
         // Check characters are well organized
@@ -32,8 +32,8 @@ describe('Viewer', () => {
         const { container } = render(
             <Viewer
                 {...chunks}
-                showPreviousChunk={true}
-                showNextChunk={true}
+                showPreviousChunk
+                showNextChunk
                 neighborChunksPosition="vertical" />
         );
 
@@ -45,8 +45,8 @@ describe('Viewer', () => {
         const { container } = render(
             <Viewer
                 {...chunks}
-                showPreviousChunk={true}
-                showNextChunk={true}
+                showPreviousChunk
+                showNextChunk
                 neighborChunksPosition="horizontal" />
         );
 

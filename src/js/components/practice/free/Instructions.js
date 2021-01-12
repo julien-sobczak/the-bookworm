@@ -28,7 +28,7 @@ function InstructionsFree() {
             <div className="Text">
                 <p><InfoIcon className="Icon" /> Read the text freely. Try to read as fast as possible without reducing comprehension.</p>
             </div>
-            <Window content={viewer} showPanes={true} callouts={[ { text: "1", top: "50%", left: "8%", description: "Click on the left side to turn to the previous page." }, { text: "2", top: "50%", right: "10%", description: "Click on the right side to move to the next page." } ]} />
+            <Window content={viewer} showPanes callouts={[ { text: "1", top: "50%", left: "8%", description: "Click on the left side to turn to the previous page." }, { text: "2", top: "50%", right: "10%", description: "Click on the right side to move to the next page." } ]} />
         </div>
     );
 

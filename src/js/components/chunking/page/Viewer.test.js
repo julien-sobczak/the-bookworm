@@ -48,8 +48,8 @@ describe('Viewer', () => {
                 page={page}
                 blockPosition={2}
                 chunkPosition={2}
-                disableVisualRegression={true}
-                disableVisualProgression={true}
+                disableVisualRegression
+                disableVisualProgression
                 disableVisualProblemStyle="blur" />
         );
 

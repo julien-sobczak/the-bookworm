@@ -17,7 +17,7 @@ it('allows the user to enter characters using the keyboard', async () => {
             lines={3}
             span="1in"
             autoLevel={false}
-            keyboard={true}
+            keyboard
             onNewDrill={mockDrillFn}
             onComplete={mockCompleteFn} />
     );
@@ -107,8 +107,8 @@ it('supports auto-level mode', async () => {
         <Drill
             lines={3}
             span="1in"
-            autoLevel={true}
-            keyboard={true}
+            autoLevel
+            keyboard
             onNewDrill={mockDrillFn}
             onLevelChange={mockLevelFn} />
     );

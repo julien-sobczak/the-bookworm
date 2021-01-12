@@ -48,8 +48,8 @@ function Step6() {
 
             <DrillViewport>
                 <ChunkViewer neighborChunksPosition={'vertical'}
-                    showPreviousChunk={true}
-                    showNextChunk={true}
+                    showPreviousChunk
+                    showNextChunk
                     fontStyle={"bold"}
                     previousChunk={previousChunk}
                     currentChunk={currentChunk}

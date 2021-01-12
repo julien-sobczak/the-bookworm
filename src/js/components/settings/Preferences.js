@@ -28,7 +28,7 @@ function Preference({ settings, form, onClose }) {
     };
     console.log('Cloning form with settings', currentSettings);
     return (
-        <Screen colored={true} scrollable={true} onClose={() => onClose(currentSettings)}>
+        <Screen colored scrollable onClose={() => onClose(currentSettings)}>
             {React.cloneElement(form, {
                 ...currentSettings,
                 onChange: onChange,

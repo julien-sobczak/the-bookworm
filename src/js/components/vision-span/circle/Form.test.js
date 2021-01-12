@@ -10,9 +10,9 @@ it('allows editing values', async () => {
     const { getByLabelText } = render(
         <Form
             span="0.5in"
-            autoLevel={true}
+            autoLevel
             keyboard={false}
-            keyboardDetected={true}
+            keyboardDetected
             onChange={mockFn} />
     );
 

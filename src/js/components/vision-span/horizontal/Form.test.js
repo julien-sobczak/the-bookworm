@@ -13,9 +13,9 @@ it('allows editing values', async () => {
             columns={3}
             spans={["0.5in", "0.5in"]}
             multiple={false}
-            autoLevel={true}
+            autoLevel
             keyboard={false}
-            keyboardDetected={true}
+            keyboardDetected
             onChange={mockFn} />
     );
 

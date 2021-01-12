@@ -45,7 +45,7 @@ function PanelReading(props) {
                             {collapsed ?
                                 <Button
                                     variant="contained"
-                                    disableElevation={true}
+                                    disableElevation
                                     className="ButtonLight Clickable ButtonLongText"
                                     onClick={() => setCollapsed(false)}
                                     startIcon={<UnfoldLessIcon />}>
@@ -53,7 +53,7 @@ function PanelReading(props) {
                                 </Button> :
                                 <Button
                                     variant="contained"
-                                    disableElevation={true}
+                                    disableElevation
                                     className="ButtonDark Clickable"
                                     onClick={() => setCollapsed(true)}
                                     startIcon={<UnfoldMoreIcon />}>
@@ -65,7 +65,7 @@ function PanelReading(props) {
                     <div className="PanelCornerButton">
                         <Button
                             variant="contained"
-                            disableElevation={true}
+                            disableElevation
                             className="ButtonBrowse"
                             onClick={() => setLibraryActive(true)}>
                             Browse Library
@@ -81,8 +81,8 @@ function PanelReading(props) {
                                     <td><em>{reading.description.title}</em></td>
                                     <td><small>{reading.description.author}</small></td>
                                     <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
-                                    <td><Progress value={reading.position.progress} showText={true} /></td>
-                                    <td><Button variant="contained" disableElevation={true} onClick={handleReadingSwitch} data-index={index} className="ButtonLight Clickable">Switch</Button></td>
+                                    <td><Progress value={reading.position.progress} showText /></td>
+                                    <td><Button variant="contained" disableElevation onClick={handleReadingSwitch} data-index={index} className="ButtonLight Clickable">Switch</Button></td>
                                 </tr>
                             );
                         })}
