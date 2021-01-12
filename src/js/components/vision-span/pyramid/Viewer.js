@@ -88,7 +88,7 @@ Viewer.propTypes = {
     // How many lines
     lines: PropTypes.number,
     // Negative space between with the center column for the bottom values
-    span: PropTypes.string,
+    span: PropTypes.oneOf(engine.SPANS),
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
     // Drill to display

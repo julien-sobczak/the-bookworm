@@ -24,9 +24,8 @@ function LanguageIcon({name}) {
     );
 }
 LanguageIcon.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.oneOf(library.SUPPORTED_LANGUAGES).isRequired,
 };
-
 
 class LibraryBooks extends React.Component {
 

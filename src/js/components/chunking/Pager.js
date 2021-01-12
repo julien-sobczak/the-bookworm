@@ -4,6 +4,7 @@ import Tokenizer from './Tokenizer';
 
 import Paper from '../toolbox/Paper';
 import * as string from '../../functions/string';
+import { SPANS } from '../../functions/engine';
 import { DEMO_CONTENT } from '../../../constants';
 
 // Values for property chunkMode.
@@ -596,7 +597,7 @@ Pager.propTypes = {
     // Calculate chunks based on a specific maximum width or split the line in one or more stops
     chunkMode: PropTypes.oneOf(chunkModes),
     // chunkMode `width` options
-    chunkWidth: PropTypes.string,
+    chunkWidth: PropTypes.oneOf(SPANS),
     chunkAccuracy: PropTypes.number,
     // chunkMode `stops` options
     chunkStops: PropTypes.number,

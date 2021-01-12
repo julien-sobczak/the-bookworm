@@ -69,8 +69,8 @@ function Entry({ name, disabled, children, slug }) {
 }
 
 Entry.propTypes = {
-    name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired, // Free value
+    slug: PropTypes.string.isRequired, // Free value
     disabled: PropTypes.bool.isRequired,
     children: PropTypes.any,
 };

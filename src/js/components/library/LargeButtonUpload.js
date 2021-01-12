@@ -50,9 +50,9 @@ const LargeButtonUpload = ({ text, colorText, colorBackground, onClick }) => {
 };
 
 LargeButtonUpload.propTypes = {
-    text: PropTypes.string.isRequired,
-    colorText: PropTypes.string,
-    colorBackground: PropTypes.string,
+    text: PropTypes.string.isRequired, // Free value
+    colorText: PropTypes.string,       // CSS valid color value
+    colorBackground: PropTypes.string, // CSS valid color value
     onClick: PropTypes.func.isRequired,
 };
 

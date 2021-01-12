@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
+import { SPANS } from '../../functions/engine';
 import Measurer from '../toolbox/Measurer';
 import Styled from '../toolbox/Styled';
 
@@ -336,20 +337,19 @@ Chunker.propTypes = {
     onDone: PropTypes.func,
 
     // Calculate chunks based on a specific maximum width or split the line in one or more stops
-    // (Allowed values: 'width', 'words', 'dynamic')
-    chunkMode: PropTypes.string,
+    chunkMode: PropTypes.oneOf(['width', 'words', 'dynamic']),
 
     // Options when chunkMode = "width"
-    chunkWidth: PropTypes.string,
+    chunkWidth: PropTypes.oneOf(SPANS),
     chunkAccuracy: PropTypes.number,
 
     // Options when chunkMode = "words"
     chunkWords: PropTypes.number, // the number of words per chunk
 
     // Options when chunkMode = "dynamic"
-    chunkWidthMin: PropTypes.string,
-    chunkWidthMax: PropTypes.string,
-    chunkTransition: PropTypes.string, // `step`, `wave`
+    chunkWidthMin: PropTypes.oneOf(SPANS),
+    chunkWidthMax: PropTypes.oneOf(SPANS),
+    chunkTransition: PropTypes.oneOf([`step`, `wave`]),
     chunkSteps: PropTypes.number,
 };
 

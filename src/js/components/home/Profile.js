@@ -146,7 +146,7 @@ Profile.propTypes = {
     readings: PropTypes.array.isRequired,
     stats: PropTypes.object.isRequired,
     lastBackup: PropTypes.object,
-    startDate: PropTypes.string.isRequired,
+    startDate: PropTypes.string.isRequired, // See Date.toDateString()
     registerBackup: PropTypes.func.isRequired,
     restoreBackup: PropTypes.func.isRequired,
 };

@@ -19,7 +19,7 @@ class LibraryUpload extends React.Component {
 }
 
 LibraryUpload.propTypes = {
-    filetype: PropTypes.string.isRequired,
+    filetype: PropTypes.string.isRequired, // Only application/epub+zip is supported
     file: PropTypes.object.isRequired,
     onSelect: PropTypes.func.isRequired,
 };

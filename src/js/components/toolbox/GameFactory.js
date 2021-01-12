@@ -249,7 +249,7 @@ GameFactory.propTypes = {
 
     // The name of the game
     name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    category: PropTypes.oneOf(['vision-span', 'chunking', 'practice']).isRequired,
 
 
     // Show the configuration wizard

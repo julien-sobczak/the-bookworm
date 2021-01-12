@@ -64,7 +64,7 @@ function ColorPicker(props) {
 
 ColorPicker.propTypes = {
     // Default selection
-    color: PropTypes.string,
+    color: PropTypes.string, // A CSS color value
     onChange: PropTypes.func,
 };
 

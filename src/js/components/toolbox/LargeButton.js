@@ -77,8 +77,8 @@ LargeButton.propTypes = {
     className: PropTypes.string,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
-    colorText: PropTypes.string,
-    colorBackground: PropTypes.string,
+    colorText: PropTypes.string, // A CSS color value
+    colorBackground: PropTypes.string, // A CSS color value
 };
 
 LargeButton.defaultProps = {

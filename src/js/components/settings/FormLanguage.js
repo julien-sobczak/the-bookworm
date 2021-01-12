@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Help from '../toolbox/Help';
+import { SUPPORTED_LANGUAGES } from '../../functions/library';
 
 const FormLanguage = (props) => {
 
@@ -42,7 +43,7 @@ const FormLanguage = (props) => {
 };
 
 FormLanguage.propTypes = {
-    native: PropTypes.string,
+    native: PropTypes.oneOf(SUPPORTED_LANGUAGES),
     onChange: PropTypes.func,
 };
 

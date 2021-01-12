@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Styled from '../../toolbox/Styled';
+import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {
     span: "1in",
@@ -61,7 +62,7 @@ Viewer.propTypes = {
     ...Styled.propTypes,
 
     // Space with the center
-    span: PropTypes.string,
+    span: PropTypes.oneOf(SPANS),
 
     // Adjust level according the number of errors
     autoLevel: PropTypes.bool,
