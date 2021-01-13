@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { ScreenPreviewContent } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 
 class PreviewText extends React.Component {
@@ -42,11 +43,11 @@ class PreviewText extends React.Component {
 
     render() {
         return (
-            <div className="PreviewContent PreviewText FullScreen Centered">
+            <ScreenPreviewContent>
                 {this.state.content &&
                     <ContentSelector content={this.state.content} onSelect={this.handleValidation} />
                 }
-            </div>
+            </ScreenPreviewContent>
         );
     }
 

@@ -12,7 +12,7 @@ const defaultViewerSettings = {
     showPreviousChunk: false,
     showNextChunk: true,
     linesPerChunk: 1,
-    wpm: 4000,
+    wpm: 250,
 };
 
 function Viewer(props) {

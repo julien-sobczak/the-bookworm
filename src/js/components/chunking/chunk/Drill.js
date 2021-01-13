@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
 
+import { ScreenDrill } from '../../core/UI';
 import ProgressLine from '../../toolbox/ProgressLine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
@@ -240,11 +241,12 @@ class Drill extends React.Component {
         return (
             <>
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
-                <div className={"FullScreen DrillChunk Centered Theme" + string.capitalize(this.props.theme)}>
 
-                    <Chunker content={this.props.content} onDone={this.onChunkerDone}
-                        {...this.props}
-                    />
+                <Chunker content={this.props.content} onDone={this.onChunkerDone}
+                    {...this.props}
+                />
+
+                <ScreenDrill className={"DrillChunk Theme" + string.capitalize(this.props.theme)}>
 
                     <section className="DrillControls">
                         <ul>
@@ -269,7 +271,7 @@ class Drill extends React.Component {
 
                     </section>
 
-                </div>
+                </ScreenDrill>
             </>
         );
     }

@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
 
+import { ScreenDrill } from '../../core/UI';
 import Measurer from '../../core/Measurer';
 import ProgressLine from '../../toolbox/ProgressLine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
@@ -245,13 +246,14 @@ class Drill extends React.Component {
         return (
             <>
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
-                <div className={"FullScreen DrillColumn Centered Theme" + string.capitalize(this.props.theme)}>
 
-                    <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
+                <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
 
-                    <Chunker content={this.props.content} onDone={this.onChunkerDone}
-                        {...this.props}
-                    />
+                <Chunker content={this.props.content} onDone={this.onChunkerDone}
+                    {...this.props}
+                />
+
+                <ScreenDrill className={"DrillColumn Theme" + string.capitalize(this.props.theme)}>
 
                     <section className="DrillControls">
                         <ul>
@@ -277,7 +279,7 @@ class Drill extends React.Component {
 
                     </section>
 
-                </div>
+                </ScreenDrill>
             </>
         );
     }

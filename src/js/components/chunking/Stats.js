@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
+import { ScreenStats } from "../core/UI.js";
+import Screen from "../core/Screen.js";
 import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
@@ -13,8 +15,8 @@ import SpeedIcon from '@material-ui/icons/Speed';
 function Stats({ stats, finished, onRestart, onContinue }) {
 
     return (
-        <div className="FullScreen Stats Centered">
-            <table className="Stats">
+        <ScreenStats>
+            <table>
                 <tbody>
                     <tr>
                         <th><BookIcon/></th>
@@ -39,7 +41,7 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                 {!finished && <LargeButton text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
                 <Link to="/chunking/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
             </div>
-        </div>
+        </ScreenStats>
     );
 }
 

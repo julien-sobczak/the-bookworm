@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
 import Screen from './Screen';
-import Form from './Form';
+import { Form } from './UI';
 import Text from '../toolbox/Text';
 import LargeButton from '../toolbox/LargeButton';
 import FormText from '../settings/FormText';
@@ -17,7 +16,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TuneIcon from '@material-ui/icons/Tune';
 import StyleIcon from '@material-ui/icons/Style';
-import CloseIcon from '@material-ui/icons/Close';
 import NewIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
@@ -266,10 +264,7 @@ class WizardFactory extends React.Component {
         tabs.push(<Tab key={1} icon={<TuneIcon />} label="Options" />);
         tabs.push(<Tab key={2} icon={<StyleIcon />} label="Style" />);
         return (
-            <div className="Wizard FullScreen Scrollbar">
-
-                <Link to={`/${this.props.category}/`} className="ButtonClose"><CloseIcon /></Link>
-
+            <>
                 {this.state.instructionsActive && <Screen className="Instructions" scrollable onClose={this.handleInstructionsClick}>
                     <div>
                         {this.props.instructions}
@@ -287,62 +282,64 @@ class WizardFactory extends React.Component {
                     </div>
                 </Screen>}
 
-                <Form>
+                {!this.state.instructionsActive && <Screen className="Wizard" centered={false} scrollable closeUrl={`/${this.props.category}/`}>
+                    <Form>
 
-                    <Tabs
-                        value={this.state.activeTab}
-                        onChange={this.handleTabChange}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        centered>
-                        {tabs}
-                    </Tabs>
+                        <Tabs
+                            value={this.state.activeTab}
+                            onChange={this.handleTabChange}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            centered>
+                            {tabs}
+                        </Tabs>
 
-                    {this.state.activeTab === 0 && <div className="TabContent Centered">
-                        <section>
-                            {this.props.drillPresets.length > 0 && <>
-                                <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
-                                <PresetsList
-                                    fixedPresets={this.props.drillPresets}
-                                    customPresets={this.props.customPresets.drill[this.props.name]}
-                                    onSelectPreset={this.handleDrillSettingsChange}
-                                    onDeletePreset={this.handleDrillSettingsDelete}
-                                    onNewPreset={this.handleDrillSettingsSave} />
-                            </>}
-                            <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize a new drill</Text></p>
-                            {React.cloneElement(this.props.form, {
-                                ...this.state.drillSettings,
-                                keyboardDetected: this.props.keyboardDetected,
-                                onChange: this.handleDrillSettingsChange,
-                            })}
-                        </section>
-                    </div>}
+                        {this.state.activeTab === 0 && <div className="TabContent Centered">
+                            <section>
+                                {this.props.drillPresets.length > 0 && <>
+                                    <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
+                                    <PresetsList
+                                        fixedPresets={this.props.drillPresets}
+                                        customPresets={this.props.customPresets.drill[this.props.name]}
+                                        onSelectPreset={this.handleDrillSettingsChange}
+                                        onDeletePreset={this.handleDrillSettingsDelete}
+                                        onNewPreset={this.handleDrillSettingsSave} />
+                                </>}
+                                <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize a new drill</Text></p>
+                                {React.cloneElement(this.props.form, {
+                                    ...this.state.drillSettings,
+                                    keyboardDetected: this.props.keyboardDetected,
+                                    onChange: this.handleDrillSettingsChange,
+                                })}
+                            </section>
+                        </div>}
 
-                    {this.state.activeTab === 1 && <div className="TabContent Centered">
-                        <section>
-                            {DefaultPresets.length > 0 && <>
-                                <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
-                                <PresetsList
-                                    fixedPresets={DefaultPresets}
-                                    customPresets={this.props.customPresets.text}
-                                    onSelectPreset={this.handleTextSettingsChange}
-                                    onDeletePreset={this.handleTextSettingsDelete}
-                                    onNewPreset={this.handleTextSettingsSave} />
-                            </>}
-                            <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize how the text is displayed</Text></p>
-                            <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
-                        </section>
-                    </div>}
+                        {this.state.activeTab === 1 && <div className="TabContent Centered">
+                            <section>
+                                {DefaultPresets.length > 0 && <>
+                                    <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
+                                    <PresetsList
+                                        fixedPresets={DefaultPresets}
+                                        customPresets={this.props.customPresets.text}
+                                        onSelectPreset={this.handleTextSettingsChange}
+                                        onDeletePreset={this.handleTextSettingsDelete}
+                                        onNewPreset={this.handleTextSettingsSave} />
+                                </>}
+                                <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize how the text is displayed</Text></p>
+                                <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
+                            </section>
+                        </div>}
 
-                </Form>
+                    </Form>
 
-                <div className="Centered">
-                    <div className="Actions">
-                        <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
-                        <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
+                    <div className="Centered">
+                        <div className="Actions">
+                            <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
+                            <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
+                        </div>
                     </div>
-                </div>
-            </div>
+                </Screen>}
+            </>
         );
     }
 

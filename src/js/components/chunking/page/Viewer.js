@@ -15,7 +15,7 @@ const defaultViewerSettings = {
     disableVisualRegression: false,
     disableVisualProgression: false,
     disableVisualProblemStyle: "fade", // Can be `transparent`, `fade`, or `blur`
-    wpm: 4000,
+    wpm: 250,
     pageTurningDuration: 300,
 };
 

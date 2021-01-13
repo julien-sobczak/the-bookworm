@@ -4,9 +4,8 @@ import '@testing-library/jest-dom/extend-expect';
 import Styled from './Styled';
 
 it('supports additional CSS class names', () => {
-    const { container } = render(<Styled className="MyDrill Centered" />);
+    const { container } = render(<Styled className="MyDrill" />);
     expect(container.firstChild).toHaveClass('MyDrill');
-    expect(container.firstChild).toHaveClass('Centered');
 });
 
 it('supports setting the container ID', () => {

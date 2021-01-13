@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import Viewer from './Viewer';
 import Engine from './Engine';
+import { ScreenDrill } from '../../core/UI';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as interaction from '../../../functions/interaction';
@@ -127,7 +128,7 @@ class Drill extends React.Component {
         return (
             <>
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
-                <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
+                <ScreenDrill className={"Drill Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
                     <section className="DrillControls">
                         <ul>
@@ -153,7 +154,7 @@ class Drill extends React.Component {
                             theme={this.props.theme} />
 
                     </section>
-                </div>
+                </ScreenDrill>
             </>
         );
     }

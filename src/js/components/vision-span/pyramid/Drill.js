@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import Viewer from './Viewer';
 import Engine from './Engine';
+import { ScreenDrill } from '../../core/UI';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as interaction from '../../../functions/interaction';
@@ -132,36 +133,34 @@ class Drill extends React.Component {
         return (
             <>
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
-                <div>
-                    <div className={"Drill FullScreen Centered Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
+                <ScreenDrill className={"Drill Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
-                        <section className="DrillControls">
-                            <ul>
-                                <li><Tooltip title="Reduce span"><Button onClick={this.reduceSpan}><ReduceIcon /></Button></Tooltip></li>
-                                <li><Tooltip title="Increase span"><Button onClick={this.increaseSpan}><IncreaseIcon /></Button></Tooltip></li>
-                                <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
-                                <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
-                            </ul>
-                        </section>
+                    <section className="DrillControls">
+                        <ul>
+                            <li><Tooltip title="Reduce span"><Button onClick={this.reduceSpan}><ReduceIcon /></Button></Tooltip></li>
+                            <li><Tooltip title="Increase span"><Button onClick={this.increaseSpan}><IncreaseIcon /></Button></Tooltip></li>
+                            <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
+                            <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
+                        </ul>
+                    </section>
 
-                        <section className="DrillArea"
-                            ref={this.drillArea}
-                            style={{fontSize: this.state.fontSize}}
-                        >
-                            {/* Important to fix the font size to determine the number of available lines */}
+                    <section className="DrillArea"
+                        ref={this.drillArea}
+                        style={{fontSize: this.state.fontSize}}
+                    >
+                        {/* Important to fix the font size to determine the number of available lines */}
 
-                            {this.state.drill && <Viewer
-                                drill={this.state.drill}
-                                span={this.state.span}
-                                fontFamily={this.props.fontFamily}
-                                fontSize={this.props.fontSize}
-                                fontStyle={this.props.fontStyle}
-                                theme={this.props.theme} />}
+                        {this.state.drill && <Viewer
+                            drill={this.state.drill}
+                            span={this.state.span}
+                            fontFamily={this.props.fontFamily}
+                            fontSize={this.props.fontSize}
+                            fontStyle={this.props.fontStyle}
+                            theme={this.props.theme} />}
 
-                        </section>
+                    </section>
 
-                    </div>
-                </div>
+                </ScreenDrill>
             </>
         );
     }

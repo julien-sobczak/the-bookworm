@@ -6,6 +6,7 @@ import NextIcon from '@material-ui/icons/ChevronRight';
 
 import Pager from '../chunking/Pager';
 import Paper from "../core/Paper";
+import Screen from "../core/Screen";
 import PageContent from "../core/PageContent";
 
 import * as string from "../../functions/string";
@@ -59,7 +60,7 @@ class BookViewer extends React.Component {
 
     render() {
         return (
-            <div className="FullScreen BookViewer">
+            <Screen centered={false}>
 
                 <Pager content={this.props.content} onDone={this.onPagerDone}
                     {...this.props} />
@@ -78,7 +79,7 @@ class BookViewer extends React.Component {
                         </Paper>
                     }
                 </section>
-            </div>
+            </Screen>
         );
     }
 

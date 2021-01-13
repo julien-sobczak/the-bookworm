@@ -5,6 +5,7 @@ import Tokenizer from './Tokenizer';
 import { SPANS } from '../../functions/engine';
 import Measurer from '../core/Measurer';
 import Styled from '../core/Styled';
+import Screen from '../core/Screen';
 
 /**
  * Concatenate a list of tokens to form a chunk.
@@ -285,9 +286,9 @@ class Chunker extends React.Component {
 
     render() {
         return (
-            <div className="FullScreen Chunker">
+            <Screen hidden centered={false}>
                 <Measurer fontFamily={this.props.fontFamily} fontSize={this.props.fontSize} fontStyle={this.props.fontStyle} onChange={this.onMeasurementsChange} />
-            </div>
+            </Screen>
         );
     }
 

@@ -323,49 +323,10 @@
  * Stats
  */
 
-.Stats {
-  background-color: var(--theme-color);
-}
 
-table.Stats {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 4rem;
-  border-radius: 1rem;
-  background-color: black;
-  color: var(--theme-color);
-}
-table.Stats th, table.Stats td {
-  padding: 1rem;
-  font-size: 150%;
-}
-table.Stats th {
-  text-align: center;
-}
-table.Stats td {
-  text-align: left;
-}
-table.Stats tr {
-  border-bottom: 2px solid var(--theme-color);
-}
 
 .Actions > * {
   /* Add space between buttons */
   margin: 0 0.5cm;
 }
 
-/* TODO Not sure about these declarations... */
-.Setting {
-  font-weight: 900;
-}
-.Setting.LabelsAtRight tr > td {
-  text-align: right;
-  padding: 0 1em;
-}
-.Setting.LabelsAtRight tr > td.Label {
-  text-align: left;
-}
-.Setting td {
-  height: 3em;
-  vertical-align: middle;
-}
