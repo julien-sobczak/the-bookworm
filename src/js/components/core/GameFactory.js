@@ -8,7 +8,7 @@ import { ContentContext } from '../../../content-context';
 
 import * as library from '../../functions/library';
 
-import Countdown from './Countdown';
+import Countdown from '../toolbox/Countdown';
 import WizardFactory from './WizardFactory';
 
 /**

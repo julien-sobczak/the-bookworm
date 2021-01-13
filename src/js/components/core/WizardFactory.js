@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
-import LargeButton from './LargeButton';
-import Screen from './Screen';
-import Text from './Text';
+import LargeButton from '../toolbox/LargeButton';
+import Screen from '../toolbox/Screen';
+import Text from '../toolbox/Text';
 import FormText from '../settings/FormText';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +28,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { DefaultPresets } from '../../components/settings/FormText';
+import { DefaultPresets } from '../settings/FormText';
 
 function PresetsList({ fixedPresets, customPresets, onSelectPreset, onDeletePreset, onNewPreset }) {
 

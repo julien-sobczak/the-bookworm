@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Paper from '../toolbox/Paper';
-import PageContent from '../toolbox/PageContent';
-import Styled from '../toolbox/Styled';
+import Paper from '../core/Paper';
+import PageContent from '../core/PageContent';
+import Styled from '../core/Styled';
 
 const defaultViewerSettings = {
     pageTurningDuration: 300,

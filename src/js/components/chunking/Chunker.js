@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
 import { SPANS } from '../../functions/engine';
-import Measurer from '../toolbox/Measurer';
-import Styled from '../toolbox/Styled';
+import Measurer from '../core/Measurer';
+import Styled from '../core/Styled';
 
 /**
  * Concatenate a list of tokens to form a chunk.

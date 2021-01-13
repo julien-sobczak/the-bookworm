@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
-import Paper from '../toolbox/Paper';
+import Paper from '../core/Paper';
 import * as string from '../../functions/string';
 import { SPANS } from '../../functions/engine';
 import { DEMO_CONTENT } from '../../../constants';

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 
-import Styled from '../toolbox/Styled';
+import Styled from './Styled';
 import * as engine from '../../functions/engine';
 
 class Measurer extends React.Component {

@@ -11,8 +11,8 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
 
+import Measurer from '../../core/Measurer';
 import ProgressLine from '../../toolbox/ProgressLine';
-import Measurer from '../../toolbox/Measurer';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as string from '../../../functions/string';

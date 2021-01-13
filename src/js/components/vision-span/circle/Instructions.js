@@ -6,7 +6,7 @@ import KeyboardIcon from '@material-ui/icons/Keyboard';
 
 import Engine from './Engine';
 import Viewer from './Viewer';
-import Window from '../../toolbox/Window';
+import Window from '../../core/Window';
 
 const drill = new Engine().getDrill();
 
