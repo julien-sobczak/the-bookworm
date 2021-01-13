@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { updateGlobalPreferences, updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
 import Screen from '../core/Screen';
-import Form from '../core/Form';
+import { Form } from '../core/UI';
 
 import FormCalibration from './FormCalibration';
 import FormLanguage from './FormLanguage';

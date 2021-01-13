@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Pager, { PagerTest } from '../Pager';
 
+import { ScreenDrill } from '../../core/UI';
 import ProgressLine from '../../toolbox/ProgressLine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
@@ -250,12 +251,13 @@ class Drill extends React.Component {
         return (
             <>
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
-                <div className={"FullScreen ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
-                    {this.props.pagerMode === 'dom' && <Pager content={this.props.content} onDone={this.onPagerDone}
-                        {...this.props} />}
-                    {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone}
-                        {...this.props} />}
+                {this.props.pagerMode === 'dom' && <Pager content={this.props.content} onDone={this.onPagerDone}
+                    {...this.props} />}
+                {this.props.pagerMode === 'fixed' && <PagerTest content={this.props.content} onDone={this.onPagerDone}
+                    {...this.props} />}
+
+                <ScreenDrill className={"ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
                     <section className="DrillControls">
                         <ul>
@@ -281,7 +283,7 @@ class Drill extends React.Component {
                             </>
                         }
                     </section>
-                </div>
+                </ScreenDrill>
             </>
         );
     }

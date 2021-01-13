@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
+import { ScreenStats } from "../core/UI.js";
 import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
@@ -12,8 +13,8 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 function Stats({ stats, onRestart }) {
 
     return (
-        <div className="FullScreen Stats Centered">
-            <table className="Stats">
+        <ScreenStats>
+            <table>
                 <tbody>
                     <tr>
                         <th><TimerIcon/></th>
@@ -33,7 +34,7 @@ function Stats({ stats, onRestart }) {
                 <LargeButton text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
                 <Link to="/vision-span/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
             </div>
-        </div>
+        </ScreenStats>
     );
 }
 

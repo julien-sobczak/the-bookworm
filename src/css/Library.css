@@ -1,8 +1,4 @@
 
-.Library {
-    background: var(--theme-color);
-}
-
 .Library h3, .Library h4 {
     text-align: center;
 }
@@ -43,9 +39,6 @@
  * PreviewContent
  */
 
-.PreviewContent {
-    overflow: scroll;
-}
 
 /* Toc */
 

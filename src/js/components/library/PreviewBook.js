@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { ScreenPreviewContent } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 import Loader from "../toolbox/Loader.js";
 
@@ -50,7 +51,7 @@ class PreviewBook extends React.Component {
 
     render() {
         return (
-            <div className="PreviewContent PreviewBook FullScreen Centered">
+            <ScreenPreviewContent>
 
                 {!this.state.text && !this.state.metadata &&
                     <Loader />
@@ -73,7 +74,7 @@ class PreviewBook extends React.Component {
 
                     </div>
                 }
-            </div>
+            </ScreenPreviewContent>
         );
     }
 

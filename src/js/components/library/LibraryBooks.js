@@ -8,6 +8,7 @@ import LargeButton from "../toolbox/LargeButton";
 import Loader from "../toolbox/Loader";
 
 import * as library from "../../functions/library";
+import { ScreenLibrary, Scrollable } from '../core/UI';
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
@@ -154,11 +155,11 @@ class LibraryBooks extends React.Component {
 
     render() {
         return (
-            <div className="LibraryBooks Centered">
+            <>
                 {this.state.loading && <Loader />}
 
                 {!this.state.loading && this.state.catalog.length > 0 &&
-                    <>
+                    <ScreenLibrary className="LibraryBooks" scrollbar>
                         <h3>Choose a book</h3>
 
                         <div className="LibraryFilters">
@@ -218,7 +219,7 @@ class LibraryBooks extends React.Component {
 
                         </div>
 
-                        <div className="Bookshelf Scrollbar">
+                        <Scrollable className="Bookshelf">
                             <table>
                                 <tbody>
                                     {this.state.books.map((book, index) => {
@@ -248,14 +249,12 @@ class LibraryBooks extends React.Component {
                                     })}
                                 </tbody>
                             </table>
-                        </div>
+                        </Scrollable>
                         <div className="Buttons">
                             <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
                         </div>
-                    </>
-                }
-
-            </div>
+                    </ScreenLibrary>}
+            </>
         );
     }
 

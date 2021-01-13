@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
+import { ScreenStats } from "../core/UI.js";
 import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
@@ -15,8 +16,8 @@ import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 
 function Stats({ stats, finished, onRestart, onContinue }) {
     return (
-        <div className="FullScreen Stats Centered">
-            <table className="Stats">
+        <ScreenStats>
+            <table>
                 <tbody>
                     {Object.prototype.hasOwnProperty.call(stats, 'winner') && <tr>
                         {stats.winner === true && <th><SentimentVerySatisfiedIcon/></th>}
@@ -49,7 +50,7 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                 {!finished && <LargeButton text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
                 <Link to="/practice/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
             </div>
-        </div>
+        </ScreenStats>
     );
 }
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Tokenizer from './Tokenizer';
 
 import Paper from '../core/Paper';
+import Screen from '../core/Screen';
 import * as string from '../../functions/string';
 import { SPANS } from '../../functions/engine';
 import { DEMO_CONTENT } from '../../../constants';
@@ -132,6 +133,7 @@ class LineWidthChunker {
 
         const lastToken = tokens[tokens.length - 1];
         const lineWidth = lastToken.offsetLeft + lastToken.offsetWidth;
+        console.log(`Found a line width of ${lineWidth} px`);
 
         const k = Math.ceil(lineWidth / this.chunkWidthMax);
         const a = tokens.map((e) => e.offsetWidth);
@@ -479,7 +481,7 @@ class Pager extends React.Component {
     render() {
         const tokenizer = new Tokenizer();
         return (
-            <div className="FullScreen Pager">
+            <Screen hidden centered={false}>
                 <div className={"Ruler " + this.cssChunkSize()} ref={this.rulerElement}></div>
                 <Paper ref={this.paperElement}
                     paperSize={this.props.paperSize}
@@ -496,7 +498,7 @@ class Pager extends React.Component {
                         })
                     ))}
                 </Paper>
-            </div>
+            </Screen>
         );
     }
 
@@ -555,11 +557,13 @@ class Pager extends React.Component {
         const pages = pager.paginate(blocksElements);
 
         // Add chunks
+        let chunksCount = 0;
         if (this.props.chunkMode !== 'none') {
             const chunker = this.getChunker();
-            pages.forEach(function(page) {
-                page.blocks.forEach(function(block) {
+            pages.forEach(page => {
+                page.blocks.forEach(block => {
                     block.chunks = block.lines.flatMap((tokens) => chunker.chunkize(tokens));
+                    chunksCount += block.chunks;
                     delete block.lines;
                 });
             });
@@ -567,6 +571,7 @@ class Pager extends React.Component {
 
         this.changed = false;
 
+        console.log(`Found ${chunksCount} chunks over ${pages.length} pages`);
         if (this.props.onDone) {
             this.props.onDone(pages);
         }

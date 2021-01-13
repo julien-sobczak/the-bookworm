@@ -1,54 +1,8 @@
-.FullScreen {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 500;
-    background-color: white;
-    padding: 1rem;
-}
-
 .Centered {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.OutOfScreen {
-    position: fixed;
-    left: -100%;
-    top: -100%;
-}
-
-.ButtonClose {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 900;
-    color: black !important;
-}
-
-
-/* https://scotch.io/tutorials/customize-the-browsers-scrollbar-with-css */
-
-.Scrollbar {
-    padding: 1rem;
-    width: 100vw;
-    min-height: 100vh;
-    overflow-y: scroll;
-}
-
-.Scrollbar::-webkit-scrollbar {
-    width: 0;
-    background-color: var(--theme-color);
-    width: 0.5em;
-}
-
-.Scrollbar::-webkit-scrollbar-thumb {
-    background-color: black;
-    height: 1cm;
 }
 
 
@@ -72,21 +26,3 @@ table.Styled tbody tr {
     border-bottom: 0.1cm solid rgba(0,0,0,0.5);
 }
 
-
-.Clickable {
-    cursor: pointer;
-}
-.Clickable * {
-    pointer-events: none;
-}
-
-
-
-.Flex {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.Flex > * {
-    flex-grow: 1;
-}

@@ -88,3 +88,10 @@ code {
 .Colored {
   background-color: var(--theme-color);
 }
+
+.Clickable {
+  cursor: pointer;
+}
+.Clickable * {
+  pointer-events: none;
+}

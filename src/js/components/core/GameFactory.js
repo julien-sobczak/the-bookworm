@@ -180,9 +180,7 @@ class GameFactory extends React.Component {
             undefined;
 
         return (
-
-            <div className="FullScreen VisionSpanGame">
-
+            <>
                 {this.state.state === 'init' &&
                     <WizardFactory
                         category={this.props.category}
@@ -219,8 +217,7 @@ class GameFactory extends React.Component {
                         onRestart: this.handleRestart,
                         onContinue: this.handleContinue,
                     })}
-
-            </div>
+            </>
         );
     }
 

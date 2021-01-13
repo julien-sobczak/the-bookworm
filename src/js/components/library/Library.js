@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
-import CloseIcon from '@material-ui/icons/Close';
-
 import LibraryBooks from './LibraryBooks';
 import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
 
+import { ScreenLibrary } from '../core/UI';
 import Progress from '../toolbox/Progress';
 import LargeButton from "../toolbox/LargeButton";
 import ButtonUpload from "./LargeButtonUpload";
@@ -74,60 +73,55 @@ class Library extends React.Component {
 
     render() {
         return (
-            <div className="Library FullScreen Centered">
+            <>
+                {!this.state.category && <ScreenLibrary className="LibraryWelcome" onClose={this.props.onClose}>
+                    <h3>What you want to read?</h3>
 
-                <button className="ButtonClose" onClick={() => this.props.onClose()}><CloseIcon /></button>
-
-                {!this.state.category &&
-                    <div className="LibraryWelcome Centered">
-                        <h3>What you want to read?</h3>
-
-                        {this.props.readings &&
-                            <>
-                                <div className="Readings">
-                                    <table className="Styled">
-                                        <tbody>
-                                            {this.props.readings.map((reading, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                        <td><em>{reading.description.title}</em></td>
-                                                        <td><small>{reading.description.author}</small></td>
-                                                        <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
-                                                        <td><Progress value={reading.position.progress} showText /></td>
-                                                        <td><Button variant="contained" disableElevation onClick={this.handleReadingSelected} data-index={index} className="ButtonDark Clickable">Read</Button></td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </>
-                        }
-
-                        <section className="LibraryCategories">
-                            <div className="LibraryCategory">
-                                <LargeButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
+                    {this.props.readings &&
+                        <>
+                            <div className="Readings">
+                                <table className="Styled">
+                                    <tbody>
+                                        {this.props.readings.map((reading, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td><em>{reading.description.title}</em></td>
+                                                    <td><small>{reading.description.author}</small></td>
+                                                    <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
+                                                    <td><Progress value={reading.position.progress} showText /></td>
+                                                    <td><Button variant="contained" disableElevation onClick={this.handleReadingSelected} data-index={index} className="ButtonDark Clickable">Read</Button></td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
                             </div>
+                        </>
+                    }
 
-                            {/*
-                              * Disabled because it requires to find a real solution to execute CORS requests
-                              * Ex: https://github.com/Rob--W/cors-anywhere
-                            <div className="LibraryCategory">
-                                <Button text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
-                            </div>
-                            */}
+                    <section className="LibraryCategories">
+                        <div className="LibraryCategory">
+                            <LargeButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
+                        </div>
 
-                            <div className="LibraryCategory">
-                                <LargeButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
-                            </div>
+                        {/*
+                            * Disabled because it requires to find a real solution to execute CORS requests
+                            * Ex: https://github.com/Rob--W/cors-anywhere
+                        <div className="LibraryCategory">
+                            <Button text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
+                        </div>
+                        */}
 
-                            <div className="LibraryCategory">
-                                <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelection} />
-                            </div>
+                        <div className="LibraryCategory">
+                            <LargeButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
+                        </div>
 
-                        </section>
-                    </div>
-                }
+                        <div className="LibraryCategory">
+                            <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelection} />
+                        </div>
+
+                    </section>
+                </ScreenLibrary>}
 
                 {this.state.category === "book" &&
                     <LibraryBooks onSelect={this.handleSelection} onCancel={this.handleCancel} />
@@ -140,8 +134,7 @@ class Library extends React.Component {
                 {this.state.category === "clipboard" &&
                     <LibraryClipboard onSelect={this.handleSelection} onCancel={this.handleCancel} />
                 }
-
-            </div>
+            </>
         );
     }
 }

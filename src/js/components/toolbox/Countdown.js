@@ -17,6 +17,7 @@ const Container = styled.div`
     align-items: center;
     overflow: hidden;
     background: black;
+    z-index: 999;
 `;
 
 const CountdownElement = styled.div`

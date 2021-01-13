@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { Link } from "react-router-dom";
 import classnames from 'classnames';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-function Screen({ className, onClose, centered, color, colored, scrollable, children }) {
+function Screen({ className, closable, hidden, closeUrl, onClick, onClose, centered, color, colored, scrollable, children }) {
 
     // Determine the background color
     let backgroundColor = 'white';
@@ -26,6 +27,11 @@ function Screen({ className, onClose, centered, color, colored, scrollable, chil
         z-index: 500;
         background-color: ${backgroundColor};
         padding: 1rem;
+    `;
+
+    const hide = css`
+        opacity: 0;
+        z-index: 0;
     `;
 
     const center = css`
@@ -53,10 +59,16 @@ function Screen({ className, onClose, centered, color, colored, scrollable, chil
         }
     `;
 
-    const Container = styled.div`
+    let Container = styled.div`
         ${fullScreen}
         ${center}
     `;
+
+    if (hidden) {
+        Container = styled(Container)`
+            ${hide}
+        `;
+    }
 
     const CloseButton = styled.button`
         position: fixed;
@@ -71,7 +83,10 @@ function Screen({ className, onClose, centered, color, colored, scrollable, chil
 
     let content = (
         <>
-            <CloseButton onClick={onClose}><CloseIcon /></CloseButton>
+            {closable && <CloseButton onClick={onClose}>
+                {closeUrl && <Link to={closeUrl}><CloseIcon /></Link>}
+                {!closeUrl && <CloseIcon />}
+            </CloseButton>}
             {children}
         </>
     );
@@ -82,9 +97,13 @@ function Screen({ className, onClose, centered, color, colored, scrollable, chil
         content = <Scrollable>{content}</Scrollable>;
     }
 
+    const containerOptionalProps = {};
+    if (onClick) {
+        containerOptionalProps.onClick = onClick;
+    }
 
     return (
-        <Container className={classnames(className)}>
+        <Container className={classnames(className)} {...containerOptionalProps}>
             {content}
         </Container>
     );
@@ -92,20 +111,29 @@ function Screen({ className, onClose, centered, color, colored, scrollable, chil
 
 Screen.propTypes = {
     className: PropTypes.string,
-    onClose: PropTypes.func,
+    closable: PropTypes.bool,
+    // Internal Link URL
+    closeUrl: PropTypes.string,
     scrollable: PropTypes.bool,
+    hidden: PropTypes.bool,
     color: PropTypes.string,
     colored: PropTypes.bool,
     centered: PropTypes.bool,
     children: PropTypes.node,
+    onClick: PropTypes.func,
+    onClose: PropTypes.func,
 };
 
 Screen.defaultProps = {
-    onClose: undefined,
+    closeUrl: undefined,
+    closable: true,
     color: 'inherit',
+    hidden: false,
     colored: false,
     centered: true,
     scrollable: true,
+    onClick: undefined,
+    onClose: () => {},
 };
 
 export default Screen;
