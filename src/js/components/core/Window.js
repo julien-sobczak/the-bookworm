@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 
 const windowWidth = "30rem";
 const windowHeight = "20rem";
-
 function Window({ content, showPanes, callouts }) {
 
     const Centered = css`
