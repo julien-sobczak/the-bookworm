@@ -14,7 +14,9 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { updateGlobalPreferences, updateLanguagePreferences, updateTextPreferences, updateChunkPreferences } from '../../store/actions';
 
-import Screen from '../toolbox/Screen';
+import Screen from '../core/Screen';
+import Form from '../core/Form';
+
 import FormCalibration from './FormCalibration';
 import FormLanguage from './FormLanguage';
 import FormText from './FormText';
@@ -91,7 +93,7 @@ function Preferences(props) {
     const classes = useStyles();
 
     return (
-        <div className="Preferences InnerContent">
+        <Form>
 
             {setting === 'calibration' && <Preference settings={props.preferences.global} form={<FormCalibration />} onClose={saveCalibrationPreferences} />}
             {setting === 'language'    && <Preference settings={props.preferences.language} form={<FormLanguage />} onClose={saveLanguagePreferences} />}
@@ -148,7 +150,7 @@ function Preferences(props) {
 
             </div>
 
-        </div>
+        </Form>
     );
 
 }

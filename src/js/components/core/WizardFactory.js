@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 
 import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
-import LargeButton from '../toolbox/LargeButton';
-import Screen from '../toolbox/Screen';
+import Screen from './Screen';
+import Form from './Form';
 import Text from '../toolbox/Text';
+import LargeButton from '../toolbox/LargeButton';
 import FormText from '../settings/FormText';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -286,7 +287,7 @@ class WizardFactory extends React.Component {
                     </div>
                 </Screen>}
 
-                <div className="Form InnerContent">
+                <Form>
 
                     <Tabs
                         value={this.state.activeTab}
@@ -333,7 +334,7 @@ class WizardFactory extends React.Component {
                         </section>
                     </div>}
 
-                </div>
+                </Form>
 
                 <div className="Centered">
                     <div className="Actions">

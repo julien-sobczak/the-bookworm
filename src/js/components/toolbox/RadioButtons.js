@@ -1,9 +1,62 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import * as string from '../../functions/string';
 
-const RadioButtons = (props) => {
+function Option({ text, value, selected, alt, className, onChange }) {
+    const Button = styled.span`
+        display: inline-block;
+        height: 40px;
+        line-height: 35px;
+        vertical-align: baseline;
+        border-radius: 2px;
+        text-align: center;
+        cursor: pointer;
+        margin: 0 0.1em;
+
+        &.selected {
+            border: 1px solid black;
+        }
+        & .Clickable {
+            display: block;
+            padding: 0 0.7em;
+        }
+        & > span {
+            /* When using an inner span for styling, the span should not capture click events
+               and let propage the event to the parent .GraphicOption */
+            pointer-events: none;
+        }
+    `;
+    return (
+        <Button className={classnames({ 'selected': selected })}>
+            <label className={classnames('Clickable', className)}>
+                <input
+                    type="radio"
+                    value={value}
+                    style={{ display: "none" }}
+                    alt={alt}
+                    checked={selected}
+                    onChange={onChange} />
+                {text}
+            </label>
+        </Button>
+    );
+}
+Option.propTypes = {
+    text: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
+    selected: PropTypes.bool,
+    alt: PropTypes.string,
+    className: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+};
+Option.defaultProps = {
+    selected: false,
+};
+
+function RadioButtons(props) {
 
     const [value, setValue] = useState(props.value);
     const onChange = props.onChange;
@@ -38,21 +91,15 @@ const RadioButtons = (props) => {
     const radios = [];
     options.forEach((option, index) => {
         const optionLabel = string.capitalize(option.label || option.value);
-        const optionAltText = option.alt || option.label;
-        const optionClassName = option.className || "";
         radios.push(
-            <span key={index} className={"GraphicOption " + (value === option.value ? ' selected' : '')}>
-                <label className={`Clickable ${optionClassName}`}>
-                    <input
-                        type="radio"
-                        value={option.value}
-                        style={{ display: "none" }}
-                        alt={optionAltText}
-                        checked={value === option.value}
-                        onChange={handleChange} />
-                    {optionLabel}
-                </label>
-            </span>
+            <Option
+                key={index}
+                text={optionLabel}
+                value={option.value}
+                selected={value === option.value}
+                className={option.className}
+                alt={option.alt || option.label}
+                onChange={handleChange} />
         );
     });
 
@@ -61,7 +108,7 @@ const RadioButtons = (props) => {
             {radios}
         </>
     );
-};
+}
 
 RadioButtons.propTypes = {
     id: PropTypes.string,

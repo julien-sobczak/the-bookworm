@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Screen from '../toolbox/Screen';
+import Screen from '../core/Screen';
 import LargeButton from '../toolbox/LargeButton';
 import Step0 from './Step0';
 import Step1 from './Step1';
