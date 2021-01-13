@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Styled from '../toolbox/Styled';
+import Styled from './Styled';
 
 import * as string from '../../functions/string';
 

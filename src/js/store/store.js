@@ -11,7 +11,7 @@ import { defaultDrillSettings as defaultDrillPageSettings } from "../components/
 import { defaultDrillSettings as defaultDrillFreeSettings } from "../components/practice/free/Game";
 import { defaultDrillSettings as defaultDrillPacerSettings } from "../components/practice/pacer/Game";
 import { defaultDrillSettings as defaultDrillStopWatchSettings } from "../components/practice/stopwatch/Game";
-import { defaultTextSettings } from "../components/toolbox/Styled";
+import { defaultTextSettings } from "../components/core/Styled";
 
 const defaultState = {
     startDate: new Date().toDateString(),

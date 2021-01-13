@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Chunker from '../Chunker';
-import Styled from '../../toolbox/Styled';
+import Styled from '../../core/Styled';
 import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {

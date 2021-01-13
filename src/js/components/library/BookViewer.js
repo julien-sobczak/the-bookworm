@@ -5,8 +5,8 @@ import PreviousIcon from '@material-ui/icons/ChevronLeft';
 import NextIcon from '@material-ui/icons/ChevronRight';
 
 import Pager from '../chunking/Pager';
-import Paper from "../toolbox/Paper";
-import PageContent from "../toolbox/PageContent";
+import Paper from "../core/Paper";
+import PageContent from "../core/PageContent";
 
 import * as string from "../../functions/string";
 import { SPANS } from '../../functions/engine';

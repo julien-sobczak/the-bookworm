@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GameFactory from '../../toolbox/GameFactory';
+import GameFactory from '../../core/GameFactory';
 import History from './History';
 import { defaultViewerSettings } from './Viewer';
 import Instructions from './Instructions';

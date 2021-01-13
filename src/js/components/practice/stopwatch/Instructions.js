@@ -3,7 +3,7 @@ import React from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 
 import Viewer from '../Viewer';
-import Window from '../../toolbox/Window';
+import Window from '../../core/Window';
 
 const page = {
     "number": 1,
