@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import { Drawing, DrillOutline, LetterOutline, GridOutline, CellOutline } from '../core/CatalogUI';
 import LargeButton from "../toolbox/LargeButton.js";
 
 function Entry({ name, slug, children }) {
@@ -27,21 +28,21 @@ Entry.propTypes = {
 
 function DrawingHorizontal() {
     return (
-        <div className="Drawing Centered">
-            <div className="DrillOutline">
-                <span className="ElementOutline LetterOutline" style={{height: "2em", width: "2em", marginRight: "3em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "3em"}}></span>
+        <Drawing>
+            <DrillOutline>
+                <LetterOutline style={{height: "2em", width: "2em", marginRight: "3em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "3em"}} />
                 <br/>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginRight: "3em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "3em"}}></span>
+                <LetterOutline style={{width: "2em", marginRight: "3em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "3em"}} />
                 <br/>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginRight: "3em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "3em"}}></span>
-            </div>
-        </div>
+                <LetterOutline style={{width: "2em", marginRight: "3em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "3em"}} />
+            </DrillOutline>
+        </Drawing>
     );
 }
 
@@ -54,62 +55,62 @@ function DrawingCircle() {
     const y = parseFloat(span) * Math.sin(angleRadian);
 
     return (
-        <div className="Drawing Centered" style={{position: "relative", marginTop: "-1.5em", marginLeft: "-2em"}}>
+        <Drawing style={{position: "relative", marginTop: "-1.5em", marginLeft: "-2em"}}>
             {/* We should move the drawing up and left to recenter */}
-            <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{ position: "absolute", left: `50%`, top: `50%` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `50%`, top: `calc(50% - ${span})` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `calc(50% + ${x}in)`, top: `calc(50% - ${y}in)` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `calc(50% + ${span})`, top: `50%` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `calc(50% + ${x}in)`, top: `calc(50% + ${y}in)` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `50%`, top: `calc(50% + ${span})` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `calc(50% - ${x}in)`, top: `calc(50% + ${y}in)` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `calc(50% - ${span})`, top: `50%` }}></span>
-            <span className="ElementOutline LetterOutline" style={{ position: "absolute", left: `calc(50% - ${x}in)`, top: `calc(50% - ${y}in)` }}></span>
-        </div>
+            <LetterOutline selected style={{ position: "absolute", left: `50%`, top: `50%` }} />
+            <LetterOutline style={{ position: "absolute", left: `50%`, top: `calc(50% - ${span})` }} />
+            <LetterOutline style={{ position: "absolute", left: `calc(50% + ${x}in)`, top: `calc(50% - ${y}in)` }} />
+            <LetterOutline style={{ position: "absolute", left: `calc(50% + ${span})`, top: `50%` }} />
+            <LetterOutline style={{ position: "absolute", left: `calc(50% + ${x}in)`, top: `calc(50% + ${y}in)` }} />
+            <LetterOutline style={{ position: "absolute", left: `50%`, top: `calc(50% + ${span})` }} />
+            <LetterOutline style={{ position: "absolute", left: `calc(50% - ${x}in)`, top: `calc(50% + ${y}in)` }} />
+            <LetterOutline style={{ position: "absolute", left: `calc(50% - ${span})`, top: `50%` }} />
+            <LetterOutline style={{ position: "absolute", left: `calc(50% - ${x}in)`, top: `calc(50% - ${y}in)` }} />
+        </Drawing>
     );
 }
 
 function DrawingPyramid() {
     return (
-        <div className="Drawing Centered">
-            <div className="DrillOutline" style={{ textAlign: "center" }}>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginRight: "0.5em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "0.5em"}}></span>
+        <Drawing>
+            <DrillOutline style={{ textAlign: "center" }}>
+                <LetterOutline style={{width: "2em", marginRight: "0.5em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "0.5em"}} />
                 <br/>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginRight: "1.5em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "1.5em"}}></span>
+                <LetterOutline style={{width: "2em", marginRight: "1.5em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "1.5em"}} />
                 <br/>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginRight: "2.5em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "2.5em"}}></span>
+                <LetterOutline style={{width: "2em", marginRight: "2.5em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "2.5em"}} />
                 <br/>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginRight: "3.5em"}}></span>
-                <span className="ElementOutline LetterOutline ElementOutlineSelected" style={{width: "2em"}}></span>
-                <span className="ElementOutline LetterOutline" style={{width: "2em", marginLeft: "3.5em"}}></span>
-            </div>
-        </div>
+                <LetterOutline style={{width: "2em", marginRight: "3.5em"}} />
+                <LetterOutline selected style={{width: "2em"}} />
+                <LetterOutline style={{width: "2em", marginLeft: "3.5em"}} />
+            </DrillOutline>
+        </Drawing>
     );
 }
 
 function DrawingSchulte() {
     return (
-        <div className="Drawing Centered">
-            <div className="GridOutline">
-                <span className="CellOutline"></span>
-                <span className="CellOutline"></span>
-                <span className="CellOutline"></span>
+        <Drawing>
+            <GridOutline>
+                <CellOutline />
+                <CellOutline />
+                <CellOutline />
                 <br/>
-                <span className="CellOutline"></span>
-                <span className="CellOutline ElementOutlineSelected"></span>
-                <span className="CellOutline"></span>
+                <CellOutline />
+                <CellOutline selected />
+                <CellOutline />
                 <br/>
-                <span className="CellOutline"></span>
-                <span className="CellOutline"></span>
-                <span className="CellOutline"></span>
-            </div>
-        </div>
+                <CellOutline />
+                <CellOutline />
+                <CellOutline />
+            </GridOutline>
+        </Drawing>
     );
 }
 

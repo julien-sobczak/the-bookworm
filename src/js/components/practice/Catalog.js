@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import { Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
 import PanelReading from "../library/PanelReading.js";
 import LargeButton from "../toolbox/LargeButton.js";
 
@@ -30,46 +31,46 @@ Entry.propTypes = {
 
 function DrawingFree() {
     return (
-        <div className="Drawing">
-            <div className="PageOutline">
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-            </div>
-        </div>
+        <Drawing>
+            <PageOutline>
+                <WordOutline width="3em" /><WordOutline width="4em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="2em" /><WordOutline width="4em" /><br/>
+                <WordOutline width="2em" /><WordOutline width="5em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="2em" /><WordOutline width="4em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="4em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="3em" /><WordOutline width="2em" /><br/>
+            </PageOutline>
+        </Drawing>
     );
 }
 
 function DrawingPacer() {
     return (
-        <div className="Drawing">
-            <div className="PageOutline">
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "2em", backgroundColor: "black"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em", backgroundColor: "black"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-            </div>
-        </div>
+        <Drawing>
+            <PageOutline>
+                <WordOutline width="3em" /><WordOutline width="4em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="2em" /><WordOutline width="4em" /><br/>
+                <WordOutline width="2em" selected /><WordOutline width="5em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="2em" /><WordOutline width="4em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="4em" /><WordOutline width="2em" selected /><br/>
+                <WordOutline width="3em" /><WordOutline width="3em" /><WordOutline width="2em" /><br/>
+            </PageOutline>
+        </Drawing>
     );
 }
 
 function DrawingStopWatch() {
     return (
-        <div className="Drawing">
-            <div className="PageOutline">
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em"}}></span><br/>
-                <span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "5em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><br/>
-                <span className="WordOutline" style={{width: "3em"}}></span><span className="WordOutline" style={{width: "2em"}}></span><span className="WordOutline" style={{width: "4em", opacity: 0.6}}></span><br/>
-                <span className="WordOutline" style={{width: "3em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "4em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "2em", opacity: 0.6}}></span><br/>
-                <span className="WordOutline" style={{width: "3em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "3em", opacity: 0.6}}></span><span className="WordOutline" style={{width: "2em", opacity: 0.6}}></span><br/>
-            </div>
-        </div>
+        <Drawing>
+            <PageOutline>
+                <WordOutline width="3em" /><WordOutline width="4em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="2em" /><WordOutline width="4em" /><br/>
+                <WordOutline width="2em" /><WordOutline width="5em" /><WordOutline width="2em" /><br/>
+                <WordOutline width="3em" /><WordOutline width="2em" /><WordOutline width="4em" fade /><br/>
+                <WordOutline width="3em" fade /><WordOutline width="4em" fade /><WordOutline width="2em" fade /><br/>
+                <WordOutline width="3em" fade /><WordOutline width="3em" fade /><WordOutline width="2em" fade /><br/>
+            </PageOutline>
+        </Drawing>
     );
 }
 
