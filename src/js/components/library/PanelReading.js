@@ -7,6 +7,7 @@ import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 
 import Library from './Library';
 import Progress from '../toolbox/Progress';
+import { StyledTable } from '../core/UI';
 
 import * as string from '../../functions/string';
 
@@ -73,7 +74,7 @@ function PanelReading(props) {
                     </div>
                 </div>
 
-                {!collapsed && <table className="Styled">
+                {!collapsed && <StyledTable>
                     <tbody>
                         {props.readings.map((reading, index) => {
                             return (
@@ -87,7 +88,7 @@ function PanelReading(props) {
                             );
                         })}
                     </tbody>
-                </table>}
+                </StyledTable>}
 
             </div>
 

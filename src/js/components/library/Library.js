@@ -6,7 +6,7 @@ import LibraryBooks from './LibraryBooks';
 import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
 
-import { ScreenLibrary } from '../core/UI';
+import { ScreenLibrary, StyledTable } from '../core/UI';
 import Progress from '../toolbox/Progress';
 import LargeButton from "../toolbox/LargeButton";
 import ButtonUpload from "./LargeButtonUpload";
@@ -80,7 +80,7 @@ class Library extends React.Component {
                     {this.props.readings &&
                         <>
                             <div className="Readings">
-                                <table className="Styled">
+                                <StyledTable>
                                     <tbody>
                                         {this.props.readings.map((reading, index) => {
                                             return (
@@ -94,7 +94,7 @@ class Library extends React.Component {
                                             );
                                         })}
                                     </tbody>
-                                </table>
+                                </StyledTable>
                             </div>
                         </>
                     }

@@ -163,4 +163,24 @@ const Scrollable = styled.div`
     }
 `;
 
-export { Form, ScreenStats, ScreenDrill, ScreenLibrary, ScreenPreviewContent, Scrollable };
+const StyledTable = styled.table`
+    width: 80%;
+    margin: 2em auto;
+
+    td, th {
+        text-align: center;
+        padding: 0.5cm;
+        vertical-align: middle;
+    }
+    em {
+        font-weight: 700;
+    }
+    thead tr {
+        border-bottom: 0.1cm solid black;
+    }
+    tbody tr {
+        border-bottom: 0.1cm solid rgba(0,0,0,0.5);
+    }
+`;
+
+export { Form, ScreenStats, ScreenDrill, ScreenLibrary, ScreenPreviewContent, Scrollable, StyledTable };
