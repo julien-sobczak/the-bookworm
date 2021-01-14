@@ -2,6 +2,7 @@ import React from 'react';
 
 import Chart from 'chart.js';
 
+import { StyledTable } from '../core/UI';
 import { Info } from '../toolbox/Text';
 import * as string from '../../functions/string';
 import * as storage from '../../functions/storage';
@@ -111,7 +112,7 @@ class FormStorage extends React.Component {
                     <canvas ref={this.chartRef} />
                 </div>
                 {this.state.contents.length > 0 && <div>
-                    <table data-testid="table" className="Styled">
+                    <StyledTable data-testid="table">
                         <tbody>
                             {this.state.contents.map((content, index) => {
                                 return (
@@ -129,7 +130,7 @@ class FormStorage extends React.Component {
                                 );
                             })}
                         </tbody>
-                    </table>
+                    </StyledTable>
                 </div>}
             </>
         );

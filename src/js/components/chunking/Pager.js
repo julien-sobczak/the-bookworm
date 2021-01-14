@@ -133,7 +133,6 @@ class LineWidthChunker {
 
         const lastToken = tokens[tokens.length - 1];
         const lineWidth = lastToken.offsetLeft + lastToken.offsetWidth;
-        console.log(`Found a line width of ${lineWidth} px`);
 
         const k = Math.ceil(lineWidth / this.chunkWidthMax);
         const a = tokens.map((e) => e.offsetWidth);
@@ -563,7 +562,7 @@ class Pager extends React.Component {
             pages.forEach(page => {
                 page.blocks.forEach(block => {
                     block.chunks = block.lines.flatMap((tokens) => chunker.chunkize(tokens));
-                    chunksCount += block.chunks;
+                    chunksCount += block.chunks.length;
                     delete block.lines;
                 });
             });

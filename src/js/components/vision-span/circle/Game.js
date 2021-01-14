@@ -1,7 +1,6 @@
 import React from 'react';
 
 import GameFactory from '../../core/GameFactory';
-import History from './History';
 import { defaultViewerSettings } from './Viewer';
 import Instructions from './Instructions';
 import Form from './Form';
@@ -53,7 +52,6 @@ const Game = (props) => {
             drill={<Drill />}
             instructions={<Instructions />}
             form={<Form />}
-            history={<History />}
             stats={<Stats />}
             drillSettings={defaultDrillSettings}
             drillPresets={presets} />

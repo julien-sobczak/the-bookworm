@@ -368,7 +368,6 @@ WizardFactory.propTypes = {
 
     form: PropTypes.element.isRequired,
     instructions: PropTypes.node.isRequired,
-    history: PropTypes.element,
 
     drillSettings: PropTypes.object,
     textSettings: PropTypes.object,

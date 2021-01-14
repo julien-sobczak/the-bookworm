@@ -175,9 +175,7 @@ class GameFactory extends React.Component {
     }
 
     render() {
-        const historySessions = this.props.history ?
-            this.props.historySessions[this.props.name] :
-            undefined;
+        const historySessions = this.props.historySessions[this.props.name];
 
         return (
             <>
@@ -189,7 +187,6 @@ class GameFactory extends React.Component {
                         drill={this.props.drill}
                         form={this.props.form}
                         instructions={this.props.instructions}
-                        history={this.props.history}
                         historySessions={historySessions}
                         drillSettings={this.state.drillSettings}
                         drillPresets={this.props.drillPresets}
@@ -257,7 +254,6 @@ GameFactory.propTypes = {
     drill: PropTypes.element.isRequired,
     form: PropTypes.element.isRequired,
     instructions: PropTypes.element.isRequired,
-    history: PropTypes.element, // There are no history for chunking sessions
     stats: PropTypes.element,
 
     // Default settings
@@ -275,7 +271,6 @@ GameFactory.propTypes = {
 };
 
 GameFactory.defaultProps = {
-    history: null,
     configurable: true,
     countdownDuration: 0,
     drillPresets: [],
