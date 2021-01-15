@@ -32,6 +32,7 @@ class Library extends React.Component {
 
         this.handleCancel = this.handleCancel.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
+        this.handleReadingSelected = this.handleReadingSelected.bind(this);
     }
 
     handleBookSelection() {

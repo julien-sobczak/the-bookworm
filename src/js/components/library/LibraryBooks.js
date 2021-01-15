@@ -9,6 +9,7 @@ import Loader from "../toolbox/Loader";
 
 import * as library from "../../functions/library";
 import { ScreenLibrary, Scrollable } from '../core/UI';
+import LargeButtonGroup from '../toolbox/LargeButtonGroup';
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
@@ -250,9 +251,9 @@ class LibraryBooks extends React.Component {
                                 </tbody>
                             </table>
                         </Scrollable>
-                        <div className="Buttons">
+                        <LargeButtonGroup>
                             <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
-                        </div>
+                        </LargeButtonGroup>
                     </ScreenLibrary>}
             </>
         );

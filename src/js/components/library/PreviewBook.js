@@ -25,8 +25,8 @@ class PreviewBook extends React.Component {
     }
 
     handleChapterSelected(event) {
-        const chapterIndex = event.target.dataset.index;
-        const chapter = this.state.metadata.chapters[chapterIndex];
+        const chapterIndex = event.chapterIndex;
+        const chapter = event.chapter;
         const content = {
             type: 'book',
             title: this.props.entry.title,
@@ -38,7 +38,7 @@ class PreviewBook extends React.Component {
             ]
         };
         this.setState({
-            chapterIndex: parseInt(chapterIndex),
+            chapterIndex: chapterIndex,
             lineStartIndex: content.text[0].sourceLine,
             lineEndIndex: content.text[content.text.length - 1].sourceLine,
             content: content,
@@ -51,30 +51,22 @@ class PreviewBook extends React.Component {
 
     render() {
         return (
-            <ScreenPreviewContent>
-
-                {!this.state.text && !this.state.metadata &&
-                    <Loader />
-                }
-
-                {this.state.text && this.state.metadata &&
+            <>
+                {!this.state.text && !this.state.metadata && <Loader />}
+                {this.state.text && this.state.metadata && <ScreenPreviewContent>
                     <div>
-
-                        <div className="Toc">
-                            <ul>
-                                {this.state.metadata.chapters && this.state.metadata.chapters.map((chapter, index) => {
-                                    return <li key={index} data-index={index} className={index === this.state.chapterIndex ? 'Selected' : ''} onClick={this.handleChapterSelected}>{chapter.title}</li>;
-                                })}
-                            </ul>
-                        </div>
+                        <Toc
+                            chapters={this.state.metadata.chapters}
+                            selectedIndex={this.state.chapterIndex}
+                            onSelect={this.handleChapterSelected} />
 
                         {this.state.content &&
                             <ContentSelector content={this.state.content} onSelect={this.handleValidation} />
                         }
 
                     </div>
-                }
-            </ScreenPreviewContent>
+                </ScreenPreviewContent>}
+            </>
         );
     }
 
