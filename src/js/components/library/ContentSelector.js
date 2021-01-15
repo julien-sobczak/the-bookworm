@@ -1,9 +1,80 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { DEMO_CONTENT } from '../../../constants';
 import LargeButton from "../toolbox/LargeButton.js";
 import LargeButtonGroup from '../toolbox/LargeButtonGroup';
+
+const Preview = styled.div`
+    max-width: 50vw;
+    max-height: 85vh;
+    margin: 0 auto;
+    line-height: 1.5em;
+
+    h2 {
+        font-size: 1.5em;
+        margin: 2em;
+    }
+    p {
+        margin: 1em;
+    }
+
+    > * {
+        cursor: n-resize;
+        position: relative;
+    }
+
+    /* Add a green mark for selected blocks */
+    > *.Selected::after {
+        content: "\2714";
+        position: absolute;
+        top: 0.1em;
+        width: 25px;
+        text-align: center;
+        left: -2.5em;
+        color: white;
+    }
+    > *.Selected::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -2.5em;
+        border-left: 25px solid var(--theme-color);
+    }
+
+    /* Turn the mark red for the first selected block as clicking on it unselect the whole selection. */
+    > *.Selected.First {
+        cursor: no-drop;
+    }
+    > *.Selected.First:hover::before {
+        border-left: 25px solid darkred;
+    }
+    > *.Selected.First:hover::after {
+        content: '\00D7';
+        color: white;
+    }
+
+    /* Turn the mark orange on hover as clicking on a block unselect the following blocks. */
+    > *.Selected:hover::before {
+        border-left: 25px solid darkgoldenrod;
+    }
+    > *.Selected:hover::after {
+        content: '\2702';
+        color: white;
+    }
+
+    > *.Add {
+        cursor: copy;
+    }
+    > *.ExpandTop {
+        cursor: n-resize;
+    }
+    > *.ExpandBottom {
+        cursor: s-resize;
+    }
+`;
 
 class ContentSelector extends React.Component {
 
@@ -44,7 +115,7 @@ class ContentSelector extends React.Component {
     render() {
         return (
             <>
-                <div className="ContentSelector">
+                <Preview>
                     {this.props.content && this.props.content.text.map((block, index) => {
                         const attributes = {
                             key: index,
@@ -75,7 +146,7 @@ class ContentSelector extends React.Component {
 
                         return React.createElement(block.tag, attributes, null);
                     })}
-                </div>
+                </Preview>
                 <LargeButtonGroup>
                     <LargeButton text="Read" colorText="black" colorBackground="var(--theme-color)" onClick={this.handleValidation} />
                 </LargeButtonGroup>

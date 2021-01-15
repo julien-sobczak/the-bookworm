@@ -6,9 +6,9 @@ const LargeButtonGroup = styled.div`
     flex-wrap: wrap;
     justify-content: center;
 
-    & > * {
+    > * {
         /* Add space between buttons */
-        margin: 0 0.5cm;
+        margin: 1rem 0.5rem;
     }
 `;
 

@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button';
 import { updateReading } from '../../store/actions';
 
 import * as string from '../../functions/string';
+import LargeButtonGroup from '../toolbox/LargeButtonGroup';
 
 class Library extends React.Component {
 
@@ -80,7 +81,7 @@ class Library extends React.Component {
 
                     {this.props.readings &&
                         <>
-                            <div className="Readings">
+                            <div>
                                 <StyledTable>
                                     <tbody>
                                         {this.props.readings.map((reading, index) => {
@@ -100,28 +101,16 @@ class Library extends React.Component {
                         </>
                     }
 
-                    <section className="LibraryCategories">
-                        <div className="LibraryCategory">
-                            <LargeButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
-                        </div>
-
+                    <LargeButtonGroup>
+                        <LargeButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelection} />
+                        <LargeButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
+                        <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelection} />
                         {/*
                             * Disabled because it requires to find a real solution to execute CORS requests
                             * Ex: https://github.com/Rob--W/cors-anywhere
-                        <div className="LibraryCategory">
-                            <Button text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
-                        </div>
+                            <LargeButton text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
                         */}
-
-                        <div className="LibraryCategory">
-                            <LargeButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelection} />
-                        </div>
-
-                        <div className="LibraryCategory">
-                            <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelection} />
-                        </div>
-
-                    </section>
+                    </LargeButtonGroup>
                 </ScreenLibrary>}
 
                 {this.state.category === "book" &&
