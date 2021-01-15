@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { ScreenStats } from "../core/UI.js";
 import LargeButton from "../toolbox/LargeButton.js";
+import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 import * as string from '../../functions/string';
 
 import TimerIcon from '@material-ui/icons/Timer';
@@ -45,11 +46,11 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                     </tr>
                 </tbody>
             </table>
-            <div className="Actions">
+            <LargeButtonGroup>
                 <LargeButton text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
                 {!finished && <LargeButton text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
                 <Link to="/practice/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
-            </div>
+            </LargeButtonGroup>
         </ScreenStats>
     );
 }

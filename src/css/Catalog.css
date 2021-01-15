@@ -7,48 +7,6 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-
-    --catalog-preview-width: 275px;
-    --catalog-preview-height: 175px;
-}
-
-
-/* Catalog Entry */
-
-.Catalog .Entry {
-    width: var(--catalog-preview-width);
-    height: calc(var(--catalog-preview-height) + 100px);
-    position: relative;
-    margin: 2em;
-    pointer-events: none;
-}
-.Catalog .Entry:hover .Preview {
-    opacity: 1;
-}
-.Catalog .Entry:hover {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2em;
-}
-.Catalog .Preview {
-    width: var(--catalog-preview-width);
-    height: var(--catalog-preview-height);
-    transform-origin: 0% 0%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.5;
-}
-.Catalog .Actions {
-    position: absolute;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: auto;
 }
 
 /* PanelCorner Element */

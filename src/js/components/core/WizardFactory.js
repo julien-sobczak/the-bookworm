@@ -9,6 +9,7 @@ import Screen from './Screen';
 import { Form } from './UI';
 import Text from '../toolbox/Text';
 import LargeButton from '../toolbox/LargeButton';
+import LargeButtonGroup from '../toolbox/LargeButtonGroup';
 import FormText from '../settings/FormText';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -212,11 +213,9 @@ function ScreenInstructions(props) {
                     label="Always show instructions"
                 />
             </div>
-            <div className="Centered">
-                <div className="Actions">
-                    <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={handleDone} />
-                </div>
-            </div>
+            <LargeButtonGroup>
+                <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={handleDone} />
+            </LargeButtonGroup>
         </Screen>
     );
 }
@@ -374,12 +373,10 @@ class WizardFactory extends React.Component {
 
                     </Form>
 
-                    <div className="Centered">
-                        <div className="Actions">
-                            <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
-                            <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
-                        </div>
-                    </div>
+                    <LargeButtonGroup>
+                        <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
+                        <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
+                    </LargeButtonGroup>
                 </Screen>}
             </>
         );
