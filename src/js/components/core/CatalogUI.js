@@ -184,3 +184,11 @@ Entry.propTypes = {
 Entry.defaultProps = {
     disabled: false,
 };
+
+export const EntryGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+`;

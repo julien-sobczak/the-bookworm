@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import { Entry, Drawing, DrillOutline, LetterOutline, GridOutline, CellOutline } from '../core/CatalogUI';
+import { EntryGroup, Entry, Drawing, DrillOutline, LetterOutline, GridOutline, CellOutline } from '../core/CatalogUI';
 
 function DrawingHorizontal() {
     return (
@@ -94,7 +94,7 @@ function DrawingSchulte() {
 function Catalog({match}) {
 
     return (
-        <div className="Catalog">
+        <EntryGroup>
 
             <Entry name="Horizontal" slug="drill-horizontal" match={match}>
                 <DrawingHorizontal />
@@ -112,7 +112,7 @@ function Catalog({match}) {
                 <DrawingSchulte />
             </Entry>
 
-        </div>
+        </EntryGroup>
     );
 }
 
