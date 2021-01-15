@@ -20,13 +20,11 @@ class PreviewEpub extends React.Component {
     }
 
     handleChapterSelected(event) {
-        const chapterIndex = event.target.dataset.index;
-        const chapter = this.props.epub.chapters[chapterIndex];
         this.setState({
-            chapterIndex: parseInt(chapterIndex),
+            chapterIndex: event.chapterIndex,
             blockStartIndex: 0,
-            blockEndIndex: chapter.blocks.length  - 1,
-            content: chapter,
+            blockEndIndex: event.chapter.blocks.length  - 1,
+            content: event.chapter,
         });
     }
 
@@ -38,13 +36,10 @@ class PreviewEpub extends React.Component {
         return (
             <ScreenPreviewContent>
 
-                <div className="Toc">
-                    <ul>
-                        {this.props.epub.chapters.map((chapter, index) => {
-                            return <li key={index} data-index={index} className={index === this.state.chapterIndex ? 'Selected' : ''} onClick={this.handleChapterSelected}>{chapter.title}</li>;
-                        })}
-                    </ul>
-                </div>
+                <Toc
+                    chapters={this.props.epub.chapters}
+                    selectedIndex={this.state.chapterIndex}
+                    onSelect={this.handleChapterSelected} />
 
                 {this.state.content &&
                     <ContentSelector content={this.state.content} onSelect={this.handleValidation} />

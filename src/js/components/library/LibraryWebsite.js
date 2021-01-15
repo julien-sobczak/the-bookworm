@@ -5,6 +5,7 @@ import PreviewWebsite from './PreviewWebsite';
 
 import { ScreenLibrary } from "../core/UI";
 import LargeButton from "../toolbox/LargeButton";
+import LargeButtonGroup from "../toolbox/LargeButtonGroup";
 
 function LibraryWebsite({ onSelect, onCancel }) {
 
@@ -17,10 +18,10 @@ function LibraryWebsite({ onSelect, onCancel }) {
             {!ready &&<ScreenLibrary className="LibraryWebsite">
                 <h3>Copy your URL</h3>
                 <input type="text" name="url" onChange={(e) => setUrl(e.target.value)} />
-                <div className="Buttons">
+                <LargeButtonGroup>
                     <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
                     <LargeButton text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
-                </div>
+                </LargeButtonGroup>
             </ScreenLibrary>}
         </>
     );

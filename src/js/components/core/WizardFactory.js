@@ -202,21 +202,69 @@ function ScreenInstructions(props) {
         });
     };
 
+    const Wrapper = styled.div`
+        z-index: 1000;
+        background-color: var(--theme-color);
+        --chunk-color: black;
+
+        h1 {
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            vertical-align: middle;
+        }
+        .Text {
+            max-width: 50rem;
+            background: black;
+            border-radius: 0.5rem;
+            color: white;
+            font-weight: bold;
+            padding: 1rem 2rem;
+            margin: 2rem auto;
+            font: 1.5rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+        .Text p {
+            margin: 1rem 0;
+        }
+        .Text .Label {
+            background: var(--theme-color);
+            color: black;
+            padding: 0.25rem;
+            border-radius: 0.125em;
+        }
+        .Icon {
+            color: var(--theme-color);
+            margin-right: 0.5rem;
+            margin-top: -2rem;
+        }
+    `;
+    const Form = styled.div`
+        text-align: center;
+        margin: 1rem auto;
+    `;
+
     return (
-        <Screen className="Instructions" scrollable onClose={handleDone}>
-            <div>
-                {props.instructions}
-            </div>
-            <div className="InstructionsCheckbox">
-                <FormControlLabel
-                    control={<BlackCheckbox checked={checked} onChange={handleClick} name="showInstructions" />}
-                    label="Always show instructions"
-                />
-            </div>
-            <LargeButtonGroup>
-                <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={handleDone} />
-            </LargeButtonGroup>
-        </Screen>
+        <Wrapper>
+            <Screen colored scrollable onClose={handleDone}>
+                <div>
+                    {props.instructions}
+                </div>
+                <Form>
+                    <FormControlLabel
+                        control={<BlackCheckbox checked={checked} onChange={handleClick} name="showInstructions" />}
+                        label="Always show instructions"
+                    />
+                </Form>
+                <LargeButtonGroup>
+                    <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={handleDone} />
+                </LargeButtonGroup>
+            </Screen>
+        </Wrapper>
     );
 }
 ScreenInstructions.propTypes = {

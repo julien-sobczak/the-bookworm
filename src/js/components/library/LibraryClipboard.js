@@ -6,6 +6,7 @@ import * as library from '../../functions/library';
 
 import { ScreenLibrary } from "../core/UI";
 import LargeButton from "../toolbox/LargeButton";
+import LargeButtonGroup from "../toolbox/LargeButtonGroup";
 
 function LibraryClipboard({ onSelect, onCancel }) {
 
@@ -32,10 +33,10 @@ function LibraryClipboard({ onSelect, onCancel }) {
             <h3>Copy/Paste your text</h3>
             <textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)}>
             </textarea>
-            <div className="Buttons">
+            <LargeButtonGroup>
                 <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
                 <LargeButton text="Read" colorText="white" colorBackground="#111" onClick={() => onValidate()} />
-            </div>
+            </LargeButtonGroup>
         </ScreenLibrary>
     );
 }
