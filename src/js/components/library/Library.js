@@ -89,7 +89,7 @@ class Library extends React.Component {
                                                     <td><small>{reading.description.author}</small></td>
                                                     <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
                                                     <td><Progress value={reading.position.progress} showText /></td>
-                                                    <td><Button variant="contained" disableElevation onClick={this.handleReadingSelected} data-index={index} className="ButtonDark Clickable">Read</Button></td>
+                                                    <td><Button variant="contained" disableElevation onClick={this.handleReadingSelected} data-index={index} className="Clickable">Read</Button></td>
                                                 </tr>
                                             );
                                         })}

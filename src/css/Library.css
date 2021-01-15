@@ -4,6 +4,10 @@
 }
 
 .Readings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
     margin-bottom: 3em;
     display: flex;
     flex-direction: row;

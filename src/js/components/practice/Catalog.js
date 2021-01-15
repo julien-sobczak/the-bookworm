@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import { Entry, Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
+import { EntryGroup, Entry, Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
 import PanelReading from "../library/PanelReading.js";
 
 import { ContentContext } from "../../../content-context";
@@ -54,7 +54,7 @@ function DrawingStopWatch() {
 function Catalog({match}) {
 
     return (
-        <div className="Catalog">
+        <EntryGroup>
 
             <ContentContext.Consumer>
                 {({content, update, toggle}) => (
@@ -74,7 +74,7 @@ function Catalog({match}) {
                 <DrawingStopWatch />
             </Entry>
 
-        </div>
+        </EntryGroup>
     );
 }
 
