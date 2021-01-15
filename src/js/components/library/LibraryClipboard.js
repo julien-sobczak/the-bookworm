@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import * as string from '../../functions/string';
 import * as library from '../../functions/library';
@@ -27,12 +28,19 @@ function LibraryClipboard({ onSelect, onCancel }) {
         });
     };
 
+    const Textarea = styled.textarea`
+        width: 50vw;
+        height: 50vh;
+        border: 1em solid rgba(0, 0, 0, 0.1);
+        background-clip: padding-box;
+        padding: 1em;
+    `;
+
     // TODO add field title and author and toggle button to save on localStorage
     return (
         <ScreenLibrary className="LibraryClipboard" scrollbar>
             <h3>Copy/Paste your text</h3>
-            <textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)}>
-            </textarea>
+            <Textarea name="clipboard" value={text} onChange={(e) => setText(e.target.value)} />
             <LargeButtonGroup>
                 <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
                 <LargeButton text="Read" colorText="white" colorBackground="#111" onClick={() => onValidate()} />
