@@ -1,33 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import { Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
+import { Entry, Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
 import PanelReading from "../library/PanelReading.js";
-import LargeButton from "../toolbox/LargeButton.js";
 
 import { ContentContext } from "../../../content-context";
-
-function Entry({ name, slug, children }) {
-    return (
-        <div className="Entry">
-            <div className="Preview">
-                {children}
-            </div>
-            <div className="Actions">
-                <Link to={slug}>
-                    <LargeButton text={name} colorText="white" colorBackground="#111" />
-                </Link>
-            </div>
-        </div>
-    );
-}
-
-Entry.propTypes = {
-    name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    children: PropTypes.any,
-};
 
 function DrawingFree() {
     return (

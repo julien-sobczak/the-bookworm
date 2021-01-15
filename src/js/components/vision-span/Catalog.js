@@ -1,30 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import { Drawing, DrillOutline, LetterOutline, GridOutline, CellOutline } from '../core/CatalogUI';
-import LargeButton from "../toolbox/LargeButton.js";
-
-function Entry({ name, slug, children }) {
-    return (
-        <div className="Entry">
-            <div className="Preview">
-                {children}
-            </div>
-            <div className="Actions">
-                <Link to={slug}>
-                    <LargeButton text={name} colorText="white" colorBackground="#111" />
-                </Link>
-            </div>
-        </div>
-    );
-}
-
-Entry.propTypes = {
-    name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    children: PropTypes.any,
-};
+import { Entry, Drawing, DrillOutline, LetterOutline, GridOutline, CellOutline } from '../core/CatalogUI';
 
 function DrawingHorizontal() {
     return (

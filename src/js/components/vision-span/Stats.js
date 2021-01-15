@@ -9,6 +9,7 @@ import * as string from '../../functions/string';
 import TimerIcon from '@material-ui/icons/Timer';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 
 function Stats({ stats, onRestart }) {
 
@@ -30,10 +31,10 @@ function Stats({ stats, onRestart }) {
                     </tr>
                 </tbody>
             </table>
-            <div className="Actions">
+            <LargeButtonGroup>
                 <LargeButton text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
                 <Link to="/vision-span/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
-            </div>
+            </LargeButtonGroup>
         </ScreenStats>
     );
 }

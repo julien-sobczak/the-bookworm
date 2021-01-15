@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
+import LargeButton from '../toolbox/LargeButton';
 
 /* Drill Illustrations Components used in catalogs. */
 
@@ -114,4 +116,71 @@ CellOutline.propTypes = {
 };
 CellOutline.defaultProps = {
     selected: false,
+};
+
+
+export function Entry({ name, disabled, children, slug }) {
+
+    const Container = styled.div`
+        width: var(--catalog-preview-width);
+        height: calc(var(--catalog-preview-height) + 100px);
+        position: relative;
+        margin: 2em;
+        pointer-events: none;
+
+        &:hover .Preview {
+            opacity: 1;
+        }
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 2em;
+        }
+
+        --catalog-preview-width: 275px;
+        --catalog-preview-height: 175px;
+    `;
+
+    const Preview = styled.div`
+        width: var(--catalog-preview-width);
+        height: var(--catalog-preview-height);
+        transform-origin: 0% 0%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.5;
+    `;
+    const Action = styled.div`
+        position: absolute;
+        bottom: 0;
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+    `;
+
+    return (
+        <Container>
+            <Preview>
+                {children}
+            </Preview>
+            <Action>
+                <Link to={slug}>
+                    <LargeButton disabled={disabled} text={name} colorText="white" colorBackground="#111" />
+                </Link>
+            </Action>
+        </Container>
+    );
+}
+Entry.propTypes = {
+    name: PropTypes.string.isRequired, // Free value
+    slug: PropTypes.string.isRequired, // Free value
+    disabled: PropTypes.bool,
+    children: PropTypes.any,
+};
+Entry.defaultProps = {
+    disabled: false,
 };

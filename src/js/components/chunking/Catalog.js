@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
-import { Drawing, PageOutline, ColumnOutline, ElementOutline } from "../core/CatalogUI";
+import { Entry, Drawing, PageOutline, ColumnOutline, ElementOutline } from "../core/CatalogUI";
 import PanelReading from "../library/PanelReading.js";
-import LargeButton from "../toolbox/LargeButton.js";
 import Text from '../toolbox/Text';
 import { ContentContext } from "../../../content-context";
 
@@ -53,28 +51,6 @@ function DrawingColumn() {
         </Drawing>
     );
 }
-
-function Entry({ name, disabled, children, slug }) {
-    return (
-        <div className="Entry">
-            <div className="Preview">
-                {children}
-            </div>
-            <div className="Actions">
-                <Link to={slug}>
-                    <LargeButton disabled={disabled} text={name} colorText="white" colorBackground="#111" />
-                </Link>
-            </div>
-        </div>
-    );
-}
-
-Entry.propTypes = {
-    name: PropTypes.string.isRequired, // Free value
-    slug: PropTypes.string.isRequired, // Free value
-    disabled: PropTypes.bool.isRequired,
-    children: PropTypes.any,
-};
 
 function Catalog({match}) {
     const Notice = styled.div`

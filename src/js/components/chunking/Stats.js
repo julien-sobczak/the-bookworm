@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
 import { ScreenStats } from "../core/UI.js";
-import Screen from "../core/Screen.js";
 import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
@@ -11,6 +10,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import BookIcon from '@material-ui/icons/Book';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import SpeedIcon from '@material-ui/icons/Speed';
+import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 
 function Stats({ stats, finished, onRestart, onContinue }) {
 
@@ -36,11 +36,11 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                     </tr>
                 </tbody>
             </table>
-            <div className="Actions">
+            <LargeButtonGroup>
                 <LargeButton text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
                 {!finished && <LargeButton text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
                 <Link to="/chunking/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
-            </div>
+            </LargeButtonGroup>
         </ScreenStats>
     );
 }
