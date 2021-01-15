@@ -75,7 +75,6 @@ code {
   font-family: monospace;
 }
 
-@import 'css/Common.css';
 @import 'css/Core.css';
 @import 'css/Layout.css';
 @import 'css/Paper.css';
@@ -85,9 +84,13 @@ code {
 @import 'css/Theme.css';
 @import 'css/Mui.css';
 
-.Colored {
-  background-color: var(--theme-color);
+.Centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .Clickable {
   cursor: pointer;

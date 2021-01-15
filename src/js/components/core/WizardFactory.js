@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import styled from 'styled-components';
 
 import { saveDefaults, deleteTextPreset, saveTextPreset, saveDrillPreset, deleteDrillPreset } from '../../store/actions';
 
@@ -163,6 +164,19 @@ NewPresetForm.propTypes = {
     onSave: PropTypes.func.isRequired,
 };
 
+
+const TabContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2em 0;
+`;
+
+/*
+ * Screen Instructions
+ */
+
 const BlackCheckbox = withStyles({
     root: {
         color: 'black',
@@ -172,6 +186,45 @@ const BlackCheckbox = withStyles({
     },
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
+
+function ScreenInstructions(props) {
+
+    const [checked, setChecked] = useState(props.showInstructions);
+
+    const handleClick = (event) => {
+        setChecked(event.target.checked);
+    };
+
+    const handleDone = () => {
+        props.onClose({
+            showInstructions: checked,
+        });
+    };
+
+    return (
+        <Screen className="Instructions" scrollable onClose={handleDone}>
+            <div>
+                {props.instructions}
+            </div>
+            <div className="InstructionsCheckbox">
+                <FormControlLabel
+                    control={<BlackCheckbox checked={checked} onChange={handleClick} name="showInstructions" />}
+                    label="Always show instructions"
+                />
+            </div>
+            <div className="Centered">
+                <div className="Actions">
+                    <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={handleDone} />
+                </div>
+            </div>
+        </Screen>
+    );
+}
+ScreenInstructions.propTypes = {
+    instructions: PropTypes.node.isRequired,
+    showInstructions: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+};
 
 class WizardFactory extends React.Component {
 
@@ -191,6 +244,8 @@ class WizardFactory extends React.Component {
 
         this.handleInstructionsClick = this.handleInstructionsClick.bind(this);
         this.handleValidateClick = this.handleValidateClick.bind(this);
+        this.handleInstructionsClose = this.handleInstructionsClose.bind(this);
+        this.handleTabChange = this.handleTabChange.bind(this);
 
         this.handleDrillSettingsSave = this.handleDrillSettingsSave.bind(this);
         this.handleDrillSettingsChange = this.handleDrillSettingsChange.bind(this);
@@ -198,9 +253,6 @@ class WizardFactory extends React.Component {
         this.handleTextSettingsSave = this.handleTextSettingsSave.bind(this);
         this.handleTextSettingsChange = this.handleTextSettingsChange.bind(this);
         this.handleTextSettingsDelete = this.handleTextSettingsDelete.bind(this);
-        this.handleShowInstructions = this.handleShowInstructions.bind(this);
-
-        this.handleTabChange = this.handleTabChange.bind(this);
     }
 
     handleTabChange(event, activeTab) {
@@ -209,9 +261,16 @@ class WizardFactory extends React.Component {
         });
     }
 
-    handleInstructionsClick()  {
+    handleInstructionsClick() {
         this.setState({
-            instructionsActive: !this.state.instructionsActive,
+            instructionsActive: true,
+        });
+    }
+
+    handleInstructionsClose(event) {
+        this.setState({
+            showInstructions: event.showInstructions,
+            instructionsActive: false,
         });
     }
 
@@ -253,34 +312,17 @@ class WizardFactory extends React.Component {
         });
     }
 
-    handleShowInstructions(event) {
-        this.setState({
-            showInstructions: event.target.checked,
-        });
-    }
-
     render() {
         const tabs = [];
         tabs.push(<Tab key={1} icon={<TuneIcon />} label="Options" />);
         tabs.push(<Tab key={2} icon={<StyleIcon />} label="Style" />);
+
         return (
             <>
-                {this.state.instructionsActive && <Screen className="Instructions" scrollable onClose={this.handleInstructionsClick}>
-                    <div>
-                        {this.props.instructions}
-                    </div>
-                    <div className="InstructionsCheckbox">
-                        <FormControlLabel
-                            control={<BlackCheckbox checked={this.state.showInstructions} onChange={this.handleShowInstructions} name="doNotShowInstructions" />}
-                            label="Always show instructions"
-                        />
-                    </div>
-                    <div className="Centered">
-                        <div className="Actions">
-                            <LargeButton text="I understand" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
-                        </div>
-                    </div>
-                </Screen>}
+                {this.state.instructionsActive && <ScreenInstructions
+                    instructions={this.props.instructions}
+                    showInstructions={this.state.showInstructions}
+                    onClose={this.handleInstructionsClose} />}
 
                 {!this.state.instructionsActive && <Screen className="Wizard" centered={false} scrollable closeUrl={`/${this.props.category}/`}>
                     <Form>
@@ -294,7 +336,7 @@ class WizardFactory extends React.Component {
                             {tabs}
                         </Tabs>
 
-                        {this.state.activeTab === 0 && <div className="TabContent Centered">
+                        {this.state.activeTab === 0 && <TabContent>
                             <section>
                                 {this.props.drillPresets.length > 0 && <>
                                     <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
@@ -312,9 +354,9 @@ class WizardFactory extends React.Component {
                                     onChange: this.handleDrillSettingsChange,
                                 })}
                             </section>
-                        </div>}
+                        </TabContent>}
 
-                        {this.state.activeTab === 1 && <div className="TabContent Centered">
+                        {this.state.activeTab === 1 && <TabContent>
                             <section>
                                 {DefaultPresets.length > 0 && <>
                                     <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="primary">Use an existing preset</Text></p>
@@ -328,7 +370,7 @@ class WizardFactory extends React.Component {
                                 <p><Text manuscript arrow arrowDirection="bottom" arrowPosition="left" arrowVariant="secondary">Customize how the text is displayed</Text></p>
                                 <FormText {...this.state.textSettings} onChange={this.handleTextSettingsChange} />
                             </section>
-                        </div>}
+                        </TabContent>}
 
                     </Form>
 
