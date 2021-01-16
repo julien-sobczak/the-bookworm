@@ -1,115 +1,100 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
+import Screen from '../core/Screen';
+import Text from './Text';
 
-// Inspired by https://codepen.io/nw/pen/zvQVWM
+function Countdown({ duration, onTimesUp }) {
 
-const Container = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: black;
-    z-index: 999;
-`;
+    const rota = keyframes`
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    `;
 
-const CountdownElement = styled.div`
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 400;
-    font-size: 50vmin;
-    border-radius: 0;
-    overflow: hidden;
-    cursor: pointer;
-    transition: width, height, border-radius, font-size;
-    transition-duration: 0.2s;
-`;
+    const opa = keyframes`
+        0% {
+            opacity: 0;
+        }
+        50%, 100% {
+            opacity: 1;
+        }
+    `;
 
-const CountdownFill = styled.div`
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    background: var(--mdc-theme-background);
-    opacity: 1;
-`;
+    const Wrapper = styled.div`
+        position: relative;
+        background: var(--theme-color);
+        transform: rotate(180deg);
+        width: 250px;
+        height: 250px;
+        box-sizing: border-box;
 
-const CountdownDigit = styled.div`
-    width: 100%;
-    color: var(--mdc-theme-background);
-    text-align: center;
-    mix-blend-mode: difference;
-    pointer-events: none;
-    user-select: none;
-`;
+        * {
+            box-sizing: border-box;
+        }
+    `;
 
-class Countdown extends React.Component {
+    const pie = css`
+        width: 50%;
+        height: 100%;
+        transform-origin: 100% 50%;
+        position: absolute;
+        background: black;
+    `;
 
-    constructor(props) {
-        super(props);
+    const Spinner = styled.div`
+        ${pie}
+        border-radius: 100% 0 0 100% / 50% 0 0 50%;
+        z-index: 200;
+        border-right: none;
+        animation: ${rota} ${duration}ms linear 1;
+    `;
 
-        // this.element = React.createRef();
-        this.ticker = React.createRef();
-        this.seconds = React.createRef();
-    }
+    const Filler = styled.div`
+        ${pie}
+        border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+        left: 50%;
+        opacity: 0;
+        z-index: 100;
+        animation: ${opa} ${duration}ms steps(1, end) 1 reverse;
+        border-left: none;
+    `;
 
-    render() {
-        return (
-            <Container>
-                <CountdownElement ref={this.element}>
-                    <CountdownFill ref={this.ticker}></CountdownFill>
-                    <CountdownDigit data-testid="count" ref={this.seconds}>00</CountdownDigit>
-                </CountdownElement>
-            </Container>
-        );
-    }
+    const Mask = styled.div`
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        background: inherit;
+        opacity: 1;
+        z-index: 300;
+        animation: ${opa} ${duration}ms steps(1, end) 1;
+    `;
 
-    componentDidMount() {
-        let start = null;
-        let remainingSeconds = this.props.duration / 1000;
-        this.seconds.current.textContent = remainingSeconds;
+    const Note = styled.p`
+        margin: 4rem;
+        font-size: 1.75rem;
+        font-weight: bold;
+        letter-spacing: -1px;
+    `;
 
-        const draw = (now) => {
-            if (!start) start = now;
+    useEffect(() => {
+        setTimeout(onTimesUp, duration);
+    });
 
-            var diff = now - start;
-            var newSeconds = Math.ceil((this.props.duration - diff) / 1000);
-
-            if (diff <= this.props.duration) {
-                this.ticker.current.style.height = 100 - (diff / this.props.duration * 100) + '%';
-
-                if (newSeconds !== remainingSeconds) {
-                    this.seconds.current.textContent = newSeconds;
-                    remainingSeconds = newSeconds;
-                }
-
-                this.frameReq = window.requestAnimationFrame(draw);
-            } else {
-                this.props.onTimesUp();
-            }
-        };
-        this.frameReq = window.requestAnimationFrame(draw);
-    }
-
-    componentWillUnmount() {
-        window.cancelAnimationFrame(this.frameReq);
-    }
-
+    return (
+        <Screen colored onClick={onTimesUp}>
+            <Wrapper>
+                <Spinner />
+                <Filler />
+                <Mask />
+            </Wrapper>
+            <Note><Text>Click to start immediately</Text></Note>
+        </Screen>
+    );
 }
 
 Countdown.propTypes = {

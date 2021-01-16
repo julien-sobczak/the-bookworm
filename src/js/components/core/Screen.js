@@ -27,6 +27,7 @@ function Screen({ className, closable, hidden, closeUrl, onClick, onClose, cente
         z-index: 500;
         background-color: ${backgroundColor};
         padding: 1rem;
+        cursor: ${onClick ? 'pointer' : 'default'};
     `;
 
     const hide = css`

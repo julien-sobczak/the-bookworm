@@ -7,11 +7,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-it('starts at the given timer', () => {
-    const { getByTestId } = render(<Countdown duration={2000}/>);
-    expect(getByTestId('count')).toHaveTextContent('2');
-});
-
 it('triggers an event when the count is over', async () => {
     const handleTimesUp = jest.fn();
     render(<Countdown duration={1000} onTimesUp={handleTimesUp} />);

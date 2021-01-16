@@ -6,7 +6,6 @@
 
 # Bugs
 
-- [ ] Reimplement Countdown to simply wait for a click/touch
 - [ ] Cannot refresh page when /chunking/
 - [ ] Find why <ContentSelector> is not used.
 
