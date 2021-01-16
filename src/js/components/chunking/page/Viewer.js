@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Pager from '../Pager';
 import Paper from '../../core/Paper';
@@ -31,7 +32,7 @@ function Viewer(props) {
     classNames.push('DisableVisualProblemStyle' + string.capitalize(props.disableVisualProblemStyle));
 
     return (
-        <div className={"ViewerPage Centered " + classNames.join(' ')}>
+        <div className={classnames("ViewerPage", "Centered", ...classNames)}>
             <Paper {...props}>
                 <PageContent
                     page={props.page}

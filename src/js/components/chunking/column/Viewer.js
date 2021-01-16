@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Chunker from '../Chunker';
 import Styled from '../../core/Styled';
@@ -21,11 +22,13 @@ function Viewer(props) {
 
     const chunksHTML = [];
     chunks.forEach((c, index) => {
-        const additionalClasses = [];
-        if (index === props.chunkPosition) {
-            additionalClasses.push('Selected');
-        }
-        chunksHTML.push(<div key={index}><span className={"Chunk " + additionalClasses.join(' ')} dangerouslySetInnerHTML={{__html: c.text}} /></div>);
+        chunksHTML.push(
+            <div key={index}>
+                <span
+                    className={classnames("Chunk", { "Selected": index === props.chunkPosition })}
+                    dangerouslySetInnerHTML={{__html: c.text}} />
+            </div>
+        );
     });
 
     const columnsStyle = {

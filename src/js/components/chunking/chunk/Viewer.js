@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Chunker from '../Chunker';
 import Styled from '../../core/Styled';
@@ -22,7 +23,7 @@ function Viewer(props) {
     const nextChunkEmpty = !props.nextChunk || props.currentChunk.endingChunk;
 
     return (
-        <div className={"ViewerChunk Centered " + classNames.join(' ')}>
+        <div className={classnames("ViewerChunk", "Centered", ...classNames)}>
             <Styled {...props} className="Chunks">
                 {props.showPreviousChunk && previousChunkEmpty &&
                     <span className="Chunk PreviousChunk Opaque">&nbsp;</span>}
