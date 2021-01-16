@@ -220,7 +220,7 @@ class GameFactory extends React.Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (!nextProps.contentAware) return {};
-        if (!prevState.currentContent || nextProps.content.id !== prevState.contentId) {
+        if (library.valid(nextProps.content) && (!prevState.currentContent || nextProps.content.id !== prevState.contentId)) {
             const currentReading = library.getReading(nextProps.readings, nextProps.content);
             const currentContent = library.nextContent(currentReading.position, nextProps.content);
             return {

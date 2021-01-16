@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import * as library from '../../functions/library';
 
 import { EntryGroup, Entry, Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
 import PanelReading from "../library/PanelReading.js";
+import Text from '../toolbox/Text';
 
 import { ContentContext } from "../../../content-context";
 
@@ -52,29 +56,34 @@ function DrawingStopWatch() {
 }
 
 function Catalog({match}) {
-
+    const Notice = styled.div`
+        position: absolute;
+        top: 5rem;
+        right: 5rem;
+    `;
     return (
-        <EntryGroup>
+        <ContentContext.Consumer>
+            {({content, update, toggle}) => (
+                <EntryGroup>
 
-            <ContentContext.Consumer>
-                {({content, update, toggle}) => (
                     <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                )}
-            </ContentContext.Consumer>
+                    {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
 
-            <Entry name="Free Reading" slug="free" match={match}>
-                <DrawingFree />
-            </Entry>
+                    <Entry name="Free Reading" slug="free" match={match} disabled={!library.valid(content)}>
+                        <DrawingFree />
+                    </Entry>
 
-            <Entry name="Run the Pacer" slug="pacer" match={match}>
-                <DrawingPacer />
-            </Entry>
+                    <Entry name="Run the Pacer" slug="pacer" match={match} disabled={!library.valid(content)}>
+                        <DrawingPacer />
+                    </Entry>
 
-            <Entry name="One-minute" slug="stopwatch" match={match}>
-                <DrawingStopWatch />
-            </Entry>
+                    <Entry name="One-minute" slug="stopwatch" match={match} disabled={!library.valid(content)}>
+                        <DrawingStopWatch />
+                    </Entry>
 
-        </EntryGroup>
+                </EntryGroup>
+            )}
+        </ContentContext.Consumer>
     );
 }
 

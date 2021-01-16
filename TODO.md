@@ -6,7 +6,6 @@
 
 # Bugs
 
-- [ ] Cannot refresh page when /chunking/
 - [ ] Find why <ContentSelector> is not used.
 
 # Refactor

@@ -35,6 +35,7 @@ export function retrieveContent(reading) {
  */
 export function reloadContent(reading) {
     return new Promise((resolve) => {
+        console.log('Reloading previous content...');
         if (!localStorage.getItem(reading.id)) {
             // Content has disappeared from local storage.
             if (reading.reloadable) {

@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import * as library from '../../functions/library';
+
 import { EntryGroup, Entry, Drawing, PageOutline, ColumnOutline, ElementOutline } from "../core/CatalogUI";
 import PanelReading from "../library/PanelReading.js";
 import Text from '../toolbox/Text';
+
 import { ContentContext } from "../../../content-context";
 
 function DrawingPage() {
@@ -62,17 +65,19 @@ function Catalog({match}) {
         <ContentContext.Consumer>
             {({content, update, toggle}) => (
                 <EntryGroup>
+
                     <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                    {content.id == undefined && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
-                    <Entry name="Page Reader" slug="drill-page" match={match} disabled={content.id == undefined}>
+                    {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
+
+                    <Entry name="Page Reader" slug="drill-page" match={match} disabled={!library.valid(content)}>
                         <DrawingPage />
                     </Entry>
 
-                    <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={content.id == undefined}>
+                    <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={!library.valid(content)}>
                         <DrawingChunk />
                     </Entry>
 
-                    <Entry name="Column Reader" slug="drill-column" match={match} disabled={content.id == undefined}>
+                    <Entry name="Column Reader" slug="drill-column" match={match} disabled={!library.valid(content)}>
                         <DrawingColumn />
                     </Entry>
                 </EntryGroup>

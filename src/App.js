@@ -25,6 +25,7 @@ import GamePacer from './js/components/practice/pacer/Game';
 import GameStopWatch from './js/components/practice/stopwatch/Game';
 
 import * as storage from './js/functions/storage';
+import * as library from './js/functions/library';
 
 import { ContentContext } from './content-context';
 
@@ -101,13 +102,17 @@ VisionSpanPage.propTypes = {
 
 function ChunkingPage({ match }) {
     return (
-        <section id="Chunking" className="page chunking">
-            <h2>Chunking</h2>
+        <ContentContext.Consumer>
+            {({ content }) => (
+                <section id="Chunking" className="page chunking">
+                    <h2>Chunking</h2>
 
-            <Route path={`${match.path}`} exact component={ChunkingCatalog} />
-            <Route path={`${match.path}:drill`} component={ChunkingSelector} />
-
-        </section>
+                    {/* Redirect to catalog if no content is available */}
+                    <Route path={`${match.path}`} exact={library.valid(content)} component={ChunkingCatalog} />
+                    {library.valid(content) && <Route path={`${match.path}:drill`} component={ChunkingSelector} />}
+                </section>
+            )}
+        </ContentContext.Consumer>
     );
 }
 ChunkingPage.propTypes = {
@@ -133,13 +138,18 @@ ChunkingSelector.propTypes = {
 
 function PracticePage({ match }) {
     return (
-        <section id="Practice" className="page practice">
-            <h2>Practice</h2>
+        <ContentContext.Consumer>
+            {({ content }) => (
+                <section id="Practice" className="page practice">
+                    <h2>Practice</h2>
 
-            <Route path={`${match.path}`} exact component={PracticeCatalog} />
-            <Route path={`${match.path}:drill`} component={PracticeSelector} />
+                    {/* Redirect to catalog if no content is available */}
+                    <Route path={`${match.path}`} exact={library.valid(content)} component={PracticeCatalog} />
+                    {library.valid(content) && <Route path={`${match.path}:drill`} component={PracticeSelector} />}
 
-        </section>
+                </section>
+            )}
+        </ContentContext.Consumer>
     );
 }
 PracticePage.propTypes = {
@@ -196,6 +206,7 @@ class App extends React.Component {
             }
 
             this.setState(() => ({
+                contentLoaded: true,
                 content: content,
             }));
         };
@@ -206,6 +217,7 @@ class App extends React.Component {
         };
 
         this.state = {
+            contentLoaded: false,
             content: {},
             update: this.updateContent,
             toggle: this.toggleContent,
@@ -222,7 +234,6 @@ class App extends React.Component {
 
     handleTutorialCompleted() {
         this.props.completeTutorial();
-        // TODO save Global preferences
     }
 
     render() {
@@ -230,8 +241,9 @@ class App extends React.Component {
             <ThemeProvider theme={theme}>
                 <ContentContext.Provider value={this.state}>
                     <ScreenTester minWidth="5in" minHeight="5in" />
+
                     {!this.props.tutorialCompleted && <Tutorial onDone={this.handleTutorialCompleted} />}
-                    {this.props.tutorialCompleted && <Router>
+                    {this.props.tutorialCompleted && this.state.contentLoaded && <Router>
                         <nav className="menu">
                             <NavLink to="/home" activeClassName="active" exact><div><HomeIcon /><br/>Home</div></NavLink>
                             {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
@@ -261,6 +273,10 @@ class App extends React.Component {
         if (this.props.readings.length > 0) {
             const currentReading = this.props.readings[0];
             storage.reloadContent(currentReading).then((content) => this.updateContent(content));
+        } else {
+            this.setState({
+                contentLoaded: true,
+            });
         }
     }
 
