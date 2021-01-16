@@ -166,7 +166,7 @@ class Drill extends React.Component {
     }
 
     calculateLinesCount() {
-        if (typeof process === 'object') { // true when running from Node.js
+        if (areWeTestingWithJest()) {
             return this.props.lines;
         }
 
@@ -241,6 +241,7 @@ class Drill extends React.Component {
         // Now that we can determine the available space on screen,
         // We can generate the drill.
         const lines = this.calculateLinesCount();
+        console.log(`Found ${lines} lines on screen`);
         const engine = new Engine(lines, this.handleDrillFinished);
         engine.start();
         this.setState(state => ({
@@ -259,6 +260,10 @@ class Drill extends React.Component {
         window.removeEventListener("keyup", this.handleKeyUp);
     }
 
+}
+
+function areWeTestingWithJest() {
+    return process.env.JEST_WORKER_ID !== undefined;
 }
 
 Drill.propTypes = {

@@ -6,7 +6,6 @@
 
 # Bugs
 
-- [ ] Fix drill pyramid (Fit Screen prints a blank screen and columns have no space for other options)
 - [ ] Reimplement Countdown to simply wait for a click/touch
 - [ ] Cannot refresh page when /chunking/
 - [ ] Find why <ContentSelector> is not used.
