@@ -98,15 +98,6 @@ td.Width5in     { width: 5in;    height: 5in;    }
  * Chunking Drills
  */
 
-.Ruler {
-  opacity: 0;
-}
-
-.Chunker, .Pager {
-  opacity: 0;
-  z-index: 0;
-}
-
 .ChunkHighlight .Chunk.Selected,
 .GraphicOption.ChunkHighlight > span {
   background-color: var(--chunk-color);
@@ -120,7 +111,6 @@ td.Width5in     { width: 5in;    height: 5in;    }
 .GraphicOption.ChunkUnderline > span {
   border-bottom: 0.4em solid var(--chunk-color);
 }
-
 
 
 
@@ -209,112 +199,3 @@ td.Width5in     { width: 5in;    height: 5in;    }
 }
 
 
-/*
- * Wizard
- */
-
-.Wizard {
-  background-color: var(--theme-color);
-
-  --mdc-theme-secondary: black; /* Used by Switch */
-}
-
-.Wizard .Setting {
-  margin-bottom: 2em;
-}
-
-
-
-/*
- * Wizard options
- */
-
-
-.PredefinedOptions {
-  position: fixed;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.PredefinedOptions button {
-  display: inline-block;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 1em;
-  background-color: white;
-  color: black;
-  border-radius: 0.5em;
-  background-color: var(--mdc-theme-background);
-  opacity: 0.5;
-  padding: 0.8em 2em;
-  margin: 0.1em 0.1em;
-  margin-right: -0.5em;
-}
-
-.PredefinedOptions button:hover {
-  opacity: 1;
-  margin-left: -0.5em;
-}
-
-.Options {
-  position: absolute;
-  top: 2em;
-  width: 100%;
-}
-
-
-.Option {
-  display: inline-block;
-  margin: 1em 0;
-}
-.Option::after {
-  content: '';
-  margin-left: 1em;
-  margin-right: 2em;
-  border-right: 4px solid var(--mdc-theme-background);
-}
-.Option label {
-  font-weight: 900;
-  margin-left: 1em;
-  margin-right: 1em;
-}
-
-.Option .DotSeparator {
-  font-size: 2em;
-  vertical-align: bottom;
-  margin: 0.20em;
-}
-
-.Option select {
-  appearance: none;
-  display: inline-block;
-  box-sizing: border-box;
-  max-width: 100%;
-  margin: 0;
-  padding: 0.7em;
-  padding-right: 1.95em;
-  border: 0;
-  border-radius: .3em;
-  font: inherit;
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.05);
-  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(-45deg, transparent 50%, currentColor 50%);
-  background-size: 0.275em 0.275em;
-  background-position: calc(100% - 0.975em) center, calc(100% - 0.7em) center;
-  background-repeat: no-repeat;
-  box-shadow: none;
-  cursor: pointer;
-  transition: .2s;
-}
-.Option select:focus {
-  outline: 0;
-  box-shadow: 0 0 0 0.15em rgba(0, 0, 0, 0.1);
-}
-.Option select:invalid {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-.Option select:disabled {
-  opacity: .7;
-  cursor: default;
-}

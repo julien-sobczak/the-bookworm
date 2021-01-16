@@ -273,6 +273,24 @@ ScreenInstructions.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
+function ScreenWizard({ category, children }) {
+    const Wrapper = styled.div`
+        --mdc-theme-secondary: black; /* Used by Switch */
+    `;
+
+    return (
+        <Wrapper>
+            <Screen colored centered={false} scrollable closeUrl={`/${category}/`}>
+                {children}
+            </Screen>
+        </Wrapper>
+    );
+}
+ScreenWizard.propTypes = {
+    category: PropTypes.oneOf(['vision-span', 'chunking', 'practice']),
+    children: PropTypes.node.isRequired,
+};
+
 class WizardFactory extends React.Component {
 
     constructor(props) {
@@ -371,7 +389,7 @@ class WizardFactory extends React.Component {
                     showInstructions={this.state.showInstructions}
                     onClose={this.handleInstructionsClose} />}
 
-                {!this.state.instructionsActive && <Screen className="Wizard" centered={false} scrollable closeUrl={`/${this.props.category}/`}>
+                {!this.state.instructionsActive && <ScreenWizard category={this.props.category}>
                     <Form>
 
                         <Tabs
@@ -425,7 +443,7 @@ class WizardFactory extends React.Component {
                         <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
                         <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
                     </LargeButtonGroup>
-                </Screen>}
+                </ScreenWizard>}
             </>
         );
     }
