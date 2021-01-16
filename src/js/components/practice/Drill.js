@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Pager, { PagerTest } from '../chunking/Pager';
 
-import { ScreenDrill } from '../core/UI';
+import { ScreenDrill, DrillArea, DrillControlGroup } from '../core/UI';
 import ProgressLine from '../toolbox/ProgressLine';
 import PauseOverlay from '../toolbox/PauseOverlay';
 
@@ -251,23 +251,22 @@ class Drill extends React.Component {
 
                 <ScreenDrill className={"DrillPractice Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
-                    <section className="DrillControls">
-                        <ul>
-                            <li><Tooltip title="Previous page"><Button onClick={this.turnPageBack}><PreviousIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Next page"><Button onClick={this.turnPage}><NextIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
-                        </ul>
-                    </section>
+                    <DrillControlGroup>
+                        <Tooltip title="Previous page"><Button onClick={this.turnPageBack}><PreviousIcon /></Button></Tooltip>
+                        <Tooltip title="Next page"><Button onClick={this.turnPage}><NextIcon /></Button></Tooltip>
+                        <Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip>
+                        <Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip>
+                    </DrillControlGroup>
 
-                    <section className="DrillArea">
+                    <DrillArea>
                         {this.state.pageNumber > 0 &&
                             <>
                                 <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
                                 <Viewer {...this.props} page={this.state.pages[this.state.pageNumber - 1]} />
                             </>
                         }
-                    </section>
+                    </DrillArea>
+
                 </ScreenDrill>
             </>
         );

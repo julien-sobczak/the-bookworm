@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { Cell } from '../UI';
 import Engine from './Engine';
 import Styled from '../../core/Styled';
 import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {
     span: "1in",
-    size: 5,
+    size: 3,
     autoLevel: true,
 };
 
@@ -61,14 +62,15 @@ function Viewer(props) {
                 <tbody>
                     {drill && drill.lines.map((line, lineIndex) => {
                         return (
-                            <tr className="Line" key={lineIndex}>
+                            <tr key={lineIndex}>
                                 {line.columns.map((column, columnIndex) => {
                                     return (
-                                        <td
-                                            key={columnIndex}
-                                            data-testid={'Line'+lineIndex+'Column'+columnIndex}
-                                            className={"Cell " + cssCell + " " + (column.valid === true ? 'valid' : '')}>
-                                            {column.label}
+                                        <td key={columnIndex} className={cssCell}>
+                                            <Cell
+                                                data-testid={'Line' + lineIndex + 'Column' + columnIndex}
+                                                valid={column.valid}>
+                                                {column.label}
+                                            </Cell>
                                         </td>
                                     );
                                 })}

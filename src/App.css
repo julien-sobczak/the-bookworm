@@ -175,6 +175,22 @@ code {
 .Size16pt { font-size: 16pt; }
 .Size18pt { font-size: 18pt; }
 
+/* Chunking */
+
+.ChunkHighlight .Chunk.Selected,
+.GraphicOption.ChunkHighlight > span {
+  background-color: var(--chunk-color);
+  color: white;
+}
+.ChunkColor .Chunk.Selected,
+.GraphicOption.ChunkColor > span {
+  color: var(--chunk-color);
+}
+.ChunkUnderline .Chunk.Selected,
+.GraphicOption.ChunkUnderline > span {
+  border-bottom: 0.4em solid var(--chunk-color);
+}
+
 /* Themes */
 
 .ThemeLight {
@@ -194,6 +210,7 @@ code {
   color: white;
   background-color: black;
 }
+
 
 /* Misc */
 

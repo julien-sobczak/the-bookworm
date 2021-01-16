@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
+import { Line, Cell } from '../UI';
 import Styled from '../../core/Styled';
 import * as engine from '../../../functions/engine';
 
@@ -40,44 +42,54 @@ function Viewer(props) {
     let currentSpan = undefined;
     let countLinesInSpan = 0;
 
-    return (
-        <Styled className="Viewer Centered" {...props}>
-            {drill.lines.map((line, lineIndex) => {
-                if (!currentSpan) {
-                    // Fist line: start at 0in
-                    currentSpanIndex = 0;
-                    currentSpan = engine.SPANS[currentSpanIndex];
-                    countLinesInSpan = 1;
-                } else if (lineIndex === drill.lines.length - 1) {
-                    // Last line: end at expected span
-                    const end = engine.SPANS.indexOf(props.span);
-                    currentSpan = engine.SPANS[end];
-                    countLinesInSpan = 1;
-                } else if (countLinesInSpan === linesPerSpan) {
-                    // Intermediate line requiring span increment
-                    currentSpanIndex += increment;
-                    currentSpan = engine.SPANS[currentSpanIndex];
-                    countLinesInSpan = 1;
-                } else {
-                    // Intermediate line still using the same span
-                    countLinesInSpan++;
-                }
+    const Viewer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    `;
 
-                return (
-                    <div className="Line" key={lineIndex}>
-                        {line.columns.map((column, columnIndex) => {
-                            return (
-                                <span
-                                    key={columnIndex}
-                                    data-testid={'Line'+lineIndex+'Column'+columnIndex}
-                                    className={"Cell " + cssSpan(currentSpan) + " " + (column.valid === true ? 'valid' : '')}>
-                                    {column.label}
-                                </span>
-                            );
-                        })}
-                    </div>
-                );
-            })}
+    return (
+        <Styled {...props}>
+            <Viewer>
+                {drill.lines.map((line, lineIndex) => {
+                    if (!currentSpan) {
+                        // Fist line: start at 0in
+                        currentSpanIndex = 0;
+                        currentSpan = engine.SPANS[currentSpanIndex];
+                        countLinesInSpan = 1;
+                    } else if (lineIndex === drill.lines.length - 1) {
+                        // Last line: end at expected span
+                        const end = engine.SPANS.indexOf(props.span);
+                        currentSpan = engine.SPANS[end];
+                        countLinesInSpan = 1;
+                    } else if (countLinesInSpan === linesPerSpan) {
+                        // Intermediate line requiring span increment
+                        currentSpanIndex += increment;
+                        currentSpan = engine.SPANS[currentSpanIndex];
+                        countLinesInSpan = 1;
+                    } else {
+                        // Intermediate line still using the same span
+                        countLinesInSpan++;
+                    }
+
+                    return (
+                        <Line key={lineIndex}>
+                            {line.columns.map((column, columnIndex) => {
+                                return (
+                                    <Cell
+                                        key={columnIndex}
+                                        data-testid={'Line' + lineIndex + 'Column' + columnIndex}
+                                        className={cssSpan(currentSpan)}
+                                        valid={column.valid}>
+                                        {column.label}
+                                    </Cell>
+                                );
+                            })}
+                        </Line>
+                    );
+                })}
+            </Viewer>
         </Styled>
     );
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Engine from './Engine';
 import Styled from '../../core/Styled';
+import { Serie, Line, Cell } from '../UI';
 import { SPANS } from '../../../functions/engine';
 
 const defaultViewerSettings = {
@@ -36,30 +38,40 @@ function Viewer(props) {
         return "SpanLeft" + spanLeft.replace('.', '_') + ' SpanRight' + spanRight.replace('.', '_'); // . is forbidden in CSS class names
     };
 
+    const Viewer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    `;
+
     return (
-        <Styled className="Viewer Centered" {...props}>
-            {drill && drill.map((serie, serieIndex) => {
-                return (
-                    <div className="Serie" key={serieIndex}>
-                        {serie.lines.map((line, lineIndex) => {
-                            return (
-                                <div className="Line" key={lineIndex}>
-                                    {line.columns.map((col, columnIndex) => {
-                                        return (
-                                            <span
-                                                key={columnIndex}
-                                                data-testid={'Serie'+serieIndex+'Line'+lineIndex+'Column'+columnIndex}
-                                                className={"Cell " + cssSpan(columnIndex) + " " + (col.valid === true ? 'valid' : '')}>
-                                                {col.label}
-                                            </span>
-                                        );
-                                    })}
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            })}
+        <Styled {...props}>
+            <Viewer>
+                {drill && drill.map((serie, serieIndex) => {
+                    return (
+                        <Serie key={serieIndex}>
+                            {serie.lines.map((line, lineIndex) => {
+                                return (
+                                    <Line key={lineIndex}>
+                                        {line.columns.map((col, columnIndex) => {
+                                            return (
+                                                <Cell
+                                                    key={columnIndex}
+                                                    data-testid={'Serie' + serieIndex + 'Line' + lineIndex + 'Column' + columnIndex}
+                                                    className={cssSpan(columnIndex)}
+                                                    valid={col.valid}>
+                                                    {col.label}
+                                                </Cell>
+                                            );
+                                        })}
+                                    </Line>
+                                );
+                            })}
+                        </Serie>
+                    );
+                })}
+            </Viewer>
         </Styled>
     );
 }

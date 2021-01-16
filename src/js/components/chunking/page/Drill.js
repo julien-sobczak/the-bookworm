@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Pager, { PagerTest } from '../Pager';
 
-import { ScreenDrill } from '../../core/UI';
+import { ScreenDrill, DrillArea, DrillControlGroup } from '../../core/UI';
 import ProgressLine from '../../toolbox/ProgressLine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
@@ -259,16 +259,14 @@ class Drill extends React.Component {
 
                 <ScreenDrill className={"ChunkingDrillPage Theme" + string.capitalize(this.props.theme)}>
 
-                    <section className="DrillControls">
-                        <ul>
-                            <li><Tooltip title="Reduce WPM"><Button onClick={this.reduceWpm}><ReduceIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Increase WPM"><Button onClick={this.increaseWpm}><IncreaseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
-                        </ul>
-                    </section>
+                    <DrillControlGroup>
+                        <Tooltip title="Reduce WPM"><Button onClick={this.reduceWpm}><ReduceIcon /></Button></Tooltip>
+                        <Tooltip title="Increase WPM"><Button onClick={this.increaseWpm}><IncreaseIcon /></Button></Tooltip>
+                        <Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip>
+                        <Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip>
+                    </DrillControlGroup>
 
-                    <section className="DrillArea">
+                    <DrillArea>
                         {this.state.pageNumber > 0 &&
                             <>
                                 <ProgressLine progress={(this.state.pageNumber - 1) * 100 / this.state.pages.length} />
@@ -282,7 +280,8 @@ class Drill extends React.Component {
                                 />
                             </>
                         }
-                    </section>
+                    </DrillArea>
+
                 </ScreenDrill>
             </>
         );
