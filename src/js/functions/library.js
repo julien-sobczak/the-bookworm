@@ -237,6 +237,16 @@ export function parsePaste(rawText) {
 }
 
 /**
+ * Test a content.
+ *
+ * @param {Object} content The content to read
+ * @returns {bool} True if the content is valid and can be read.
+ */
+export function valid(content) {
+    return content && content.sections && content.sections.length > 0;
+}
+
+/**
  * Convert a Gutenberg book to the standard format.
  *
  * @param {string} rawContent The Gutenberg TXT book content
