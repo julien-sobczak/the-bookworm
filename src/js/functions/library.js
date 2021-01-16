@@ -243,7 +243,7 @@ export function parsePaste(rawText) {
  * @returns {bool} True if the content is valid and can be read.
  */
 export function valid(content) {
-    return content && content.sections && content.sections.length > 0;
+    return content && content.content && content.id && content.content.sections && content.content.sections.length > 0;
 }
 
 /**

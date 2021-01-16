@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import Viewer from './Viewer';
 import Engine from './Engine';
-import { ScreenDrill } from '../../core/UI';
+import { ScreenDrill, DrillArea, DrillControlGroup } from '../../core/UI';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as interaction from '../../../functions/interaction';
@@ -135,16 +135,14 @@ class Drill extends React.Component {
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
                 <ScreenDrill className={"Drill Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
-                    <section className="DrillControls">
-                        <ul>
-                            <li><Tooltip title="Reduce span"><Button onClick={this.reduceSpan}><ReduceIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Increase span"><Button onClick={this.increaseSpan}><IncreaseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
-                        </ul>
-                    </section>
+                    <DrillControlGroup>
+                        <Tooltip title="Reduce span"><Button onClick={this.reduceSpan}><ReduceIcon /></Button></Tooltip>
+                        <Tooltip title="Increase span"><Button onClick={this.increaseSpan}><IncreaseIcon /></Button></Tooltip>
+                        <Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip>
+                        <Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip>
+                    </DrillControlGroup>
 
-                    <section className="DrillArea"
+                    <DrillArea
                         ref={this.drillArea}
                         style={{fontSize: this.state.fontSize}}
                     >
@@ -158,7 +156,7 @@ class Drill extends React.Component {
                             fontStyle={this.props.fontStyle}
                             theme={this.props.theme} />}
 
-                    </section>
+                    </DrillArea>
 
                 </ScreenDrill>
             </>

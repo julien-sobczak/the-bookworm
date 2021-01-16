@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
 
-import { ScreenDrill } from '../../core/UI';
+import { ScreenDrill, DrillArea, DrillControlGroup } from '../../core/UI';
 import ProgressLine from '../../toolbox/ProgressLine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
@@ -248,17 +248,14 @@ class Drill extends React.Component {
 
                 <ScreenDrill className={"DrillChunk Theme" + string.capitalize(this.props.theme)}>
 
-                    <section className="DrillControls">
-                        <ul>
-                            <li><Tooltip title="Reduce WPM"><Button onClick={this.reduceWpm}><ReduceIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Increase WPM"><Button onClick={this.increaseWpm}><IncreaseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip></li>
-                            <li><Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip></li>
-                        </ul>
-                    </section>
+                    <DrillControlGroup>
+                        <Tooltip title="Reduce WPM"><Button onClick={this.reduceWpm}><ReduceIcon /></Button></Tooltip>
+                        <Tooltip title="Increase WPM"><Button onClick={this.increaseWpm}><IncreaseIcon /></Button></Tooltip>
+                        <Tooltip title="Pause"><Button onClick={this.pauseDrill}><PauseIcon /></Button></Tooltip>
+                        <Tooltip title="Stop"><Button onClick={this.stopDrill}><StopIcon /></Button></Tooltip>
+                    </DrillControlGroup>
 
-                    <section className="DrillArea">
-
+                    <DrillArea>
                         {this.state.currentChunk &&
                             <>
                                 <ProgressLine progress={this.state.chunkPosition * 100 / this.state.chunks.length} />
@@ -268,8 +265,7 @@ class Drill extends React.Component {
                                     nextChunk={this.state.nextChunk} />
                             </>
                         }
-
-                    </section>
+                    </DrillArea>
 
                 </ScreenDrill>
             </>

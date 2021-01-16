@@ -1,81 +1,4 @@
-/*
- * General
- */
 
-.DrillControls {
-  position: fixed;
-  z-index: 999;
-  right: 1rem;
-  top: 1rem;
-  text-align: right;
-}
-.DrillControls ul {
-  list-style-type: none;
-}
-.DrillControls li {
-  display: inline-block;
-}
-
-.DrillArea {
-  position: fixed;
-  top: 2em;
-  left: 2em;
-  right: 2em;
-  bottom: 2em;
-
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-
-/*
- * Vision Span Drills
- */
-
-.Serie {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-.Line {
-  line-height: 1.5em;
-}
-
-.Cell {
-  display: inline-block;
-  width: 0.25in;
-  text-align: center;
-}
-.Cell.valid {
-  color: green;
-}
-.Cell.highlighted {
-  background-color: green;
-  color: white;
-}
-
-
-
-
-/*
- * Chunking Drills
- */
-
-.ChunkHighlight .Chunk.Selected,
-.GraphicOption.ChunkHighlight > span {
-  background-color: var(--chunk-color);
-  color: white;
-}
-.ChunkColor .Chunk.Selected,
-.GraphicOption.ChunkColor > span {
-  color: var(--chunk-color);
-}
-.ChunkUnderline .Chunk.Selected,
-.GraphicOption.ChunkUnderline > span {
-  border-bottom: 0.4em solid var(--chunk-color);
-}
 
 
 
@@ -149,18 +72,5 @@
   line-height: 1.5em;
 }
 
-
-/* ViewerCircle */
-.ViewerCircle {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.ViewerCircle .Cell {
-  position: absolute;
-  width: 1em;
-  height: 1em;
-}
 
 

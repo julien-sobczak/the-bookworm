@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from '@material-ui/core/Tooltip';
 import PreviousIcon from '@material-ui/icons/ChevronLeft';
 import NextIcon from '@material-ui/icons/ChevronRight';
 
@@ -8,6 +9,7 @@ import Pager from '../chunking/Pager';
 import Paper from "../core/Paper";
 import Screen from "../core/Screen";
 import PageContent from "../core/PageContent";
+import { DrillControlGroup, DrillArea} from "../core/UI";
 
 import * as string from "../../functions/string";
 import { SPANS } from '../../functions/engine';
@@ -65,20 +67,18 @@ class BookViewer extends React.Component {
                 <Pager content={this.props.content} onDone={this.onPagerDone}
                     {...this.props} />
 
-                <section className="DrillControls">
-                    <ul>
-                        <li><button onClick={this.previousPage}><PreviousIcon /></button></li>
-                        <li><button onClick={this.nextPage}><NextIcon /></button></li>
-                    </ul>
-                </section>
+                <DrillControlGroup>
+                    <Tooltip title="Previous page"><Button onClick={this.previousPage}><PreviousIcon /></Button></Tooltip>
+                    <Tooltip title="Next page"><Button onClick={this.nextPage}><NextIcon /></Button></Tooltip>
+                </DrillControlGroup>
 
-                <section className="DrillArea">
+                <DrillArea>
                     {this.state.pageNumber > 0 &&
                         <Paper {...this.props}>
                             <PageContent page={this.state.pages[this.state.pageNumber - 1]} />
                         </Paper>
                     }
-                </section>
+                </DrillArea>
             </Screen>
         );
     }

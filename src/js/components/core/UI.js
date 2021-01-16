@@ -248,4 +248,26 @@ const StyledTable = styled.table`
     }
 `;
 
-export { Form, ScreenStats, ScreenDrill, ScreenLibrary, ScreenPreviewContent, Scrollable, StyledTable };
+const DrillControlGroup = styled.div`
+    position: fixed;
+    z-index: 999;
+    right: var(--wide-margin);
+    top: var(--wide-margin);
+    text-align: right;
+`;
+
+const DrillArea = styled.div`
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    right: 2em;
+    bottom: 2em;
+
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+`;
+
+export { Form, ScreenStats, ScreenDrill, ScreenLibrary, ScreenPreviewContent, Scrollable, StyledTable, DrillControlGroup, DrillArea };

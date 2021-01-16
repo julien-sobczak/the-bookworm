@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import classnames from 'classnames';
 
 /*
  * Vision Span Drills
@@ -15,7 +15,7 @@ export const Line = styled.div`
     line-height: 1.5em;
 `;
 
-export function Cell({ valid, highlight }) {
+export function Cell({ className, valid, highlight, style, children }) {
     const DefaultCell = styled.span`
         display: inline-block;
         width: 0.25in;
@@ -28,15 +28,24 @@ export function Cell({ valid, highlight }) {
         background-color: green;
         color: white;
     `;
-    if (valid) return <ValidCell />;
-    if (highlight) return <HighlightCell />;
-    return <DefaultCell />;
+    const props = {
+        className: classnames("Cell", className),
+        style: style,
+    };
+    if (valid) return <ValidCell {...props}>{children}</ValidCell>;
+    if (highlight) return <HighlightCell {...props}>{children}</HighlightCell>;
+    return <DefaultCell {...props}>{children}</DefaultCell>;
 }
 Cell.propTypes = {
+    className: PropTypes.string,
     valid: PropTypes.bool,
     highlight: PropTypes.bool,
+    style: PropTypes.object,
+    children: PropTypes.node.isRequired,
 };
 Cell.defaultProps = {
+    className: undefined,
     valid: false,
     highlight: false,
+    style: {},
 };
