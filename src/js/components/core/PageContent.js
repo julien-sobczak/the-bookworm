@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 const defaultPage = {
     blocks: [
@@ -48,7 +49,7 @@ class PageContent extends React.Component {
                                     classNames.push('After');
                                 }
 
-                                return <span className={classNames.join(' ')}
+                                return <span className={classnames(...classNames)}
                                     key={indexChunk}
                                     dangerouslySetInnerHTML={{__html: chunk}} />;
                             }));

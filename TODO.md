@@ -11,7 +11,6 @@
 # Refactor
 
 - [ ] Use /** */ comment on every component property
-- [ ] Use module `classnames` everywhere
 
 # Features
 
