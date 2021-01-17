@@ -6,7 +6,8 @@ import LibraryBooks from './LibraryBooks';
 import LibraryWebsite from './LibraryWebsite';
 import LibraryClipboard from './LibraryClipboard';
 
-import { ScreenLibrary, StyledTable } from '../core/UI';
+import { LibraryScreen } from './UI';
+import { StyledTable } from '../core/UI';
 import Progress from '../toolbox/Progress';
 import LargeButton from "../toolbox/LargeButton";
 import ButtonUpload from "./LargeButtonUpload";
@@ -76,7 +77,7 @@ class Library extends React.Component {
     render() {
         return (
             <>
-                {!this.state.category && <ScreenLibrary className="LibraryWelcome" onClose={this.props.onClose}>
+                {!this.state.category && <LibraryScreen className="LibraryWelcome" onClose={this.props.onClose}>
                     <h3>What you want to read?</h3>
 
                     {this.props.readings &&
@@ -111,7 +112,7 @@ class Library extends React.Component {
                             <LargeButton text="A website" colorText="white" colorBackground="#111" onClick={this.handleWebsiteSelection} />
                         */}
                     </LargeButtonGroup>
-                </ScreenLibrary>}
+                </LibraryScreen>}
 
                 {this.state.category === "book" &&
                     <LibraryBooks onSelect={this.handleSelection} onCancel={this.handleCancel} />

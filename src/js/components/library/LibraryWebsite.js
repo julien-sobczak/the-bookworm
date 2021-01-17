@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import PreviewWebsite from './PreviewWebsite';
 
-import { ScreenLibrary } from "../core/UI";
+import { LibraryScreen } from "./UI";
 import LargeButton from "../toolbox/LargeButton";
 import LargeButtonGroup from "../toolbox/LargeButtonGroup";
 
@@ -24,14 +24,14 @@ function LibraryWebsite({ onSelect, onCancel }) {
     return (
         <>
             {ready && <PreviewWebsite url={url} onSelect={(selection) => onSelect(selection) } />}
-            {!ready &&<ScreenLibrary className="LibraryWebsite">
+            {!ready &&<LibraryScreen className="LibraryWebsite">
                 <h3>Copy your URL</h3>
                 <Input type="text" name="url" onChange={(e) => setUrl(e.target.value)} />
                 <LargeButtonGroup>
                     <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => onCancel()} />
                     <LargeButton text="Read" colorText="white" colorBackground="#111" onClick={() => setReady(true)} />
                 </LargeButtonGroup>
-            </ScreenLibrary>}
+            </LibraryScreen>}
         </>
     );
 }

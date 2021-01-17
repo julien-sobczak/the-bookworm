@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-import { ScreenStats } from "../core/UI.js";
+import { StatsScreen } from "../core/UI.js";
 import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
@@ -15,7 +15,7 @@ import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 function Stats({ stats, finished, onRestart, onContinue }) {
 
     return (
-        <ScreenStats>
+        <StatsScreen>
             <table>
                 <tbody>
                     <tr>
@@ -41,7 +41,7 @@ function Stats({ stats, finished, onRestart, onContinue }) {
                 {!finished && <LargeButton text="Continue" colorText="white" colorBackground="#111" onClick={onContinue} />}
                 <Link to="/chunking/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
             </LargeButtonGroup>
-        </ScreenStats>
+        </StatsScreen>
     );
 }
 

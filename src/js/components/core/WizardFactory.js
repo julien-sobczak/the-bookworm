@@ -188,7 +188,7 @@ const BlackCheckbox = withStyles({
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-function ScreenInstructions(props) {
+function InstructionsScreen(props) {
 
     const [checked, setChecked] = useState(props.showInstructions);
 
@@ -267,13 +267,13 @@ function ScreenInstructions(props) {
         </Wrapper>
     );
 }
-ScreenInstructions.propTypes = {
+InstructionsScreen.propTypes = {
     instructions: PropTypes.node.isRequired,
     showInstructions: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
 };
 
-function ScreenWizard({ category, children }) {
+function WizardScreen({ category, children }) {
     const Wrapper = styled.div`
         --mdc-theme-secondary: black; /* Used by Switch */
     `;
@@ -286,7 +286,7 @@ function ScreenWizard({ category, children }) {
         </Wrapper>
     );
 }
-ScreenWizard.propTypes = {
+WizardScreen.propTypes = {
     category: PropTypes.oneOf(['vision-span', 'chunking', 'practice']),
     children: PropTypes.node.isRequired,
 };
@@ -384,12 +384,12 @@ class WizardFactory extends React.Component {
 
         return (
             <>
-                {this.state.instructionsActive && <ScreenInstructions
+                {this.state.instructionsActive && <InstructionsScreen
                     instructions={this.props.instructions}
                     showInstructions={this.state.showInstructions}
                     onClose={this.handleInstructionsClose} />}
 
-                {!this.state.instructionsActive && <ScreenWizard category={this.props.category}>
+                {!this.state.instructionsActive && <WizardScreen category={this.props.category}>
                     <Form>
 
                         <Tabs
@@ -443,7 +443,7 @@ class WizardFactory extends React.Component {
                         <LargeButton text="Instructions" colorText="white" colorBackground="#111" onClick={this.handleInstructionsClick} />
                         <LargeButton text="Start" colorText="white" colorBackground="#111" onClick={this.handleValidateClick} />
                     </LargeButtonGroup>
-                </ScreenWizard>}
+                </WizardScreen>}
             </>
         );
     }

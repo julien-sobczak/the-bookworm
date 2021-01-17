@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Loader from "../toolbox/Loader.js";
-import { ScreenPreviewContent } from '../core/UI.js';
+import { PreviewContentScreen } from './UI.js';
 
 class PreviewWebsite extends React.Component {
 
@@ -23,7 +23,7 @@ class PreviewWebsite extends React.Component {
 
     render() {
         return (
-            <ScreenPreviewContent>
+            <PreviewContentScreen>
 
                 {!this.state.text && !this.state.metadata &&
                     <Loader />
@@ -38,7 +38,7 @@ class PreviewWebsite extends React.Component {
                         {this.state.html.subtring(0, 10)}
                     </div>
                 }
-            </ScreenPreviewContent>
+            </PreviewContentScreen>
         );
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ScreenPreviewContent } from '../core/UI';
+import { PreviewContentScreen } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 
 class PreviewEpub extends React.Component {
@@ -34,7 +34,7 @@ class PreviewEpub extends React.Component {
 
     render() {
         return (
-            <ScreenPreviewContent>
+            <PreviewContentScreen>
 
                 <Toc
                     chapters={this.props.epub.chapters}
@@ -45,7 +45,7 @@ class PreviewEpub extends React.Component {
                     <ContentSelector content={this.state.content} onSelect={this.handleValidation} />
                 }
 
-            </ScreenPreviewContent>
+            </PreviewContentScreen>
         );
     }
 }
