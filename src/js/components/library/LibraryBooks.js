@@ -8,7 +8,8 @@ import LargeButton from "../toolbox/LargeButton";
 import Loader from "../toolbox/Loader";
 
 import * as library from "../../functions/library";
-import { ScreenLibrary, Scrollable } from '../core/UI';
+import { LibraryScreen } from './UI';
+import { Scrollable } from '../core/UI';
 import LargeButtonGroup from '../toolbox/LargeButtonGroup';
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
@@ -160,7 +161,7 @@ class LibraryBooks extends React.Component {
                 {this.state.loading && <Loader />}
 
                 {!this.state.loading && this.state.catalog.length > 0 &&
-                    <ScreenLibrary className="LibraryBooks" scrollbar>
+                    <LibraryScreen className="LibraryBooks" scrollbar>
                         <h3>Choose a book</h3>
 
                         <div className="LibraryFilters">
@@ -254,7 +255,7 @@ class LibraryBooks extends React.Component {
                         <LargeButtonGroup>
                             <LargeButton text="Back" colorText="white" colorBackground="#111" onClick={() => this.props.onCancel()} />
                         </LargeButtonGroup>
-                    </ScreenLibrary>}
+                    </LibraryScreen>}
             </>
         );
     }

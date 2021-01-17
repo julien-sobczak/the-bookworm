@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-import { ScreenStats } from "../core/UI.js";
+import { StatsScreen } from "../core/UI.js";
 import LargeButton from "../toolbox/LargeButton.js";
 import * as string from '../../functions/string';
 
@@ -14,7 +14,7 @@ import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 function Stats({ stats, onRestart }) {
 
     return (
-        <ScreenStats>
+        <StatsScreen>
             <table>
                 <tbody>
                     <tr>
@@ -35,7 +35,7 @@ function Stats({ stats, onRestart }) {
                 <LargeButton text="Retry" colorText="white" colorBackground="#111" onClick={onRestart} />
                 <Link to="/vision-span/"><LargeButton text="Change" colorText="white" colorBackground="#111" /></Link>
             </LargeButtonGroup>
-        </ScreenStats>
+        </StatsScreen>
     );
 }
 

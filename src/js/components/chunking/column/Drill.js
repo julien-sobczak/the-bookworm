@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Viewer from './Viewer';
 import Chunker from '../Chunker';
 
-import { ScreenDrill, DrillArea, DrillControlGroup } from '../../core/UI';
+import { DrillScreen, DrillArea, DrillControlGroup } from '../../core/UI';
 import Measurer from '../../core/Measurer';
 import ProgressLine from '../../toolbox/ProgressLine';
 import PauseOverlay from '../../toolbox/PauseOverlay';
@@ -253,7 +253,7 @@ class Drill extends React.Component {
                     {...this.props}
                 />
 
-                <ScreenDrill className={"DrillColumn Theme" + string.capitalize(this.props.theme)}>
+                <DrillScreen className={"DrillColumn Theme" + string.capitalize(this.props.theme)}>
 
                     <DrillControlGroup>
                         <Tooltip title="Reduce WPM"><Button onClick={this.reduceWpm}><ReduceIcon /></Button></Tooltip>
@@ -275,7 +275,7 @@ class Drill extends React.Component {
                         }
                     </DrillArea>
 
-                </ScreenDrill>
+                </DrillScreen>
             </>
         );
     }

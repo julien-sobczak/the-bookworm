@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ScreenPreviewContent } from '../core/UI';
+import { PreviewContentScreen } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 import Loader from "../toolbox/Loader.js";
 
@@ -53,7 +53,7 @@ class PreviewBook extends React.Component {
         return (
             <>
                 {!this.state.text && !this.state.metadata && <Loader />}
-                {this.state.text && this.state.metadata && <ScreenPreviewContent>
+                {this.state.text && this.state.metadata && <PreviewContentScreen>
                     <div>
                         <Toc
                             chapters={this.state.metadata.chapters}
@@ -65,7 +65,7 @@ class PreviewBook extends React.Component {
                         }
 
                     </div>
-                </ScreenPreviewContent>}
+                </PreviewContentScreen>}
             </>
         );
     }

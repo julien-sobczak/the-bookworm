@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import Viewer from './Viewer';
 import Engine from './Engine';
-import { ScreenDrill, DrillControlGroup, DrillArea } from '../../core/UI';
+import { DrillScreen, DrillControlGroup, DrillArea } from '../../core/UI';
 import PauseOverlay from '../../toolbox/PauseOverlay';
 
 import * as interaction from '../../../functions/interaction';
@@ -128,7 +128,7 @@ class Drill extends React.Component {
         return (
             <>
                 {this.state.paused && <PauseOverlay onResume={this.resumeDrill} />}
-                <ScreenDrill className={"Drill Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
+                <DrillScreen className={"Drill Theme" + string.capitalize(this.props.theme)} onClick={this.handleClick}>
 
                     <DrillControlGroup>
                         {this.props.autoLevel && <Tooltip title="Reduce span"><Button onClick={this.reduceSpan}><ReduceIcon /></Button></Tooltip>}
@@ -153,7 +153,7 @@ class Drill extends React.Component {
 
                     </DrillArea>
 
-                </ScreenDrill>
+                </DrillScreen>
             </>
         );
     }

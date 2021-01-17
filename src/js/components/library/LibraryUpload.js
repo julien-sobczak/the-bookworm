@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import PreviewEpub from './PreviewEpub';
-import { ScreenLibrary } from '../core/UI';
+import { LibraryScreen } from '../core/UI';
 
 class LibraryUpload extends React.Component {
 
@@ -10,11 +10,11 @@ class LibraryUpload extends React.Component {
     // We just delegate to the Preview component.
     render() {
         return (
-            <ScreenLibrary className="LibraryUpload">
+            <LibraryScreen className="LibraryUpload">
                 {this.props.filetype === 'application/epub+zip' &&
                     <PreviewEpub epub={this.props.file} onSelect={(selection) => this.props.onSelect(selection) } />
                 }
-            </ScreenLibrary>
+            </LibraryScreen>
         );
     }
 
