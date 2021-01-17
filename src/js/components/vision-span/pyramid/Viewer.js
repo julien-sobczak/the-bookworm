@@ -50,7 +50,7 @@ function Viewer(props) {
     `;
 
     return (
-        <Styled {...props}>
+        <Styled {...props} centered>
             <Viewer>
                 {drill.lines.map((line, lineIndex) => {
                     if (!currentSpan) {

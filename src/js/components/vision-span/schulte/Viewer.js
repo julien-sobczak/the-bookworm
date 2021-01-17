@@ -57,7 +57,7 @@ function Viewer(props) {
     `;
 
     return (
-        <Styled className="Viewer Centered" {...props}>
+        <Styled {...props} centered>
             <SchulteTable>
                 <tbody>
                     {drill && drill.lines.map((line, lineIndex) => {

@@ -46,7 +46,7 @@ function Viewer(props) {
     `;
 
     return (
-        <Styled {...props}>
+        <Styled {...props} centered>
             <Viewer>
                 {drill && drill.map((serie, serieIndex) => {
                     return (

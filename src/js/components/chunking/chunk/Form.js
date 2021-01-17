@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 
-import Viewer from './Viewer';
+import Viewer, { defaultViewerSettings } from './Viewer';
 import RadioButtons from '../../../components/toolbox/RadioButtons';
 import Help from '../../toolbox/Help';
 
@@ -64,7 +64,8 @@ const Form = (props) => {
     };
 
     const handleWpmChange = (event) => {
-        const newValue = parseInt(event.target.value);
+        let newValue = parseInt(event.target.value);
+        if (!newValue) newValue = defaultViewerSettings.wpm;
         setWpm(newValue);
         onChange({
             ...currentState(),

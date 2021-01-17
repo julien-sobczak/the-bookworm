@@ -211,6 +211,7 @@ function Tutorial({ onDone }) {
 
         p {
             margin: 2rem 0;
+            line-height: 2rem;
         }
         p.alignCenter {
             text-align: center;
