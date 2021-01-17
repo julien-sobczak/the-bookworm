@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import classnames from 'classnames';
 
 import Pager from '../Pager';
@@ -31,15 +32,33 @@ function Viewer(props) {
     }
     classNames.push('DisableVisualProblemStyle' + string.capitalize(props.disableVisualProblemStyle));
 
+    const Viewer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        height: 100%;
+        --drill-fade-color: #eee;
+
+        &.DisableVisualRegression.DisableVisualProblemStyleTransparent .Chunk.Before { opacity: 0; }
+        &.DisableVisualRegression.DisableVisualProblemStyleFade        .Chunk.Before { color: var(--drill-fade-color); background-color: var(--drill-fade-color); }
+        &.DisableVisualRegression.DisableVisualProblemStyleBlur        .Chunk.Before { filter: blur(0.1em); opacity: 0.5; }
+
+        &.DisableVisualProgression.DisableVisualProblemStyleTransparent .Chunk.After { opacity: 0; }
+        &.DisableVisualProgression.DisableVisualProblemStyleFade        .Chunk.After { color: var(--drill-fade-color); background-color: var(--drill-fade-color); }
+        &.DisableVisualProgression.DisableVisualProblemStyleBlur        .Chunk.After { filter: blur(0.1em); opacity: 0.5; }
+    `;
+
     return (
-        <div className={classnames("ViewerPage", "Centered", ...classNames)}>
+        <Viewer className={classnames(...classNames)}>
             <Paper {...props}>
                 <PageContent
                     page={props.page}
                     blockPosition={props.blockPosition}
                     chunkPosition={props.chunkPosition} />
             </Paper>
-        </div>
+        </Viewer>
     );
 
 }

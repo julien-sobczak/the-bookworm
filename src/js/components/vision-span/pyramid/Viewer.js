@@ -79,7 +79,7 @@ function Viewer(props) {
                                 return (
                                     <Cell
                                         key={columnIndex}
-                                        data-testid={'Line' + lineIndex + 'Column' + columnIndex}
+                                        testId={'Line' + lineIndex + 'Column' + columnIndex}
                                         className={cssSpan(currentSpan)}
                                         valid={column.valid}>
                                         {column.label}

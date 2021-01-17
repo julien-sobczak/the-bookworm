@@ -40,31 +40,31 @@ function Viewer(props) {
         <Styled {...props}>
             <Viewer>
                 {drill && <div style={{ height: "100%" }}>
-                    <Cell data-testid="LetterCenter" valid={drill.center.valid} style={{ left: `50%`, top: `50%` }}>
+                    <Cell testId="LetterCenter" valid={drill.center.valid} style={{ left: `50%`, top: `50%` }}>
                         {drill.center.label}
                     </Cell>
-                    <Cell data-testid="LetterTop" valid={drill.top.valid} style={{ left: `50%`, top: `calc(50% - ${props.span})` }}>
+                    <Cell testId="LetterTop" valid={drill.top.valid} style={{ left: `50%`, top: `calc(50% - ${props.span})` }}>
                         {drill.top.label}
                     </Cell>
-                    <Cell data-testid="LetterTopRight" valid={drill.topRight.valid} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% - ${y}in)` }}>
+                    <Cell testId="LetterTopRight" valid={drill.topRight.valid} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% - ${y}in)` }}>
                         {drill.topRight.label}
                     </Cell>
-                    <Cell data-testid="LetterRight" valid={drill.right.valid} style={{ left: `calc(50% + ${props.span})`, top: `50%` }}>
+                    <Cell testId="LetterRight" valid={drill.right.valid} style={{ left: `calc(50% + ${props.span})`, top: `50%` }}>
                         {drill.right.label}
                     </Cell>
-                    <Cell data-testid="LetterBottomRight" valid={drill.bottomRight.valid} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% + ${y}in)` }}>
+                    <Cell testId="LetterBottomRight" valid={drill.bottomRight.valid} style={{ left: `calc(50% + ${x}in)`, top: `calc(50% + ${y}in)` }}>
                         {drill.bottomRight.label}
                     </Cell>
-                    <Cell data-testid="LetterBottom" valid={drill.bottom.valid} style={{ left: `50%`, top: `calc(50% + ${props.span})` }}>
+                    <Cell testId="LetterBottom" valid={drill.bottom.valid} style={{ left: `50%`, top: `calc(50% + ${props.span})` }}>
                         {drill.bottom.label}
                     </Cell>
-                    <Cell data-testid="LetterBottomLeft" valid={drill.bottomLeft.valid} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% + ${y}in)` }}>
+                    <Cell testId="LetterBottomLeft" valid={drill.bottomLeft.valid} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% + ${y}in)` }}>
                         {drill.bottomLeft.label}
                     </Cell>
-                    <Cell data-testid="LetterLeft" valid={drill.left.valid} style={{ left: `calc(50% - ${props.span})`, top: `50%` }}>
+                    <Cell testId="LetterLeft" valid={drill.left.valid} style={{ left: `calc(50% - ${props.span})`, top: `50%` }}>
                         {drill.left.label}
                     </Cell>
-                    <Cell data-testid="LetterTopLeft" valid={drill.topLeft.valid} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% - ${y}in)` }}>
+                    <Cell testId="LetterTopLeft" valid={drill.topLeft.valid} style={{ left: `calc(50% - ${x}in)`, top: `calc(50% - ${y}in)` }}>
                         {drill.topLeft.label}
                     </Cell>
                 </div>}

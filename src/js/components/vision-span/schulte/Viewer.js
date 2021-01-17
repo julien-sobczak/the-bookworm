@@ -67,7 +67,7 @@ function Viewer(props) {
                                     return (
                                         <td key={columnIndex} className={cssCell}>
                                             <Cell
-                                                data-testid={'Line' + lineIndex + 'Column' + columnIndex}
+                                                testId={'Line' + lineIndex + 'Column' + columnIndex}
                                                 valid={column.valid}>
                                                 {column.label}
                                             </Cell>
