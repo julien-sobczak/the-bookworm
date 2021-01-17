@@ -67,10 +67,6 @@ test('with two series and two lines', async () => {
     expect(getByTestId('Serie1Line1Column0')).toHaveTextContent("J");
     expect(getByTestId('Serie1Line1Column1')).toHaveTextContent("K");
     expect(getByTestId('Serie1Line1Column2')).toHaveTextContent("L");
-
-    // Valid entries mut be highlighted
-    expect(getByTestId('Serie0Line1Column0')).toHaveClass('valid');
-    expect(getByTestId('Serie0Line1Column1')).not.toHaveClass('valid');
 });
 
 test('larger column spans', async () => {

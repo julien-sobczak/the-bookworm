@@ -50,10 +50,6 @@ test('letters', async () => {
     expect(getByTestId('Line2Column0')).toHaveTextContent("G");
     expect(getByTestId('Line2Column1')).toHaveTextContent("H");
     expect(getByTestId('Line2Column2')).toHaveTextContent("I");
-
-    // Valid entries mut be highlighted
-    expect(getByTestId('Line1Column0')).toHaveClass('valid');
-    expect(getByTestId('Line1Column1')).not.toHaveClass('valid');
 });
 
 test('larger cell width', async () => {
@@ -91,7 +87,7 @@ test('larger cell width', async () => {
     );
 
     // Each span is marked by a CSS class
-    expect(getByTestId('Line0Column0')).toHaveClass("Width1_75in");
-    expect(getByTestId('Line1Column1')).toHaveClass("Width1_75in");
-    expect(getByTestId('Line2Column2')).toHaveClass("Width1_75in");
+    expect(getByTestId('Line0Column0').parentNode).toHaveClass("Width1_75in");
+    expect(getByTestId('Line1Column1').parentNode).toHaveClass("Width1_75in");
+    expect(getByTestId('Line2Column2').parentNode).toHaveClass("Width1_75in");
 });

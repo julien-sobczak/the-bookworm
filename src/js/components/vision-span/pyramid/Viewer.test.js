@@ -40,10 +40,6 @@ test('letter positions', async () => {
     expect(getByTestId('Line1Column0')).toHaveTextContent("D");
     expect(getByTestId('Line1Column1')).toHaveTextContent("E");
     expect(getByTestId('Line1Column2')).toHaveTextContent("F");
-
-    // Valid entries mut be highlighted
-    expect(getByTestId('Line1Column0')).toHaveClass('valid');
-    expect(getByTestId('Line1Column1')).not.toHaveClass('valid');
 });
 
 test('a larger column span', async () => {

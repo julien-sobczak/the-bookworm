@@ -15,7 +15,7 @@ export const Line = styled.div`
     line-height: 1.5em;
 `;
 
-export function Cell({ className, valid, highlight, style, children }) {
+export function Cell({ className, valid, highlight, style, children, testId }) {
     const DefaultCell = styled.span`
         display: inline-block;
         width: 0.25in;
@@ -32,6 +32,9 @@ export function Cell({ className, valid, highlight, style, children }) {
         className: classnames("Cell", className),
         style: style,
     };
+    if (testId) {
+        props['data-testid'] = testId;
+    }
     if (valid) return <ValidCell {...props}>{children}</ValidCell>;
     if (highlight) return <HighlightCell {...props}>{children}</HighlightCell>;
     return <DefaultCell {...props}>{children}</DefaultCell>;
@@ -41,11 +44,13 @@ Cell.propTypes = {
     valid: PropTypes.bool,
     highlight: PropTypes.bool,
     style: PropTypes.object,
+    testId: PropTypes.string,
     children: PropTypes.node.isRequired,
 };
 Cell.defaultProps = {
     className: undefined,
     valid: false,
     highlight: false,
+    testId: undefined,
     style: {},
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import classnames from 'classnames';
 
 import Chunker from '../Chunker';
@@ -37,12 +38,30 @@ function Viewer(props) {
         gridTemplateColumns: (props.columnWidth + ' ').repeat(props.columns),
     };
 
+    const Viewer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .Columns {
+           display: grid;
+            /* https://css-tricks.com/snippets/css/complete-guide-grid/ */
+            text-align: center;
+            justify-content: center; /* center horizontally without spreading elements */
+            align-content: center; /* center vertically without spreading elements */
+        }
+        .Chunk {
+            line-height: 1.5em;
+        }
+    `;
+
     return (
-        <div className={"ViewerColumn Centered"}>
+        <Viewer>
             <Styled {...props} className="Columns" style={columnsStyle}>
                 {chunksHTML}
             </Styled>
-        </div>
+        </Viewer>
     );
 }
 

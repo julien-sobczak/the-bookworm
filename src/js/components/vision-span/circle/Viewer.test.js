@@ -35,8 +35,4 @@ test('letter positions', async () => {
     expect(getByTestId('LetterBottomLeft')).toHaveTextContent("G");
     expect(getByTestId('LetterLeft')).toHaveTextContent("H");
     expect(getByTestId('LetterTopLeft')).toHaveTextContent("I");
-
-    // Valid entries mut be highlighted
-    expect(getByTestId('LetterRight')).toHaveClass('valid');
-    expect(getByTestId('LetterLeft')).not.toHaveClass('valid');
 });

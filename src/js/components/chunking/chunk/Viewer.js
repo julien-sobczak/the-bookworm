@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import classnames from 'classnames';
 
 import Chunker from '../Chunker';
@@ -22,8 +23,36 @@ function Viewer(props) {
     const previousChunkEmpty = !props.previousChunk || props.currentChunk.startingChunk;
     const nextChunkEmpty = !props.nextChunk || props.currentChunk.endingChunk;
 
+    const Viewer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        --chunk-neighbor-margin: .25em;
+
+        .Chunks {
+            text-align: center;
+        }
+
+        .Chunk {
+            display: inline-block;
+            padding: 10px;
+        }
+
+        &.NeighborPositionVertical .Chunk {
+            margin-top: var(--chunk-neighbor-margin);
+            margin-bottom: var(--chunk-neighbor-margin);
+        }
+        &.NeighborPositionHorizontal .Chunk {
+            display: inline-block;
+            margin-left: var(--chunk-neighbor-margin);
+            margin-bottom: var(--chunk-neighbor-margin);
+        }
+    `;
+
     return (
-        <div className={classnames("ViewerChunk", "Centered", ...classNames)}>
+        <Viewer className={classnames(...classNames)}>
             <Styled {...props} className="Chunks">
                 {props.showPreviousChunk && previousChunkEmpty &&
                     <span className="Chunk PreviousChunk Opaque">&nbsp;</span>}
@@ -40,7 +69,7 @@ function Viewer(props) {
                 {props.showNextChunk && !nextChunkEmpty &&
                     <span className="Chunk NextChunk" dangerouslySetInnerHTML={{ __html: props.nextChunk.text }}></span>}
             </Styled>
-        </div>
+        </Viewer>
     );
 
 }
