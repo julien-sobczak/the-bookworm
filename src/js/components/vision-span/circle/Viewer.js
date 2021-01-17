@@ -37,7 +37,7 @@ function Viewer(props) {
     `;
 
     return (
-        <Styled {...props}>
+        <Styled {...props} centered>
             <Viewer>
                 {drill && <div style={{ height: "100%" }}>
                     <Cell testId="LetterCenter" valid={drill.center.valid} style={{ left: `50%`, top: `50%` }}>

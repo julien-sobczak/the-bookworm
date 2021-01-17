@@ -1,84 +1,103 @@
+<p align="center">
+  <p align="center">
+    <a href="https://julien-sobczak.github.io/the-bookworm/" target="_blank">
+      <img src="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/logo.svg" alt="The Bookworm" height="72">
+    </a>
+  </p>
+</p>
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Website](https://img.shields.io/website-up-down-green-red/https/julien-sobczak.github.io/the-bookworm.svg)](https://julien-sobczak.github.io/the-bookworm/) [![GitHub Actions Status](https://github.com/julien-sobczak/the-bookworm/workflows/CI/badge.svg)](https://github.com/julien-sobczak/the-bookworm/actions) [![GitHub issues](https://img.shields.io/github/issues/julien-sobczak/the-bookworm.svg)](https://github.com/julien-sobczak/the-bookworm/issues/) [![GitHub pull-requests](https://img.shields.io/github/issues-pr/julien-sobczak/the-bookworm.svg)](https://github.com/julien-sobczak/the-bookworm/pull/) [![Hit Count](http://hits.dwyl.com/julien-sobczak/the-bookworm.svg)](http://hits.dwyl.com/julien-sobczak/the-bookworm)
+
+----
+
+## What's The Bookworm?
+
+The Bookworm is a web application to practice spead reading.
+
+<p align="center">
+  <a href="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-horizontal.png" target="_blank"><img src="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-horizontal.png" width="290"></a>
+  <a href="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-circle.png" target="_blank"><img src="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-circle.png" width="290"></a>
+  <a href="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-chunk.png" target="_blank"><img src="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-chunk.png" width="290"></a>
+  <a href="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-page.png" target="_blank"><img src="https://raw.githubusercontent.com/julien-sobczak/the-bookworm/master/src/images/screenshot-drill-page.png" width="290"></a>
+</p>
+
+The application uses [React](https://github.com/facebook/react) and is written in JavaScript.
+
+## Download
+
+The Bookworm is a progressive web application. No download or installation is required. Browse to https://the-bookworm.web.app/ using a modern browser (the application was developed using Chrome).
+
+You may also add the application to your home screen. (Check your [browser documentation](https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DDesktop&hl=fr) to find out how to install a progressive application.) This step is optional.
+
+## Have a bug or a feature request?
+
+First, search for existing and closed issues. If your problem or idea is not addressed yet, please [open a new issue](https://github.com/julien-sobczak/the-bookworm/issues).
+
+## Contributing
+
+Please read through the [contributing guidelines](CONTRIBUTING.md) which includes explanations about coding standards, and notes on development.
+
+## Developing
+
+Development can be done on Mac, Windows, or Linux as long as you have
+[NodeJS](https://nodejs.org) and [Git](https://git-scm.com/).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Clone the project and run the command `npm install`.
+
+<details>
+<summary>Available Scripts</summary>
 
 In the project directory, you can run:
 
-### `npm start`
+### Runs the app in the development mode.
 
-Runs the app in the development mode.<br>
+```bash
+$ npm start
+````
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The page will reload if you make edits.
 
-### `npm test`
+### Launches the test runner in the interactive watch mode.
 
-Launches the test runner in the interactive watch mode.<br>
+```bash
+$ npm test
+```
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Builds the app for production to the `build` folder.
 
-Builds the app for production to the `build` folder.<br>
+```bash
+$ npm run build
+```
+
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+</details>
 
 
+## Deploying
 
+The project's main branch is automatically deployed to [Firebase](https://firebase.google.com/) using GitHub Actions (see `.github/` directory)
 
-# Deployment
+<details>
+<summary>Manual deployment</summary>
 
-firebase logout
-firebase login
-firebase init (create project https://console.firebase.google.com from the console first) (choose build/ instead of public/)
-npm run build
-firebase deploy
+To deploy manually (not recommended):
+
+```bash
+$ firebase login
+# Create a project from the console first https://console.firebase.google.com
+$ firebase init
+# Choose build/ instead of public/
+$ npm run build
+$ firebase deploy
+```
+
 Browse to: https://the-bookworm.web.app/
-
-Resource: https://www.robinwieruch.de/firebase-deploy-react-js/
+</details>
 
 

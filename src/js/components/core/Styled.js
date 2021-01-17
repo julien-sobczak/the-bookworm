@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import * as string from "../../functions/string";
 
@@ -12,39 +13,36 @@ const defaultTextSettings = {
 
 const Styled = React.forwardRef((props, ref) => {
 
-    const css = function() {
-        const defaultClassName = props.className ? props.className + ' ': '';
-        const fontFamilyClass = string.capitalize(props.fontFamily);
-        const fontSizeClass = 'Size' + props.fontSize;
-        const fontStyleClass = props.fontStyle.split(' ').map(string.capitalize).join('');
-        const chunkStyleClass = 'Chunk' + string.capitalize(props.chunkStyle);
-        return `${defaultClassName}Styled ${fontFamilyClass} ${fontSizeClass} ${fontStyleClass} ${chunkStyleClass}`;
-    };
-
-    const styles = function() {
-        const inheritedStyle = (props.style) ? props.style : {};
-        const styles = {
-            ...inheritedStyle,
-        };
-        return styles;
-    };
+    const fontFamilyClass = string.capitalize(props.fontFamily);
+    const fontSizeClass = 'Size' + props.fontSize;
+    const fontStyleClass = props.fontStyle.split(' ').map(string.capitalize).join('');
+    const chunkStyleClass = 'Chunk' + string.capitalize(props.chunkStyle);
+    const classNames = [
+        fontFamilyClass,
+        fontSizeClass,
+        fontStyleClass,
+        chunkStyleClass
+    ];
 
     return (
         <div {...props.id && { 'id' : props.id }}
             ref={ref}
-            className={css()}
-            style={styles()}>
+            className={classnames('Styled', props.className, ...classNames, { 'Centered': props.centered } )}
+            style={props.style}>
             {props.children}
         </div>
     );
 
 });
+Styled.displayName = 'Styled';
 
 Styled.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.any,
+
+    centered: PropTypes.bool,
 
     // Text options
     fontFamily: PropTypes.string,
@@ -56,6 +54,10 @@ Styled.propTypes = {
 };
 
 Styled.defaultProps = {
+    style: {},
+
+    centered: false,
+
     // Text options
     fontFamily: 'Roboto',
     fontSize: '14pt',
