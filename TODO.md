@@ -6,7 +6,6 @@
 
 - [ ] Find why <ContentSelector> is not used.
 - [ ] Use https://material-ui.com/components/slider/ for input text fields (WPM)
-- [ ] Update theme to change color of drill controlls button in dark modes
 
 # Refactor
 

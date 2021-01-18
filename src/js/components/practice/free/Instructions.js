@@ -20,7 +20,7 @@ const page = {
 
 function InstructionsFree() {
 
-    const viewer = <Viewer paperSize={"Instructions"} chunkPosition={0} page={page} fontStyle={"bold"} />;
+    const viewer = <Viewer paperSize={"instructions"} chunkPosition={0} page={page} fontStyle={"bold"} />;
 
     return (
         <div>

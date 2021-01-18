@@ -44,13 +44,34 @@ import PreferencesIcon from '@material-ui/icons/Settings';
 import 'normalize.css';
 import './App.css';
 
-const theme = createMuiTheme({
+const lightTheme = createMuiTheme({
     palette: {
         primary: {
             main: "#000000",
         },
         secondary: {
             main: "#ffffff",
+        },
+    },
+});
+
+const darkTheme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#ffffff",
+        },
+        secondary: {
+            main: "#000000",
+        },
+    },
+    overrides: {
+        MuiButton: {
+            root: {
+                color: 'white',
+                '&:hover': {
+                    backgroundColor: 'var(--chunk-color)',
+                },
+            },
         },
     },
 });
@@ -238,7 +259,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={lightTheme}>
                 <ContentContext.Provider value={this.state}>
                     <ScreenTester minWidth="5in" minHeight="5in" />
 
@@ -307,4 +328,6 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export { ConnectedApp as default, lightTheme, darkTheme };

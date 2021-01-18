@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import MobileDetect from 'mobile-detect';
 
+import { ThemeProvider } from '@material-ui/core/styles';
+
 import { updateReading, recordSession } from '../../store/actions';
 import { ContentContext } from '../../../content-context';
+import { lightTheme, darkTheme } from '../../../App';
 
 import * as library from '../../functions/library';
 
@@ -176,6 +179,11 @@ class GameFactory extends React.Component {
 
     render() {
         const historySessions = this.props.historySessions[this.props.name];
+        let theme = lightTheme;
+        if (this.state.textSettings && ['Dark', 'Black'].includes(this.state.textSettings.theme)) {
+            theme = darkTheme;
+        }
+        console.log(`Theme`, this.state.textSettings, theme);
 
         return (
             <>
@@ -199,13 +207,15 @@ class GameFactory extends React.Component {
                     <Countdown duration={this.props.countdownDuration} onTimesUp={this.handleCountdownCompletion} />}
 
                 {this.state.state === 'started' &&
-                    React.cloneElement(this.props.drill, {
-                        ...this.state.drillSettings,
-                        ...this.state.textSettings,
-                        keyboardDetect: this.state.keyboardDetected,
-                        content: this.state.currentContent,
-                        onComplete: this.handleDrillCompletion,
-                    })}
+                    <ThemeProvider theme={theme}>
+                        {React.cloneElement(this.props.drill, {
+                            ...this.state.drillSettings,
+                            ...this.state.textSettings,
+                            keyboardDetect: this.state.keyboardDetected,
+                            content: this.state.currentContent,
+                            onComplete: this.handleDrillCompletion,
+                        })}
+                    </ThemeProvider>}
 
                 {this.state.state === 'finished' &&
                     React.cloneElement(this.props.stats, {
