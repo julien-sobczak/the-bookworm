@@ -183,7 +183,6 @@ class GameFactory extends React.Component {
         if (this.state.textSettings && ['Dark', 'Black'].includes(this.state.textSettings.theme)) {
             theme = darkTheme;
         }
-        console.log(`Theme`, this.state.textSettings, theme);
 
         return (
             <>
