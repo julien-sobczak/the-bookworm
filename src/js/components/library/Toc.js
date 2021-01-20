@@ -63,7 +63,7 @@ function Toc({ chapters, selectedIndex, onSelect }) {
     };
 
     return (
-        <div className="Toc">
+        <Container>
             <ul>
                 {chapters && chapters.map((chapter, index) => {
                     return (
@@ -77,11 +77,21 @@ function Toc({ chapters, selectedIndex, onSelect }) {
                     );
                 })}
             </ul>
-        </div>
+        </Container>
     );
 }
 Toc.propTypes = {
+    /**
+     * The list of chapters composing the TOC.
+     */
     chapters: PropTypes.arrayOf(PropTypes.object),
+    /**
+     * Index of the chapter to highlight.
+     */
     selectedIndex: PropTypes.number,
+    /**
+     * Called when the user click on a chapter title.
+     * The callback receives an object containing the chapter and the its index.
+     */
     onSelect: PropTypes.func.isRequired,
 };

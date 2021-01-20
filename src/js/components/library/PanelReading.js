@@ -8,25 +8,22 @@ import UnfoldLessIcon from '@material-ui/icons/UnfoldLess';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 
 import Library from './Library';
-import Progress from '../toolbox/Progress';
-import { StyledTable } from '../core/UI';
+import ReadingsList from './ReadingsList';
 
-import * as string from '../../functions/string';
-
-
-const mapStateToProps = state => {
-    return {
-        readings: state.readings,
-    };
-};
-
+/**
+ * Display a top bar in the drill catalogs that require a text to read.
+ *
+ * The bar allow the user to visualize the current reading with buttons to
+ * switch to another readings or a complete new content.
+ *
+ * @param {Object} props The component properties.
+ */
 function PanelReading(props) {
 
     const [libraryActive, setLibraryActive] = useState(false);
     const [collapsed, setCollapsed] = useState(true);
 
-    const handleReadingSwitch = (event) => {
-        const reading = props.readings[event.target.dataset.index];
+    const handleReadingSwitch = (reading) => {
         setCollapsed(true);
         props.onToggle(reading);
     };
@@ -133,21 +130,7 @@ function PanelReading(props) {
                     </BrowseButton>
                 </Menu>
 
-                {!collapsed && <StyledTable>
-                    <tbody>
-                        {props.readings.map((reading, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td><em>{reading.description.title}</em></td>
-                                    <td><small>{reading.description.author}</small></td>
-                                    <td><small>{string.humanReadableDate(reading.lastDate)}</small></td>
-                                    <td><Progress value={reading.position.progress} showText /></td>
-                                    <td><Button variant="contained" disableElevation onClick={handleReadingSwitch} data-index={index} className="ButtonLight Clickable">Switch</Button></td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </StyledTable>}
+                {!collapsed && <ReadingsList readings={props.readings} onSwitch={handleReadingSwitch} />}
 
             </Panel>
 
@@ -159,20 +142,43 @@ function PanelReading(props) {
 
 
 PanelReading.propTypes = {
-    // Redux state
-    readings: PropTypes.array.isRequired,
-    // The current selected content.
+    /**
+     * The current selected content in standard format.
+     */
     content: PropTypes.object,
-    // Callback when the user selects a new content.
+
+    // Redux state
+
+    /**
+     * The list of readings in progress.
+     */
+    readings: PropTypes.array.isRequired,
+
+    // Callbacks
+
+    /**
+     * Called when the user selects a new content in the library.
+     * The callback receives the new content in the standard format as the first argument.
+     */
     onSelect: PropTypes.func,
-    // Callback when the user switches to a previous reading.
+    /**
+     * Called when the user switches to a previous reading in progress.
+     * The callback received the reading metadata as present in the local storage.
+     */
     onToggle: PropTypes.func,
+    // TODO See to keep only the onSelect callback
 };
 
 PanelReading.defaultProps = {
     content: {},
     onSelect: () => { },
     onToggle: () => { },
+};
+
+const mapStateToProps = state => {
+    return {
+        readings: state.readings,
+    };
 };
 
 export default connect(mapStateToProps)(PanelReading);

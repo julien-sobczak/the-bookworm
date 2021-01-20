@@ -8,11 +8,20 @@ import { LibraryScreen } from "./UI";
 import LargeButton from "../toolbox/LargeButton";
 import LargeButtonGroup from "../toolbox/LargeButtonGroup";
 
+/**
+ * Component to select a website to read.
+ *
+ * Note: This component is currently not supported as most websites blocks
+ * Ajax requests coming from cross origins.
+ *
+ * @param {Object} props The component properties.
+ */
 function LibraryWebsite({ onSelect, onCancel }) {
 
     const [url, setUrl] = useState(undefined);
     const [ready, setReady] = useState(false);
 
+    // Large input to enter the URL.
     const Input = styled.input`
         width: 50vw;
         height: 3em;
@@ -24,7 +33,7 @@ function LibraryWebsite({ onSelect, onCancel }) {
     return (
         <>
             {ready && <PreviewWebsite url={url} onSelect={(selection) => onSelect(selection) } />}
-            {!ready &&<LibraryScreen className="LibraryWebsite">
+            {!ready &&<LibraryScreen>
                 <h3>Copy your URL</h3>
                 <Input type="text" name="url" onChange={(e) => setUrl(e.target.value)} />
                 <LargeButtonGroup>
@@ -37,7 +46,14 @@ function LibraryWebsite({ onSelect, onCancel }) {
 }
 
 LibraryWebsite.propTypes = {
+    /**
+     * Called when the user has validated the content to read.
+     * The callback received the content in the standard format as the first argument.
+     */
     onSelect: PropTypes.func.isRequired,
+    /**
+     * Called when the user exits the screen without entering a URL.
+     */
     onCancel: PropTypes.func.isRequired,
 };
 

@@ -4,25 +4,38 @@ import PropTypes from 'prop-types';
 import PreviewEpub from './PreviewEpub';
 import { LibraryScreen } from '../core/UI';
 
-class LibraryUpload extends React.Component {
+/**
+ * TODO This component is not used currently. Why?
+ *
+ * @param {Object} props The component properties.
+ */
+function LibraryUpload({ filetype, file, onSelect }) {
 
-    // Files were alreadly uploaded on the next screen.
+    // Files were alreadly uploaded on the previous screen.
     // We just delegate to the Preview component.
-    render() {
-        return (
-            <LibraryScreen className="LibraryUpload">
-                {this.props.filetype === 'application/epub+zip' &&
-                    <PreviewEpub epub={this.props.file} onSelect={(selection) => this.props.onSelect(selection) } />
-                }
-            </LibraryScreen>
-        );
-    }
-
+    return (
+        <LibraryScreen>
+            {filetype === 'application/epub+zip' &&
+                <PreviewEpub content={file} onSelect={(content) => onSelect(content) } />
+            }
+        </LibraryScreen>
+    );
 }
 
 LibraryUpload.propTypes = {
-    filetype: PropTypes.string.isRequired, // Only application/epub+zip is supported
+    /**
+     * The MIME filetype.
+     * Note that only application/epub+zip is supported
+     */
+    filetype: PropTypes.string.isRequired,
+    /**
+     * The file content in the standard format.
+     */
     file: PropTypes.object.isRequired,
+    /**
+     * Called when the user has finished filtered the chapters content.
+     * The callback receives the new content in the standard format.
+     */
     onSelect: PropTypes.func.isRequired,
 };
 

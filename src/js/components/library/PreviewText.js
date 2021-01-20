@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { PreviewContentScreen } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 
+/**
+ * Preview a copy/paste text to allow the user to edit it.
+ */
 class PreviewText extends React.Component {
 
     constructor(props) {
@@ -54,7 +57,14 @@ class PreviewText extends React.Component {
 }
 
 PreviewText.propTypes = {
+    /**
+     * The content in the standard format to preview.
+     */
     text: PropTypes.string,
+    /**
+     * Called when the user has finished filtered the content.
+     * The callback received the new content filtered in the same format.
+     */
     onSelect: PropTypes.func,
 };
 

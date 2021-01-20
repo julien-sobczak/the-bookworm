@@ -9,6 +9,11 @@ import { LibraryScreen } from "./UI";
 import LargeButton from "../toolbox/LargeButton";
 import LargeButtonGroup from "../toolbox/LargeButtonGroup";
 
+/**
+ * Component to paste a free text to read.
+ *
+ * @param {Object} props The component properties.
+ */
 function LibraryClipboard({ onSelect, onCancel }) {
 
     const [text, setText] = useState("");
@@ -50,7 +55,16 @@ function LibraryClipboard({ onSelect, onCancel }) {
 }
 
 LibraryClipboard.propTypes = {
+    // Callbacks
+
+    /**
+     * Called when the user has validated the content he pasted.
+     * The callback received the content in the standard format as the first argument.
+     */
     onSelect: PropTypes.func.isRequired,
+    /**
+     * Called when the user exits the screen without any content pasted.
+     */
     onCancel: PropTypes.func.isRequired,
 };
 

@@ -76,6 +76,9 @@ const Preview = styled.div`
     }
 `;
 
+/**
+ * Component to visualize and filter a content.
+ */
 class ContentSelector extends React.Component {
 
     constructor(props) {
@@ -167,9 +170,19 @@ class ContentSelector extends React.Component {
 }
 
 ContentSelector.propTypes = {
+    /**
+     * The content to filter in the standard format.
+     */
     content: PropTypes.object,
-    onSelect: PropTypes.func,
+    /**
+     * Determine if all chapters must be selected by default.
+     */
     selectAll: PropTypes.bool,
+    /**
+     * Called when the user has finished filtering the content.
+     * The callback received the new filtered content in the same format as the first argument.
+     */
+    onSelect: PropTypes.func,
 };
 
 ContentSelector.defaultProps = {

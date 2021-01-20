@@ -12,8 +12,12 @@ import PageContent from "../core/PageContent";
 import { DrillControlGroup, DrillArea} from "../core/UI";
 
 import * as string from "../../functions/string";
-import { SPANS } from '../../functions/engine';
 
+/**
+ * Component to display a content as a list of pages to navigate manually.
+ *
+ * NOTE: This component is not used for now.
+ */
 class BookViewer extends React.Component {
 
     constructor(props) {
@@ -86,19 +90,17 @@ class BookViewer extends React.Component {
 }
 
 BookViewer.propTypes = {
+    // Inherit Paper properties to control the page settings.
     ...Paper.propTypes,
 
+    /**
+     * The content to view in the standard format.
+     */
     content: PropTypes.object,
-
-    chunkWidth: PropTypes.oneOf(SPANS),
-    chunkAccuracy: PropTypes.number,
 };
 
 BookViewer.defaultProps = {
     ...Paper.defaultProps,
-
-    chunkWidth: '2in',
-    chunkAccuracy: 0.9,
 };
 
 export default BookViewer;

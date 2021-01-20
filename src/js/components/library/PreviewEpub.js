@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { PreviewContentScreen } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 
+/**
+ * Preview an Epub content to allow the user to filter chapters.
+ */
 class PreviewEpub extends React.Component {
 
     constructor(props) {
@@ -37,7 +40,7 @@ class PreviewEpub extends React.Component {
             <PreviewContentScreen>
 
                 <Toc
-                    chapters={this.props.epub.chapters}
+                    chapters={this.props.content.chapters}
                     selectedIndex={this.state.chapterIndex}
                     onSelect={this.handleChapterSelected} />
 
@@ -51,7 +54,14 @@ class PreviewEpub extends React.Component {
 }
 
 PreviewEpub.propTypes = {
-    epub: PropTypes.object,
+    /**
+     * The content in standard format to preview.
+     */
+    content: PropTypes.object,
+    /**
+     * Called when the user has finished filtered the content.
+     * The callback received the new content filtered in the same format.
+     */
     onSelect: PropTypes.func,
 };
 

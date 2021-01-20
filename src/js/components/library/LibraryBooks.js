@@ -14,22 +14,35 @@ import LargeButtonGroup from '../toolbox/LargeButtonGroup';
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
+/**
+ * Return the HTML flag for a spoken language.
+ *
+ * @param {Object} props The component properties.
+ */
 function LanguageIcon({name}) {
     return (
         <>
+            {name === 'Dutch' && <>🇳🇱&nbsp;</>}
             {name === 'English' && <>🇬🇧&nbsp;</>}
             {name === 'French' && <>🇫🇷&nbsp;</>}
             {name === 'German' && <>🇩🇪&nbsp;</>}
             {name === 'Italian' && <>🇮🇹&nbsp;</>}
-            {name === 'Spanish' && <>🇪🇸&nbsp;</>}
+            {name === 'Polish' && <>🇵🇱&nbsp;</>}
             {name === 'Portuguese' && <>🇵🇹&nbsp;</>}
+            {name === 'Spanish' && <>🇪🇸&nbsp;</>}
         </>
     );
 }
 LanguageIcon.propTypes = {
+    /**
+     * The full name of the language (ex: "French").
+     */
     name: PropTypes.oneOf(library.SUPPORTED_LANGUAGES).isRequired,
 };
 
+/**
+ * Component to select a book in the bookshelf.
+ */
 class LibraryBooks extends React.Component {
 
     constructor(props) {
@@ -260,9 +273,16 @@ class LibraryBooks extends React.Component {
         );
     }
 
-    static getPopularLanguages(books) {
+    /**
+     * Determine the most present languages in the catalog.
+     *
+     * @param {Array} books The catalog metadata.
+     * @param {number} n The maximum number of results.
+     * @return {Array} The sorted language names starting with the most represented language.
+     */
+    static getPopularLanguages(books, n = 5) {
         // Keep only the first most present languages
-        const keepLanguages = 5;
+        const keepLanguages = n;
 
         const languageNames = [];
         const languageCount = [];
@@ -301,11 +321,30 @@ class LibraryBooks extends React.Component {
 }
 
 LibraryBooks.propTypes = {
+
     // Redux State
+
+    /**
+     * The list of readings in progress.
+     * This is used to highlight these books in the library.
+     */
     readings: PropTypes.array.isRequired,
+    /**
+     * The user language settings.
+     * This is used to filter books based on his favorite language.
+     */
     preferencesLanguage: PropTypes.object.isRequired,
+
     // Callbacks
+
+    /**
+     * Called when the user selects a book in the library.
+     * The callback received the book content in the standard format as the first argument.
+     */
     onSelect: PropTypes.func,
+    /**
+     * Called when the user exits the library without choosing a book.
+     */
     onCancel: PropTypes.func,
 };
 

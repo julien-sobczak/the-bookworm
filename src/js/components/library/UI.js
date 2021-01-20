@@ -4,7 +4,18 @@ import styled from 'styled-components';
 
 import Screen from '../core/Screen';
 
-function LibraryScreen(props) {
+//
+// This file regroups common UI components specific to the Library section.
+//
+
+/**
+ * Main screen for the Library section.
+ *
+ * This component is a wrapper around <Screen> to apply custom styling.
+ *
+ * @param {Object} props The components props
+ */
+export function LibraryScreen(props) {
     const Wrapper = styled.div`
         .Bookshelf {
             max-height: 12rem;
@@ -83,24 +94,33 @@ function LibraryScreen(props) {
     );
 }
 LibraryScreen.propTypes = {
+    /**
+     * The content of the screen.
+     */
     children: PropTypes.node,
 };
 
-function PreviewContentScreen(props) {
-    const Wrapper = styled.div`
-
-    `;
+/**
+ * Screen to preview a content.
+ *
+ * This component is a wrapper around <Screen> to apply custom styling.
+ *
+ * @param {Object} props The component properties.
+ */
+export function PreviewContentScreen(props) {
+    const Wrapper = styled.div``;
 
     return (
         <Wrapper>
-            <Screen className="PreviewContent" {...props} scrollable> {/* TODO remove CSS class */}
+            <Screen {...props} scrollable>
                 {props.children}
             </Screen>
         </Wrapper>
     );
 }
 PreviewContentScreen.propTypes = {
+    /**
+     * The content of the screen.
+     */
     children: PropTypes.node,
 };
-
-export { LibraryScreen, PreviewContentScreen };

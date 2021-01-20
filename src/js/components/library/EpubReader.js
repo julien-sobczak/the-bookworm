@@ -1,9 +1,14 @@
-
+/**
+ * Utility functions to parse an Epub file.
+ *
+ * The code uses the zip library under the hood.
+ *
+ * @see https://github.com/gildas-lormeau/zip.js/blob/gh-pages/demos/demo2.js
+ */
 
 // Import zip.js
 const zip = window.zip;
 
-// Code based on https://github.com/gildas-lormeau/zip.js/blob/gh-pages/demos/demo2.js
 const getEntries = file => {
     return new Promise((resolve, reject) => {
         zip.createReader(new zip.BlobReader(file), zipReader => {
@@ -31,7 +36,7 @@ const getEntryFile = entry => {
 };
 
 
-// Reads the TOC file and determine the list of chapters
+// Reads the TOC file and determine the list of chapters.
 export const parseToc = content => {
     const toc = [];
     const tocDoc = new DOMParser().parseFromString(content, "application/xml");
@@ -123,6 +128,7 @@ export const extractToc = files => {
     return parseToc(tocFile.content);
 };
 
+// Predicate to determine if a chapter must be filtered based on the parsed content.
 export const filterChapter = chapter => {
     // Remove sections without content
     return chapter.blocks.length < 2;
@@ -151,6 +157,12 @@ export const extractChapters = (files) => {
     return chapters;
 };
 
+/**
+ * Extract the content from a raw ePub file.
+ *
+ * @param {File} file The first file of the FileList object received from a HTML input file.
+ * @return {Object} The file content parsed in the standard format.
+ */
 export const readEpub = file => {
 
     return new Promise((resolve, reject) => {
@@ -166,8 +178,11 @@ export const readEpub = file => {
                 }
                 return false;
             };
+
+            // Traverse all entries
             entries.forEach(entry => {
                 if (!isTextEntry(entry)) return;
+                // Retrieve the file content for every chapter files
                 promises.push(getEntryFile(entry));
             });
             Promise.all(promises).then(files => {
@@ -186,9 +201,8 @@ export const readEpub = file => {
                     saveOnLocalStorage: true,
                 });
             });
-        })
-            .catch(err => {
-                reject(err);
-            });
+        }).catch(err => {
+            reject(err);
+        });
     });
 };

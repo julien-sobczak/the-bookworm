@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 import Loader from "../toolbox/Loader.js";
 import { PreviewContentScreen } from './UI.js';
 
+/**
+ * Preview a web page to let the user select the node in the DOM
+ * to use to extract the content.
+ *
+ * Note: This component is not used for now, as most websites block
+ * Ajax requests coming from cross origins.
+ */
 class PreviewWebsite extends React.Component {
 
     constructor(props) {
@@ -65,7 +72,14 @@ class PreviewWebsite extends React.Component {
 }
 
 PreviewWebsite.propTypes = {
+    /**
+     * The URL to preview.
+     */
     url: PropTypes.string,
+    /**
+     * Called when the user has finished filtered the content.
+     * The callback received the new content filtered in the standard format.
+     */
     onSelect: PropTypes.func,
 };
 

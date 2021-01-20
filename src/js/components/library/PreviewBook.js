@@ -5,6 +5,9 @@ import { PreviewContentScreen } from '../core/UI';
 import ContentSelector from "./ContentSelector";
 import Loader from "../toolbox/Loader.js";
 
+/**
+ * Preview a book present in the bookshelf to allow the user to filter chapters.
+ */
 class PreviewBook extends React.Component {
 
     constructor(props) {
@@ -93,7 +96,14 @@ class PreviewBook extends React.Component {
 }
 
 PreviewBook.propTypes = {
+    /**
+     * The book in the standard format to preview.
+     */
     entry: PropTypes.object,
+    /**
+     * Called when the user has finished filtered the content.
+     * The callback received the new content filtered in the same format.
+     */
     onSelect: PropTypes.func,
 };
 
