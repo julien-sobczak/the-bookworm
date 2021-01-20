@@ -21,8 +21,16 @@ import * as string from '../../functions/string';
 import BarWpm from "../toolbox/BarWpm";
 import ErrorSnackbar from "../toolbox/ErrorSnackbar";
 
+/**
+ * Randomly selected message of the day. Can be a tip or a quotation.
+ */
 const messageToday = information.getMessageOfTheDay();
 
+/**
+ * Styled quotation.
+ *
+ * @param {Object} props The component properties.
+ */
 function Quote({ text, author }) {
     const QuotationMark = () => {
         const Mark = styled.span`
@@ -46,6 +54,11 @@ Quote.propTypes = {
     author: PropTypes.string,
 };
 
+/**
+ * Screen for the menu Home.
+ *
+ * @param {Object} props The component properties.
+ */
 function Profile(props) {
 
     const Container = styled.div`
@@ -187,6 +200,7 @@ function Profile(props) {
         padding: var(--default-padding);
     `;
 
+    // Maximum file size for a backup.
     const maxFileSizeInMb = 11;
     const maxFileSizeInBytes = 1024 * 1024 * maxFileSizeInMb;
 
@@ -304,12 +318,36 @@ function Profile(props) {
 
 Profile.propTypes = {
     // Redux State
+
+    /**
+     * Complete Redux state used to create the backups.
+     */
     reduxState: PropTypes.object.isRequired,
+    /**
+     * Current readings in progress.
+     */
     readings: PropTypes.array.isRequired,
+    /**
+     * Reading stats.
+     */
     stats: PropTypes.object.isRequired,
-    lastBackup: PropTypes.string, // See Date.toDateString()
-    startDate: PropTypes.string.isRequired, // See Date.toDateString()
+    /**
+     * Date of the last generated backup.
+     * The date must be formatted using Date.toDateString().
+     */
+    lastBackup: PropTypes.string,
+    /**
+     * Date of the first use of the application.
+     * The date must be formatted using Date.toDateString().
+     */
+    startDate: PropTypes.string.isRequired,
+    /**
+     * Action to register the generation of a new backup.
+     */
     registerBackup: PropTypes.func.isRequired,
+    /**
+     * Action to restore a previously saved backup.
+     */
     restoreBackup: PropTypes.func.isRequired,
 };
 
