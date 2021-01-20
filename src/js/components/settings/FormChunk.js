@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import Help from '../toolbox/Help';
 import RadioButtons from '../toolbox/RadioButtons';
 
-const FormChunk = (props) => {
+/**
+ * Form to configure the default style for chunks.
+ *
+ * @param {Object} props The component properties.
+ */
+function FormChunk(props) {
 
     const [chunkStyle, setChunkStyle] = useState(props.chunkStyle);
     const onChange = props.onChange;
@@ -19,7 +24,7 @@ const FormChunk = (props) => {
     };
 
     return (
-        <table className="Setting">
+        <table>
             <tbody>
                 <tr>
                     <th><label>Style</label>:</th>
@@ -40,10 +45,17 @@ const FormChunk = (props) => {
             </tbody>
         </table>
     );
-};
+}
 
 FormChunk.propTypes = {
+    /**
+     * The chunk style.
+     */
     chunkStyle: PropTypes.oneOf(['highlight', 'color', 'underline']),
+    /**
+     * Called when a form value changes.
+     * The callback receives an object containing the new chunk settings.
+     */
     onChange: PropTypes.func,
 };
 

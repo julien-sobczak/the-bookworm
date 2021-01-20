@@ -65,6 +65,11 @@ function getChartData(contents) {
     return [filteredValues, filteredLabels, filteredColors];
 }
 
+/**
+ * Form to manage the localStorage disk usage.
+ *
+ * The component lists the contents stored locally and let the user reclaim space by deleting them.
+ */
 class FormStorage extends React.Component {
 
     constructor(props) {

@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 
 import CalibrationPreview from './CalibrationPreview';
 
+/**
+ * Form to configure the calibration value.
+ *
+ * @param {Object} props The component properties.
+ */
 const FormCalibration = (props) => {
 
     const [displayScale, setDisplayScale] = useState(props.displayScale);
@@ -22,7 +27,14 @@ const FormCalibration = (props) => {
 };
 
 FormCalibration.propTypes = {
+    /**
+     * The calibration value.
+     */
     displayScale: PropTypes.number,
+    /**
+     * Called when the value is changed.
+     * The callback receives the new numeric value as first argument.
+     */
     onChange: PropTypes.func,
 };
 FormCalibration.defaultProps = {

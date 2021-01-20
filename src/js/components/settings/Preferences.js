@@ -23,6 +23,11 @@ import FormText from './FormText';
 import FormChunk from './FormChunk';
 import FormStorage from './FormStorage';
 
+/**
+ * A single settings category.
+ *
+ * @param {Object} props The component properties.
+ */
 function Preference({ settings, form, onClose }) {
     const [currentSettings, setCurrentSettings] = useState(settings);
     const onChange = (settings) => {
@@ -39,14 +44,29 @@ function Preference({ settings, form, onClose }) {
     );
 }
 Preference.propTypes = {
+    /**
+     * The current settings.
+     */
     settings: PropTypes.object.isRequired,
+    /**
+     * A React component to edit the settings.
+     */
     form: PropTypes.node.isRequired,
+    /**
+     * Called when the user close the form after editing the values.
+     * The callback receives an object containing the new settings.
+     */
     onClose: PropTypes.func,
 };
 Preference.defaultProps = {
     settings: {},
 };
 
+/**
+ * Screen for the menu Preferences.
+ *
+ * @param {Object} props The component properties.
+ */
 function Preferences(props) {
 
     const [setting, setSetting] = useState(undefined);
@@ -157,10 +177,26 @@ function Preferences(props) {
 
 Preferences.propTypes = {
     // Redux state
+
+    /**
+     * The current user preferences.
+     */
     preferences: PropTypes.object.isRequired,
+    /**
+     * Action to update the global settings.
+     */
     updateGlobalPreferences: PropTypes.func.isRequired,
+    /**
+     * Action to update the language settings.
+     */
     updateLanguagePreferences: PropTypes.func.isRequired,
+    /**
+     * Action to update the text settings.
+     */
     updateTextPreferences: PropTypes.func.isRequired,
+    /**
+     * Action to update the chunk settings.
+     */
     updateChunkPreferences: PropTypes.func.isRequired,
 };
 

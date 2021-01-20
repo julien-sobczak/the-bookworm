@@ -5,6 +5,9 @@ import Styled from '../core/Styled';
 import Help from '../toolbox/Help';
 import RadioButtons from '../toolbox/RadioButtons';
 
+/**
+ * Ready-to-use presets available when configuring a new drill.
+ */
 const DefaultPresets = [
     {
         name: "Standard",
@@ -26,7 +29,12 @@ const DefaultPresets = [
     },
 ];
 
-const FormText = (props) => {
+/**
+ * Form to configure default text styling settings.
+ * 
+ * @param {Object} props The component properties.
+ */
+function FormText(props) {
 
     const [fontFamily, setFontFamily] = useState(props.fontFamily);
     const [fontSize, setFontSize] = useState(props.fontSize);
@@ -91,7 +99,7 @@ const FormText = (props) => {
     };
 
     return (
-        <table className="Setting">
+        <table>
             <tbody>
                 <tr>
                     <th><label>Typeface</label>:</th>
@@ -166,10 +174,15 @@ const FormText = (props) => {
             </tbody>
         </table>
     );
-};
+}
 
 FormText.propTypes = {
+    // Inherit Styled properties
     ...Styled.propTypes,
+    /**
+     * Called when a form value changes.
+     * The callback receives an object containing the new text settings.
+     */
     onChange: PropTypes.func,
 };
 

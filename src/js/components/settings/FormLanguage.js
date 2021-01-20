@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import Help from '../toolbox/Help';
 import { SUPPORTED_LANGUAGES } from '../../functions/library';
 
-const FormLanguage = (props) => {
+/**
+ * Form to configure the language settings.
+ *
+ * @param {Object} props The component properties
+ */
+function FormLanguage(props) {
 
     const [native, setNative] = useState(props.native);
     const onChange = props.onChange;
@@ -19,7 +24,7 @@ const FormLanguage = (props) => {
     };
 
     return (
-        <table className="Setting">
+        <table>
             <tbody>
                 <tr>
                     <th><label htmlFor="native">Default</label>:</th>
@@ -40,10 +45,17 @@ const FormLanguage = (props) => {
             </tbody>
         </table>
     );
-};
+}
 
 FormLanguage.propTypes = {
+    /**
+     * Prefereed language of the user.
+     */
     native: PropTypes.oneOf(SUPPORTED_LANGUAGES),
+    /**
+     * Called when a form value changes.
+     * The callback receives an object containing the new language settings.
+     */
     onChange: PropTypes.func,
 };
 

@@ -9,6 +9,13 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import Text from '../../components/toolbox/Text';
 
+/**
+ * Form depicting a table to let use measure and adjust the current calibration value.
+ *
+ * This component is useful because CSS has no units to draw on screen accurately. (ex: 1cm = 96px/1nch)
+ *
+ * @param {Object} props The component properties.
+ */
 function CalibrationPreview(props) {
 
     const [value, setValue] = useState(props.value);
@@ -121,7 +128,14 @@ function CalibrationPreview(props) {
 }
 
 CalibrationPreview.propTypes = {
+    /**
+     * The calibration value.
+     */
     value: PropTypes.number,
+    /**
+     * Called when the value is changed.
+     * The callback receives the new numeric value as first argument.
+     */
     onChange: PropTypes.func,
 };
 CalibrationPreview.defaultProps = {
