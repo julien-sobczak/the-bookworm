@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import ChunkViewer from '../chunking/chunk/Viewer';
 
+/**
+ * This step explains the chunking technique.
+ */
 function Step6() {
 
     const makeChunk = (text) => {

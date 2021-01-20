@@ -5,6 +5,9 @@ import styled, { keyframes } from 'styled-components';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
+/**
+ * This step introduces speed reading.
+ */
 function Step1() {
 
     const FootnoteDivider = styled.div`

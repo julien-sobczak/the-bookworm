@@ -5,6 +5,11 @@ import Text from '../toolbox/Text';
 
 import FormCalibration from '../settings/FormCalibration';
 
+/**
+ * This step asks the user to measure a square on screen and adjust its size.
+ *
+ * @param {Object} props The component properties.
+ */
 function Step8({ onChange }) {
 
     let [displayScale, setDisplayScale] = useState(100);
@@ -28,6 +33,10 @@ function Step8({ onChange }) {
 }
 
 Step8.propTypes = {
+    /**
+     * Called when the user updates the calibration measurement.
+     * The callback received the new numeric value as the first argument.
+     */
     onChange: PropTypes.func.isRequired,
 };
 

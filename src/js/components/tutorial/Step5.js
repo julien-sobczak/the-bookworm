@@ -6,6 +6,9 @@ import Text from '../toolbox/Text';
 import CircleEngine from '../vision-span/circle/Engine';
 import CircleViewer from '../vision-span/circle/Viewer';
 
+/**
+ * This step explains the peripheral vision.
+ */
 function Step5() {
 
     // List of spans that fit in a tutorial screen

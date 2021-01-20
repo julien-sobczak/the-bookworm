@@ -13,6 +13,9 @@ import PhoneIcon from '@material-ui/icons/Smartphone';
 import CompatibleIcon from '@material-ui/icons/CheckCircle';
 import IncompatibleIcon from '@material-ui/icons/Cancel';
 
+/**
+ * This step informs about the application compatibility.
+ */
 function Step2() {
 
     const Device = ({ title, icon, compatible }) => {

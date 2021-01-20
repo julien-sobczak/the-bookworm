@@ -21,7 +21,12 @@ import StepButton from '@material-ui/core/StepButton';
 import PreviousIcon from '@material-ui/icons/NavigateBefore';
 import NextIcon from '@material-ui/icons/NavigateNext';
 
-function PreviewScreen({ text, position, onClick }) {
+/**
+ * Link to the previous/next page of the tutorial.
+ *
+ * @param {Object} props The component properties.
+ */
+function NavigationLink({ text, position, onClick }) {
     const Link = styled.a`
         display: block;
         border: 1px solid white;
@@ -72,13 +77,27 @@ function PreviewScreen({ text, position, onClick }) {
         return <NextLink onClick={onClick}>{content}</NextLink>;
     }
 }
-
-PreviewScreen.propTypes = {
+NavigationLink.propTypes = {
+    /**
+     * The link text.
+     */
     text: PropTypes.string.isRequired,
+    /**
+     * Link to previous or next page?
+     */
     position: PropTypes.oneOf(['previous', 'next']).isRequired,
+    /**
+     * Called when the user clicks on the link.
+     * The callback receives no argument.
+     */
     onClick: PropTypes.func.isRequired,
 };
 
+/**
+ * Screen presenting the application tutorial.
+ *
+ * @param {Object} props The component properties.
+ */
 function Tutorial({ onDone }) {
 
     const [step, setStep] = useState(0);
@@ -318,14 +337,17 @@ function Tutorial({ onDone }) {
                     {!lastStep && <LargeButton text="Skip Tutorial" colorText="white" colorBackground="#111" onClick={handleDone} />}
                     {lastStep  && <LargeButton text="Let's Go"      colorText="white" colorBackground="#111" onClick={handleDone} />}
                 </Actions>
-                {!firstStep && <PreviewScreen position="previous" onClick={handlePrevious} text={steps[step-1].title} />}
-                {!lastStep  && <PreviewScreen position="next"     onClick={handleNext}     text={steps[step+1].title} />}
+                {!firstStep && <NavigationLink position="previous" onClick={handlePrevious} text={steps[step-1].title} />}
+                {!lastStep  && <NavigationLink position="next"     onClick={handleNext}     text={steps[step+1].title} />}
             </Centered>
         </Screen>
     );
 }
-
 Tutorial.propTypes = {
+    /**
+     * Called when the user ends the tutorial by reaching the last page or by skipping it.
+     * The callback receives no argument.
+     */
     onDone: PropTypes.func,
 };
 Tutorial.defaultProps = {

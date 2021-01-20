@@ -2,6 +2,9 @@ import React from 'react';
 
 import Text from '../toolbox/Text';
 
+/**
+ * This step introduces the different drill categories.
+ */
 function Step4() {
     return (
         <>

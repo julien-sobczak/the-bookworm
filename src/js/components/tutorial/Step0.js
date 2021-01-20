@@ -9,6 +9,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import InfoIcon from '@material-ui/icons/Info';
 import ExternalLinkIcon from '@material-ui/icons/ExitToAppOutlined';
 
+/**
+ * This step introduces the application and its scope.
+ */
 function Step0() {
     return (
         <>

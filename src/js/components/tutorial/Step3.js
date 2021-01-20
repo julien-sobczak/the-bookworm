@@ -2,6 +2,9 @@ import React from 'react';
 
 import ExternalLinkIcon from '@material-ui/icons/ExitToAppOutlined';
 
+/**
+ * This step explains the motivations behind the creation of the application.
+ */
 function Step3() {
     return (
         <>
