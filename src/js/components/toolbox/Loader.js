@@ -8,13 +8,6 @@ import styled, { keyframes, css } from 'styled-components';
  * Variables
  */
 
-// Default color
-// const colorWhite =  '#e2e8e7';
-// const colorYellow = '#f6c574';
-// const colorBlue =   '#00aacf';
-// const colorGreen =  '#00b3a0';
-// const colorRed =    '#fc5652';
-
 // Theme color
 const colorWhite =  'var(--theme-color-home)';
 const colorYellow = 'var(--theme-color-vision-span)';
@@ -29,114 +22,114 @@ const fullAnimationDuration = `1s`;
  */
 
 const step1FrontToUp = keyframes`
-  0% {
-    transform: rotateX(0deg);
-  }
-  25%, 100% {
-    transform: rotateX(90deg);
-  }
+    0% {
+        transform: rotateX(0deg);
+    }
+    25%, 100% {
+        transform: rotateX(90deg);
+    }
 `;
 
 const step1DownToFront = keyframes`
-  0% {
-    transform: rotateX(-90deg);
-  }
-  25%, 100% {
-    transform: rotateX(0deg);
-  }
+    0% {
+        transform: rotateX(-90deg);
+    }
+    25%, 100% {
+        transform: rotateX(0deg);
+    }
 `;
 
 const step2FrontToLeft = keyframes`
-  25% {
-    transform: rotateY(0deg);
-  }
-  50%, 100% {
-    transform: rotateY(-90deg);
-  }
+    25% {
+        transform: rotateY(0deg);
+    }
+    50%, 100% {
+        transform: rotateY(-90deg);
+    }
 `;
 
 const step2RightToFront = keyframes`
-  25% {
-    transform: rotateY(90deg);
-  }
-  50%, 100% {
-    transform: rotateY(0deg);
-  }
+    25% {
+        transform: rotateY(90deg);
+    }
+    50%, 100% {
+        transform: rotateY(0deg);
+    }
 `;
 
 const step3FrontToDown = keyframes`
-  50% {
-    transform: rotateX(0deg);
-  }
-  75%, 100% {
-    transform: rotateX(-90deg);
-  }
+    50% {
+        transform: rotateX(0deg);
+    }
+    75%, 100% {
+        transform: rotateX(-90deg);
+    }
 `;
 
 const step23RightToFrontToDown = keyframes`
-  25% {
-    transform: rotateY(90deg);
-  }
-  50% {
-    transform: rotateX(0deg);
-  }
-  75%, 100% {
-    transform: rotateX(-90deg);
-  }
+    25% {
+        transform: rotateY(90deg);
+    }
+    50% {
+        transform: rotateX(0deg);
+    }
+    75%, 100% {
+        transform: rotateX(-90deg);
+    }
 `;
 
 const step3UpToFront = keyframes`
-  50% {
-    transform: rotateX(90deg);
-  }
-  75%, 100% {
-    transform: rotateX(0deg);
-  }
+    50% {
+        transform: rotateX(90deg);
+    }
+    75%, 100% {
+        transform: rotateX(0deg);
+    }
 `;
 
 const step4FrontToRight = keyframes`
-  75% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(90deg);
-  }
+    75% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(90deg);
+    }
 `;
 
 const step14DownToFrontToRight = keyframes`
-  0% {
-    transform: rotateX(-90deg);
-  }
-  25% {
-    transform: rotateX(0deg);
-  }
-  75% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(90deg);
-  }
+    0% {
+        transform: rotateX(-90deg);
+    }
+    25% {
+        transform: rotateX(0deg);
+    }
+    75% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(90deg);
+    }
 `;
 
 const step34UpToFrontToRight = keyframes`
-  50% {
-    transform: rotateX(90deg);
-  }
-  75% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(90deg);
-  }
+    50% {
+        transform: rotateX(90deg);
+    }
+    75% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(90deg);
+    }
 `;
 
 const step4LeftToFront = keyframes`
-  75% {
-    transform: rotateY(-90deg);
-  }
-  100% {
-    transform: rotateY(0deg);
-  }
+    75% {
+        transform: rotateY(-90deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
 `;
 
 
@@ -145,96 +138,96 @@ const step4LeftToFront = keyframes`
  */
 
 const piece = css`
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  backface-visibility: hidden;
-  animation-duration: ${fullAnimationDuration};
-  animation-iteration-count: infinite;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    backface-visibility: hidden;
+    animation-duration: ${fullAnimationDuration};
+    animation-iteration-count: infinite;
 `;
 
 
 const yellow = css`
-  background-color: ${colorYellow};
+    background-color: ${colorYellow};
 `;
 const blue = css`
-  background-color: ${colorBlue};
+    background-color: ${colorBlue};
 `;
 const green = css`
-  background-color: ${colorGreen};
+    background-color: ${colorGreen};
 `;
 const white = css`
-  background-color: ${colorWhite};
+    background-color: ${colorWhite};
 `;
 const red = css`
-  background-color: ${colorRed};
+    background-color: ${colorRed};
 `;
 
 
 const faceFront = css`
 `;
 const faceRight = css`
-  transform: rotateY(90deg);
+    transform: rotateY(90deg);
 `;
 const faceLeft = css`
-  transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
 `;
 const faceUp = css`
-  transform: rotateX(90deg);
+    transform: rotateX(90deg);
 `;
 const faceDown = css`
-  transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
 `;
 
 
 const rowTop = css`
-  top: 10px;
+    top: 10px;
 `;
 const rowCenter = css`
-  top: 50px;
+    top: 50px;
 `;
 const rowBottom = css`
-  top: 90px;
+    top: 90px;
 `;
 const colLeft = css`
-  left: 10px;
+    left: 10px;
 `;
 const colCenter = css`
-  left: 50px;
+    left: 50px;
 `;
 const colRight = css`
-  left: 90px;
+    left: 90px;
 `;
 
 
 
 const rowTopColLeft = css`
-  transform-origin: 55px 55px -55px;
+    transform-origin: 55px 55px -55px;
 `;
 const rowTopColCenter = css`
-  transform-origin: 15px 55px -55px;
+    transform-origin: 15px 55px -55px;
 `;
 const rowTopColRight = css`
-  transform-origin: -25px 55px -55px;
+    transform-origin: -25px 55px -55px;
 `;
 const rowCenterColLeft = css`
-  transform-origin: 55px 15px -55px;
+    transform-origin: 55px 15px -55px;
 `;
 const rowCenterColCenter = css`
-  transform-origin: 15px 15px -55px;
+    transform-origin: 15px 15px -55px;
 `;
 const rowCenterColRight = css`
-  transform-origin: -25px 15px -55px;
+    transform-origin: -25px 15px -55px;
 `;
 const rowBottomColLeft = css`
-  transform-origin: 55px -25px -55px;
+    transform-origin: 55px -25px -55px;
 `;
 const rowBottomColCenter = css`
-  transform-origin: 15px -25px -55px;
+    transform-origin: 15px -25px -55px;
 `;
 const rowBottomColRight = css`
-  transform-origin: -25px -25px -55px;
+    transform-origin: -25px -25px -55px;
 `;
 
 
@@ -243,229 +236,231 @@ const rowBottomColRight = css`
  */
 
 const Rubiks = styled.div`
-  width: 130px;
-  height: 130px;
-  position: relative;
-  perspective: 130px;
+    width: 130px;
+    height: 130px;
+    position: relative;
+    perspective: 130px;
 `;
 
 const Cube = styled.div`
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  font-size: 0;
-  transform-style: preserve-3d;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    transform-style: preserve-3d;
 `;
 
 
 const PieceFaceFrontRowTopColLeft = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowTop}
-  ${colLeft}
-  ${rowTopColLeft}
-  ${yellow}
-  animation-name: ${step3FrontToDown};
+    ${piece}
+    ${faceFront}
+    ${rowTop}
+    ${colLeft}
+    ${rowTopColLeft}
+    ${yellow}
+    animation-name: ${step3FrontToDown};
 `;
 const PieceFaceFrontRowTopColCenter = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowTop}
-  ${colCenter}
-  ${rowTopColCenter}
-  ${green}
-  animation-name: ${step1FrontToUp};
+    ${piece}
+    ${faceFront}
+    ${rowTop}
+    ${colCenter}
+    ${rowTopColCenter}
+    ${green}
+    animation-name: ${step1FrontToUp};
 `;
 const PieceFaceFrontRowTopColRight = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowTop}
-  ${colRight}
-  ${rowTopColRight}
-  ${white}
+    ${piece}
+    ${faceFront}
+    ${rowTop}
+    ${colRight}
+    ${rowTopColRight}
+    ${white}
 `;
 const PieceFaceFrontRowCenterColLeft = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowCenter}
-  ${colLeft}
-  ${rowCenterColLeft}
-  ${blue}
-  animation-name: ${step2FrontToLeft};
+    ${piece}
+    ${faceFront}
+    ${rowCenter}
+    ${colLeft}
+    ${rowCenterColLeft}
+    ${blue}
+    animation-name: ${step2FrontToLeft};
 `;
 const PieceFaceFrontRowCenterColCenter = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowCenter}
-  ${colCenter}
-  ${rowCenterColCenter}
-  ${green}
-  animation-name: ${step1FrontToUp};
+    ${piece}
+    ${faceFront}
+    ${rowCenter}
+    ${colCenter}
+    ${rowCenterColCenter}
+    ${green}
+    animation-name: ${step1FrontToUp};
 `;
 const PieceFaceFrontRowCenterColRight = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowCenter}
-  ${colRight}
-  ${rowCenterColRight}
-  ${blue}
-  animation-name: ${step2FrontToLeft};
+    ${piece}
+    ${faceFront}
+    ${rowCenter}
+    ${colRight}
+    ${rowCenterColRight}
+    ${blue}
+    animation-name: ${step2FrontToLeft};
 `;
 const PieceFaceFrontRowBottomColLeft = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowBottom}
-  ${colLeft}
-  ${rowBottomColLeft}
-  ${green}
-  animation-name: ${step3FrontToDown};
+    ${piece}
+    ${faceFront}
+    ${rowBottom}
+    ${colLeft}
+    ${rowBottomColLeft}
+    ${green}
+    animation-name: ${step3FrontToDown};
 `;
 const PieceFaceFrontRowBottomColCenter = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowBottom}
-  ${colCenter}
-  ${rowBottomColCenter}
-  ${yellow}
-  animation-name: ${step1FrontToUp};
+    ${piece}
+    ${faceFront}
+    ${rowBottom}
+    ${colCenter}
+    ${rowBottomColCenter}
+    ${yellow}
+    animation-name: ${step1FrontToUp};
 `;
 const PieceFaceFrontRowBottomColRight = styled.div`
-  ${piece}
-  ${faceFront}
-  ${rowBottom}
-  ${colRight}
-  ${rowBottomColRight}
-  ${red}
-  animation-name: ${step4FrontToRight};
+    ${piece}
+    ${faceFront}
+    ${rowBottom}
+    ${colRight}
+    ${rowBottomColRight}
+    ${red}
+    animation-name: ${step4FrontToRight};
 `;
 const PieceFaceDownRowTopColCenter = styled.div`
-  ${piece}
-  ${faceDown}
-  ${rowTop}
-  ${colCenter}
-  ${rowTopColCenter}
-  ${green}
-  animation-name: ${step1DownToFront};
+    ${piece}
+    ${faceDown}
+    ${rowTop}
+    ${colCenter}
+    ${rowTopColCenter}
+    ${green}
+    animation-name: ${step1DownToFront};
 `;
 const PieceFaceDownRowCenterColCenter = styled.div`
-  ${piece}
-  ${faceDown}
-  ${rowCenter}
-  ${colCenter}
-  ${rowCenterColCenter}
-  ${red}
-  animation-name: ${step2FrontToLeft};
+    ${piece}
+    ${faceDown}
+    ${rowCenter}
+    ${colCenter}
+    ${rowCenterColCenter}
+    ${red}
+    animation-name: ${step2FrontToLeft};
 `;
 const PieceFaceDownRowBottomColCenter = styled.div`
-  ${piece}
-  ${faceDown}
-  ${rowBottom}
-  ${colCenter}
-  ${rowBottomColCenter}
-  ${white}
-  animation-name: ${step14DownToFrontToRight};
+    ${piece}
+    ${faceDown}
+    ${rowBottom}
+    ${colCenter}
+    ${rowBottomColCenter}
+    ${white}
+    animation-name: ${step14DownToFrontToRight};
 `;
 const PieceFaceRightRowCenterColLeft = styled.div`
-  ${piece}
-  ${faceRight}
-  ${rowCenter}
-  ${colLeft}
-  ${rowCenterColLeft}
-  ${yellow}
-  animation-name: ${step23RightToFrontToDown};
+    ${piece}
+    ${faceRight}
+    ${rowCenter}
+    ${colLeft}
+    ${rowCenterColLeft}
+    ${yellow}
+    animation-name: ${step23RightToFrontToDown};
 `;
 const PieceFaceRightRowCenterColCenter = styled.div`
-  ${piece}
-  ${faceRight}
-  ${rowCenter}
-  ${colCenter}
-  ${rowCenterColCenter}
-  ${green}
-  animation-name: ${step2RightToFront};
+    ${piece}
+    ${faceRight}
+    ${rowCenter}
+    ${colCenter}
+    ${rowCenterColCenter}
+    ${green}
+    animation-name: ${step2RightToFront};
 `;
 const PieceFaceRightRowCenterColRight = styled.div`
-  ${piece}
-  ${faceRight}
-  ${rowCenter}
-  ${colRight}
-  ${rowCenterColRight}
-  ${blue}
-  animation-name: ${step2RightToFront};
+    ${piece}
+    ${faceRight}
+    ${rowCenter}
+    ${colRight}
+    ${rowCenterColRight}
+    ${blue}
+    animation-name: ${step2RightToFront};
 `;
 const PieceFaceUpRowTopColLeft = styled.div`
-  ${piece}
-  ${faceUp}
-  ${rowTop}
-  ${colLeft}
-  ${rowTopColLeft}
-  ${yellow}
-  animation-name: ${step3UpToFront};
+    ${piece}
+    ${faceUp}
+    ${rowTop}
+    ${colLeft}
+    ${rowTopColLeft}
+    ${yellow}
+    animation-name: ${step3UpToFront};
 `;
 const PieceFaceUpRowCenterColLeft = styled.div`
-  ${piece}
-  ${faceUp}
-  ${rowCenter}
-  ${colLeft}
-  ${rowCenterColLeft}
-  ${blue}
-  animation-name: ${step3UpToFront};
+    ${piece}
+    ${faceUp}
+    ${rowCenter}
+    ${colLeft}
+    ${rowCenterColLeft}
+    ${blue}
+    animation-name: ${step3UpToFront};
 `;
 const PieceFaceUpRowBottomColLeft = styled.div`
-  ${piece}
-  ${faceUp}
-  ${rowBottom}
-  ${colLeft}
-  ${rowBottomColLeft}
-  ${green}
-  animation-name: ${step34UpToFrontToRight};
+    ${piece}
+    ${faceUp}
+    ${rowBottom}
+    ${colLeft}
+    ${rowBottomColLeft}
+    ${green}
+    animation-name: ${step34UpToFrontToRight};
 `;
 const PieceFaceLeftRowBottomColLeft = styled.div`
-  ${piece}
-  ${faceLeft}
-  ${rowBottom}
-  ${colLeft}
-  ${rowBottomColLeft}
-  ${green}
-  animation-name: ${step4LeftToFront};
+    ${piece}
+    ${faceLeft}
+    ${rowBottom}
+    ${colLeft}
+    ${rowBottomColLeft}
+    ${green}
+    animation-name: ${step4LeftToFront};
 `;
 const PieceFaceLeftRowBottomColCenter = styled.div`
-  ${piece}
-  ${faceLeft}
-  ${rowBottom}
-  ${colCenter}
-  ${rowBottomColCenter}
-  ${yellow}
-  animation-name: ${step4LeftToFront};
+    ${piece}
+    ${faceLeft}
+    ${rowBottom}
+    ${colCenter}
+    ${rowBottomColCenter}
+    ${yellow}
+    animation-name: ${step4LeftToFront};
 `;
 const PieceFaceLeftRowBottomColRight = styled.div`
-  ${piece}
-  ${faceLeft}
-  ${rowBottom}
-  ${colRight}
-  ${rowBottomColRight}
-  ${red}
-  animation-name: ${step4LeftToFront};
+    ${piece}
+    ${faceLeft}
+    ${rowBottom}
+    ${colRight}
+    ${rowBottomColRight}
+    ${red}
+    animation-name: ${step4LeftToFront};
 `;
 
 const Page = styled.div`
-  /* Cover the screen */
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 500;
-  background-color: white;
+    /* Cover the screen */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    background-color: white;
 
-  /* Center the Rubbik's cube */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    /* Center the Rubbik's cube */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 
+/**
+ * Loader displaying a Rubik's cube in perpetual movement.
+ */
 function Loader() {
-
     return (
         <Page>
             <Rubiks data-testid="rubik">

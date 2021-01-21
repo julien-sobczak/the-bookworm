@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// We use https://www.styled-components.com/docs/basics to scope CSS declarations and animations!
-// Inspired by https://codepen.io/andreasstorm/pen/oqKbLq
+/**
+ * Large button to reserve for the main actions on a given screen.
+ *
+ * @param {Object} props The component properties.
+ */
 function LargeButton({ text, className, disabled, colorText, colorBackground, onClick }) {
 
-    // font-family: Avenir, sans-serif
-    // https://fonts.google.com/?query=Avenir
+    // Inspired by https://codepen.io/andreasstorm/pen/oqKbLq
 
     const Button = styled.button`
         color: ${colorText};
@@ -73,12 +75,33 @@ function LargeButton({ text, className, disabled, colorText, colorBackground, on
 }
 
 LargeButton.propTypes = {
+    /**
+     * Text of the button.
+     */
     text: PropTypes.string,
+    /**
+     * Optional CSS class to add on the button.
+     */
     className: PropTypes.string,
-    onClick: PropTypes.func,
+    /**
+     * Color of the text.
+     * Must be A valid CSS color value.
+     */
+    colorText: PropTypes.string,
+    /**
+     * Color of the background.
+     * Must be A valid CSS color value.
+     */
+    colorBackground: PropTypes.string,
+    /**
+     * Disable the button.
+     */
     disabled: PropTypes.bool,
-    colorText: PropTypes.string, // A CSS color value
-    colorBackground: PropTypes.string, // A CSS color value
+    /**
+     * Called when the user clicks on the button.
+     * The callback receives no argument.
+     */
+    onClick: PropTypes.func,
 };
 
 LargeButton.defaultProps = {

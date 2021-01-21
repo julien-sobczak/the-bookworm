@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+/**
+ * Screen appearing only on small screen mentioning the non-support on phone devices.
+ *
+ * @param {Object} props The component properties.
+ */
 function ScreenTester({minWidth, minHeight}) {
 
     const Container = styled.div`
@@ -66,7 +71,15 @@ function ScreenTester({minWidth, minHeight}) {
 }
 
 ScreenTester.propTypes = {
+    /**
+     * Minimum width for the viewport of the application.
+     * The value must be a valid CSS dimension.
+     */
     minWidth: PropTypes.string.isRequired,
+    /**
+     * Minimum height for the viewport of the application.
+     * The value must be a valid CSS dimension.
+     */
     minHeight: PropTypes.string.isRequired,
 };
 

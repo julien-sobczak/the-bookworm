@@ -5,6 +5,11 @@ import { ReactComponent as ArrowManuscriptPrimaryImage } from '../../../images/a
 import { ReactComponent as ArrowManuscriptSecondaryImage } from '../../../images/arrow-scribble-2.svg';
 import InfoIcon from '@material-ui/icons/Info';
 
+/**
+ * Display a configurable inline text.
+ *
+ * @param {Object} props The component properties.
+ */
 const Text = ({ manuscript, background, size, arrow, arrowDirection, arrowPosition, arrowVariant, children }) => {
 
     const DefaultText = styled.span`
@@ -78,21 +83,37 @@ const Text = ({ manuscript, background, size, arrow, arrowDirection, arrowPositi
     );
 };
 Text.propTypes = {
-    // Enable to format using a Cursive font
+    /**
+     * Enable to format using a Cursive font.
+     */
     manuscript: PropTypes.bool,
-    // Enable to print the text on a black background
+    /**
+     * Enable to print the text on a black background.
+     */
     background: PropTypes.bool,
-    // Relative size of the text.
+    /**
+     * Relative size of the text.
+     */
     size: PropTypes.oneOf(["small", "medium", "large"]),
-    // Show an arrow.
+    /**
+     * Show an arrow.
+     */
     arrow: PropTypes.bool,
-    // Determine if the arrow points upward or downward.
+    /**
+     * Determine if the arrow points upward or downward.
+     */
     arrowDirection: PropTypes.oneOf(['top', 'bottom']),
-    // Determine if the array is positioned at the left or right of the text.
+    /**
+     * Determine if the array is positioned at the left or right of the text.
+     */
     arrowPosition: PropTypes.oneOf(['left', 'right']),
-    // Determine the style for the arrow.
+    /**
+     * Determine the style for the arrow.
+     */
     arrowVariant: PropTypes.oneOf(['primary', 'secondary']),
-    // Text is passed as children elements.
+    /**
+     * Text is passed as children elements.
+     */
     children: PropTypes.node.isRequired,
 };
 Text.defaultProps = {
@@ -105,15 +126,25 @@ Text.defaultProps = {
     arrowVariant: 'primary',
 };
 
-const Info = (props) => {
+/**
+ * Wrapper around <Text> adding a info icon at the start of the text.
+ *
+ * @param {Object} props The component properties.
+ */
+function Info(props) {
     return (
         <>
             <Text {...props}><InfoIcon size="small" /> {props.children}</Text>
         </>
     );
-};
+}
 Info.propTypes = {
+    // Inherit properties
     ...Text.propTypes,
+
+    /**
+     * The text.
+     */
     children: PropTypes.node.isRequired,
 };
 

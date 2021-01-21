@@ -5,6 +5,11 @@ import styled, { keyframes, css } from 'styled-components';
 import Screen from '../core/Screen';
 import Text from './Text';
 
+/**
+ * Screen showing a timer.
+ *
+ * @param {Object} props The component properties.
+ */
 function Countdown({ duration, onTimesUp }) {
 
     const rota = keyframes`
@@ -98,7 +103,14 @@ function Countdown({ duration, onTimesUp }) {
 }
 
 Countdown.propTypes = {
+    /**
+     * The duration of the timer in milliseconds.
+     */
     duration: PropTypes.number,
+    /**
+     * Called when time is up.
+     * The callback receives no argument.
+     */
     onTimesUp: PropTypes.func,
 };
 

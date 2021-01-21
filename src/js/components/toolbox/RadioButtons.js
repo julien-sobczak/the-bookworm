@@ -56,6 +56,11 @@ Option.defaultProps = {
     selected: false,
 };
 
+/**
+ * Custom form element to select a value among visible options.
+ *
+ * @param {Object} props The component properties.
+ */
 function RadioButtons(props) {
 
     const [value, setValue] = useState(props.value);
@@ -111,17 +116,22 @@ function RadioButtons(props) {
 }
 
 RadioButtons.propTypes = {
+    /**
+     * Optional id attribute.
+     */
     id: PropTypes.string,
     /**
      * The value of the component. The DOM API casts this to a string.
      */
     value: PropTypes.any,
-    // value: PropTypes.oneOfType([
-    //     PropTypes.string,
-    //     PropTypes.number,
-    //     PropTypes.bool,
-    // ]),
+    /**
+     * Choices. Each option must define the attributes label, value, className.
+     */
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /**
+     * Called when the user changes the selected option.
+     * The callback receives an event-like object containing the new value.
+     */
     onChange: PropTypes.func,
 };
 

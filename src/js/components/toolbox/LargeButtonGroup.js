@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+/**
+ * Container to group multiple <LargeButton> elements.
+ */
 const LargeButtonGroup = styled.div`
     display: flex;
     flex-direction: row;

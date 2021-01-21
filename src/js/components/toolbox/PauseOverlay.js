@@ -31,16 +31,25 @@ const Message = styled.div`
     background: var(--theme-color);
 `;
 
-const PauseOverlay = ({ onResume }) => {
-
+/**
+ * Overlay screen displayed on top of an existing screen.
+ * The user must click for this screen to disappear.
+ *
+ * @param {Object} props The component properties.
+ */
+function PauseOverlay({ onResume }) {
     return (
         <Overlay onClick={onResume}>
             <Message>Click to Resume.</Message>
         </Overlay>
     );
-};
+}
 
 PauseOverlay.propTypes = {
+    /**
+     * Called when the user clicks on the scren to make it disappear.
+     * The callback receives no argument.
+     */
     onResume: PropTypes.func,
 };
 

@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import Tooltip from '@material-ui/core/Tooltip';
 import HelpIcon from '@material-ui/icons/Help';
 
+/**
+ * Help icon with tooltip message.
+ *
+ * @param {Object} props The component properties.
+ */
 function Help({ title }) {
 
     return (

@@ -5,6 +5,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+/**
+ * Wrapper around MUI Snackbar to customize the styling.
+ *
+ * @param {Object} props The component properties.
+ */
 function ErrorSnackbar({ message, onClose }) {
     return (
         <Snackbar
@@ -27,7 +32,15 @@ function ErrorSnackbar({ message, onClose }) {
 }
 
 ErrorSnackbar.propTypes = {
+    /**
+     * The message to display in the bar.
+     * The snackbar only appears when the message is defined and not empty.
+     */
     message: PropTypes.string,
+    /**
+     * Called when the user closes the snackbar.
+     * The callback receives no argument.
+     */
     onClose: PropTypes.func,
 };
 

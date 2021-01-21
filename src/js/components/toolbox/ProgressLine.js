@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Minimal bar visible at the top of the screen showing a progression.
+ *
+ * @param {Object} props The component properties.
+ */
 function ProgressLine({ progress, color }) {
     return (
         <div style={{
@@ -17,10 +22,15 @@ function ProgressLine({ progress, color }) {
 }
 
 ProgressLine.propTypes = {
-    // Number behind 0 and 100 inclusive
+    /**
+     * Current status.
+     * The value must be comprise between 0 and 100 inclusive.
+     */
     progress: PropTypes.number,
-
-    // CSS valid color
+    /**
+     * Color of the progress bar.
+     * The value must be a valid CSS color.
+     */
     color: PropTypes.string,
 };
 
