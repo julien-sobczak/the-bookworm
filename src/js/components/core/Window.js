@@ -2,8 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
+// Size of the window
 const windowWidth = "30rem";
 const windowHeight = "20rem";
+
+/**
+ * Static UI component displayed a screen frame.
+ *
+ * @param {Object} props The component properties.
+ */
 function Window({ content, showPanes, callouts }) {
 
     const Centered = css`
@@ -120,8 +127,18 @@ function Window({ content, showPanes, callouts }) {
 }
 
 Window.propTypes = {
+    /**
+     * Enable to show panes. Useful when special actions are assigned to screen parts.
+     * Ex: When a user click on the left side of the screen.
+     */
     showPanes: PropTypes.bool,
+    /**
+     * A React component to display inside the viewport of the window.
+     */
     content: PropTypes.node.isRequired,
+    /**
+     * An optional list of callouts to provide additional explanations.
+     */
     callouts: PropTypes.arrayOf(PropTypes.object),
 };
 

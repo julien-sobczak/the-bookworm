@@ -5,6 +5,11 @@ import Styled from './Styled';
 
 import * as string from '../../functions/string';
 
+/**
+ * Display the paper-like styled element.
+ *
+ * @param {Object} props The component properties.
+ */
 const Paper = React.forwardRef((props, ref) => {
 
     const defaultClassName = props.className ? props.className + ' ': '';
@@ -23,7 +28,12 @@ const Paper = React.forwardRef((props, ref) => {
 });
 
 Paper.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
+
+    /**
+     * The paper size.
+     */
     paperSize: PropTypes.oneOf(["instructions", "preview", "extended", "a4", "a5", "a6", "pocket", "digest", "paperback", "hardcover"]),
 };
 

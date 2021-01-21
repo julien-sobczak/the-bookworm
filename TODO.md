@@ -5,11 +5,9 @@
 # Bugs
 
 - [ ] Find why <ContentSelector> is not used.
-- [ ] Use https://material-ui.com/components/slider/ for input text fields (WPM)
 
 # Refactor
 
-- [ ] Use /** */ comment on every component property
 
 # Features
 

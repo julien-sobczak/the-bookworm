@@ -6,6 +6,11 @@ import classnames from 'classnames';
 
 import CloseIcon from '@material-ui/icons/Close';
 
+/**
+ * Element using the full viewport to display its content.
+ *
+ * @param {Object} props The component properties.
+ */
 function Screen({ className, closable, hidden, closeUrl, onClick, onClose, centered, color, colored, scrollable, children }) {
 
     // Determine the background color
@@ -111,17 +116,52 @@ function Screen({ className, closable, hidden, closeUrl, onClick, onClose, cente
 }
 
 Screen.propTypes = {
+    /**
+     * An optional CSS class.
+     */
     className: PropTypes.string,
+    /**
+     * Enable to display a close button.
+     */
     closable: PropTypes.bool,
-    // Internal Link URL
+    /**
+     * Internal Link URL for the close button.
+     */
     closeUrl: PropTypes.string,
+    /**
+     * Make the content scrollable.
+     */
     scrollable: PropTypes.bool,
+    /**
+     * Hide the screen.
+     */
     hidden: PropTypes.bool,
+    /**
+     * Specific color to apply for the background of the screen.
+     */
     color: PropTypes.string,
+    /**
+     * Use the default theme of the current category.
+     */
     colored: PropTypes.bool,
+    /**
+     * Center the content of the screen.
+     */
     centered: PropTypes.bool,
+    /**
+     * Content of the screen.
+     */
     children: PropTypes.node,
+    /**
+     * Make the screen clickable.
+     * Called when the user clicks on the screen.
+     * The callback receives no argument.
+     */
     onClick: PropTypes.func,
+    /**
+     * Called when the user closes the screen.
+     * The callback receives no argument.
+     */
     onClose: PropTypes.func,
 };
 

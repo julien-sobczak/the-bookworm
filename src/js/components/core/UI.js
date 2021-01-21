@@ -4,6 +4,13 @@ import styled from 'styled-components';
 
 import Screen from './Screen';
 
+// This file contains UI components shared among all drills.
+
+/**
+ * Wrapper around <Screen> to apply specific styles concerning statistics.
+ *
+ * @param {Object} props The component properties.
+ */
 function StatsScreen(props) {
     const Wrapper = styled.div`
         table {
@@ -41,10 +48,13 @@ StatsScreen.propTypes = {
     children: PropTypes.node,
 };
 
+/**
+ * Wrapper around <Screen> to apply specific styles to drill screens.
+ *
+ * @param {Object} props The component properties.
+ */
 function DrillScreen(props) {
-    const Wrapper = styled.div`
-
-    `;
+    const Wrapper = styled.div``;
 
     return (
         <Wrapper>
@@ -58,6 +68,11 @@ DrillScreen.propTypes = {
     children: PropTypes.node,
 };
 
+/**
+ * Wrapper around <form> elements to apply specific styles.
+ *
+ * @param {Object} props The component properties.
+ */
 function Form({ children }) {
 
     const Container = styled.div`
@@ -112,6 +127,9 @@ Form.propTypes = {
     children: PropTypes.node,
 };
 
+/**
+ * <div> element showing scrollbar when the content cannot fit in the available space.
+ */
 const Scrollable = styled.div`
     /* https://scotch.io/tutorials/customize-the-browsers-scrollbar-with-css */
     overflow-y: scroll;
@@ -128,6 +146,9 @@ const Scrollable = styled.div`
     }
 `;
 
+/**
+ * <table> element with custom styling.
+ */
 const StyledTable = styled.table`
     width: 80%;
     margin: 2em auto;
@@ -148,6 +169,9 @@ const StyledTable = styled.table`
     }
 `;
 
+/**
+ *  Wrapper around drill controls <Button> elements.
+ */
 const DrillControlGroup = styled.div`
     position: fixed;
     z-index: 999;
@@ -156,6 +180,9 @@ const DrillControlGroup = styled.div`
     text-align: right;
 `;
 
+/**
+ * <div> element around drill content.
+ */
 const DrillArea = styled.div`
     position: fixed;
     top: 2em;

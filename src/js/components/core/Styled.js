@@ -4,6 +4,9 @@ import classnames from 'classnames';
 
 import * as string from "../../functions/string";
 
+/**
+ * Default properties.
+ */
 const defaultTextSettings = {
     fontFamily: 'Roboto',
     fontSize: '14pt',
@@ -11,6 +14,11 @@ const defaultTextSettings = {
     theme: 'Light',
 };
 
+/**
+ * <div> element applying the user text settings on its content.
+ *
+ * @param {Object} props The component properties.
+ */
 const Styled = React.forwardRef((props, ref) => {
 
     const fontFamilyClass = string.capitalize(props.fontFamily);
@@ -37,19 +45,43 @@ const Styled = React.forwardRef((props, ref) => {
 Styled.displayName = 'Styled';
 
 Styled.propTypes = {
+    /**
+     * An optional id attribute.
+     */
     id: PropTypes.string,
+    /**
+     * An optional CSS class.
+     */
     className: PropTypes.string,
+    /**
+     * Optional CSS styles.
+     */
     style: PropTypes.object,
+    /**
+     * Content to stylize.
+     */
     children: PropTypes.any,
-
+    /**
+     * True to center the content vertically and horizontally.
+     */
     centered: PropTypes.bool,
 
     // Text options
+    /**
+     * The font family.
+     */
     fontFamily: PropTypes.string,
+    /**
+     * The font size.
+     */
     fontSize: PropTypes.string,
+    /**
+     * The font style.
+     */
     fontStyle: PropTypes.string,
-
-    // Chunk options
+    /**
+     * The chunk style. Only useful for chunking drills.
+     */
     chunkStyle: PropTypes.string, // `color`, `highlight`, `underline`
 };
 

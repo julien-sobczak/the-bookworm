@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import Styled from './Styled';
 import * as engine from '../../functions/engine';
 
+/**
+ * Hidden component used to measure various text effective size based on the current styling options.
+ */
 class Measurer extends React.Component {
 
     removeOld() {
@@ -111,10 +114,26 @@ class Measurer extends React.Component {
 }
 
 Measurer.propTypes = {
-    elementId: PropTypes.string,
+    /**
+     * The id of the element.
+     */
+    elementId: PropTypes.string.isRequired,
+    /**
+     * The font family to use.
+     */
     fontFamily: PropTypes.string,
+    /**
+     * The font size to use.
+     */
     fontSize: PropTypes.string,
+    /**
+     * The font style to use.
+     */
     fontStyle: PropTypes.string,
+    /**
+     * Called when new measurements are available.
+     * The callback receives the width/height in pixels for every span value.
+     */
     onChange: PropTypes.func,
 };
 

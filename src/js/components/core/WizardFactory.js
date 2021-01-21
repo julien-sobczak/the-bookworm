@@ -291,6 +291,9 @@ WizardScreen.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
+/**
+ * Screen to configure any drill.
+ */
 class WizardFactory extends React.Component {
 
     constructor(props) {
@@ -466,33 +469,83 @@ class WizardFactory extends React.Component {
 }
 
 WizardFactory.propTypes = {
-    // The category of the drill
+    /**
+     * The category of the drill.
+     */
     category: PropTypes.oneOf(['vision-span', 'chunking', 'practice']).isRequired,
-    // The name of the drill (drillCircle, drillPractice, etc.)
+    /**
+     * The name of the drill (drillCircle, drillPractice, etc.).
+     */
     name: PropTypes.string.isRequired,
-
+    /**
+     * The form React element to edit drill settings.
+     */
     form: PropTypes.element.isRequired,
+    /**
+     * The instructions React element to explain the drill.
+     */
     instructions: PropTypes.node.isRequired,
 
+    /**
+     * The drill settings.
+     */
     drillSettings: PropTypes.object,
+    /**
+     * The text settings.
+     */
     textSettings: PropTypes.object,
 
+    /**
+     * An optinal list of drill presets.
+     */
     drillPresets: PropTypes.arrayOf(PropTypes.object),
+
+    /**
+     * The history of previous sessions for this drill type.
+     */
     historySessions: PropTypes.arrayOf(PropTypes.object),
 
+    /**
+     * Have the user a physical keyboard on his device?
+     */
     keyboardDetected: PropTypes.bool,
 
-    // Redux
-    defaults: PropTypes.object,
-    customPresets: PropTypes.object,
-    saveDefaults: PropTypes.func,
-    saveDrillPreset: PropTypes.func,
-    saveTextPreset: PropTypes.func,
-    deleteDrillPreset: PropTypes.func,
-    deleteTextPreset: PropTypes.func,
-
-    // Events
+    /**
+     * Called when a user has finished configuring the drill.
+     * The callback receives an object as first argument containing the drill and text settings to pass to the drill component.
+     */
     onValidate: PropTypes.func,
+
+    // Redux
+
+    /**
+     * The latest settings for the drill.
+     */
+    defaults: PropTypes.object,
+    /**
+     * The list of user presets.
+     */
+    customPresets: PropTypes.object,
+    /**
+     * Action to save the new defaults for the drill.
+     */
+    saveDefaults: PropTypes.func,
+    /**
+     * Action to save a new custom drill preset.
+     */
+    saveDrillPreset: PropTypes.func,
+    /**
+     * Action to save a new custom text preset.
+     */
+    saveTextPreset: PropTypes.func,
+    /**
+     * Action to delete a custom drill preset.
+     */
+    deleteDrillPreset: PropTypes.func,
+    /**
+     * Action to delete a custom text preset.
+     */
+    deleteTextPreset: PropTypes.func,
 };
 
 WizardFactory.defaultProps = {

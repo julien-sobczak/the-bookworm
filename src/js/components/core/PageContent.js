@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+// Static content for testing purposes
 const defaultPage = {
     blocks: [
         {
@@ -19,6 +20,9 @@ const defaultPage = {
     ],
 };
 
+/**
+ * Element rendering a page of text.
+ */
 class PageContent extends React.Component {
 
     render() {
@@ -70,8 +74,17 @@ class PageContent extends React.Component {
 }
 
 PageContent.propTypes = {
+    /**
+     * The page to render.
+     */
     page: PropTypes.object,
+    /**
+     * The index of the current block where the current chunk belongs.
+     */
     blockPosition: PropTypes.number,
+    /**
+     * The index of the chunk in the current block.
+     */
     chunkPosition: PropTypes.number,
 };
 

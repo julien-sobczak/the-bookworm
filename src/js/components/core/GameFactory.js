@@ -27,6 +27,11 @@ function GameFactoryContentAware(props) {
     );
 }
 
+/**
+ * Main component of the application.
+ * This component is used by all drills to factorize the common logic.
+ * All drills follows the same structure and this is this component that implements it.
+ */
 class GameFactory extends React.Component {
 
     constructor(props) {
@@ -190,7 +195,6 @@ class GameFactory extends React.Component {
                     <WizardFactory
                         category={this.props.category}
                         name={this.props.name}
-                        engine={this.props.engine}
                         drill={this.props.drill}
                         form={this.props.form}
                         instructions={this.props.instructions}
@@ -243,39 +247,84 @@ class GameFactory extends React.Component {
 }
 
 GameFactory.propTypes = {
-    // State
+    // Redux state
+    /**
+     * The readings in progress.
+     */
     readings: PropTypes.array.isRequired,
+    /**
+     * The user preferencess.
+     */
     preferences: PropTypes.object.isRequired,
+    /**
+     * The history of previous sessions.
+     */
     historySessions: PropTypes.object.isRequired,
+    /**
+     * Action to update the status of a reading.
+     */
     updateReading: PropTypes.func.isRequired,
+    /**
+     * Action to record a new drill session in history.
+     */
     recordSession: PropTypes.func.isRequired,
 
-    // The name of the game
+    /**
+     *  The name of the game.
+     */
     name: PropTypes.string.isRequired,
+    /**
+     * The category of the drill.
+     */
     category: PropTypes.oneOf(['vision-span', 'chunking', 'practice']).isRequired,
 
-
-    // Show the configuration wizard
+    /**
+     * Show the configuration screen.
+     */
     configurable: PropTypes.bool,
 
-    // List of subcomponents
-    engine: PropTypes.object, // For vision-span drills
+    // List of specific subcomponents that each drill must implement.
+    /**
+     * The drill screen.
+     */
     drill: PropTypes.element.isRequired,
+    /**
+     * The drill specific settings form.
+     */
     form: PropTypes.element.isRequired,
+    /**
+     * The drill instructions.
+     */
     instructions: PropTypes.element.isRequired,
+    /**
+     * The drill stats screen.
+     */
     stats: PropTypes.element,
 
-    // Default settings
-    drillSettings: PropTypes.object,
-
-    // List of presets
+    /**
+     * List of drill presets.
+     */
     drillPresets: PropTypes.arrayOf(PropTypes.object),
 
-    // Display a countdown counter before starting the drill (0 to disable it)
+    /**
+     * Default settings.
+     */
+    drillSettings: PropTypes.object,
+
+    /**
+     * Requires a countdown screen to start the drill.
+     * The value determines the duration in ms.
+     * Use 0 to disable it.
+     */
     countdownDuration: PropTypes.number,
 
-    // The currently selected content
+    /**
+     * Enable for drills using content from the library.
+     */
     contentAware: PropTypes.bool,
+    /**
+     * Content to read.
+     */
     content: PropTypes.object,
 };
 
