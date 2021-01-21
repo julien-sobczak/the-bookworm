@@ -5,6 +5,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Viewer from '../Viewer';
 import Window from '../../core/Window';
 
+// Static content for the demo drill
 const page = {
     "number": 1,
     "blocks": [
@@ -18,7 +19,10 @@ const page = {
     ],
 };
 
-function InstructionsStopWatch() {
+/**
+ * Drill Instructions.
+ */
+function Instructions() {
 
     const viewer = <Viewer paperSize={"instructions"} chunkPosition={0} page={page} fontStyle={"bold"} />;
 
@@ -31,7 +35,6 @@ function InstructionsStopWatch() {
             <Window content={viewer} showPanes callouts={[ { text: "1", top: "50%", left: "8%", description: "Click on the left side to turn to the previous page." }, { text: "2", top: "50%", right: "10%", description: "Click on the right side to move to the next page." } ]} />
         </div>
     );
-
 }
 
-export default InstructionsStopWatch;
+export default Instructions;

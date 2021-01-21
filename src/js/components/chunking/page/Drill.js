@@ -23,6 +23,9 @@ import * as library from '../../../functions/library';
 // Values for property pagerMode.
 const pagerModes = ['dom', 'fixed'];
 
+/**
+ * Main component for the drill.
+ */
 class Drill extends React.Component {
 
     constructor(props) {
@@ -290,24 +293,33 @@ class Drill extends React.Component {
 }
 
 Drill.propTypes = {
+    // Inherit properties
     ...Pager.propTypes,
     ...PagerTest.propTypes,
     ...Viewer.propTypes,
 
-    // The content to read
+    /**
+     * The content in the standard format to read.
+     */
     content: PropTypes.object,
-
-    // Callback when the current chunk is updated
-    onChunkChange: PropTypes.func,
-
-    // Callback when the user finishes the drill
-    onComplete: PropTypes.func,
-
-    // Which pager to use
+    /**
+     * Which pager to use.
+     */
     pagerMode: PropTypes.oneOf(pagerModes),
+    /**
+     * Called when the current chunk is updated.
+     * The callback receives an object as the first argument containing the information about the new chunk.
+     */
+    onChunkChange: PropTypes.func,
+    /**
+     * Called when the user finishes the drill.
+     * The callback receives an object as first argument containing metadata and stats.
+     */
+    onComplete: PropTypes.func,
 };
 
 Drill.defaultProps = {
+    // Inherit properties
     ...Pager.defaultProps,
     ...PagerTest.defaultProps,
     ...Viewer.defaultProps,

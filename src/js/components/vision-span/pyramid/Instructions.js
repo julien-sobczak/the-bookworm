@@ -8,15 +8,21 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Number of lines for the demo drill
 const lines = 5;
+// Generate data for the demo drill
 const drill = new Engine(lines).getDrill();
 
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const md = new MobileDetect(window.navigator.userAgent);
     const keyboardDetected = md.mobile() == null;
 
     const viewer = <Viewer lines={lines} span={"1in"} drill={drill} />;
+    
     return (
         <div>
             <h1>Pyramid Drill</h1>
@@ -27,7 +33,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

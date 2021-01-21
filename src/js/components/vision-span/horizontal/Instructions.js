@@ -8,16 +8,23 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Number of columns for the dmeo drill
 const columns = 5;
+// Number of lines for the demo drill
 const lines = 3;
+// Generate data for the demo drill
 const drill = new Engine(lines, columns).getDrill();
 
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const md = new MobileDetect(window.navigator.userAgent);
     const keyboardDetected = md.mobile() == null;
 
     const viewer = <Viewer columns={columns} lines={lines} spans={["0.25in", "0.25in", "0.25in", "0.25in"]} drill={drill} />;
+
     return (
         <div>
             <h1>Horizontal Drill</h1>
@@ -28,7 +35,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

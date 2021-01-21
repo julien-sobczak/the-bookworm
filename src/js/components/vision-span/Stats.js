@@ -11,8 +11,12 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 
+/**
+ * Screen presenting various drill statistics.
+ *
+ * @param {Object} props The component properties.
+ */
 function Stats({ stats, onRestart }) {
-
     return (
         <StatsScreen>
             <table>
@@ -40,7 +44,14 @@ function Stats({ stats, onRestart }) {
 }
 
 Stats.propTypes = {
+    /**
+     * The statistics to display.
+     */
     stats: PropTypes.object,
+    /**
+     * Called when the user wants to restart the drill.
+     * The callback receives no argument.
+     */
     onRestart: PropTypes.func,
 };
 

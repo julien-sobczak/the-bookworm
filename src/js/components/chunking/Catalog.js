@@ -10,6 +10,9 @@ import Text from '../toolbox/Text';
 
 import { ContentContext } from "../../../content-context";
 
+/**
+ * Catalog illustration for the drill page.
+ */
 function DrawingPage() {
     return (
         <Drawing>
@@ -23,6 +26,9 @@ function DrawingPage() {
     );
 }
 
+/**
+ * Catalog illustration for the drill chunk.
+ */
 function DrawingChunk() {
     return (
         <Drawing>
@@ -31,6 +37,9 @@ function DrawingChunk() {
     );
 }
 
+/**
+ * Catalog illustration for the drill column.
+ */
 function DrawingColumn() {
     return (
         <Drawing>
@@ -55,6 +64,11 @@ function DrawingColumn() {
     );
 }
 
+/**
+ * Catalog for the menu "Chunking".
+ *
+ * @param {Object} props The component properties.
+ */
 function Catalog({match}) {
     const Notice = styled.div`
         position: absolute;
@@ -87,6 +101,9 @@ function Catalog({match}) {
 }
 
 Catalog.propTypes = {
+    /**
+     * The Router match used for routing.
+     */
     match: PropTypes.object.isRequired,
 };
 

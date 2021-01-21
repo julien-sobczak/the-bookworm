@@ -7,6 +7,9 @@ import Chunker from '../Chunker';
 import Styled from '../../core/Styled';
 import { SPANS } from '../../../functions/engine';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     ...Chunker.defaultProps,
     chunks: [],
@@ -17,6 +20,11 @@ const defaultViewerSettings = {
     wpm: 500,
 };
 
+/**
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
+ */
 function Viewer(props) {
 
     const chunks = props.chunks;
@@ -66,25 +74,33 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
     ...Chunker.propTypes,
 
-    // WPM
+    /**
+     * Target WPM determining the duration of a chunk on screen.
+     */
     wpm: PropTypes.number,
-
-    // How many lines?
+    /**
+     * How many lines?
+     */
     linesMax: PropTypes.number,
-
-    // The chunks to display
+    /**
+     * The chunks to display.
+     */
     chunks: PropTypes.arrayOf(PropTypes.object),
-
-    // The chunk index to highlight
+    /**
+     * The current chunk index to highlight.
+     */
     chunkPosition: PropTypes.number,
-
-    // How many columns to use to display the chunks
+    /**
+     * How many columns to use to display the chunks?
+     */
     columns: PropTypes.number,
-
-    // The width of every column
+    /**
+     * The column width.
+     */
     columnWidth: PropTypes.oneOf(SPANS),
 };
 

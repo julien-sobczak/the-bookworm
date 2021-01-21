@@ -7,12 +7,20 @@ import Engine from './Engine';
 import Styled from '../../core/Styled';
 import { SPANS } from '../../../functions/engine';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     span: "1in",
     size: 3,
     autoLevel: true,
 };
 
+/**
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
+ */
 function Viewer(props) {
 
     let drill = props.drill;
@@ -84,15 +92,24 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
 
-    // How many lines/columns in the table?
+    /**
+     * How many rows/columns in the table?
+     */
     size: PropTypes.number,
-    // Cell size
+    /**
+     * Cell width/height size.
+     */
     span: PropTypes.oneOf(SPANS),
-    // Adjust level according the number of errors
+    /**
+     * Adjust the level between two drills automatically according to the number of errors.
+     */
     autoLevel: PropTypes.bool,
-    // Drill to display
+    /**
+     * Drill to display.
+     */
     drill: PropTypes.object,
 };
 

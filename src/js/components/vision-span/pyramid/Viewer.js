@@ -6,12 +6,20 @@ import { Line, Cell } from '../UI';
 import Styled from '../../core/Styled';
 import * as engine from '../../../functions/engine';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     span: "2in",
     lines: 0,
     autoLevel: true,
 };
 
+/**
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
+ */
 function Viewer(props) {
     // How it works?
     // We start at span=0.25in
@@ -95,15 +103,24 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
 
-    // How many lines
+    /**
+     * How many lines?
+     */
     lines: PropTypes.number,
-    // Negative space between with the center column for the bottom values
+    /**
+     * Negative space between with the center column for the bottom values.
+     */
     span: PropTypes.oneOf(engine.SPANS),
-    // Adjust level according the number of errors
+    /**
+     * Adjust the level between two drills automatically according to the number of errors.
+     */
     autoLevel: PropTypes.bool,
-    // Drill to display
+    /**
+     * Drill to display.
+     */
     drill: PropTypes.object,
 };
 

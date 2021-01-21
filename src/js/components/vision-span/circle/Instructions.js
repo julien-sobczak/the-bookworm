@@ -8,14 +8,19 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Generate data for the demo drill
 const drill = new Engine().getDrill();
 
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const md = new MobileDetect(window.navigator.userAgent);
     const keyboardDetected = md.mobile() == null;
 
     const viewer = <Viewer span={"0.75in"} drill={drill} />;
+    
     return (
         <div>
             <h1>Circle Drill</h1>
@@ -26,7 +31,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

@@ -7,6 +7,9 @@ import Styled from '../../core/Styled';
 import { Serie, Line, Cell } from '../UI';
 import { SPANS } from '../../../functions/engine';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     lines: 1,
     columns: 3,
@@ -16,7 +19,9 @@ const defaultViewerSettings = {
 };
 
 /**
- * Only responsible to display the drill.
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
  */
 function Viewer(props) {
 
@@ -77,24 +82,34 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
 
-    // One serie or as much as screen allows
+    /**
+     * One serie or as much as can fit on screen?
+     */
     multiple: PropTypes.bool,
-    // How many lines per series?
+    /**
+     * How many lines per series?
+     */
     lines: PropTypes.number,
-    // How many columns?
+    /**
+     * How many columns?
+     */
     columns: PropTypes.number,
-    // Negative space between two adjacent columns (should contains columns.length - 1 values)
+    /**
+     * Negative space between two adjacent columns (should contains columns.length - 1 values).
+     */
     spans: PropTypes.arrayOf(PropTypes.oneOf(SPANS)),
-
-    // Adjust level according the number of errors
+    /**
+     * Adjust the level between drills automatically according to the number of errors.
+     */
     autoLevel: PropTypes.bool,
-
-    // The drill to display
+    /**
+     * The drill to display.
+     */
     drill: PropTypes.arrayOf(PropTypes.object),
 };
-
 Viewer.defaultProps = {
     ...Styled.defaultProps,
     ...defaultViewerSettings,

@@ -5,23 +5,28 @@ import InfoIcon from '@material-ui/icons/Info';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Static previous chunk for the demo drill
 const previousChunk = {
     text: "Chunking",
     startingChunk: false,
     endingChunk: false,
 };
+// Static current chunk for the demo drill
 const currentChunk = {
     text: "means reading",
     startingChunk: false,
     endingChunk: false,
 };
+// Static next chunk for the demo drill
 const nextChunk = {
     text: "groups of words.",
     startingChunk: false,
     endingChunk: false,
 };
 
-
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const viewer = <Viewer neighborChunksPosition={'vertical'}
@@ -41,7 +46,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

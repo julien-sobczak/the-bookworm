@@ -8,7 +8,12 @@ import RadioButtons from '../../toolbox/RadioButtons';
 
 import * as engine from '../../../functions/engine';
 
-const OptionsDrill = (props) => {
+/**
+ * Inner form to configure the drill specific settings.
+ *
+ * @param {Object} props The component properties.
+ */
+function OptionsDrill(props) {
 
     const [lines, setLines] = useState(props.lines);
     const [span, setSpan] = useState(props.span);
@@ -46,7 +51,7 @@ const OptionsDrill = (props) => {
     };
 
     return (
-        <table className="Setting">
+        <table>
             <tbody>
                 <tr>
                     <th><span>Lines</span>:</th>
@@ -81,10 +86,16 @@ const OptionsDrill = (props) => {
             </tbody>
         </table>
     );
-};
+}
 
 OptionsDrill.propTypes = {
+    // Inherit properties
     ...Viewer.propTypes,
+
+    /**
+     * Called when a setting is updated.
+     * The callback receives as first argument the new drill settings.
+     */
     onChange: PropTypes.func,
 };
 

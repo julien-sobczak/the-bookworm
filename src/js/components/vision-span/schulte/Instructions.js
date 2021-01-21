@@ -8,15 +8,21 @@ import Engine from './Engine';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Size of the demo Schulte table
 const size = 3;
+// Generate data for the demo drill
 const drill = new Engine(size).getDrill();
 
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const md = new MobileDetect(window.navigator.userAgent);
     const keyboardDetected = md.mobile() == null;
 
     const viewer = <Viewer size={size} span={"0.5in"} drill={drill} />;
+
     return (
         <div>
             <h1>Schulte Drill</h1>
@@ -27,7 +33,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

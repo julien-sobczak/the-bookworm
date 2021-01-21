@@ -330,27 +330,60 @@ class Chunker extends React.Component {
 }
 
 Chunker.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
 
+    /**
+     * Developer flag to log additional outputs to the console.
+     */
     debug: PropTypes.bool,
 
+    /**
+     * The content to analyze.
+     */
     content: PropTypes.object,
+    /**
+     * Called when the chunker
+     */
     onDone: PropTypes.func,
 
-    // Calculate chunks based on a specific maximum width or split the line in one or more stops
+    /**
+     * The chunk mode to use to group words.
+     */
     chunkMode: PropTypes.oneOf(['width', 'words', 'dynamic']),
 
     // Options when chunkMode = "width"
+    /**
+     * The maximum width for a chunk.
+     */
     chunkWidth: PropTypes.oneOf(SPANS),
+    /**
+     * The tolerance allowed based on the chunk width.
+     */
     chunkAccuracy: PropTypes.number,
 
     // Options when chunkMode = "words"
-    chunkWords: PropTypes.number, // the number of words per chunk
+    /**
+     * The number of works per chunk.
+     */
+    chunkWords: PropTypes.number,
 
     // Options when chunkMode = "dynamic"
+    /**
+     * The ideal minimum chunk width.
+     */
     chunkWidthMin: PropTypes.oneOf(SPANS),
+    /**
+     * The maximum chunk width.
+     */
     chunkWidthMax: PropTypes.oneOf(SPANS),
+    /**
+     * The transition function to move from the minimum to the maximum chunk widths.
+     */
     chunkTransition: PropTypes.oneOf([`step`, `wave`]),
+    /**
+     * The number of the steps between the minimum and maximum chunk widths.
+     */
     chunkSteps: PropTypes.number,
 };
 

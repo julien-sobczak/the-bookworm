@@ -1,5 +1,8 @@
 import * as engine from '../../../functions/engine';
 
+/**
+ * Logic to generate the drill data.
+ */
 class Engine {
 
     /**

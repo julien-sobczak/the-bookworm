@@ -5,6 +5,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Static data for the demo drill
 const page = {
     "number": 1,
     "blocks": [
@@ -18,6 +19,9 @@ const page = {
     ],
 };
 
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const viewer = <Viewer paperSize="preview" chunkPosition={0} page={page} fontStyle={"bold"} />;
@@ -31,7 +35,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

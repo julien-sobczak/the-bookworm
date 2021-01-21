@@ -8,7 +8,9 @@ import * as string from '../../functions/string';
 import { SPANS } from '../../functions/engine';
 import { DEMO_CONTENT } from '../../../constants';
 
-// Values for property chunkMode.
+/**
+ * Allowed values for the property chunkMode.
+ */
 const chunkModes = ['none', 'width', 'stops', 'words'];
 
 // Check https://stackoverflow.com/questions/39673898/divide-array-into-k-contiguos-partitions-such-that-sum-of-maximum-partition-is-m
@@ -591,21 +593,48 @@ class Pager extends React.Component {
 }
 
 Pager.propTypes = {
+    // Inherit properties
     ...Paper.propTypes,
 
+    /**
+     * Developer flag to add debug outputs in the console.
+     */
     debug: PropTypes.bool,
 
+    /**
+     * The content to analyze.
+     */
     content: PropTypes.object,
+    /**
+     * Called when the chunker
+     */
     onDone: PropTypes.func,
 
-    // Calculate chunks based on a specific maximum width or split the line in one or more stops
+    /**
+     * Chunk mode used to group words.
+     */
     chunkMode: PropTypes.oneOf(chunkModes),
+
     // chunkMode `width` options
+    /**
+     * The maximum width for a chunk.
+     */
     chunkWidth: PropTypes.oneOf(SPANS),
+    /**
+     * The tolerance allowed based on the chunk width.
+     */
     chunkAccuracy: PropTypes.number,
+
     // chunkMode `stops` options
+    /**
+     * The number of stops per line.
+     */
     chunkStops: PropTypes.number,
+
     // chunkMode `words` options
+    /**
+     * The number of works per chunk.
+     */
     chunkWords: PropTypes.number,
 };
 
@@ -626,7 +655,6 @@ Pager.defaultProps = {
     // chunkMode `words` options
     chunkWords: 1,
 
-    // Sample content
     content: DEMO_CONTENT,
 };
 
@@ -892,8 +920,16 @@ class PagerTest extends React.Component {
 }
 
 PagerTest.propTypes = {
+    // Inherit properties
     ...Pager.propTypes,
+
+    /**
+     * Maximum number of characters per line.
+     */
     charactersPerLine: PropTypes.number,
+    /**
+     * Maximum number of lines per page.
+     */
     linesPerPage: PropTypes.number,
 };
 

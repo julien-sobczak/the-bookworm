@@ -8,7 +8,10 @@ import Help from '../../toolbox/Help';
 
 import * as engine from '../../../functions/engine';
 
-const Form = (props) => {
+/**
+ * Form to configure the drill.
+ */
+function Form(props) {
 
     //  Drill
     const [wpm, setWpm] = useState(props.wpm);
@@ -174,7 +177,7 @@ const Form = (props) => {
 
     return (
         <>
-            <table className="Setting">
+            <table>
                 <tbody>
                     <tr>
                         <th><label htmlFor="wpm">WPM</label>:</th>
@@ -244,7 +247,7 @@ const Form = (props) => {
                     </tr>}
                 </tbody>
             </table>
-            <table className="Setting">
+            <table>
                 <tbody>
                     <tr>
                         <th><label>Chunk Mode</label>:</th>
@@ -346,13 +349,18 @@ const Form = (props) => {
             </table>
         </>
     );
-};
+}
 
 Form.propTypes = {
+    // Inherit properties
     ...Viewer.propTypes,
+
+    /**
+     * Called when a setting is updated.
+     * The callback receives an object as first argument containing the new drill settings.
+     */
     onChange: PropTypes.func,
 };
-
 Form.defaultProps = {
     ...Viewer.defaultProps,
 };

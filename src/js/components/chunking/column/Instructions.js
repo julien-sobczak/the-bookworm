@@ -5,6 +5,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Viewer from './Viewer';
 import Window from '../../core/Window';
 
+// Static content for the demo drill
 const chunks = [
     { text: "A", startingChunk: false, endingChunk: false, },
     { text: "text", startingChunk: false, endingChunk: false, },
@@ -13,6 +14,9 @@ const chunks = [
     { text: "continue the reading.", startingChunk: false, endingChunk: false, },
 ];
 
+/**
+ * Drill Instructions.
+ */
 function Instructions() {
 
     const viewer = <Viewer chunkPosition={2} columns={1} chunks={chunks} fontStyle={"bold"} />;
@@ -26,7 +30,6 @@ function Instructions() {
             <Window content={viewer} />
         </div>
     );
-
 }
 
 export default Instructions;

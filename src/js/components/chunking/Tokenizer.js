@@ -1,3 +1,6 @@
+/**
+ * Split a text into as list of tokens based on common language separators (space, comma, etc.)
+ */
 class Tokenizer {
 
     /**

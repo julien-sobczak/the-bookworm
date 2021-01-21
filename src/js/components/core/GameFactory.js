@@ -89,7 +89,7 @@ class GameFactory extends React.Component {
      *   },
      * }
      *
-     * @param {Object} The result of the drill session
+     * @param {Object} result The result of the drill session
      */
     handleDrillCompletion(result) {
         const stats = result.stats;

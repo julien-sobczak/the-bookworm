@@ -12,8 +12,12 @@ import ExtensionIcon from '@material-ui/icons/Extension';
 import SpeedIcon from '@material-ui/icons/Speed';
 import LargeButtonGroup from '../toolbox/LargeButtonGroup.js';
 
+/**
+ * Screen presenting various drill statistics.
+ *
+ * @param {Object} props The component properties.
+ */
 function Stats({ stats, finished, onRestart, onContinue }) {
-
     return (
         <StatsScreen>
             <table>
@@ -46,9 +50,23 @@ function Stats({ stats, finished, onRestart, onContinue }) {
 }
 
 Stats.propTypes = {
+    /**
+     * The statistics to display.
+     */
     stats: PropTypes.object,
+    /**
+     * Indicates if the drill was finished until completion or aborted prematurely.
+     */
     finished: PropTypes.bool,
+    /**
+     * Called when the user wants to restart the drill.
+     * The callback receives no argument.
+     */
     onRestart: PropTypes.func,
+    /**
+     * Called when the user wants to continue the reading using the same drill settings.
+     * The callback receives no argument.
+     */
     onContinue: PropTypes.func,
 };
 

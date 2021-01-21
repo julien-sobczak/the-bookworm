@@ -6,11 +6,19 @@ import { Cell } from '../UI';
 import Styled from '../../core/Styled';
 import { SPANS } from '../../../functions/engine';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     span: "1in",
     autoLevel: true,
 };
 
+/**
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
+ */
 function Viewer(props) {
 
     let drill = props.drill;
@@ -74,15 +82,20 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
 
-    // Space with the center
+    /**
+     * Negative space of the radius.
+     */
     span: PropTypes.oneOf(SPANS),
-
-    // Adjust level according the number of errors
+    /**
+     * Adjust the level between two drills automaticaly according to the number of errors.
+     */
     autoLevel: PropTypes.bool,
-
-    // Drill to display
+    /**
+     * Drill to display.
+     */
     drill: PropTypes.object,
 };
 

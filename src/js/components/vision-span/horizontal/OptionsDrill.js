@@ -8,7 +8,12 @@ import Help from '../../toolbox/Help';
 
 import * as engine from '../../../functions/engine';
 
-const OptionsDrill = (props) => {
+/**
+ * Inner form to configure the drill specific settings.
+ *
+ * @param {Object} props The component properties.
+ */
+function OptionsDrill(props) {
     const [multiple, setMultiple] = useState(props.multiple);
     const [lines, setLines] = useState(props.lines);
     const [columns, setColumns] = useState(props.columns);
@@ -92,7 +97,7 @@ const OptionsDrill = (props) => {
 
     return (
         <>
-            <table className="Setting">
+            <table>
                 <tbody>
                     <tr>
                         <th>
@@ -167,10 +172,16 @@ const OptionsDrill = (props) => {
             </table>
         </>
     );
-};
+}
 
 OptionsDrill.propTypes = {
+    // Inherit properties
     ...Viewer.propTypes,
+
+    /**
+     * Called when a setting is updated.
+     * The callback receives as first argument the new drill settings.
+     */
     onChange: PropTypes.func,
 };
 

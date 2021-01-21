@@ -4,7 +4,12 @@ import Switch from '@material-ui/core/Switch';
 
 import Help from '../toolbox/Help';
 
-const OptionsGame = (props) => {
+/**
+ * Inner form to configure settings common to all drills.
+ *
+ * @param {Object} props The component properties.
+ */
+function OptionsGame(props) {
 
     const [keyboard, setKeyboard] = useState(props.keyboardDetected && props.keyboard);
     const [autoLevel, setAutoLevel] = useState(props.autoLevel);
@@ -42,7 +47,7 @@ const OptionsGame = (props) => {
     };
 
     return (
-        <table className="Setting">
+        <table>
             <tbody>
                 {props.keyboardDetected && <tr>
                     <th>
@@ -77,15 +82,27 @@ const OptionsGame = (props) => {
             </tbody>
         </table>
     );
-};
+}
 
 OptionsGame.propTypes = {
+    /**
+     * The user has a physical keyboard available.
+     */
     keyboardDetected: PropTypes.bool,
+    /**
+     * Use the keyboard to enter answers.
+     */
     keyboard: PropTypes.bool,
+    /**
+     * Adjust the level between two drills automatically based on correct answers.
+     */
     autoLevel: PropTypes.bool,
+    /**
+     * Called when a setting is updated.
+     * The callback received as first argument the new game settings.
+     */
     onChange: PropTypes.func,
 };
-
 OptionsGame.defaultProps = {
     keyboardDetected: false,
     keyboard: false,

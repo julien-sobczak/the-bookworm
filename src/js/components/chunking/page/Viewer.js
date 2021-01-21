@@ -10,6 +10,9 @@ import Styled from '../../core/Styled';
 
 import * as string from '../../../functions/string';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     ...Pager.defaultProps,
     blockPosition: 0,
@@ -21,6 +24,11 @@ const defaultViewerSettings = {
     pageTurningDuration: 300,
 };
 
+/**
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
+ */
 function Viewer(props) {
 
     const classNames = [];
@@ -64,33 +72,46 @@ function Viewer(props) {
 }
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
     ...Pager.propTypes,
 
-    // The page content to display
+    /**
+     * The page content to display.
+     */
     page: PropTypes.object,
 
-    // The block index containing the chunk to highlight
+    /**
+     * The block index containing the chunk to highlight.
+     */
     blockPosition: PropTypes.number,
-
-    // The chunk index inside the block to highlight
+    /**
+     * The chunk index inside the block to highlight.
+     */
     chunkPosition: PropTypes.number,
 
-    // Hide/Show the text in front of the current chunk
+    /**
+     * Hide/Show the text in front of the current chunk.
+     */
     disableVisualRegression: PropTypes.bool,
-
-    // Hide/Show the text behind the current chunk
+    /**
+     * Hide/Show the text behind the current chunk.
+     */
     disableVisualProgression: PropTypes.bool,
-
-    // How the hidden text controlled by `disableVisualRegression`
-    // and `disableVisualProgression` should be displayed
+    /**
+     * How the hidden text controlled by `disableVisualRegression`
+     * and `disableVisualProgression` should be displayed.
+     */
     disableVisualProblemStyle: PropTypes.oneOf(["transparent", "fade", "blur"]),
 
-    // WPM
+    /**
+     * The target WPM determining the duration of a chunk on screen.
+     */
     wpm: PropTypes.number,
-
-    // Pause between two pages
-    pageTurningDuration: PropTypes.number, // ms
+    /**
+     * Pause duration between two pages in ms.
+     */
+    pageTurningDuration: PropTypes.number,
 };
 
 Viewer.defaultProps = {

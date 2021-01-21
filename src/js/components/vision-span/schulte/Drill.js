@@ -17,6 +17,9 @@ import * as interaction from '../../../functions/interaction';
 import * as string from '../../../functions/string';
 import * as engine from '../../../functions/engine';
 
+/**
+ * Main component for the drill.
+ */
 class Drill extends React.Component {
 
     constructor(props) {
@@ -250,13 +253,23 @@ class Drill extends React.Component {
 }
 
 Drill.propTypes = {
+    // Inherit properties
     ...Viewer.propTypes,
 
-    // Callback when a new drill is generated (for testing purposes)
+    /**
+     * Called when a new drill is generated.
+     * The callback receives the drill data object as the first argument.
+     */
     onNewDrill: PropTypes.func,
-    // Callback when the current level is updated
+    /**
+     * Called when the current level is updated.
+     * The callback receives an object as first argument containing the new level settings.
+     */
     onLevelChange: PropTypes.func,
-    // Callback when the user finishes the drill
+    /**
+     * Called when the user finishes the drill.
+     * The callback receives an object as first argument containing metadata and stats.
+     */
     onComplete: PropTypes.func,
 };
 

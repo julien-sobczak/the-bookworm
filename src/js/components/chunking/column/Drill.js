@@ -21,6 +21,9 @@ import * as wpm from '../../../functions/wpm';
 import * as engine from '../../../functions/engine';
 import * as library from '../../../functions/library';
 
+/**
+ * Main component for the drill.
+ */
 class Drill extends React.Component {
 
     constructor(props) {
@@ -294,15 +297,22 @@ class Drill extends React.Component {
 }
 
 Drill.propTypes = {
+    // Inherit properties
     ...Chunker.propTypes,
 
-    // The content to read
+    /**
+     * The content in the standard format to read.
+     */
     content: PropTypes.object,
-
-    // Callback when a chunk is updated
+    /**
+     * Called when the current chunk is updated.
+     * The callback receives an object as the first argument containing the information about the new chunk.
+     */
     onChunkChange: PropTypes.func,
-
-    // Callback when the user finishes the drill
+    /**
+     * Called when the user finishes the drill.
+     * The callback receives an object as first argument containing metadata and stats.
+     */
     onComplete: PropTypes.func,
 };
 

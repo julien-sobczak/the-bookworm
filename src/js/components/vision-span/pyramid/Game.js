@@ -7,51 +7,61 @@ import Form from './Form';
 import Drill from './Drill';
 import Stats from '../Stats';
 
+/**
+ * Default drill settings.
+ */
 const defaultDrillSettings = {
     ...defaultViewerSettings
 };
 
-const Game = (props) => {
+/**
+ * Default drill presets.
+ */
+const presets = [
+    {
+        name: "A",
+        settings: { span: "0.75in" },
+    },
+    {
+        name: "B",
+        settings: { span: "1in" },
+    },
+    {
+        name: "C",
+        settings: { span: "1.25in" },
+    },
+    {
+        name: "D",
+        settings: { span: "1.5in" },
+    },
+    {
+        name: "E",
+        settings: { span: "1.75in" },
+    },
+    {
+        name: "F",
+        settings: { span: "2in" },
+    },
+    {
+        name: "G",
+        settings: { span: "2.25in" },
+    },
+    {
+        name: "H",
+        settings: { span: "2.5in" },
+    },
+    {
+        name: "I",
+        settings: { span: "2.75in" },
+    },
+];
 
-    const presets = [
-        {
-            name: "A",
-            settings: { span: "0.75in" },
-        },
-        {
-            name: "B",
-            settings: { span: "1in" },
-        },
-        {
-            name: "C",
-            settings: { span: "1.25in" },
-        },
-        {
-            name: "D",
-            settings: { span: "1.5in" },
-        },
-        {
-            name: "E",
-            settings: { span: "1.75in" },
-        },
-        {
-            name: "F",
-            settings: { span: "2in" },
-        },
-        {
-            name: "G",
-            settings: { span: "2.25in" },
-        },
-        {
-            name: "H",
-            settings: { span: "2.5in" },
-        },
-        {
-            name: "I",
-            settings: { span: "2.75in" },
-        },
-    ];
-
+/**
+ * Root component for the drill. Include all steps of the drill (configuration, session, stats).
+ *
+ * @param {Object} props The component properties.
+ */
+function Game(props) {
     return (
         <GameFactory
             {...props}
@@ -64,6 +74,14 @@ const Game = (props) => {
             drillSettings={defaultDrillSettings}
             drillPresets={presets} />
     );
+}
+
+Game.propTypes = {
+    // Inherit properties
+    ...Drill.propTypes,
+};
+Game.defaultProps = {
+    ...defaultDrillSettings,
 };
 
 export { Game as default, defaultDrillSettings };

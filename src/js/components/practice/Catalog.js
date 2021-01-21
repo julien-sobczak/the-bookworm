@@ -10,6 +10,9 @@ import Text from '../toolbox/Text';
 
 import { ContentContext } from "../../../content-context";
 
+/**
+ * Catalog illustration for the drill "Free Reading".
+ */
 function DrawingFree() {
     return (
         <Drawing>
@@ -25,6 +28,9 @@ function DrawingFree() {
     );
 }
 
+/**
+ * Catalog illustration for the drill "Run the Pacer".
+ */
 function DrawingPacer() {
     return (
         <Drawing>
@@ -40,6 +46,9 @@ function DrawingPacer() {
     );
 }
 
+/**
+ * Catalog illustration for the drill "One-Minute".
+ */
 function DrawingStopWatch() {
     return (
         <Drawing>
@@ -55,6 +64,11 @@ function DrawingStopWatch() {
     );
 }
 
+/**
+ * Catalog for the menu "Practice.
+ *
+ * @param {Object} props The component properties.
+ */
 function Catalog({match}) {
     const Notice = styled.div`
         position: absolute;
@@ -88,6 +102,9 @@ function Catalog({match}) {
 }
 
 Catalog.propTypes = {
+    /**
+     * The Router match used for routing.
+     */
     match: PropTypes.object.isRequired,
 };
 

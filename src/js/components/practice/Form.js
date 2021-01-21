@@ -5,7 +5,10 @@ import Viewer from './Viewer';
 import RadioButtons from '../toolbox/RadioButtons';
 import Help from '../toolbox/Help';
 
-const Form = (props) => {
+/**
+ * Form to configure the drill.
+ */
+function Form(props) {
 
     //  Drill
     const [pageTurningDuration, setPageTurningDuration] = useState(props.pageTurningDuration);
@@ -69,7 +72,7 @@ const Form = (props) => {
 
     return (
         <>
-            <table className="Setting">
+            <table>
                 <tbody>
                     <tr>
                         <th><label htmlFor="pageTurningDuration">Page turn duration</label>:</th>
@@ -126,13 +129,18 @@ const Form = (props) => {
             </table>
         </>
     );
-};
+}
 
 Form.propTypes = {
+    // Inherit properties
     ...Viewer.propTypes,
+
+    /**
+     * Called when a setting is updated.
+     * The callback receives an object as first argument containing the new drill settings.
+     */
     onChange: PropTypes.func,
 };
-
 Form.defaultProps = {
     ...Viewer.defaultProps,
 };

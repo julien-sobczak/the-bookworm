@@ -2,6 +2,9 @@ import * as engine from '../../../functions/engine';
 
 const POSITIONS = ["center", "top", "topRight", "right", "bottomRight", "bottom", "bottomLeft", "left", "topLeft"];
 
+/**
+ * Logic to generate the drill data.
+ */
 class Engine {
 
     /**

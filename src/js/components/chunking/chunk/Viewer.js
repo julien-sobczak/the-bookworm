@@ -8,6 +8,9 @@ import Styled from '../../core/Styled';
 
 import * as string from '../../../functions/string';
 
+/**
+ * Default properties.
+ */
 const defaultViewerSettings = {
     ...Chunker.defaultProps,
     neighborChunksPosition: 'vertical',
@@ -17,6 +20,11 @@ const defaultViewerSettings = {
     wpm: 250,
 };
 
+/**
+ * Render the drill.
+ *
+ * @param {Object} props The component properties.
+ */
 function Viewer(props) {
 
     const classNames = ['NeighborPosition' + string.capitalize(props.neighborChunksPosition)];
@@ -78,27 +86,46 @@ function Viewer(props) {
 const neighborChunksPositions = ["vertical", "horizontal"];
 
 Viewer.propTypes = {
+    // Inherit properties
     ...Styled.propTypes,
     ...Chunker.propTypes,
 
-    // WPM
+    /**
+     * The target WPM determining the duration of a chunk on screen.
+     */
     wpm: PropTypes.number,
 
     // Chunks
+
+    /**
+     * The chunk preceding the current chunk.
+     */
     previousChunk: PropTypes.object,
+    /**
+     * The current chunk to read.
+     */
     currentChunk: PropTypes.object,
+    /**
+     * The chunk following the current chunk.
+     */
     nextChunk: PropTypes.object,
 
-    // How many lines per chunk (in practice, pack several chunks into the same chunk)
+    /**
+     * How many lines per chunk (in practice, we pack several chunks into the same chunk)
+     */
     linesPerChunk: PropTypes.number,
 
-    // Display the previous/next chunk(s) to the left/right of the current chunk (`horizontal`) or above/below the current chunk (`vertical`).
+    /**
+     * Display the previous/next chunk(s) horizontally or vertically.
+     */
     neighborChunksPosition: PropTypes.oneOf(neighborChunksPositions),
-
-    // Display the previous chunk
+    /**
+     * Display the previous chunk.
+     */
     showPreviousChunk: PropTypes.bool,
-
-    // Display the next chunk
+    /**
+     * Display the next chunk.
+     */
     showNextChunk: PropTypes.bool,
 };
 
@@ -106,11 +133,10 @@ Viewer.defaultProps = {
     ...Styled.defaultProps,
     ...Chunker.defaultProps,
 
-    // Text
-    // Increase the font size as we are printed few words on the screen
-    fontSize: '16pt',
-
     ...defaultViewerSettings,
+
+    // Increase the font size as we are printed fewer words on the screen
+    fontSize: '16pt',
 };
 
 export { Viewer as default, defaultViewerSettings };

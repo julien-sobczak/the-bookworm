@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import { EntryGroup, Entry, Drawing, DrillOutline, LetterOutline, GridOutline, CellOutline } from '../core/CatalogUI';
 
+/**
+ * Catalog illustration for the drill horizontal.
+ */
 function DrawingHorizontal() {
     return (
         <Drawing>
@@ -23,6 +26,9 @@ function DrawingHorizontal() {
     );
 }
 
+/**
+ * Catalog illustration for the drill circle.
+ */
 function DrawingCircle() {
     // See Drill Circle for details
     const angleDegree = 45;
@@ -47,6 +53,9 @@ function DrawingCircle() {
     );
 }
 
+/**
+ * Catalog illustration for the drill pyramid.
+ */
 function DrawingPyramid() {
     return (
         <Drawing>
@@ -71,6 +80,9 @@ function DrawingPyramid() {
     );
 }
 
+/**
+ * Catalog illustration for the drill Schulte.
+ */
 function DrawingSchulte() {
     return (
         <Drawing>
@@ -91,6 +103,11 @@ function DrawingSchulte() {
     );
 }
 
+/**
+ * Catalog for the menu "Vision span".
+ *
+ * @param {Object} props The component properties.
+ */
 function Catalog({match}) {
 
     return (
@@ -117,6 +134,9 @@ function Catalog({match}) {
 }
 
 Catalog.propTypes = {
+    /**
+     * The Router match used for routing.
+     */
     match: PropTypes.object.isRequired,
 };
 
