@@ -1,4 +1,4 @@
-import { extractChapters, parseToc, parseFile } from './EpubReader';
+import { extractChapters, parseToc, parseFile } from './epub';
 
 test('parseToc extracts chapters from the TOC file', () => {
     const content = `<?xml version="1.0" encoding="UTF-8" ?>

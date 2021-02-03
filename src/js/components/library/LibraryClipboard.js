@@ -29,6 +29,7 @@ function LibraryClipboard({ onSelect, onCancel }) {
             },
             content: library.parsePaste(text),
             reloadable: false,
+            size: 0,
             saveOnLocalStorage: true,
         });
     };

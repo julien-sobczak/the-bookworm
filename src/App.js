@@ -121,7 +121,7 @@ VisionSpanPage.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
 };
 
-function ChunkingPage({ match }) {
+function ChunkingPage({ readings, match }) {
     return (
         <ContentContext.Consumer>
             {({ content }) => (
@@ -129,7 +129,7 @@ function ChunkingPage({ match }) {
                     <h2>Chunking</h2>
 
                     {/* Redirect to catalog if no content is available */}
-                    <Route path={`${match.path}`} exact={library.valid(content)} component={ChunkingCatalog} />
+                    <Route path={`${match.path}`} exact={library.valid(content)} render={(props) => <ChunkingCatalog {...props} readings={readings}/>} />
                     {library.valid(content) && <Route path={`${match.path}:drill`} component={ChunkingSelector} />}
                 </section>
             )}
@@ -138,6 +138,7 @@ function ChunkingPage({ match }) {
 }
 ChunkingPage.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
+    readings: PropTypes.arrayOf(PropTypes.object),
 };
 
 function ChunkingSelector({ match }) {
@@ -157,7 +158,7 @@ ChunkingSelector.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
 };
 
-function PracticePage({ match }) {
+function PracticePage({ readings, match }) {
     return (
         <ContentContext.Consumer>
             {({ content }) => (
@@ -165,7 +166,7 @@ function PracticePage({ match }) {
                     <h2>Practice</h2>
 
                     {/* Redirect to catalog if no content is available */}
-                    <Route path={`${match.path}`} exact={library.valid(content)} component={PracticeCatalog} />
+                    <Route path={`${match.path}`} exact={library.valid(content)} render={(props) => <PracticeCatalog {...props} readings={readings}/>} />
                     {library.valid(content) && <Route path={`${match.path}:drill`} component={PracticeSelector} />}
 
                 </section>
@@ -175,6 +176,7 @@ function PracticePage({ match }) {
 }
 PracticePage.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
+    readings: PropTypes.arrayOf(PropTypes.object),
 };
 
 function PracticeSelector({ match }) {
@@ -226,15 +228,31 @@ class App extends React.Component {
                 storage.storeContent(content);
             }
 
-            this.setState(() => ({
+            const reading = library.getReading(this.props.readings, content);
+            this.props.updateReading(reading);
+
+            this.setState({
                 contentLoaded: true,
                 content: content,
-            }));
+            });
         };
 
         this.toggleContent = (reading) => {
             console.log(`Toggle content with ${reading.description.title}`);
-            storage.reloadContent(reading).then((content) => this.updateContent(content));
+            storage.reloadContent(reading).then((content) => {
+                this.updateContent(content);
+                this.setState({
+                    contentLoaded: true,
+                    content: content,
+                });
+            });
+        };
+
+        this.discardContent = () => {
+            this.setState({
+                contentLoaded: false,
+                content: {},
+            });
         };
 
         this.state = {
@@ -242,6 +260,7 @@ class App extends React.Component {
             content: {},
             update: this.updateContent,
             toggle: this.toggleContent,
+            discard: this.discardContent,
         };
 
         // Apply global settings
@@ -264,7 +283,7 @@ class App extends React.Component {
                     <ScreenTester minWidth="5in" minHeight="5in" />
 
                     {!this.props.tutorialCompleted && <Tutorial onDone={this.handleTutorialCompleted} />}
-                    {this.props.tutorialCompleted && this.state.contentLoaded && <Router>
+                    {this.props.tutorialCompleted && <Router>
                         <nav className="menu">
                             <NavLink to="/home" activeClassName="active" exact><div><HomeIcon /><br/>Home</div></NavLink>
                             {/* The attribute `exact` prevent this link to have the activeClassName set for every URL starting with / */}
@@ -279,8 +298,8 @@ class App extends React.Component {
                             <Route path="/tutorial" exact component={TutorialPage} />
                             <Route path="/home"     exact component={IndexPage} />
                             <Route path="/vision-span/"   component={VisionSpanPage} />
-                            <Route path="/chunking/"      component={ChunkingPage} />
-                            <Route path="/practice/"      component={PracticePage} />
+                            <Route path="/chunking/"      render={(props) => <ChunkingPage {...props} readings={this.props.readings} />} />
+                            <Route path="/practice/"      render={(props) => <PracticePage {...props} readings={this.props.readings} />}/>
                             <Route path="/settings/"      component={SettingsPage} />
                             <Route path="/about/"         component={AboutPage} />
                         </section>
@@ -289,18 +308,6 @@ class App extends React.Component {
             </ThemeProvider>
         );
     }
-
-    componentDidMount() {
-        if (this.props.readings.length > 0) {
-            const currentReading = this.props.readings[0];
-            storage.reloadContent(currentReading).then((content) => this.updateContent(content));
-        } else {
-            this.setState({
-                contentLoaded: true,
-            });
-        }
-    }
-
 }
 App.propTypes = {
     // Redux

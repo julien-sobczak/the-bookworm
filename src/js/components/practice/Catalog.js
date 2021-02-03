@@ -6,6 +6,7 @@ import * as library from '../../functions/library';
 
 import { EntryGroup, Entry, Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
 import PanelReading from "../library/PanelReading.js";
+import ContentReloader from "../library/ContentReloader.js";
 import Text from '../toolbox/Text';
 
 import { ContentContext } from "../../../content-context";
@@ -69,35 +70,37 @@ function DrawingStopWatch() {
  *
  * @param {Object} props The component properties.
  */
-function Catalog({match}) {
+function Catalog({ match, readings }) {
     const Notice = styled.div`
         position: absolute;
         top: 5rem;
         right: 5rem;
     `;
     return (
-        <ContentContext.Consumer>
-            {({content, update, toggle}) => (
-                <EntryGroup>
+        <ContentReloader readings={readings}>
+            <ContentContext.Consumer>
+                {({content, update, toggle}) => (
+                    <EntryGroup>
 
-                    <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                    {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
+                        <PanelReading content={content} onSelect={update} onToggle={toggle} />
+                        {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
 
-                    <Entry name="Free Reading" slug="free" match={match} disabled={!library.valid(content)}>
-                        <DrawingFree />
-                    </Entry>
+                        <Entry name="Free Reading" slug="free" match={match} disabled={!library.valid(content)}>
+                            <DrawingFree />
+                        </Entry>
 
-                    <Entry name="Run the Pacer" slug="pacer" match={match} disabled={!library.valid(content)}>
-                        <DrawingPacer />
-                    </Entry>
+                        <Entry name="Run the Pacer" slug="pacer" match={match} disabled={!library.valid(content)}>
+                            <DrawingPacer />
+                        </Entry>
 
-                    <Entry name="One-minute" slug="stopwatch" match={match} disabled={!library.valid(content)}>
-                        <DrawingStopWatch />
-                    </Entry>
+                        <Entry name="One-minute" slug="stopwatch" match={match} disabled={!library.valid(content)}>
+                            <DrawingStopWatch />
+                        </Entry>
 
-                </EntryGroup>
-            )}
-        </ContentContext.Consumer>
+                    </EntryGroup>
+                )}
+            </ContentContext.Consumer>
+        </ContentReloader>
     );
 }
 
@@ -106,6 +109,10 @@ Catalog.propTypes = {
      * The Router match used for routing.
      */
     match: PropTypes.object.isRequired,
+    /**
+     * The list of readings in progress.
+     */
+    readings: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Catalog;

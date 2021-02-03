@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Loader from "../toolbox/Loader.js";
+import Loader from "../toolbox/Loader";
 import LargeButton from "../toolbox/LargeButton";
 import ErrorSnackbar from "../toolbox/ErrorSnackbar";
 
-import { readEpub } from './EpubReader';
+import { readEpub } from '../../functions/epub';
 
 /**
  * Same design as LargeButton but uses an hidden file input

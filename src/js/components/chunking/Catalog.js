@@ -6,6 +6,7 @@ import * as library from '../../functions/library';
 
 import { EntryGroup, Entry, Drawing, PageOutline, ColumnOutline, ElementOutline } from "../core/CatalogUI";
 import PanelReading from "../library/PanelReading.js";
+import ContentReloader from "../library/ContentReloader.js";
 import Text from '../toolbox/Text';
 
 import { ContentContext } from "../../../content-context";
@@ -69,34 +70,35 @@ function DrawingColumn() {
  *
  * @param {Object} props The component properties.
  */
-function Catalog({match}) {
+function Catalog({ readings, match }) {
     const Notice = styled.div`
         position: absolute;
         top: 5rem;
         right: 5rem;
     `;
     return (
-        <ContentContext.Consumer>
-            {({content, update, toggle}) => (
-                <EntryGroup>
+        <ContentReloader readings={readings}>
+            <ContentContext.Consumer>
+                {({ content, update, toggle }) => (
+                    <EntryGroup>
+                        <PanelReading readings={readings} content={content} onSelect={update} onToggle={toggle} />
+                        {readings.length === 0 && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
 
-                    <PanelReading content={content} onSelect={update} onToggle={toggle} />
-                    {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
+                        <Entry name="Page Reader" slug="drill-page" match={match} disabled={!library.valid(content)}>
+                            <DrawingPage />
+                        </Entry>
 
-                    <Entry name="Page Reader" slug="drill-page" match={match} disabled={!library.valid(content)}>
-                        <DrawingPage />
-                    </Entry>
+                        <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={!library.valid(content)}>
+                            <DrawingChunk />
+                        </Entry>
 
-                    <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={!library.valid(content)}>
-                        <DrawingChunk />
-                    </Entry>
-
-                    <Entry name="Column Reader" slug="drill-column" match={match} disabled={!library.valid(content)}>
-                        <DrawingColumn />
-                    </Entry>
-                </EntryGroup>
-            )}
-        </ContentContext.Consumer>
+                        <Entry name="Column Reader" slug="drill-column" match={match} disabled={!library.valid(content)}>
+                            <DrawingColumn />
+                        </Entry>
+                    </EntryGroup>
+                )}
+            </ContentContext.Consumer>
+        </ContentReloader>
     );
 }
 
@@ -105,6 +107,10 @@ Catalog.propTypes = {
      * The Router match used for routing.
      */
     match: PropTypes.object.isRequired,
+    /**
+     * The list of readings in progress.
+     */
+    readings: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Catalog;

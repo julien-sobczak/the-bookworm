@@ -9,7 +9,7 @@
 // Import zip.js
 const zip = window.zip;
 
-const getEntries = file => {
+function getEntries(file) {
     return new Promise((resolve, reject) => {
         zip.createReader(new zip.BlobReader(file), zipReader => {
             zipReader.getEntries((entries) => {
@@ -17,8 +17,8 @@ const getEntries = file => {
             });
         }, reject);
     });
-};
-const getEntryFile = entry => {
+}
+function getEntryFile(entry) {
     return new Promise((resolve) => {
         const writer = new zip.BlobWriter();
 
@@ -33,17 +33,22 @@ const getEntryFile = entry => {
             reader.readAsText(blob);
         });
     });
-};
+}
 
 
 // Reads the TOC file and determine the list of chapters.
-export const parseToc = content => {
+export function parseToc(content) {
     const toc = [];
     const tocDoc = new DOMParser().parseFromString(content, "application/xml");
     const chapters = [...tocDoc.querySelectorAll('navPoint')]; // converts NodeList to Array
     chapters.forEach(element => {
         const text = element.querySelector('text').innerHTML;
-        const filename = element.querySelector('content').getAttribute('src');
+        let filename = element.querySelector('content').getAttribute('src');
+        // Remove optional fragment. Ex: index_split_000.html#3
+        const indexFragment = filename.indexOf('#');
+        if (indexFragment !== -1) {
+            filename = filename.substring(0, indexFragment);
+        }
         toc.push({
             title: text,
             filename: filename,
@@ -51,10 +56,10 @@ export const parseToc = content => {
     });
 
     return toc;
-};
+}
 
 // Parses a text files to extract the HTML readable content.
-export const parseFile = content => {
+export function parseFile(content) {
 
     const cleanHTML = html => {
         // Keep the following tags in the resulting content
@@ -107,10 +112,10 @@ export const parseFile = content => {
     }
 
     return results;
-};
+}
 
 // Returns the first file whose filename matches the given regex
-export const getFileMatching = (files, regex) => {
+export function getFileMatching(files, regex) {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         if (regex.test(file.filename)) {
@@ -118,24 +123,26 @@ export const getFileMatching = (files, regex) => {
         }
     }
     return undefined;
-};
+}
 
 // Reads the TOC file and determine the list of chapters
-export const extractToc = files => {
+export function extractToc(files) {
     const tocFile = getFileMatching(files, /.*toc[.]ncx$/);
-    if (!tocFile) return null;
-
+    if (!tocFile) {
+        console.log("No Table of Contents found");
+        return null;
+    }
     return parseToc(tocFile.content);
-};
+}
 
 // Predicate to determine if a chapter must be filtered based on the parsed content.
-export const filterChapter = chapter => {
+export function filterChapter(chapter) {
     // Remove sections without content
     return chapter.blocks.length < 2;
-};
+}
 
 // Extracts the content from all chapters present in the ePub.
-export const extractChapters = (files) => {
+export function extractChapters(files) {
     const toc = extractToc(files);
     const chapters = [];
     for (let i = 0; i < toc.length; i++) {
@@ -155,7 +162,7 @@ export const extractChapters = (files) => {
         }
     }
     return chapters;
-};
+}
 
 /**
  * Extract the content from a raw ePub file.
@@ -163,7 +170,7 @@ export const extractChapters = (files) => {
  * @param {File} file The first file of the FileList object received from a HTML input file.
  * @return {Object} The file content parsed in the standard format.
  */
-export const readEpub = file => {
+export function readEpub(file) {
 
     return new Promise((resolve, reject) => {
         getEntries(file).then((entries) => {
@@ -197,12 +204,13 @@ export const readEpub = file => {
                     content: {
                         sections: chapters,
                     },
+                    size: file.size,
                     reloadable: false,
-                    saveOnLocalStorage: true,
+                    saveOnLocalStorage: false, // EPUBs can contain images and exceed the available space.
                 });
             });
         }).catch(err => {
             reject(err);
         });
     });
-};
+}

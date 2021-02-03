@@ -34,7 +34,7 @@ export function retrieveContent(reading) {
  * @return {Promise} When the content is available
  */
 export function reloadContent(reading) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         console.log('Reloading previous content...');
         if (!localStorage.getItem(reading.id)) {
             // Content has disappeared from local storage.
@@ -45,7 +45,8 @@ export function reloadContent(reading) {
                     resolve(content);
                 });
             } else {
-                console.error("Unable to reload the previous reading");
+                console.log("Unable to reload the previous reading");
+                reject("Content not found in localStorage and not reloadable");
             }
         } else {
             console.log('Retrieved previous reading from localStorage');

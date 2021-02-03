@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import classnames from 'classnames';
 
 function Toc({ chapters, selectedIndex, onSelect }) {
 
@@ -72,7 +73,7 @@ function Toc({ chapters, selectedIndex, onSelect }) {
                             data-index={index}
                             className={classnames({'Selected': index === selectedIndex})}
                             onClick={handleClick}>
-                                {chapter.title}
+                            {chapter.title}
                         </li>
                     );
                 })}
@@ -95,3 +96,5 @@ Toc.propTypes = {
      */
     onSelect: PropTypes.func.isRequired,
 };
+
+export default Toc;

@@ -345,6 +345,7 @@ export function downloadContent(description) {
                     description: description,
                     content: content,
                     reloadable: true,
+                    size: 0,
                     saveOnLocalStorage: true,
                 });
             });
@@ -385,6 +386,7 @@ export function getReading(readings, content) {
                 block: 0,
                 progress: 0,
             },
+            size: content.size,
             reloadable: content.reloadable,
             lastDate: new Date().toJSON(),
         };

@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { PreviewContentScreen } from '../core/UI';
+import * as library from '../../functions/library';
+
+import Toc from './Toc';
+import { PreviewContentScreen } from './UI';
 import ContentSelector from "./ContentSelector";
 
 /**
@@ -36,11 +39,11 @@ class PreviewEpub extends React.Component {
     }
 
     render() {
+        if (!library.valid(this.props.content)) return <>Nothing</>;
         return (
             <PreviewContentScreen>
-
                 <Toc
-                    chapters={this.props.content.chapters}
+                    chapters={this.props.content.content.sections}
                     selectedIndex={this.state.chapterIndex}
                     onSelect={this.handleChapterSelected} />
 

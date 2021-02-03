@@ -9,7 +9,7 @@ import LibraryClipboard from './LibraryClipboard';
 import { LibraryScreen } from './UI';
 import ReadingsList from './ReadingsList';
 import LargeButton from "../toolbox/LargeButton";
-import ButtonUpload from "./LargeButtonUpload";
+import LargeButtonUpload from "./LargeButtonUpload";
 
 import { updateReading } from '../../store/actions';
 
@@ -84,7 +84,7 @@ class Library extends React.Component {
                     <LargeButtonGroup>
                         <LargeButton text="A book" colorText="white" colorBackground="#111" onClick={this.handleBookSelect} />
                         <LargeButton text="A Copy-Paste text" colorText="white" colorBackground="#111" onClick={this.handleClipboardSelect} />
-                        <ButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelect} />
+                        <LargeButtonUpload text="An Upload" colorText="white" colorBackground="#111" onClick={this.handleSelect} />
                         {/*
                           * Disabled because it requires to find a real solution to execute CORS requests
                           * Ex: https://github.com/Rob--W/cors-anywhere
