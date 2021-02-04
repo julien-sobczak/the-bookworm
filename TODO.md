@@ -17,9 +17,6 @@
 - [ ] Use a frequency dictionary to speed up chunks with common words and slow down chunks with advanced words. ("Smart mode")
 
 
-
-From the catalog screen => If content is not in localStorage and not redownloable => Ask the user to upload it again (use a checksum-like feature to detect it's the same book :))
-
 After the drill configuration, instead of the countdown, add a screen to select:
 
 <Screen>

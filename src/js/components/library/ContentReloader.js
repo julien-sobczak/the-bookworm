@@ -38,22 +38,32 @@ function ContentReloader({ readings, children }) {
         }
     `;
 
+    console.log('render');
+
     useEffect(() => {
-        if (!loading && !loaded && readings.length > 0 && !library.valid(content)) {
+        let ignore = false;
+
+        if (loading || loaded) return;
+        if (!loading && readings.length > 0 && !library.valid(content)) {
             // Try to reload
             const currentReading = readings[0];
+            if (ignore) return;
+
             setLoading(true);
 
             storage.reloadContent(currentReading).then(content => {
-                update(content);
                 console.log('Content is now', content);
+                if (ignore) return;
                 setLoading(false);
                 setLoaded(true);
-            }).catch((e) => {
+                update(content);
+            }).catch(e => {
                 console.log('Error when reloading content', e);
-                setUploadRequired(true);
+                if (!ignore) setUploadRequired(true);
             });
         }
+
+        return () => { ignore = true; };
     });
 
     const handleUpload = (content) => {
@@ -74,7 +84,7 @@ function ContentReloader({ readings, children }) {
 
     return (
         <>
-            {/* Use a snackbar to report problem with the uploaded file. */}
+            {/* Report problem with the uploaded file. */}
             <ErrorSnackbar message={errorMessage} onClose={() => setErrorMessage("")} />
             {/* Display a loader during the file upload. */}
             {!loaded && loading && <Loader />}

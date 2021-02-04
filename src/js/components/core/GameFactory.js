@@ -11,7 +11,7 @@ import { lightTheme, darkTheme } from '../../../App';
 
 import * as library from '../../functions/library';
 
-import Countdown from '../toolbox/Countdown';
+import ContentSelectionScreen from '../library/ContentSelectionScreen';
 import WizardFactory from './WizardFactory';
 
 /**
@@ -57,7 +57,7 @@ class GameFactory extends React.Component {
         };
 
         this.handleWizardValidation = this.handleWizardValidation.bind(this);
-        this.handleCountdownCompletion = this.handleCountdownCompletion.bind(this);
+        this.handleContentSelection = this.handleContentSelection.bind(this);
         this.handleDrillCompletion = this.handleDrillCompletion.bind(this);
         this.handleContinue = this.handleContinue.bind(this);
         this.handleRestart = this.handleRestart.bind(this);
@@ -72,8 +72,8 @@ class GameFactory extends React.Component {
         }));
     }
 
-    /** Called when the countdown is finished. */
-    handleCountdownCompletion() {
+    /** Called when the selection is finished. */
+    handleContentSelection() {
         this.setState(state => ({
             ...state,
             state: 'started',
@@ -207,7 +207,7 @@ class GameFactory extends React.Component {
                     />}
 
                 {this.state.state === 'ready' &&
-                    <Countdown duration={this.props.countdownDuration} onTimesUp={this.handleCountdownCompletion} />}
+                    <ContentSelectionScreen content={this.props.content} reading={this.state.currentReading} onStart={this.handleContentSelection} />}
 
                 {this.state.state === 'started' &&
                     <ThemeProvider theme={theme}>
