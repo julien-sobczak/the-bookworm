@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -15,8 +16,9 @@ import * as library from '../../functions/library';
 
 import { ContentContext } from "../../../content-context";
 
-function ContentReloader({ readings, children }) {
+function ContentReloader({ children }) {
 
+    const readings = useSelector(state => state.readings);
     const { content, update, discard } = useContext(ContentContext);
 
     const [ loading, setLoading ] = useState(false);
@@ -38,8 +40,6 @@ function ContentReloader({ readings, children }) {
         }
     `;
 
-    console.log('render');
-
     useEffect(() => {
         let ignore = false;
 
@@ -59,7 +59,8 @@ function ContentReloader({ readings, children }) {
                 update(content);
             }).catch(e => {
                 console.log('Error when reloading content', e);
-                if (!ignore) setUploadRequired(true);
+                if (ignore) return;
+                setUploadRequired(true);
             });
         }
 
@@ -87,7 +88,7 @@ function ContentReloader({ readings, children }) {
             {/* Report problem with the uploaded file. */}
             <ErrorSnackbar message={errorMessage} onClose={() => setErrorMessage("")} />
             {/* Display a loader during the file upload. */}
-            {!loaded && loading && <Loader />}
+            {!uploadRequired && !loaded && loading && <Loader />}
             {/* Ask user to upload the content again. */}
             {uploadRequired && <Screen colored centered>
                 <Message><Text size="large">Your current reading<br/><em>{readings[0].description.title}</em><br/>cannot be found locally.</Text></Message>
@@ -103,7 +104,6 @@ function ContentReloader({ readings, children }) {
 }
 
 ContentReloader.propTypes = {
-    readings: PropTypes.arrayOf(PropTypes.object),
     children: PropTypes.node,
 };
 

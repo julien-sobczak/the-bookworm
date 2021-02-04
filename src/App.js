@@ -43,6 +43,7 @@ import PreferencesIcon from '@material-ui/icons/Settings';
 
 import 'normalize.css';
 import './App.css';
+import ContentReloader from "./js/components/library/ContentReloader";
 
 const lightTheme = createMuiTheme({
     palette: {
@@ -121,24 +122,19 @@ VisionSpanPage.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
 };
 
-function ChunkingPage({ readings, match }) {
+function ChunkingPage({ match }) {
     return (
-        <ContentContext.Consumer>
-            {({ content }) => (
-                <section id="Chunking" className="page chunking">
-                    <h2>Chunking</h2>
+        <section id="Chunking" className="page chunking">
+            <h2>Chunking</h2>
 
-                    {/* Redirect to catalog if no content is available */}
-                    <Route path={`${match.path}`} exact={library.valid(content)} render={(props) => <ChunkingCatalog {...props} readings={readings}/>} />
-                    {library.valid(content) && <Route path={`${match.path}:drill`} component={ChunkingSelector} />}
-                </section>
-            )}
-        </ContentContext.Consumer>
+            {/* Redirect to catalog if no content is available */}
+            <Route path={`${match.path}`} exact={true} component={ChunkingCatalog} />
+            <Route path={`${match.path}:drill`} component={ChunkingSelector} />
+        </section>
     );
 }
 ChunkingPage.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
-    readings: PropTypes.arrayOf(PropTypes.object),
 };
 
 function ChunkingSelector({ match }) {
@@ -149,7 +145,11 @@ function ChunkingSelector({ match }) {
     };
 
     if (match.params.drill in drills) {
-        return drills[match.params.drill];
+        return (
+            <ContentReloader>
+                {drills[match.params.drill]}
+            </ContentReloader>
+        );
     } else {
         return <h3>Drill not found</h3>;
     }
@@ -158,25 +158,19 @@ ChunkingSelector.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
 };
 
-function PracticePage({ readings, match }) {
+function PracticePage({ match }) {
     return (
-        <ContentContext.Consumer>
-            {({ content }) => (
-                <section id="Practice" className="page practice">
-                    <h2>Practice</h2>
+        <section id="Practice" className="page practice">
+            <h2>Practice</h2>
 
-                    {/* Redirect to catalog if no content is available */}
-                    <Route path={`${match.path}`} exact={library.valid(content)} render={(props) => <PracticeCatalog {...props} readings={readings}/>} />
-                    {library.valid(content) && <Route path={`${match.path}:drill`} component={PracticeSelector} />}
-
-                </section>
-            )}
-        </ContentContext.Consumer>
+            {/* Redirect to catalog if no content is available */}
+            <Route path={`${match.path}`} exact={true} component={PracticeCatalog} />
+            <Route path={`${match.path}:drill`} component={PracticeSelector} />
+        </section>
     );
 }
 PracticePage.propTypes = {
     match: PropTypes.objectOf(PropTypes.any),
-    readings: PropTypes.arrayOf(PropTypes.object),
 };
 
 function PracticeSelector({ match }) {
@@ -187,7 +181,11 @@ function PracticeSelector({ match }) {
     };
 
     if (match.params.drill in drills) {
-        return drills[match.params.drill];
+        return (
+            <ContentReloader>
+                {drills[match.params.drill]}
+            </ContentReloader>
+        );
     } else {
         return <h3>Drill not found</h3>;
     }

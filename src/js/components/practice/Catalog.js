@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -70,19 +71,20 @@ function DrawingStopWatch() {
  *
  * @param {Object} props The component properties.
  */
-function Catalog({ match, readings }) {
+function Catalog({ match }) {
+    const readings = useSelector(state => state.readings);
     const Notice = styled.div`
         position: absolute;
         top: 5rem;
         right: 5rem;
     `;
     return (
-        <ContentReloader readings={readings}>
+        <ContentReloader>
             <ContentContext.Consumer>
                 {({content, update, toggle}) => (
                     <EntryGroup>
 
-                        <PanelReading content={content} onSelect={update} onToggle={toggle} />
+                        <PanelReading readings={readings} content={content} onSelect={update} onToggle={toggle} />
                         {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
 
                         <Entry name="Free Reading" slug="free" match={match} disabled={!library.valid(content)}>
@@ -109,10 +111,6 @@ Catalog.propTypes = {
      * The Router match used for routing.
      */
     match: PropTypes.object.isRequired,
-    /**
-     * The list of readings in progress.
-     */
-    readings: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Catalog;

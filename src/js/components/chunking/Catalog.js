@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -70,14 +71,15 @@ function DrawingColumn() {
  *
  * @param {Object} props The component properties.
  */
-function Catalog({ readings, match }) {
+function Catalog({ match }) {
+    const readings = useSelector(state => state.readings);
     const Notice = styled.div`
         position: absolute;
         top: 5rem;
         right: 5rem;
     `;
     return (
-        <ContentReloader readings={readings}>
+        <ContentReloader>
             <ContentContext.Consumer>
                 {({ content, update, toggle }) => (
                     <EntryGroup>
@@ -107,10 +109,6 @@ Catalog.propTypes = {
      * The Router match used for routing.
      */
     match: PropTypes.object.isRequired,
-    /**
-     * The list of readings in progress.
-     */
-    readings: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Catalog;
