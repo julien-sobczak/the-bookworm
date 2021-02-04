@@ -32,13 +32,23 @@ const ColoredLinearProgress = withStyles({
 
 const ColoredRadio = withStyles({
     root: {
-        color: 'rgba(0, 0, 0, 0.2)',
+        color: 'var(--theme-color)',
         '&$checked': {
-            color: 'black',
+            color: 'var(--theme-color)',
         },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
+
+const ColoredSelect = withStyles({
+    root: {
+        color: 'var(--theme-color)',
+        fontWeight: 'bold',
+    },
+    icon: {
+        color: 'white',
+    },
+})((props) => <Select {...props} />);
 
 /**
  * Component to select the next content to read.
@@ -76,8 +86,10 @@ function ContentSelectionScreen({ reading, content, onStart }) {
     `;
     const Form = styled.div`
         margin: 3rem 0;
-        width: 80%;
-        text-align: center;
+        display: inline-block;
+        color: white;
+        background: black;
+        padding: 1rem;
     `;
 
     return (
@@ -98,7 +110,8 @@ function ContentSelectionScreen({ reading, content, onStart }) {
                         onChange={handleModeChange}
                         value="nextChapter"
                         name="mode"
-                    /> Read the next chapter
+                        id="mode-nextChapter"
+                    /> <label htmlFor="mode-nextChapter">Read the next chapter</label>
                 </div>
                 <div>
                     <ColoredRadio
@@ -106,17 +119,18 @@ function ContentSelectionScreen({ reading, content, onStart }) {
                         onChange={handleModeChange}
                         value="duration"
                         name="mode"
+                        id="mode-duration"
                     />
-                    Read for&nbsp;
-                    <Select
+                    <label htmlFor="mode-duration">Read for</label>&nbsp;
+                    <ColoredSelect
                         value={duration}
                         onChange={handleDurationChange}
                     >
                         <MenuItem value={5}>5</MenuItem>
                         <MenuItem value={10}>10</MenuItem>
                         <MenuItem value={15}>15</MenuItem>
-                    </Select>
-                    &nbsp;minutes
+                    </ColoredSelect>
+                    &nbsp;<label htmlFor="mode-duration">minutes</label>
                 </div>
             </Form>
 
