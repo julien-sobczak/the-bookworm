@@ -12,17 +12,16 @@ import LargeButtonUpload from "./LargeButtonUpload";
 import Text from "../toolbox/Text.js";
 
 import * as storage from '../../functions/storage';
-import * as library from '../../functions/library';
 
 import { ContentContext } from "../../../content-context";
 
 function ContentReloader({ children }) {
 
     const readings = useSelector(state => state.readings);
-    const { content, update, discard } = useContext(ContentContext);
+    const { contentLoaded, update, discard } = useContext(ContentContext);
 
     const [ loading, setLoading ] = useState(false);
-    const [ loaded, setLoaded ] = useState(readings.length === 0 || library.valid(content));
+    const [ loaded, setLoaded ] = useState(readings.length === 0 || contentLoaded);
     const [ uploadRequired, setUploadRequired ] = useState(false);
     const [ errorMessage, setErrorMessage ] = useState("");
 
@@ -44,7 +43,7 @@ function ContentReloader({ children }) {
         let ignore = false;
 
         if (loading || loaded) return;
-        if (!loading && readings.length > 0 && !library.valid(content)) {
+        if (!loading && readings.length > 0 && !contentLoaded) {
             // Try to reload
             const currentReading = readings[0];
             if (ignore) return;

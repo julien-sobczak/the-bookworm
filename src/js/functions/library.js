@@ -1,6 +1,9 @@
 import * as string from './string';
 import * as wpm from './wpm';
 
+// Import zip.js
+const zip = window.zip;
+
 /** URL of the library catalog. */
 export const CATALOG_URL = "https://open-library-books.web.app/catalog.json";
 
@@ -205,119 +208,141 @@ export function downloadCatalog() {
         });
 }
 
-/**
- * Convert a Copy/Paste text to the standard format.
- *
- * @param {string} rawText The raw text pasted by the user
- * @return {Object} The parsed content
- */
-export function parsePaste(rawText) {
-    const blocks = [];
+export class PasteParser {
 
-    const lines = rawText.split('\n');
-    for (let l = 0; l < lines.length; l++) {
+    /**
+     * Convert a Copy/Paste text to the standard format.
+     *
+     * @param {string} str The raw text pasted by the user
+     * @return {Text} The parsed content
+     */
+    parse(str) {
+        const blocks = [];
 
-        const line = lines[l];
-
-        if (line.trim() === '') {
-            continue;
-        }
-
-        blocks.push({ tag: "p", content: line });
-    }
-
-    return {
-        sections: [
-            {
-                title: string.headline(blocks[0].content),
-                blocks: blocks,
-            }
-        ]
-    };
-}
-
-/**
- * Test a content.
- *
- * @param {Object} content The content to read
- * @returns {bool} True if the content is valid and can be read.
- */
-export function valid(content) {
-    return content && content.content && content.id && content.content.sections && content.content.sections.length > 0;
-}
-
-/**
- * Convert a Gutenberg book to the standard format.
- *
- * @param {string} rawContent The Gutenberg TXT book content
- * @param {Object} metadata The book metadata
- * @return {Object} The parsed book
- */
-export function parseLiterature(rawContent, metadata) {
-    const content = {
-        sections: [],
-    };
-
-
-    for (let c = 0; c < metadata.chapters.length; c++) {
-        const chapterMetadata = metadata.chapters[c];
-        const lines = rawContent.split('\r\n').slice(chapterMetadata.start - 1, chapterMetadata.end + 1);
-        const chapterBlocks = [];
-
-        // Parse the chapter lines
-        let currentBlock = undefined;
+        const lines = str.split('\n');
         for (let l = 0; l < lines.length; l++) {
+
             const line = lines[l];
 
-            // New file = end of the previous block
             if (line.trim() === '') {
-                if (currentBlock) {
-                    chapterBlocks.push(currentBlock);
-                    currentBlock = undefined;
+                continue;
+            }
+
+            blocks.push({ tag: "p", content: line.trim() });
+        }
+
+        const content = {
+            // Only one section
+            sections: [
+                {
+                    title: string.headline(blocks[0].content),
+                    blocks: blocks,
+                }
+            ]
+        };
+
+        return new Text(content);
+    }
+}
+
+export class GutenbergParser {
+
+    /**
+     * Convert a Gutenberg book to the standard format.
+     *
+     * @param {string} rawContent The Gutenberg TXT book content
+     * @param {Object} metadata The book metadata
+     * @return {Object} The parsed book
+     */
+    parse(rawContent, metadata) {
+        const content = {
+            sections: [],
+        };
+
+        for (let c = 0; c < metadata.chapters.length; c++) {
+            const chapterMetadata = metadata.chapters[c];
+            const lines = rawContent.split('\r\n').slice(chapterMetadata.start - 1, chapterMetadata.end + 1);
+            const chapterBlocks = [];
+
+            // Parse the chapter lines
+            let currentBlock = undefined;
+            for (let l = 0; l < lines.length; l++) {
+                const line = lines[l];
+
+                // New file = end of the previous block
+                if (line.trim() === '') {
+                    if (currentBlock) {
+                        chapterBlocks.push(currentBlock);
+                        currentBlock = undefined;
+                    }
+                }
+
+                // Block continuation?
+                if (!currentBlock) {
+                    currentBlock = { tag: "p", content: line, sourceLine: l, };
+                } else {
+                    currentBlock.content += ' ' + line;
                 }
             }
-
-            // Block continuation?
-            if (!currentBlock) {
-                currentBlock = { tag: "p", content: line, sourceLine: l, };
-            } else {
-                currentBlock.content += ' ' + line;
+            // Do not forget to add the last block
+            if (currentBlock) {
+                chapterBlocks.push(currentBlock);
             }
-        }
-        // Do not forget to add the last block
-        if (currentBlock) {
-            chapterBlocks.push(currentBlock);
+
+            content.sections.push({
+                title: chapterMetadata.title,
+                blocks: chapterBlocks,
+            });
+
         }
 
-        content.sections.push({
-            title: chapterMetadata.title,
-            blocks: chapterBlocks,
+        // Post-processing
+        content.sections.forEach(section => {
+            section.blocks.forEach(block => {
+                block.content = GutenbergParser.postProcessBlock(block.content);
+            });
         });
+
+        return new Text(content);
+    }
+
+    /**
+     * Apply some post-processing rules to the book content.
+     *
+     * @param {string} content A block content.
+     * @returns {string} The updated content.
+     */
+    static postProcessBlock(content) {
+
+        // Replace unusual space character 160 by the commonly found 32
+        content = content.replace(new RegExp(String.fromCharCode(160), "g"), ' ');
+        content = content.replace(/\s{2}/g, ' '); // <= Otherwise, this would not work.
+
+        // Use emdash
+        content = content.replace(/--/g, '—');
+
+        // Use italic tags
+        content = content.replace(/_(\w)/g, '<i>$1');
+        content = content.replace(/(\w)_/g, '$1</i>');
+
+        return content;
+    }
+}
+
+export class EpubParser {
+
+    /**
+     * Extract the content from a raw ePub file.
+     *
+     * @param {File} file The first file of the FileList object received from a HTML input file.
+     * @return {Promise<Text>} The parsed file text.
+     */
+    parse(file) {
 
     }
 
-    return postProcessLiterature(content);
 }
 
-/**
- * Apply some post-processing rules to the book content.
- *
- * @param {Object} content The book content.
- * @returns {Object} The book content.
- */
-export function postProcessLiterature(content) {
-    content.sections.forEach(section => {
-        section.blocks.forEach(block => {
-            // Replace unusual space character 160 by the commonly found 32
-            block.content = block.content.replace(new RegExp(String.fromCharCode(160), "g"), ' ');
-            block.content = block.content.replace(/\s{2}/g, ' '); // <= Otherwise, this would not work.
-            block.content = block.content.replace(/--/g, '—');
-            block.content = block.content.replace(/_(\w)/g, '<i>$1');
-            block.content = block.content.replace(/(\w)_/g, '$1</i>');
-        });
-    });
-    return content;
-}
 
 /**
  * Download a content.
@@ -384,8 +409,8 @@ export function getReading(readings, content) {
             position: {
                 section: 0,
                 block: 0,
-                progress: 0,
             },
+            progress: 0,
             size: content.size,
             reloadable: content.reloadable,
             lastDate: new Date().toJSON(),
@@ -395,102 +420,310 @@ export function getReading(readings, content) {
     }
 }
 
+
 /**
- * Calculate the next position from the last known position.
- *
- * @param {Object} lastPosition A position
- * @param {Object} content The parsed content
- * @return {Object} The new position
+ * Initial position inside a text.
  */
-export function nextPosition(lastPosition, content) {
-    const completed = lastPosition.block === content.sections[lastPosition.section].blocks.length - 1; // Reach the end of the section
-    const lastSection = lastPosition.section === content.sections.length - 1;
-    const contentFinished = completed && lastSection;
+const STARTING_POSITION = {
+    section: 0, // First section
+    block: 0, // First block
+};
 
-    let newPosition = lastPosition;
+/**
+ * Standard format for drills requiring a text.
+ */
+export class Text {
 
-    if (contentFinished) {
-        newPosition = {
-            // Start over
-            section: 0,
-            block: 0,
-            progress: 100,
-        };
-    } else {
-        if (completed) {
-            // Advance to next section
-            newPosition = {
-                section: lastPosition.section + 1,
+    constructor(content) {
+        if (!Text.valid(content)) {
+            throw new Error("Content is malformed");
+        }
+        this.content = content;
+        this.position = STARTING_POSITION;
+    }
+
+    /**
+     * Places the reading cursor at a new position.
+     *
+     * @param {Object} position The new position.
+     */
+    seekPosition(position) {
+        this.position = position;
+    }
+
+    /**
+     * Moves right after the given position.
+     *
+     * @param {Object} referencePosition The position.
+     */
+    seekAfterPosition({ section, block }) {
+        const referenceSection = this.content.section[section];
+        if (referenceSection.blocks.length > block) { // In the middle of a section
+            this.position = {
+                section: section,
+                block: block + 1,
+            };
+        } else if (section === this.content.sections.length - 1) { // End of the text
+            // Move to last block
+            this.position = {
+                section: this.content.sections.length - 1,
+                block: this.content.sections[this.content.sections.length - 1].blocks.length - 1,
+            };
+        } else { // End of a section
+            // Move to next section
+            this.position = {
+                section: section + 1,
                 block: 0,
             };
-        } else {
-            // Advance to next block
-            newPosition = {
-                section: lastPosition.section,
-                block: lastPosition.block + 1,
-            };
         }
-        // TODO Tune the formula to consider blocks and section length
-        newPosition.progress = newPosition.section * 100 / content.sections.length;
     }
 
-    return newPosition;
-}
+    /**
+     * Returns the reading progress based on the current position.
+     *
+     * @return {Number} The percent between 0-100 inclusive.
+     */
+    progress() {
+        // Not started
+        if (!this.inProgress()) return 0;
 
-/**
- * Calculate the next blocks to read.
- *
- * @param {Array} position The current position
- * @param {Object} content The content currently selected
- * @return {Object} The content to read compatible with text-based drills.
- */
-export function nextContent(position, content) {
-    const { section, block } = position;
+        // Finished
+        if (this.finished()) return 100;
 
-    const currentSection = content.content.sections[section];
-    const blocks = [];
-    if (currentSection.title) {
-        blocks.push({ tag: "h2", content: currentSection.title });
+        let readBlocks = 0;
+        let remainingBlocks = 0;
+        const { section, block } = this.position;
+        this.content.sections.forEach((s, i) => {
+            if (s < section) {
+                readBlocks += s.blocks.length;
+            } else if (s > section) {
+                remainingBlocks += s.blocks.length;;
+            } else {
+                readBlocks += block;
+                remainingBlocks += s.blocks.length - block;
+            }
+        });
+        const totalBlocks = readBlocks + remainingBlocks;
+        return Math.floor(readBlocks * 100 / totalBlocks);
     }
-    blocks.push(...currentSection.blocks.slice(block));
 
-    return {
-        type: content.type,
-        title: content.description.title,
-        author: content.description.author,
-        subtitle: currentSection.title,
-        blocks: blocks,
-    };
-}
+    /**
+     * Returns if the current reading has started or not.
+     *
+     * @returns {bool} True if the position has changed.
+     */
+    inProgress() {
+        return this.position.section !== 0 || this.position.block !== 0;
+    }
 
-function stripTags(str) {
-    if (str === null || str === '') return str;
-    str = str.toString();
-    return str.replace(/<[^>]*>/g, '');
+    /**
+     * Returns if the current reading is finished.
+     *
+     * @returns {bool} True if there is no more text to read.
+     */
+    finished() {
+        const { section, block } = this.position;
+        const lastSection = section === this.content.sections.length - 1;
+        const lastBlock = block === this.content.sections[section].blocks.length - 1;
+        return lastSection && lastBlock;
+    }
+
+    /**
+     * Returns the current section.
+     *
+     * @return {Section} The section.
+     */
+    currentSection() {
+        return new Section(this.content.content[this.position.section]);
+    }
+
+    /**
+     * Calculate the next position from the last known position.
+     *
+     * @return {Object} The new position
+     */
+    nextPosition() {
+        const lastPosition = this.position;
+        const content = this.content;
+
+        const sectionCompleted = lastPosition.block === content.sections[lastPosition.section].blocks.length - 1; // Reach the end of the section
+        const lastSection = lastPosition.section === content.sections.length - 1;
+        const contentFinished = sectionCompleted && lastSection;
+
+        let newPosition = lastPosition;
+
+        if (contentFinished) {
+            newPosition = {
+                section: this.content.sections.length - 1,
+                block: this.content.sections[this.content.sections.length - 1].blocks.length - 1,
+            };
+        } else {
+            if (sectionCompleted) {
+                // Advance to next section
+                newPosition = {
+                    section: lastPosition.section + 1,
+                    block: 0,
+                };
+            } else {
+                // Advance to next block
+                newPosition = {
+                    section: lastPosition.section,
+                    block: lastPosition.block + 1,
+                };
+            }
+            // TODO Tune the formula to consider blocks and section length
+            newPosition.progress = newPosition.section * 100 / content.sections.length;
+        }
+
+        return newPosition;
+    }
+
+    /**
+     * Returns an extract of the next section or the end of the current section if not finished.
+     *
+     * @param {Array} position The current position
+     * @param {Object} content The content currently selected
+     * @return {Extract} The extract to read during the drill session.
+     */
+    extractUntilNextSection() {
+        const { section, block } = this.position;
+
+        const currentSection = this.currentSection();
+        const blocks = [];
+        if (currentSection.title) {
+            blocks.push({ tag: "h2", content: currentSection.title });
+        }
+        blocks.push(...currentSection.blocks.slice(block));
+
+        const startPosition = this.position;
+        const endPosition = {
+            section: section,
+            block: currentSection.blocks.length - 1,
+        };
+
+        return new Extract(this, currentSection.title, blocks, startPosition, endPosition);
+    }
+
+    /**
+     * Returns an extract that the user could complete in the given number of minutes when reading at the specified WPM.
+     *
+     * @param {Number} durationInMin The maximum reading duration.
+     * @param {Number} targetWPM The WPM.
+     * @return {Extract} The extract to read during the drill session.
+     */
+    extractForNMinutes(durationInMin, targetWPM) {
+        const maxDurationInMs = durationInMin * 60 * 1000;
+        const currentSection = this.currentSection();
+
+        const blocks = [];
+
+        let { s, b } = this.position;
+        let totalDurationInMs = 0;
+
+        const startPosition = this.position;
+        let endPosition = {
+            section: s,
+            block: b,
+        };
+
+        while (true) {
+            const nextBlock = this.content.sections[s].blocks[b];
+            const blockDurationInMs = wpm.textDuration(nextBlock.content, targetWPM);
+            if (totalDurationInMs + blockDurationInMs > maxDurationInMs) {
+                break;
+            }
+            blocks.push(nextBlock);
+            endPosition = {
+                section: s,
+                block: b,
+            };
+
+            if (b + 1 === this.content.sections[s].blocks.length) { // End of section
+                if (s + 1 === this.content.sections.length) { // End of text
+                    break;
+                }
+                s++;
+            } else {
+                b++;
+            }
+        }
+
+        return new Extract(this, currentSection.title, blocks, startPosition, endPosition);
+    }
+
+    /**
+     * Returns various statistics about the text.
+     *
+     * @return {Object} The statistics.
+     */
+    stats() {
+        return {
+            // TODO
+        };
+    }
+
+    /**
+     * Test a content.
+     *
+     * @param {Object} content The content to read
+     * @returns {bool} True if the content is valid and can be read.
+     */
+    static valid(content) {
+        // Must contains at least one section
+        return content && content.sections && content.sections.length > 0;
+    }
+
 }
 
 /**
- * Count the number of words based on the spaces.
- *
- * @param {string} str A text
- * @return {Number} The number of words
+ * Represents a single section inside the text.
  */
-export function countWords(str) {
-    return stripTags(str).split(' ')
-        .filter(function (n) { return n !== ''; })
-        .length;
+export class Section {
+
+    constructor(section) {
+        this.blocks = section.block;
+    }
+
+    /**
+     * Returns various statistics about the text.
+     *
+     * @return {Object} The statistics.
+     */
+    stats() {
+        return {
+            // TODO
+        };
+    }
 }
 
 /**
- * Count the number of letters.
- *
- * @param {string} str A text
- * @return {Number} The number of readable letters
+ * Represents an extract of th text to read during a drill session.
  */
-export function countLetters(str) {
-    // Filter HTML entities first
-    return stripTags(str).length;
+export class Extract {
+
+    constructor(text, title, blocks, startPosition, endPosition) {
+        this.type = text.type;
+        this.title = text.description.title;
+        this.author = text.description.author;
+        this.subtitle = title;
+        this.blocks = blocks;
+        this.startPosition = startPosition;
+        this.endPosition = endPosition;
+    }
+
+    /**
+     * Returns various statistics about the text.
+     *
+     * @return {Object} The statistics.
+     */
+    stats() {
+        return {
+            // TODO
+        };
+    }
 }
+
+
 
 /**
  * Calculates drill statistics based on the input content.
@@ -499,7 +732,7 @@ export function countLetters(str) {
  * @param {Number} durationInSeconds The elapsed drill duration
  * @return {Object} An object containing the list of statistics.
  */
-export function statsContent(content, durationInSeconds) {
+export function statsContent(content, durationInSeconds) { // TODO remove
     let letters = 0;
     let words = 0;
     let paragraphs = 0;
@@ -508,7 +741,7 @@ export function statsContent(content, durationInSeconds) {
         const block = content.blocks[b];
         paragraphs++;
         letters += block.content.length;
-        words += countWords(block.content);
+        words += string.countWords(block.content);
     }
 
     return {
@@ -529,7 +762,7 @@ export function statsContent(content, durationInSeconds) {
  * @param {Number} blockEnd 0-based index of the last block to extract (not inclusive)
  * @return {Object} The "sub-"content
  */
-export function extractContent(content, blockStart, blockEnd) {
+export function extractContent(content, blockStart, blockEnd) { // TODO remove
     const subContent = {
         ...content,
         blocks: content.blocks.slice(blockStart, blockEnd),

@@ -154,3 +154,22 @@ describe('splitWords', () => {
     });
 
 });
+
+describe('countWords', () => {
+
+    it('calculates the number of words', () => {
+        const text = "A very, simple, but useful example!";
+        expect(string.countWords(text)).toBe(6);
+    });
+
+});
+
+describe('countLetters', () => {
+
+    it('calculates the number of letters', () => {
+        const textWithoutHTML = "A simple text";
+        const textWithHTML = "“I ain't, aunt; it <i>is</i> all done.”";
+        expect(string.countLetters(textWithoutHTML)).toBe(13);
+        expect(string.countLetters(textWithHTML)).toBe(32);
+    });
+});

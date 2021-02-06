@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import * as library from '../../functions/library';
-
 import { EntryGroup, Entry, Drawing, PageOutline, WordOutline } from '../core/CatalogUI';
 import PanelReading from "../library/PanelReading.js";
 import ContentReloader from "../library/ContentReloader.js";
@@ -81,21 +79,21 @@ function Catalog({ match }) {
     return (
         <ContentReloader>
             <ContentContext.Consumer>
-                {({content, update, toggle}) => (
+                {({ contentLoaded, content, update, toggle}) => (
                     <EntryGroup>
 
                         <PanelReading readings={readings} content={content} onSelect={update} onToggle={toggle} />
-                        {!library.valid(content) && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
+                        {!contentLoaded && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
 
-                        <Entry name="Free Reading" slug="free" match={match} disabled={!library.valid(content)}>
+                        <Entry name="Free Reading" slug="free" match={match} disabled={!contentLoaded}>
                             <DrawingFree />
                         </Entry>
 
-                        <Entry name="Run the Pacer" slug="pacer" match={match} disabled={!library.valid(content)}>
+                        <Entry name="Run the Pacer" slug="pacer" match={match} disabled={!contentLoaded}>
                             <DrawingPacer />
                         </Entry>
 
-                        <Entry name="One-minute" slug="stopwatch" match={match} disabled={!library.valid(content)}>
+                        <Entry name="One-minute" slug="stopwatch" match={match} disabled={!contentLoaded}>
                             <DrawingStopWatch />
                         </Entry>
 

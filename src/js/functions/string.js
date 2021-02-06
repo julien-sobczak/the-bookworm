@@ -287,3 +287,26 @@ export function showWords(line) {
 
     return result;
 }
+
+/**
+ * Count the number of words based on the spaces.
+ *
+ * @param {string} str A text
+ * @return {Number} The number of words
+ */
+export function countWords(str) {
+    return stripTags(str).split(' ')
+        .filter(function (n) { return n !== ''; })
+        .length;
+}
+
+/**
+ * Count the number of letters.
+ *
+ * @param {string} str A text
+ * @return {Number} The number of readable letters
+ */
+export function countLetters(str) {
+    // Filter HTML entities first
+    return stripTags(str).length;
+}

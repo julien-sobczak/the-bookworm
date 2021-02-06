@@ -17,15 +17,7 @@
 - [ ] Use a frequency dictionary to speed up chunks with common words and slow down chunks with advanced words. ("Smart mode")
 
 
-After the drill configuration, instead of the countdown, add a screen to select:
-
-<Screen>
-Progressbar with the name of the current chapter.
-[small button] Jump to another section
-
-[ ] Read the next chapter
-[ ] Read for [5] minutes
-
-Let's Go
-</Screen>
+```javascript
+optionalMessage: PropTypes.instanceOf(Message),
+```
 

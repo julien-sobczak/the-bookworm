@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import * as library from '../../functions/library';
-
 import { EntryGroup, Entry, Drawing, PageOutline, ColumnOutline, ElementOutline } from "../core/CatalogUI";
 import PanelReading from "../library/PanelReading.js";
 import ContentReloader from "../library/ContentReloader.js";
@@ -81,20 +79,20 @@ function Catalog({ match }) {
     return (
         <ContentReloader>
             <ContentContext.Consumer>
-                {({ content, update, toggle }) => (
+                {({ contentLoaded, content, update, toggle }) => (
                     <EntryGroup>
                         <PanelReading readings={readings} content={content} onSelect={update} onToggle={toggle} />
-                        {readings.length === 0 && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
+                        {!contentLoaded && <Notice><Text manuscript arrow arrowDirection="top" arrowPosition="right" arrowVariant="primary">Select a text to read first!</Text></Notice>}
 
-                        <Entry name="Page Reader" slug="drill-page" match={match} disabled={!library.valid(content)}>
+                        <Entry name="Page Reader" slug="drill-page" match={match} disabled={!contentLoaded}>
                             <DrawingPage />
                         </Entry>
 
-                        <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={!library.valid(content)}>
+                        <Entry name="Chunk Reader" slug="drill-chunk" match={match} disabled={!contentLoaded}>
                             <DrawingChunk />
                         </Entry>
 
-                        <Entry name="Column Reader" slug="drill-column" match={match} disabled={!library.valid(content)}>
+                        <Entry name="Column Reader" slug="drill-column" match={match} disabled={!contentLoaded}>
                             <DrawingColumn />
                         </Entry>
                     </EntryGroup>
