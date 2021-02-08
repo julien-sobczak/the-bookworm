@@ -27,7 +27,7 @@ function LibraryClipboard({ onSelect, onCancel }) {
                 title: `Paste ${id}`,
                 author: "Unknown",
             },
-            content: library.parsePaste(text),
+            content: new library.PasteParser().parse(text),
             reloadable: false,
             size: 0,
             saveOnLocalStorage: true,

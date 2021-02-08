@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Content } from '../../functions/content';
+import * as library from '../../functions/library';
 
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -58,8 +58,8 @@ function ContentSelectionScreen({ reading, content, onStart }) {
     const [mode, setMode] = useState('nextChapter');
     const [duration, setDuration] = useState(5);
 
-    const c = new Content(content);
-    c.seekPosition(reading.position);
+    const text = new library.Text(content);
+    text.seekPosition(reading.position);
 
     const handleJump = () => {
 
@@ -74,7 +74,7 @@ function ContentSelectionScreen({ reading, content, onStart }) {
     };
 
     const handleClick = () => {
-        const extract = c.nextContent();
+        const extract = text.nextContent();
         onStart(extract);
     };
 

@@ -1,8 +1,7 @@
 import * as string from './string';
 import * as wpm from './wpm';
-
-// Import zip.js
-const zip = window.zip;
+import { parseEpub } from '@gxl/epub-parser';
+import { readEpub } from './epub';
 
 /** URL of the library catalog. */
 export const CATALOG_URL = "https://open-library-books.web.app/catalog.json";
@@ -303,7 +302,7 @@ export class GutenbergParser {
             });
         });
 
-        return new Text(content);
+        return new GutenbergText(content, metadata.description);
     }
 
     /**
@@ -338,7 +337,15 @@ export class EpubParser {
      * @return {Promise<Text>} The parsed file text.
      */
     parse(file) {
-
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            parseEpub(Buffer.from(event.target.result)).then(result => {
+                const htmlObjects = result.sections[1].toHtmlObjects();
+                console.log(htmlObjects);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+        return readEpub(file).then(content => new Text(content));
     }
 
 }
@@ -350,7 +357,7 @@ export class EpubParser {
  * @param {Object} description The content description containing required information to locate the content.
  * @returns {Promise} a Promise containing the downloaded document.
  */
-export function downloadContent(description) {
+export function downloadContent(description) { // TODO rename downloadFromCatalog
     if (description.origin === "gutenberg") {
         const contentUrl = `https://open-library-books.web.app/gutenberg/${description.slug}.txt`;
         const metadataUrl = `https://open-library-books.web.app/gutenberg/${description.slug}.json`;
@@ -362,7 +369,7 @@ export function downloadContent(description) {
                 fetch(contentUrl).then(response => { return response.text(); }),
                 fetch(metadataUrl).then((response) => { return response.json(); }),
             ]).then(([rawContent, metadata]) => {
-                const content = parseLiterature(rawContent, metadata);
+                const content = new GutenbergParser().parse(rawContent, metadata);
 
                 resolve({
                     id: `content-book-${isoLanguage(description.language)}-${description.slug}`,
@@ -434,11 +441,15 @@ const STARTING_POSITION = {
  */
 export class Text {
 
-    constructor(content) {
+    constructor(content, description) {
         if (!Text.valid(content)) {
             throw new Error("Content is malformed");
         }
         this.content = content;
+        this.description = description;
+        this.reloadable = false;
+        this.size = 0;
+        this.saveOnLocalStorage = false;
         this.position = STARTING_POSITION;
     }
 
@@ -494,10 +505,10 @@ export class Text {
         let remainingBlocks = 0;
         const { section, block } = this.position;
         this.content.sections.forEach((s, i) => {
-            if (s < section) {
+            if (i < section) {
                 readBlocks += s.blocks.length;
-            } else if (s > section) {
-                remainingBlocks += s.blocks.length;;
+            } else if (i > section) {
+                remainingBlocks += s.blocks.length;
             } else {
                 readBlocks += block;
                 remainingBlocks += s.blocks.length - block;
@@ -626,10 +637,12 @@ export class Text {
             block: b,
         };
 
-        while (true) {
+        let found = false;
+        while (!found) {
             const nextBlock = this.content.sections[s].blocks[b];
             const blockDurationInMs = wpm.textDuration(nextBlock.content, targetWPM);
             if (totalDurationInMs + blockDurationInMs > maxDurationInMs) {
+                found = true;
                 break;
             }
             blocks.push(nextBlock);
@@ -640,6 +653,7 @@ export class Text {
 
             if (b + 1 === this.content.sections[s].blocks.length) { // End of section
                 if (s + 1 === this.content.sections.length) { // End of text
+                    found = true;
                     break;
                 }
                 s++;
@@ -662,6 +676,10 @@ export class Text {
         };
     }
 
+    get id() {
+        return `content-${this.type}-${isoLanguage(this.description.language)}-${this.description.slug}`;
+    }
+
     /**
      * Test a content.
      *
@@ -673,6 +691,16 @@ export class Text {
         return content && content.sections && content.sections.length > 0;
     }
 
+}
+
+class GutenbergText extends Text {
+    constructor(content, description) {
+        super(content, description);
+        this.type = 'book';
+        this.reloadable = true;
+        this.size = 0;
+        this.saveOnLocalStorage = true;
+    }
 }
 
 /**

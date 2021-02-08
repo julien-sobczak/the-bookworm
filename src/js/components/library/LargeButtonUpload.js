@@ -5,7 +5,7 @@ import Loader from "../toolbox/Loader";
 import LargeButton from "../toolbox/LargeButton";
 import ErrorSnackbar from "../toolbox/ErrorSnackbar";
 
-import { readEpub } from '../../functions/epub';
+import { EpubParser } from '../../functions/library';
 
 /**
  * Same design as LargeButton but uses an hidden file input
@@ -38,7 +38,7 @@ function LargeButtonUpload({ text, colorText, colorBackground, onClick }) {
         }
 
         setLoading(true);
-        readEpub(file).then(content => {
+        new EpubParser().parse(file).then(content => {
             setLoading(false);
             onClick(content);
         }).catch(err => {

@@ -18,7 +18,7 @@ import PauseOverlay from '../../toolbox/PauseOverlay';
 import * as wpm from '../../../functions/wpm';
 import * as engine from '../../../functions/engine';
 import * as string from '../../../functions/string';
-import * as content from '../../../functions/content';
+import * as library from '../../../functions/library';
 
 /**
  * Main component for the drill.
@@ -224,13 +224,13 @@ class Drill extends React.Component {
         let readChunks = this.state.chunks;
         if (stoppedPrematurely) {
             // Need to stop where the reader has stop
-            readContent = content.extractContent(readContent, 0, blockPosition);
+            readContent = library.extractContent(readContent, 0, blockPosition);
             readChunks = readChunks.slice(0, this.state.chunkPosition);
         }
 
         const stats = {
-            ...content.statsContent(readContent, this.state.timer.durationInSeconds()),
-            ...content.statsChunks(readChunks),
+            ...library.statsContent(readContent, this.state.timer.durationInSeconds()),
+            ...library.statsChunks(readChunks),
         };
 
         this.props.onComplete({

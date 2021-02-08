@@ -10,7 +10,6 @@ import { ContentContext } from '../../../content-context';
 import { lightTheme, darkTheme } from '../../../App';
 
 import * as library from '../../functions/library';
-import { Content } from '../../functions/content';
 
 import ContentSelectionScreen from '../library/ContentSelectionScreen';
 import WizardFactory from './WizardFactory';
@@ -121,9 +120,9 @@ class GameFactory extends React.Component {
 
             console.log("Starting reading from ", initialPosition, "and ending to", lastPosition);
 
-            const content = new Content(this.props.content);
-            content.seekPosition(lastPosition);
-            const newPosition = content.nextPosition();
+            const text = new library.Text(this.props.content);
+            text.seekPosition(lastPosition);
+            const newPosition = text.nextPosition();
             const updatedReading = {
                 ...currentReading,
                 position: newPosition,
@@ -162,9 +161,9 @@ class GameFactory extends React.Component {
         if (this.props.contentAware) {
             console.log("Continue reading ", this.state.currentReading, "from ", this.state.currentReading.position);
             // TODO refactor
-            const c = new Content(this.props.content);
-            c.seekPosition(this.state.currentReading.position);
-            newState.currentContent = c.nextContent(); // TODO rename in currentExtract
+            const text = new Text(this.props.content);
+            text.seekPosition(this.state.currentReading.position);
+            newState.currentContent = text.nextContent(); // TODO rename in currentExtract
         }
 
         this.setState(state => ({
@@ -242,9 +241,9 @@ class GameFactory extends React.Component {
         if (!prevState.currentContent || nextProps.content.id !== prevState.contentId) {
             const currentReading = library.getReading(nextProps.readings, nextProps.content);
             // TODO refactor
-            const c = new Content(nextProps.content);
-            c.seekPosition(currentReading.position);
-            const currentContent = c.nextContent();
+            const text = new Text(nextProps.content);
+            text.seekPosition(currentReading.position);
+            const currentContent = text.nextContent();
             return {
                 currentReading: currentReading,
                 currentContent: currentContent, // TODO rename in currentExtract

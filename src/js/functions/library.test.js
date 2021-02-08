@@ -166,7 +166,7 @@ describe('nextPosition', () => {
             section: 1,
             block: 0,
         });
-        expect(text.progress()).toBe(50);
+        expect(text.progress()).toBe(25);
     });
 
     it('moves to the next block when the section is unfinished', () => {

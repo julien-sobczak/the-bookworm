@@ -18,7 +18,7 @@ import PauseOverlay from '../toolbox/PauseOverlay';
 import * as interaction from '../../functions/interaction';
 import * as string from '../../functions/string';
 import * as wpm from '../../functions/wpm';
-import * as content from '../../functions/content';
+import * as library from '../../functions/library';
 import * as engine from '../../functions/engine';
 
 // Values for property pagerMode.
@@ -200,12 +200,12 @@ class Drill extends React.Component {
 
         if (stopped) {
             // Need to calculate only the read portion
-            readContent = content.extractContent(readContent, 0, blockPosition);
+            readContent = library.extractContent(readContent, 0, blockPosition);
             readPages = readPages.slice(0, this.state.pageNumber);
         }
         const stats = {
-            ...content.statsContent(readContent, parseInt(this.state.timer.durationInMs() / 1000)),
-            ...content.statsPages(readPages),
+            ...library.statsContent(readContent, parseInt(this.state.timer.durationInMs() / 1000)),
+            ...library.statsPages(readPages),
         };
 
         const result = {
