@@ -1,7 +1,7 @@
 import * as string from './string';
 import * as wpm from './wpm';
 import { parseEpub } from '@gxl/epub-parser';
-import { readEpub } from './epub';
+import { readEpub } from './epub2';
 
 /** URL of the library catalog. */
 export const CATALOG_URL = "https://open-library-books.web.app/catalog.json";
