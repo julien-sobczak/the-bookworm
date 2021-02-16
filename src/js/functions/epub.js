@@ -1,6 +1,4 @@
 import JSZip from 'jszip';
-import { Section } from './library';
-
 
 /**
  * Determines if a link is internal to the EPUB bundle.
@@ -45,7 +43,33 @@ function basedir(uri) {
 }
 
 /**
+ * Filters the element children to keep only the tag with a given name.
+ *
+ * @param {HTMLElement} element A HTML element.
+ * @param {string} tagName The tag name of children to return.
+ */
+function directDescendants(element, tagName) {
+    if (!element) return [];
+    // Same as querySelectorAll(":scope > li")
+    // But this method bugs in HTMLLitElement when running with Node.js.
+    return [...element.children].filter(child => child.tagName.toUpperCase() === tagName.toUpperCase());
+}
+
+
+const DEFAULT_SUPPORTED_TAGS = ['p', 'h*', 'img', 'figure', 'ol', 'ul', 'dl', 'table']; // TODO what about tr, td, colgroup, caption, etc.
+// => Rework
+
+/**
  * EPUB 3 Parser.
+ *
+ * We don't reuse an lib available on GitHub.
+ * The goal of the application is not to be an Epub reader and we don't render them using the stylesheets present in the bundle.
+ *
+ * We need to apply specific rules on Epub:
+ * - Ignore small images.
+ * - Simplify the HTML to keep only relevant tags (drop <sup>, <nav>, or <div> used for styling purposes)
+ * - Ignore Front Matter and Back Matter.
+ * - etc.
  */
 export class EpubParser {
 
@@ -57,18 +81,31 @@ export class EpubParser {
      * - skipImages: Ignore completely images present in the EPUB text.
      * - imagePixelsMin: Minimum number of pixels for an image to be included (when skipImages is disabled)
      * - skipNonLinear: Drop all sections marked as optional.
+     * TODO complete
      *
      * @param {Object} options The various parsing settings.
      */
-    constructor({ skipImages=false, skipNonLinear=false, imagePixelsMin=400*200 }) {
+    constructor({
+        skipImages=false,
+        skipTables=false,
+        skipNonLinear=false,
+        imagePixelsMin=400*200,
+        tocMaxDepth=2,
+        includeTags=DEFAULT_SUPPORTED_TAGS,
+        flattenAsides=true }) {
+
         this.skipImages = skipImages;
+        this.skipTables = skipTables;
         this.skipNonLinear = skipNonLinear;
         this.imagePixelsMin = imagePixelsMin;
+        this.tocMaxDepth = tocMaxDepth;
+        this.includeTags = includeTags;
+        this.flattenAsides = flattenAsides;
 
         this.metadata = undefined; // Book metadata
         this.items = new Map(); // Manifest files metadata
-        this.ncx = undefined; // EPUB 2 Table of Content
-        this.nav = undefined; // EPUB 3 Table of Content
+        this.tocEpub2 = undefined; // EPUB 2 Table of Content
+        this.tocEpub3 = undefined; // EPUB 3 Table of Content
     }
 
     async parse(file) {
@@ -119,13 +156,34 @@ export class EpubParser {
             const properties = itemElement.getAttribute('properties');
             const item = {
                 id: id,
-                href: href,
+                href: this.basedir + href,
                 mediaType: mediaType,
                 properties: properties,
             };
             this.items.set(id, item);
         });
-        // Inspect file individually
+
+        // Read the spine
+        const spineElement = opfDoc.querySelector('spine');
+        const orderedItems = [];
+        [...spineElement.querySelectorAll('itemref')].forEach(refElement => {
+
+            if (!refElement.hasAttribute('idref')) return;
+
+            const id = refElement.getAttribute('idref');
+
+            if (this.items.has(id)) {
+                const item = this.items.get(id);
+                if (refElement.hasAttribute('linear') && refElement.getAttribute('linear') === 'no') {
+                    item.linear = false;
+                } else {
+                    item.linear = true;
+                }
+                orderedItems.push(id);
+            }
+        });
+
+        // Inspect files individually
         for (const [id, item] of this.items.entries()) {
             const optionalProperties = await this._loadItem(zip, item);
             this.items.set(id, {
@@ -134,22 +192,7 @@ export class EpubParser {
             });
         }
 
-        // Check the spine (aka TOC)
-        const spineElement = opfDoc.querySelector('spine');
-        // TODO
-
         return this._generateEpub();
-    }
-
-    _generateEpub() {
-        // Implementation: This method reuses metadata extracted during the parsing
-        // and returns a user-friendly structure satisfying the options.
-        return {
-            metadata: this.metadata,
-            // TODO keep only one of them
-            ncx: this.ncx,
-            nav: this.nav,
-        };
     }
 
     async _loadItem(zip, item) {
@@ -164,17 +207,20 @@ export class EpubParser {
 
         switch (item.mediaType) {
             // HTML documents
-            case 'application/xml':
             case 'application/xhtml':
             case 'application/xhtml+xml':
             case 'text/html':
-                result.content = await zip.file(this.basedir + item.href).async('string');
-                if (item.properties === 'nav') this._loadNav(); // EPUB 3 TOC
+                result.rawContent = await zip.file(item.href).async('string');
+                // Extract body content
+                const domparser = new DOMParser();
+                const doc = domparser.parseFromString(result.rawContent, 'text/html');
+                result.htmlContent = doc.querySelector('body').innerHTML;
+                // EPUB 3 Table of Content is a basic HTML file
+                if (item.properties === 'nav') this._loadEpub3Toc(item.href, result.rawContent);
                 break;
-            // EPUB 2 ncx file (often present for backward compatibility)
             case 'application/x-dtbncx+xml':
-                result.content = await zip.file(this.basedir + item.href).async('string');
-                this._loadNcx(result.content);
+                result.rawContent = await zip.file(item.href).async('string');
+                this._loadEpub2Toc(item.href, result.rawContent);
                 break;
 
             // Images
@@ -182,7 +228,7 @@ export class EpubParser {
                 if (this.skipImages) break;
                 // Image.onload doesn't work in Node.js environment:
                 // https://github.com/testing-library/react-hooks-testing-library/issues/218
-                const content = await zip.file(this.basedir + item.href).async('base64');
+                const content = await zip.file(item.href).async('base64');
                 const dimensions = await new Promise(resolve => {
                     var img = new Image();
                     img.src = `data:image/png;base64,${content}`;
@@ -208,9 +254,10 @@ export class EpubParser {
      * Parse the Table of Content file in EPUB 2 format.
      * (see http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.4.1)
      *
+     * @param {string} href The file href.
      * @param {string} content The file content.
      */
-    _loadNcx(content) {
+    _loadEpub2Toc(href, content) {
         // Example: https://wiki.mobileread.com/wiki/NCX#:~:text=NCX%20is%20the%20short%20name,and%20optionally%20a%20page%20list.
         /*
             <?xml version="1.0"?>
@@ -276,31 +323,53 @@ export class EpubParser {
         */
         const domparser = new DOMParser();
         const tocDoc = domparser.parseFromString(content, 'application/xml');
-        const sectionsElements = tocDoc.querySelectorAll('navPoint');
+
         const toc = [];
-        for (let i = 0; i < sectionsElements.length; i++) {
-            const sectionElement = sectionsElements[i];
-            const sectionTitle = sectionElement.querySelector('navLabel text').innerHTML;
-            const sectionHref = sectionElement.querySelector('content').getAttribute('src');
-            const [sectionFile, sectionAnchor]  = splitUriParts(sectionHref);
-            const sectionId = this._getItemByHref(sectionHref).id;
-            toc.push({
-                id: sectionId,
-                href: sectionFile,
-                anchor: sectionAnchor,
-                title: sectionTitle,
-            });
-        }
-        this.ncx = toc;
+
+        const mapElement = tocDoc.querySelector('navMap');
+        directDescendants(mapElement, 'navPoint').forEach(element => {
+            toc.push(this._parseEpub2Section(href, element));
+        });
+
+        this.tocEpub2 = toc;
+    }
+
+    /**
+     * Parse a single TOC entry in the NCX format.
+     *
+     * @param {string} href The file href.
+     * @param {HTMLElement} sectionElement The section element.
+     * @return {Object} The extracted section metadata.
+     */
+    _parseEpub2Section(href, sectionElement) {
+        const sectionTitle = directDescendants(sectionElement, 'navLabel')[0].querySelector('text').innerHTML;
+        const sectionHref = directDescendants(sectionElement, 'content')[0].getAttribute('src');
+        let [sectionFile, sectionAnchor]  = splitUriParts(sectionHref);
+        sectionFile = basedir(href) + sectionFile; // Links are relative in Epub files
+        const sectionId = this._getItemByHref(sectionFile).id;
+
+        const subsections = [];
+        directDescendants(sectionElement, 'navPoint').forEach(subsectionElement => {
+            subsections.push(this._parseEpub2Section(href, subsectionElement));
+        });
+
+        return {
+            id: sectionId,
+            href: sectionFile,
+            anchor: sectionAnchor,
+            title: sectionTitle,
+            subsections: subsections,
+        };
     }
 
     /**
      * Parse the Table of Content file in EPUB 3 format.
      * (@see http://kb.daisy.org/publishing/docs/navigation/toc.html)
      *
+     * @param {string} href The file href.
      * @param {string} content The file content.
      */
-    _loadNav(content) {
+    _loadEpub3Toc(href, content) {
         /**
             <?xml version="1.0" encoding="utf-8"?>
             <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
@@ -356,20 +425,107 @@ export class EpubParser {
          */
         const domparser = new DOMParser();
         const tocDoc = domparser.parseFromString(content, 'text/html');
-        const sectionsElements = tocDoc.querySelectorAll('li');
+
         const toc = [];
-        for (let i = 0; i < sectionsElements.length; i++) {
-            const sectionElement = sectionsElements[i];
-            const sectionTitle = sectionElement.querySelector('navLabel text').innerHTML;
-            const sectionHref = sectionElement.querySelector('content').getAttribute('src');
-            const sectionId = this._getItemByHref(sectionHref).id;
-            toc.push({
-                id: sectionId,
-                href: sectionHref,
-                title: sectionTitle,
-            });
+
+        const navElement = tocDoc.querySelector('nav#toc');
+        const olElement = directDescendants(navElement, 'ol')[0];
+        directDescendants(olElement, 'li').forEach(element => {
+            toc.push(this._parseEpub3Section(href, element));
+        });
+
+        this.tocEpub3 = this._postProcessToc(toc);
+    }
+
+    /**
+     * Parse a single TOC entry in the NCX format.
+     *
+     * @param {string} href The file href.
+     * @param {HTMLElement} sectionElement The section element.
+     * @return {Object} The extracted section metadata.
+     */
+    _parseEpub3Section(href, sectionElement) {
+        const sectionLink = directDescendants(sectionElement, 'a')[0];
+        const sectionTitle = sectionLink.innerHTML;
+        const sectionHref = sectionLink.getAttribute('href');
+        let [sectionFile, sectionAnchor]  = splitUriParts(sectionHref);
+        sectionFile = basedir(href) + sectionFile; // Links are relative in Epub files
+        const sectionId = this._getItemByHref(sectionFile).id;
+
+        const subsections = [];
+        directDescendants(directDescendants(sectionElement, 'ol')[0], 'li').forEach(subsectionElement => {
+            subsections.push(this._parseEpub3Section(href, subsectionElement));
+        });
+
+        return {
+            id: sectionId,
+            href: sectionFile,
+            anchor: sectionAnchor,
+            title: sectionTitle,
+            subsections: subsections,
+            // Cannot extract content for now as we still don't know where start the next section
+            // (NB: a section can be spreaded across several manifest files)
+            htmlContent: undefined,
+        };
+    }
+
+    _extractHTMLContentForSections(sections, nextSection = null) {
+        if (!sections) return;
+        for (let i = 0; i < sections.length; i++) {
+            const currentSection = sections[i];
+            const followingSection = (i === sections.length - 1) ? nextSection : sections[i+1];
+            currentSection.htmlContent = this._extractHTMLContentBetweenSections(currentSection, followingSection);
+            this._extractHTMLContentForSections(currentSection.subsections, followingSection);
         }
-        this.nav = toc;
+    }
+
+    _extractHTMLContentBetweenSections(currentSection, nextSection) {
+        this.orderedItems.indexOf(currentSection.id)
+        let indexStart = this.orderedItems.indexOf(currentSection.id);
+        let indexEnd = this.orderedItems.indexOf(nextSection.id);
+        if (nextSection.anchor) {
+            // Include this file and search for the anchor
+            indexEnd++;
+        }
+        const ids = this.orderedItems.slice(indexStart, indexEnd);
+        const htmlContent = "";
+        ids.forEach(id => {
+            htmlContent += this.items.get(id).htmlContent + "\n";
+        });
+        const htmlLines = htmlContent.split('\n');
+
+        const domparser = new DOMParser();
+        if (currentSection.anchor) {
+            // Read from anchored element
+            for (let i = 0; i < htmlLines.length; i++) {
+                const line = htmlLines[i];
+                const snippet = domparser.parseFromString(line, "text/html");
+                snippet
+            }
+
+        }
+        if (nextSection.anchor) {
+            // Read until anchored next element
+        }
+
+    }
+
+    /**
+     * Determines the depth of a TOC section (or of the TOC itself if the section is the root).
+     *
+     * @param {Object} section A section object inside a TOC EPUB 2/3.
+     * @return {bool} The depth.
+     */
+    static _sectionDepth(section) {
+        if (!section) return 0;
+        let maxDepth = 0;
+        section.subsections.forEach(s => {
+            const innerDepth = EpubParser._sectionDepth(s);
+            if (innerDepth > maxDepth) {
+                maxDepth = innerDepth;
+            }
+        });
+        return 1 + maxDepth;
     }
 
     /**
@@ -385,6 +541,57 @@ export class EpubParser {
             }
         }
         return undefined;
+    }
+
+    _generateEpub() {
+        // Implementation: This method reuses metadata extracted during the parsing
+        // and returns a user-friendly structure satisfying the options.
+
+        const sections = [];
+
+        const toc = this.tocEpub3 || this.tocEpub2; // Preferably use the EPUB 3 Table of Contents
+        if (!toc) {
+            throw new Error('No table of contents found');
+        }
+
+
+
+        const epub = new Epub(this.metadata, sections);
+
+        return {
+            metadata: this.metadata,
+            // TODO keep only one of them
+            ncx: this.ncx,
+            nav: this.nav,
+        };
+    }
+
+}
+
+export class Epub {
+
+    constructor(metadata, sections) {
+        this.metadata = metadata;
+        this.sections = sections;
+    }
+
+    stats() {
+        // TODO
+        return {};
+    }
+}
+
+export class Section {
+
+    constructor(title, linear, htmlContent) {
+        this.title = title;
+        this.linear = linear;
+        this.htmlContent = htmlContent;
+    }
+
+    stats() {
+        // TODO
+        return {};
     }
 
 }
@@ -411,6 +618,7 @@ const epub = new Epub({
         }
     ]
 })
+*/
 
 // epub = new EpubParser({ maxDepth: 2, includeTags: ['p', 'h*', 'img'], flattenAsides: true }).parse()
 // epub.metadata.author

@@ -8,7 +8,7 @@ describe('EpubParser', () => {
         const epub = await new EpubParser({
             skipImages: true,
         }).parse(Buffer.from(data));
-        console.log(epub);
+        console.log(JSON.stringify(epub, null, 2));
     });
 
     test('epub30-spec.epub', async () => {
@@ -16,9 +16,16 @@ describe('EpubParser', () => {
         const epub = await new EpubParser({
             skipImages: true,
         }).parse(Buffer.from(data));
-        console.log(epub);
+        console.log(JSON.stringify(epub, null, 2));
     });
 
+    test('demo.epub', async () => {
+        const data = await fs.readFileSync('fixtures/demo.epub');
+        const epub = await new EpubParser({
+            skipImages: true,
+        }).parse(Buffer.from(data));
+        console.log(JSON.stringify(epub, null, 2));
+    });
 });
 
 

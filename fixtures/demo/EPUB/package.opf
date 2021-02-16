@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
+   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <dc:identifier id="uid">code.google.com.epub-samples.epub30-spec</dc:identifier>
+      <dc:title>EPUB Demo</dc:title>
+      <dc:creator>Julien Sobczak</dc:creator>
+      <dc:language>en</dc:language>
+      <meta property="dcterms:modified">2021-02-01T10:00:00Z</meta>
+   </metadata>
+   <manifest>
+      <item href="xhtml/titlepage.xhtml" id="ttl" media-type="application/xhtml+xml"/>
+      <item href="xhtml/nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+      <item href="xhtml/basic.xhtml" id="basic" media-type="application/xhtml+xml"/>
+      <item href="xhtml/subsections.xhtml" id="subsections" media-type="application/xhtml+xml"/>
+      <item href="xhtml/asides.xhtml" id="asides" media-type="application/xhtml+xml"/>
+      <item href="xhtml/images.xhtml" id="images" media-type="application/xhtml+xml"/>
+      <item href="xhtml/quotes.xhtml" id="quotes" media-type="application/xhtml+xml"/>
+      <item href="xhtml/lists.xhtml" id="lists" media-type="application/xhtml+xml"/>
+      <item href="xhtml/tables.xhtml" id="tables" media-type="application/xhtml+xml"/>
+      <item href="css/epub-spec.css" media-type="text/css" id="css"/>
+      <item href="img/epub.svg" media-type="image/svg+xml" id="epub" />
+      <item href="img/earth.jpg" media-type="image/jpeg" id="earth" properties="cover-image"/>
+      <item href="img/wikimedia.png" media-type="image/png" id="logo"/>
+      <item href="img/at.png" media-type="image/png" id="at"/>
+   </manifest>
+   <spine>
+      <itemref idref="ttl" linear="no"/>
+      <itemref idref="nav" linear="no"/>
+      <itemref idref="basic"/>
+      <itemref idref="subsections"/>
+      <itemref idref="asides"/>
+      <itemref idref="images"/>
+      <itemref idref="quotes"/>
+      <itemref idref="lists"/>
+      <itemref idref="tables"/>
+   </spine>
+</package>
