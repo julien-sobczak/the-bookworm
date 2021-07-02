@@ -59,6 +59,260 @@ function directDescendants(element, tagName) {
 const DEFAULT_SUPPORTED_TAGS = ['p', 'h*', 'img', 'figure', 'ol', 'ul', 'dl', 'table']; // TODO what about tr, td, colgroup, caption, etc.
 // => Rework
 
+
+
+/**
+ * Returns if an HTML element contains only text.
+ *
+ * @param {Node} element The element.
+ * @returns {bool} True if the element contains only text.
+ */
+function isTextElement(element) {
+    const stylingTags = ['B', 'STRONG', 'I', 'U', 'EM', 'MARK', 'SMALL', 'DEL', 'INS', 'SUB', 'SUP'] + ['A']; // Text can contains links
+
+    const childNodes = [...element.childNodes];
+
+    for (let i = 0; i < childNodes.length; i++) {
+        const child = childNodes[i];
+
+        // A text element
+
+        // can contains text nodes
+        if (child.nodeType === Node.TEXT_NODE) {
+            continue;
+        }
+
+        // Or styling/formatted tag only
+        if (child.nodeType === Node.DOCUMENT_NODE && !stylingTags.includes(child.tagName)) {
+            continue;
+        }
+
+        // Found a non-matching node
+        return false;
+    }
+
+    return true;
+}
+
+function isImageElement(element) {
+    const imagesTags = ['IMG', 'SVG'];
+    return imagesTags.includes(element.tagName);
+}
+
+/**
+ * Returns if an HTML element is empty.
+ *
+ * @param {Node} element The element.
+ * @returns {bool} True if the element contains no text under it.
+ */
+function isEmptyElement(element) {
+    const exclusionTags = ['IMG', 'SVG'];
+    return element.nodeType === Element.Node && !exclusionTags.includes(element.tagName) && element.textContent.trim() === "";
+}
+
+/**
+ * Returns if an HTML element is a structural tag.
+ *
+ * @param {Node} element The element.
+ * @returns {bool} True if the element is used to structure the document.
+ */
+function isStructuralElement(element) {
+    const structuralTagNames = ['BODY', 'ASIDE', 'DIV', 'SECTION'];
+    return structuralTagNames.includes(element.tagName) && !isTextElement(element);
+}
+
+/**
+ * Returns a new clean P element.
+ *
+ * @param {Node} element The element.
+ * @returns {Node} The cleaned element.
+ */
+function cleanParagraph(element) {
+    const paragraph = document.createElement("p");
+
+    const childNodes = [...element.childNodes];
+    childNodes.forEach(c => {
+        // TODO filter links?
+        paragraph.appendChild(c.cloneNode(true));
+    });
+
+    return paragraph;
+}
+
+/**
+ * Returns a new clean image element.
+ *
+ * @param {Node} element The element.
+ * @returns {Node} The cleaned element.
+ */
+function cleanImage(element) {
+    if (element.tagName === 'IMG') {
+        const image = document.createElement("img");
+        image.setAttribute('src', element.getAttribute('src'));
+        if (element.hasAttribute('width')) {
+            image.setAttribute('width', element.getAttribute('width'));
+        }
+        if (element.hasAttribute('height')) {
+            image.setAttribute('height', element.getAttribute('height'));
+        }
+        return image;
+    } else if (element.tagName === 'SVG') {
+        return element.cloneNode(true);
+    }
+
+    return undefined;
+}
+
+function cleanHR() {
+    return document.createElement("hr");
+}
+
+
+/**
+ * Returns the clean content of the aside.
+ *
+ * @param {Node} element The element.
+ * @returns {Node} The cleaned element.
+ */
+function cleanAside(element) {
+    const results = [];
+    const childNodes = [...element.childNodes];
+    childNodes.forEach(c => {
+        if (isTextElement(c)) {
+            results.push(cleanParagraph(c));
+        }
+        // TODO support lists
+        // TODO support <table>
+        // TODO support images
+    });
+    return results;
+}
+
+ /**
+  * Recursive function to clean a DOM tree.
+  *
+  * @param {Node} element The root element.
+  * @param {Number} currentDepth The depth of the root element inside the complete HTML document.
+  * @param {Number} paragraphsDepth The depth where the majority of paragraphs are present.
+  * @returns {Array[HTMLElement]} The resulting elements to use in replacement of the root element in input.
+  */
+ export function cleanElement(element, anchors, currentDepth, paragraphsDepth) {
+    const results = [];
+
+    // Keep anchor used in the TOC
+    if (element.tagName === 'A' && element.getAttribute('id') && anchors.includes(element.getAttribute('id'))) {
+        const anchor = document.createElement("a");
+        anchor.setAttribute('id', anchor);
+        results.append(anchor)
+    }
+
+    if (isEmptyElement(element)) return results;
+
+    // The content is wrapped inside tags
+    if (currentDepth < paragraphsDepth && isStructuralElement(element)) {
+        // Move into it
+        [...element.children].forEach(child => {
+            results.push(...cleanElement(child, anchors, currentDepth + 1, paragraphsDepth));
+        });
+        return results;
+    }
+
+    // TODO Complex images with caption
+
+    // Aside
+    if (currentDepth === paragraphsDepth && isStructuralElement(element)) {
+        // We flatten the content of the aside and surround it by two separators.
+        results.push(cleanHR());
+        results.push(...cleanAside(element));
+        results.push(cleanHR());
+        return results;
+    }
+
+    // Images
+    if (currentDepth >= paragraphsDepth && isImageElement(element)) {
+        results.push(cleanImage(element));
+        return results;
+    }
+
+    // Paragraph
+    if (currentDepth == paragraphsDepth && isTextElement(element)) {
+        results.push(cleanParagraph(element));
+        return results;
+    }
+
+    // TODO support lists
+    // TODO support <table>
+
+    return results;
+}
+
+export class HTMLParser {
+
+    parseNode(node, anchors=[]) {
+        const body = node.querySelector('body');
+        const root = (!body) ? node : body;
+        const paragraphsDepth = HTMLParser.paragraphsDepth(root);
+        return cleanElement(root, anchors, 0, paragraphsDepth);
+    }
+
+    parseText(html, anchors=[]) {
+        const domparser = new DOMParser();
+        const doc = domparser.parseFromString(html, 'text/html');
+        return this.parseNode(doc, anchors);
+    }
+
+    /**
+     * Traverses an HTML document to find the depth where most paragraphs are present.
+     * This can be used to detect if a paragraph is part of an aside or not.
+     *
+     * @param {Node} document The HTML node.
+     * @returns {Number} The 0-based depth.
+     */
+    static paragraphsDepth(document) {
+        const getDepth = (element, depth) => {
+            let maxDepth = 0;
+            [...element.children].forEach(c => {
+                const innerDepth = getDepth(c, depth + 1);
+                if (innerDepth > maxDepth) {
+                    maxDepth = innerDepth;
+                }
+            });
+            return 1 + maxDepth;
+        }
+
+        const countParagraphsAtDepth = (element, targetDepth, currentDepth) => {
+            if (element.tagName && element.tagName === 'P' && targetDepth === currentDepth) return 1;
+
+            if (currentDepth >= targetDepth) return 0; // No need to search lower in the DOM.
+
+            // Recurse
+            const children = [...element.children];
+            let sum = 0;
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                sum += countParagraphsAtDepth(child, targetDepth, currentDepth + 1);
+            }
+            return sum;
+        }
+
+        // Iterate over all possible depths and calculate the number of paragraphs at that depth.
+        const maxDepth = getDepth(document);
+        let depthWithMostParagraphs = 0;
+        let countWithMostParagraphs = 0;
+        for (let i = 0; i <= maxDepth; i++) {
+            const count = countParagraphsAtDepth(document, i, 0);
+            if (count > countWithMostParagraphs) { // New maximum found
+                depthWithMostParagraphs = i;
+                countWithMostParagraphs = count;
+            }
+        }
+
+        return depthWithMostParagraphs;
+    }
+}
+
+
+
 /**
  * EPUB 3 Parser.
  *
@@ -182,6 +436,7 @@ export class EpubParser {
                 orderedItems.push(id);
             }
         });
+        this.orderedItems = orderedItems;
 
         // Inspect files individually
         for (const [id, item] of this.items.entries()) {
@@ -210,17 +465,13 @@ export class EpubParser {
             case 'application/xhtml':
             case 'application/xhtml+xml':
             case 'text/html':
-                result.rawContent = await zip.file(item.href).async('string');
-                // Extract body content
-                const domparser = new DOMParser();
-                const doc = domparser.parseFromString(result.rawContent, 'text/html');
-                result.htmlContent = doc.querySelector('body').innerHTML;
+                result.content = await zip.file(item.href).async('string');
                 // EPUB 3 Table of Content is a basic HTML file
-                if (item.properties === 'nav') this._loadEpub3Toc(item.href, result.rawContent);
+                if (item.properties === 'nav') this._loadEpub3Toc(item.href, result.content);
                 break;
             case 'application/x-dtbncx+xml':
-                result.rawContent = await zip.file(item.href).async('string');
-                this._loadEpub2Toc(item.href, result.rawContent);
+                result.content = await zip.file(item.href).async('string');
+                this._loadEpub2Toc(item.href, result.content);
                 break;
 
             // Images
@@ -434,7 +685,7 @@ export class EpubParser {
             toc.push(this._parseEpub3Section(href, element));
         });
 
-        this.tocEpub3 = this._postProcessToc(toc);
+        this.tocEpub3 = toc;
     }
 
     /**
@@ -470,6 +721,7 @@ export class EpubParser {
     }
 
     _extractHTMLContentForSections(sections, nextSection = null) {
+        // TODO remove
         if (!sections) return;
         for (let i = 0; i < sections.length; i++) {
             const currentSection = sections[i];
@@ -480,6 +732,7 @@ export class EpubParser {
     }
 
     _extractHTMLContentBetweenSections(currentSection, nextSection) {
+        // TODO remove
         this.orderedItems.indexOf(currentSection.id)
         let indexStart = this.orderedItems.indexOf(currentSection.id);
         let indexEnd = this.orderedItems.indexOf(nextSection.id);
@@ -543,27 +796,79 @@ export class EpubParser {
         return undefined;
     }
 
+    toc() {
+        return this.tocEpub3 || this.tocEpub2; // Preferably use the EPUB 3 Table of Contents
+    }
+
+    parseContent() {
+        const toc = this.toc();
+
+        // Utility function to find sections referencing a given item.
+        const findSectionsMatchingID = (sections, id) => {
+            const results = [];
+            results.push(...sections.filter(s => s.id === id));
+            results.push(...sections.filter(s => s.subsections.length > 0).flatMap(s => findSectionsMatchingID(s.subsections, id)));
+            return results;
+        };
+
+        // Create a single HTML document containing all spine files.
+        const htmlParser = new HTMLParser();
+        const domparser = new DOMParser();
+        let fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < this.orderedItems.length; i++) {
+            const id = this.orderedItems[i];
+            const item = this.items.get(id);
+            const doc = domparser.parseFromString(item.content, 'text/html');
+            const relatedSections = findSectionsMatchingID(toc, id);
+            const anchorsInSections = relatedSections.filter(s => s.anchor).map(s => s.anchor);
+
+            // Surrounds the content with two anchor tags to make easy to find file delimiters inside the global document
+            const startAnchor = document.createElement("a");
+            startAnchor.setAttribute('id', id+'-start');
+            const endAnchor = document.createElement("a");
+            endAnchor.setAttribute('id', id+'-end');
+
+            fragment.appendChild(startAnchor);
+            const tags = htmlParser.parseNode(doc, anchorsInSections);
+            tags.forEach(child => {
+                fragment.appendChild(child);
+            })
+            fragment.appendChild(endAnchor);
+        }
+
+        return fragment;
+    }
+
+    parseSections(sections, nextSection) {
+        if (!sections) return [];
+        for (let i = 0; i < sections.length; i++) {
+            const currentSection = sections[i];
+            const followingSection = (i === sections.length - 1) ? nextSection : sections[i+1];
+            currentSection.htmlContent = this.parseSections(currentSection, followingSection);
+            this.parseSections(currentSection.subsections, followingSection);
+        }
+    }
+
     _generateEpub() {
         // Implementation: This method reuses metadata extracted during the parsing
         // and returns a user-friendly structure satisfying the options.
 
-        const sections = [];
-
-        const toc = this.tocEpub3 || this.tocEpub2; // Preferably use the EPUB 3 Table of Contents
+        const toc = this.toc();
         if (!toc) {
             throw new Error('No table of contents found');
         }
 
+        const content = this.parseContent();
 
+        let div = document.createElement("div");
+        div.appendChild(content);
+        console.log(div.innerHTML);
 
-        const epub = new Epub(this.metadata, sections);
+        // TODO extract each section content
 
-        return {
-            metadata: this.metadata,
-            // TODO keep only one of them
-            ncx: this.ncx,
-            nav: this.nav,
-        };
+        const epub = new Epub(this.metadata, toc);
+        return epub;
     }
 
 }
